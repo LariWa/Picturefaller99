@@ -5,7 +5,7 @@ using UnityEngine;
 public class ObstacleManager : MonoBehaviour
 {
     public GameObject laserPrefab;
-    public float maxOnScreen = 20;
+    public float maxOnScreen = 100;
     public float randomNess = 10;
     public float laserSafeZoneTop = 20f;
     public float laserSafeZoneLow = 10f;
@@ -22,6 +22,7 @@ public class ObstacleManager : MonoBehaviour
 
         laserParentA = new GameObject("Laser Parent A").transform;
         laserParentB = new GameObject("Laser Parent B").transform;
+        Debug.Log("max: "+ maxOnScreen);
         for (int i = 0; i < maxOnScreen; i++)
             initializeLasers(laserParentA);
         for (int i = 0; i < maxOnScreen; i++)

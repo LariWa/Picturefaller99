@@ -34,8 +34,8 @@ public class ProjectileLogic : MonoBehaviour
         yield return new WaitForSeconds(0);
 
         //Play effects etc
-
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+        //Destroy(gameObject);
     }
 
 

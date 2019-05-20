@@ -32,6 +32,9 @@ public class SkillShoot : SkillMaster
     private PlayerStats playerLogic;
     private Skillset skillSet;
 
+    public int pooledAmount = 10;
+    public bool willGrow = true;
+    List<GameObject> bullets;
     // FIND A WAY to do precise skills too, so one that has not jsut a 0-10 accuracy but one that always fires two outter shots and one big in the middle, each go different speed to !!! somehow make a list of this class? 
 
     private void Start()
@@ -39,6 +42,15 @@ public class SkillShoot : SkillMaster
         if (GetComponent<Skillset>()) skillSet = GetComponent<Skillset>();
         if (GetComponent<PlayerStats>()) playerLogic = GetComponent<PlayerStats>();
         //shake = GameObject.FindGameObjectWithTag("ScreenShake").GetComponent<ScreenShakeTest>();//shake = Camera.main.GetComponent<ScreenShakeTest>();
+
+        //pool Objects
+        bullets = new List<GameObject>();
+        for (int i = 0; i < pooledAmount; i++)
+        {
+            GameObject obj = (GameObject)Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
+            obj.SetActive(false);
+            bullets.Add(obj);
+        }
     }
 
 
@@ -70,9 +82,12 @@ public class SkillShoot : SkillMaster
         {
 
             //Spawn
-            var bullet = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
+            //var bullet = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
+            var bullet = getBullet();
             bool owner = false;
             if (GetComponent<PlayerStats>() != null) owner = true;
+            //bullet.transform.position = firePoint.position;
+            //bullet.transform.rotation = Quaternion.identity;
             bullet.GetComponent<ProjectileLogic>().setInfo(firePoint.position, range, averageDamage + Random.Range(-averageDamage/2, averageDamage / 2), owner);
             bullet.transform.localScale = scale;
 
@@ -101,5 +116,21 @@ public class SkillShoot : SkillMaster
             
         }
 
+    }
+    GameObject getBullet()
+    {
+        for (int i = 0; i < bullets.Count; i++)
+        {
+            if (!bullets[i].activeInHierarchy)
+                bullets[i].SetActive(true);
+                return bullets[i];
+
+        }
+        if (willGrow)
+        {
+            GameObject obj = (GameObject)Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
+            bullets.Add(obj);
+        }
+        return null;
     }
 }
