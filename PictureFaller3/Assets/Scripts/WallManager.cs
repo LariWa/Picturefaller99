@@ -13,6 +13,7 @@ public class WallManager : MonoBehaviour
     [SerializeField] private GameObject wallPrefab;
     [SerializeField] private GameObject pictureBlockPrefab;
     [SerializeField] private GameObject firePartPrefab;
+    [SerializeField] private bool useFire;
 
     [Space]
 
@@ -93,9 +94,12 @@ public class WallManager : MonoBehaviour
                 box.transform.parent = imgParent.transform;
                 box.transform.localScale = new Vector3(pictureBlockScale, pictureBlockScale, pictureBlockScale);
 
-                var fire = Instantiate(firePartPrefab, new Vector3(x * gridGap - maxDistHalf, -yOffsetDown - 30, y * gridGap - maxDistHalf), Quaternion.Euler(new Vector3(-90, 0, 0)));
+                if(useFire)
+                {
+                    var fire = Instantiate(firePartPrefab, new Vector3(x * gridGap - maxDistHalf, -yOffsetDown - 30, y * gridGap - maxDistHalf), Quaternion.Euler(new Vector3(-90, 0, 0)));
+                    fire.transform.parent = fireParent.transform;
+                }
 
-                fire.transform.parent = fireParent.transform;
             }
 
         wallSpr = imgParent.GetComponentsInChildren<SpriteRenderer>();

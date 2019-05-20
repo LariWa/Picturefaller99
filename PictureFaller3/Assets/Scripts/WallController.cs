@@ -81,10 +81,13 @@ public class WallController : MonoBehaviour
 
     public void setEmptyFire(int index)
     {
-        for (int i = 0; i < fireParent.transform.childCount; i++)
-            fireParent.transform.GetChild(i).gameObject.SetActive(true);
+        if(fireParent.transform.childCount > 0)
+        {
+            for (int i = 0; i < fireParent.transform.childCount; i++)
+                fireParent.transform.GetChild(i).gameObject.SetActive(true);
 
-        fireParent.transform.GetChild(index).gameObject.SetActive(false);
+            fireParent.transform.GetChild(index).gameObject.SetActive(false);
+        }
     }
 
     public void setFireParent(GameObject go)
