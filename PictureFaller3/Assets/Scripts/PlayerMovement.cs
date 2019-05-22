@@ -126,6 +126,9 @@ public class PlayerMovement : MonoBehaviour
         //if its image container tell some manager which one(s) hit
     }
 
+    public Vector3 PlayerPos() { 
+        return rb.position;
+    }
 }
 
 
