@@ -47,6 +47,9 @@ public class PlayerMovement : MonoBehaviour
 
         gravity = normalGravity;
 
+        if (Input.GetKey(KeyCode.P)) // PAUSE DEBUG, DELETE THIS !!!!!!!!!!!!!!
+            Time.timeScale = 0;
+
         if (Input.GetKey(KeyCode.J)) //LeftShift
             gravity = fastGravity;
 
