@@ -8,7 +8,7 @@ public class PlayerStats : MonoBehaviour
 
     [SerializeField] private Slider hpBar;
     [SerializeField] private int maxHealth = 100;
-    private int health;
+    static public int health;
 
     void Start()
     {
@@ -21,6 +21,7 @@ public class PlayerStats : MonoBehaviour
         hpBar.value = health; //TODO: sometimes trigger doesnt work?? 
 
         if (health <= 0)
+            //Player is dead, game over
             Time.timeScale = 0; //TODO: stop setting timescale in time manager
     }
 

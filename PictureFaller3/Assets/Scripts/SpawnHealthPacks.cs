@@ -25,4 +25,13 @@ public class SpawnHealthPacks : MonoBehaviour
     void SpawnPacks() {
         Instantiate(HealthPack, new Vector3(Random.Range(-8f, 8f), (playerCurrentPos.y - 300), Random.Range(-8f, 8f)), Quaternion.identity);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Health")) {
+            Destroy(collision.gameObject);
+        }
+
+        PlayerStats.health += 5;
+    }
 }
