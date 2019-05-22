@@ -125,6 +125,7 @@ public class PlayerMovement : MonoBehaviour
 
         //if its image container tell some manager which one(s) hit
     }
+
 }
 
 
@@ -135,5 +136,7 @@ public static class ExtensionMethods
     {
         return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
     }
+    
 
 }
+
