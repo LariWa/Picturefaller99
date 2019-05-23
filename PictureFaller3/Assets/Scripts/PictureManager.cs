@@ -46,7 +46,6 @@ public class PictureManager : MonoBehaviour
     public void selectedPic()
     {
         scienceTimer.printTimer();
-        scienceTimer.resetTimer();
     }
 
     public void hitPicWall()
@@ -59,6 +58,9 @@ public class PictureManager : MonoBehaviour
 
         picSearched.sprite = allPictures[currPicSearched];
         //else picSearched.sprite = blackPicture;
+
+
+        //chunkManager.spawnPicWall();
     }
 
 }

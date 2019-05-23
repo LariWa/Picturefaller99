@@ -33,8 +33,7 @@ public class ChunkManager : MonoBehaviour
         for (int i = 0; i < spawnAhead; i++)
             spawnChunk(true, false);
 
-        var chunksUntilPicture = Random.Range(chunksUntilPictureMin, chunksUntilPictureMax);
-        currentPictureWall = Instantiate(pictureWallPre, Vector3.forward * chunksUntilPicture * chunkLength, Quaternion.Euler(-90,0,0));  //TODO: probably not accurate pos !!!
+        spawnPicWall();
     }
 
 
@@ -53,15 +52,25 @@ public class ChunkManager : MonoBehaviour
         else ch.GetComponent<ChunkController>().disableAllObstacles();
 
         zSpawnNext += chunkLength;
+        
+        //Delete any new ojects that might be near the wall
+        if(currentPictureWall) currentPictureWall.GetComponent<WallController>().deleteNearObstacles();
 
 
         //TODO: instead of deleting use pooling (or maybe not?)
-        if(deleteLastChunk) Destroy(chunkParent.transform.GetChild(0).gameObject);
+        if (deleteLastChunk) Destroy(chunkParent.transform.GetChild(0).gameObject);
     }
 
 
+    public void spawnPicWall()
+    {
+        var chunksUntilPicture = Random.Range(chunksUntilPictureMin, chunksUntilPictureMax);
+        currentPictureWall = Instantiate(pictureWallPre, Vector3.forward * chunksUntilPicture * chunkLength, Quaternion.Euler(-90, 0, 0));  //TODO: probably not accurate pos !!!
 
+        currentPictureWall.GetComponent<WallController>().deleteNearObstacles();
+    }
     
+
 
 
 

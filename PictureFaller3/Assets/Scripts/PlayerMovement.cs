@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
     private ScoreManager scoreManager;
     private ChunkManager chunkManager;
+    private ScienceTimer scienceTimer;
     private PictureManager pictureManager;
     private float inputHor;
     private float inputVert;
@@ -29,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         pictureManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<PictureManager>();
+        scienceTimer = GameObject.FindGameObjectWithTag("Managers").GetComponent<ScienceTimer>();
         chunkManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<ChunkManager>();
         scoreManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<ScoreManager>(); 
 
@@ -107,6 +109,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 chunkManager.setSelectSquarePos(new Vector3(transform.position.x, transform.position.y, chunkManager.getSelectSquarePos().z));
                 slowmoTimer = slowmoDuration;
+                scienceTimer.resetTimer();
             }
             floating = true;
         }

@@ -23,7 +23,7 @@ public class ScienceTimer : MonoBehaviour
 
     }
 
-    public void printTimer()
+    public void printTimer() //Instead put it into Datenbank
     {
         print("It took the player: " + timer);
     }
