@@ -21,6 +21,9 @@ public class WallController : MonoBehaviour
 
     private PlayerMovement player;
     private PictureManager wallManager;
+    private float posX;
+       private float posY;
+
 
     private Vector3 playerStartOffset = Vector3.zero;
 
@@ -71,65 +74,92 @@ public class WallController : MonoBehaviour
         //Move selection square like in tetris (Move this somewhere else?)
         if (player.floating)
         {
+
             //Vector3 playerStartOffset = Vector3.zero;
+            posX = selectedPos.x * gridGap;
+            posY = selectedPos.y * gridGap;
+            float width2 = (Mathf.Sqrt(allPictures.Length - 1) * gridGap) / 2 -1;
 
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                selectedPos += new Vector2(0, 1);
-                accelerationCoroutines[0] = StartCoroutine(moveAcceleration(new Vector2(0, 1)));
-            }
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                selectedPos += new Vector2(0, 1);
-                accelerationCoroutines[4] = StartCoroutine(moveAcceleration(new Vector2(0, 1)));
-            }
+            //if (posX > -width2 && posX <=width2 && posY >= -width2 && posY <= width2)
+            //{
+                if (Input.GetKeyDown(KeyCode.W))
+                {
+                    selectedPos += new Vector2(0, 1);
+                    accelerationCoroutines[0] = StartCoroutine(moveAcceleration(new Vector2(0, 1)));
+                }
+                if (Input.GetKeyDown(KeyCode.UpArrow))
+                {
+                    selectedPos += new Vector2(0, 1);
+                    accelerationCoroutines[4] = StartCoroutine(moveAcceleration(new Vector2(0, 1)));
+                }
 
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                selectedPos += new Vector2(-1, 0);
-                accelerationCoroutines[1] = StartCoroutine(moveAcceleration(new Vector2(-1, 0)));
-            }
-            if ( Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                selectedPos += new Vector2(-1, 0);
-                accelerationCoroutines[5] = StartCoroutine(moveAcceleration(new Vector2(-1, 0)));
-            }
+                if (Input.GetKeyDown(KeyCode.A))
+                {
+                    selectedPos += new Vector2(-1, 0);
+                    accelerationCoroutines[1] = StartCoroutine(moveAcceleration(new Vector2(-1, 0)));
+                }
+                if (Input.GetKeyDown(KeyCode.LeftArrow))
+                {
+                    selectedPos += new Vector2(-1, 0);
+                    accelerationCoroutines[5] = StartCoroutine(moveAcceleration(new Vector2(-1, 0)));
+                }
 
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                selectedPos += new Vector2(0, -1);
-                accelerationCoroutines[2] = StartCoroutine(moveAcceleration(new Vector2(0, -1)));
-            }
-            if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                selectedPos += new Vector2(0, -1);
-                accelerationCoroutines[6] = StartCoroutine(moveAcceleration(new Vector2(0, -1)));
-            }
+                if (Input.GetKeyDown(KeyCode.S))
+                {
+                    selectedPos += new Vector2(0, -1);
+                    accelerationCoroutines[2] = StartCoroutine(moveAcceleration(new Vector2(0, -1)));
+                }
+                if (Input.GetKeyDown(KeyCode.DownArrow))
+                {
+                    selectedPos += new Vector2(0, -1);
+                    accelerationCoroutines[6] = StartCoroutine(moveAcceleration(new Vector2(0, -1)));
+                }
 
-            if (Input.GetKeyDown(KeyCode.D))
-            {
-                selectedPos += new Vector2(1, 0);
-                accelerationCoroutines[3] = StartCoroutine(moveAcceleration(new Vector2(1, 0)));
-            }
-            if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                selectedPos += new Vector2(1, 0);
-                accelerationCoroutines[7] = StartCoroutine(moveAcceleration(new Vector2(1, 0)));
-            }
+                if (Input.GetKeyDown(KeyCode.D))
+                {
+                    selectedPos += new Vector2(1, 0);
+                    accelerationCoroutines[3] = StartCoroutine(moveAcceleration(new Vector2(1, 0)));
+                }
+                if (Input.GetKeyDown(KeyCode.RightArrow))
+                {
+                    selectedPos += new Vector2(1, 0);
+                    accelerationCoroutines[7] = StartCoroutine(moveAcceleration(new Vector2(1, 0)));
+                }
 
-            if (Input.GetKeyUp(KeyCode.W)) if (accelerationCoroutines[0] != null) StopCoroutine(accelerationCoroutines[0]);
-            if (Input.GetKeyUp(KeyCode.A)) if (accelerationCoroutines[1] != null) StopCoroutine(accelerationCoroutines[1]);
-            if (Input.GetKeyUp(KeyCode.S)) if (accelerationCoroutines[2] != null) StopCoroutine(accelerationCoroutines[2]);
-            if (Input.GetKeyUp(KeyCode.D)) if (accelerationCoroutines[3] != null) StopCoroutine(accelerationCoroutines[3]);
+                if (Input.GetKeyUp(KeyCode.W)) if (accelerationCoroutines[0] != null) StopCoroutine(accelerationCoroutines[0]);
+                if (Input.GetKeyUp(KeyCode.A)) if (accelerationCoroutines[1] != null) StopCoroutine(accelerationCoroutines[1]);
+                if (Input.GetKeyUp(KeyCode.S)) if (accelerationCoroutines[2] != null) StopCoroutine(accelerationCoroutines[2]);
+                if (Input.GetKeyUp(KeyCode.D)) if (accelerationCoroutines[3] != null) StopCoroutine(accelerationCoroutines[3]);
 
-            if (Input.GetKeyUp(KeyCode.UpArrow))   if (accelerationCoroutines[4] != null) StopCoroutine(accelerationCoroutines[4]);
-            if (Input.GetKeyUp(KeyCode.LeftArrow)) if (accelerationCoroutines[5] != null) StopCoroutine(accelerationCoroutines[5]);
-            if (Input.GetKeyUp(KeyCode.DownArrow)) if (accelerationCoroutines[6] != null) StopCoroutine(accelerationCoroutines[6]);
-            if (Input.GetKeyUp(KeyCode.RightArrow))if (accelerationCoroutines[7] != null) StopCoroutine(accelerationCoroutines[7]);
+                if (Input.GetKeyUp(KeyCode.UpArrow)) if (accelerationCoroutines[4] != null) StopCoroutine(accelerationCoroutines[4]);
+                if (Input.GetKeyUp(KeyCode.LeftArrow)) if (accelerationCoroutines[5] != null) StopCoroutine(accelerationCoroutines[5]);
+                if (Input.GetKeyUp(KeyCode.DownArrow)) if (accelerationCoroutines[6] != null) StopCoroutine(accelerationCoroutines[6]);
+                if (Input.GetKeyUp(KeyCode.RightArrow)) if (accelerationCoroutines[7] != null) StopCoroutine(accelerationCoroutines[7]);
 
-            //TODO: add bounds check for selectedPos
+                //TODO: add bounds check for selectedPos
+                float posXNew = selectedPos.x * gridGap;
+                float posYNew = selectedPos.y * gridGap;
+            
+                if (posXNew >= -width2 && posXNew<= width2 && posYNew >= -width2 && posYNew <= width2)
+                {
+                    selectingSquare.transform.position = new Vector3(selectedPos.x * gridGap, selectedPos.y * gridGap, selectingSquare.transform.position.z);
+                    Debug.Log("x " + selectedPos.x * gridGap);
+                    Debug.Log("y " + selectedPos.y * gridGap);
+                    Debug.Log(width2);
+                }
+                else
+                {
+                Debug.Log("outside x:" + posX / gridGap + "  y: " + posY / gridGap);
+                    selectedPos.x = posX/gridGap;
+                    selectedPos.y = posY/gridGap;
+             
+                }
 
-            selectingSquare.transform.position = new Vector3(selectedPos.x * gridGap, selectedPos.y * gridGap, selectingSquare.transform.position.z);
+
+
+
+
+            //}
         }
 
 
@@ -185,12 +215,23 @@ public class WallController : MonoBehaviour
     private IEnumerator moveAcceleration(Vector2 dir)
     {
         yield return new WaitForSeconds(selectingDelay);
-
-        while(true)
+       
+        float width2 = (Mathf.Sqrt(allPictures.Length - 1) * gridGap) / 2 - 1;
+        while (true)
         {
-            selectedPos += dir;
-            yield return new WaitForSeconds(selectingSpeed);
+            if (posX > -width2 && posX < width2 && posY > -width2 && posY < width2)
+            {
+            
+                selectedPos += dir;
+                yield return new WaitForSeconds(selectingSpeed);
+            }
+            //else
+            //{
+            //    selectedPos.x = posX / gridGap;
+            //    selectedPos.y = posY / gridGap;
+            //}
         }
+       
     }
 
 
