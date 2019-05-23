@@ -85,12 +85,14 @@ public class SkillShoot : SkillMaster
             //var bullet = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
             var bullet = getBullet();
             bool owner = false;
-            if (GetComponent<PlayerStats>() != null) owner = true;
             //bullet.transform.position = firePoint.position;
             //bullet.transform.rotation = Quaternion.identity;
-            bullet.GetComponent<ProjectileLogic>().setInfo(firePoint.position, range, averageDamage + Random.Range(-averageDamage/2, averageDamage / 2), owner);
-            bullet.transform.localScale = scale;
+            //bullet.transform.localScale = scale;
 
+            if (GetComponent<PlayerStats>() != null) owner = true;
+            bullet.GetComponent<ProjectileLogic>().setInfo(firePoint.position, range, averageDamage + Random.Range(-averageDamage / 2, averageDamage / 2), owner);
+
+          
 
             //Look at mouse
             Vector3 diff = shootDir - bullet.transform.position;
