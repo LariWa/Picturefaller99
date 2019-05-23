@@ -5,6 +5,7 @@ using Cinemachine;
 
 public class CameraManager : MonoBehaviour
 {
+
     [SerializeField] private GameObject camNormal;
     [SerializeField] private GameObject camPics;
     private CinemachineFramingTransposer framing;
@@ -37,6 +38,7 @@ public class CameraManager : MonoBehaviour
             camNormal.SetActive(true);
         }
     }
+
 
 
 }

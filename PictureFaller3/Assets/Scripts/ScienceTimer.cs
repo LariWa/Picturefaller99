@@ -19,7 +19,6 @@ public class ScienceTimer : MonoBehaviour
         if(timerStarted)
         {
             timer += Time.unscaledDeltaTime;// deltaTime;
-
         }
 
     }

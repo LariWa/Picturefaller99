@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class WallController : MonoBehaviour
 {
-    private GameObject fireParent;
-    [SerializeField] private GameObject ventilator;
-    [SerializeField] private GameObject defaultMesh;
-    [SerializeField] private GameObject shapeMeshTEST;
-    [SerializeField] private GameObject colorMeshTEST;
-    //[SerializeField] private GameObject crosshair;
+    [SerializeField] private Sprite blackPicture;
+    [SerializeField] private Sprite[] allPictures; // ammount needs to be squared so 4, 9, 16, 25 etc
+    [SerializeField] private GameObject pictureBlockPrefab; //TODO: make frame instead
+    [SerializeField] private float pictureBlockScale = 1.5f;
+    [SerializeField] private float gridGap = 2f;
+
+    [Space]
 
     [SerializeField] private GameObject selectingSquare;
     [SerializeField] private float selectingSpeed = 0.1f;
@@ -18,29 +19,48 @@ public class WallController : MonoBehaviour
     private Coroutine[] accelerationCoroutines = new Coroutine[4];
 
     private PlayerMovement player;
-    private WallManager wallManager;
-
-    private bool pictureMode; //If it has pictures or not;
+    private PictureManager wallManager;
 
     private Vector3 playerStartOffset = Vector3.zero;
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
-        wallManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<WallManager>();
+        wallManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<PictureManager>();
+
+
+        // ------ Init ---------
+        GameObject imgParent = new GameObject("Image Parent");
+        imgParent.transform.parent = transform;
+
+        int gridCells = Mathf.RoundToInt(Mathf.Sqrt(allPictures.Length));
+
+        float maxDistHalf = ((gridCells - 1) * gridGap) / 2; //Used to center images for even and uneven gridCells
+
+        for (int y = gridCells - 1; y >= 0; y--)
+            for (int x = 0; x < gridCells; x++)
+            {
+                var frame = Instantiate(pictureBlockPrefab, new Vector3(x * gridGap - maxDistHalf, y * gridGap - maxDistHalf, transform.position.z), Quaternion.Euler(-90,0,0));
+
+                frame.transform.parent = imgParent.transform;
+                frame.transform.localScale = new Vector3(pictureBlockScale, pictureBlockScale, pictureBlockScale);
+            }
+
+        var wallSpr = imgParent.GetComponentsInChildren<SpriteRenderer>();
+
+        //Setup images
+        for (int i = 0; i < wallSpr.Length; i++)
+            wallSpr[i].sprite = allPictures[i];
     }
+
+
 
     void Update()
     {
-        //crosshair.transform.position = new Vector3(player.transform.position.x, crosshair.transform.position.y, player.transform.position.z);
-        //var multiplier = wallManager.getGridGap();
-        //selectingSquare.transform.position = new Vector3(Mathf.RoundToInt(player.transform.position.x / multiplier) * multiplier, selectingSquare.transform.position.y, Mathf.RoundToInt(player.transform.position.z / multiplier) * multiplier);
-
 
         //Move selection square like in tetris (Move this somewhere else?)
         if (player.floating)
         {
-            var multiplier = wallManager.getGridGap();
             //Vector3 playerStartOffset = Vector3.zero;
 
             if (Input.GetKeyDown(KeyCode.W))
@@ -71,7 +91,7 @@ public class WallController : MonoBehaviour
 
             //TODO: add bounds check for selectedPos
 
-            selectingSquare.transform.position = new Vector3(selectedPos.x * multiplier, selectingSquare.transform.position.y, selectedPos.y * multiplier);
+            selectingSquare.transform.position = new Vector3(selectedPos.x * gridGap, selectedPos.y * gridGap, selectingSquare.transform.position.z);
         }
 
 
@@ -79,81 +99,8 @@ public class WallController : MonoBehaviour
 
 
 
-    public void setEmptyFire(int index)
-    {
-        for (int i = 0; i < fireParent.transform.childCount; i++)
-            fireParent.transform.GetChild(i).gameObject.SetActive(true);
-
-        fireParent.transform.GetChild(index).gameObject.SetActive(false);
-    }
-
-    public void setFireParent(GameObject go)
-    {
-        fireParent = go;
-    }
-
-    public void setShape()
-    {
-        defaultMesh.SetActive(false);
-        shapeMeshTEST.SetActive(true);
-        colorMeshTEST.SetActive(false);
-    }
-
-    public void setColor()
-    {
-        defaultMesh.SetActive(false);
-        shapeMeshTEST.SetActive(false);
-        colorMeshTEST.SetActive(true);
-        //get spriterenderer
-
-        var cols = colorMeshTEST.GetComponentsInChildren<SpriteRenderer>();
-        var r = Random.Range(0f, 1f);
-        var g = Random.Range(0f, 1f);
-        var b = Random.Range(0f, 1f);
-        cols[0].color = new Color(r,g,b);
-        cols[1].color = new Color(r + Random.Range(0f, 0.33f), g + Random.Range(0f, 0.33f), b + Random.Range(0f, 0.33f));
-    }
 
 
-
-
-    public void setPictureModeOn()
-    {
-        pictureMode = true;
-        defaultMesh.SetActive(true);
-        shapeMeshTEST.SetActive(false);
-        colorMeshTEST.SetActive(false);
-
-        ventilator.SetActive(true);
-        fireParent.SetActive(true);
-
-        //Show pictures
-        var imgPar = transform.Find("Image Parent").gameObject;
-        for (int i = 0; i < imgPar.transform.childCount; i++)
-            imgPar.transform.GetChild(i).gameObject.SetActive(true);
-
-        enableSelection();
-    }
-    public void setPictureModeOff()
-    {
-        pictureMode = false;
-        ventilator.SetActive(false);
-        fireParent.SetActive(false);
-
-        //Hide pictures
-        var imgPar = transform.Find("Image Parent").gameObject;
-        for (int i = 0; i < imgPar.transform.childCount; i++)
-            imgPar.transform.GetChild(i).gameObject.SetActive(false);
-
-        disableSelection();
-    }
-
-
-
-    public bool getPictureMode()
-    {
-        return pictureMode;
-    }
 
 
 
@@ -164,22 +111,21 @@ public class WallController : MonoBehaviour
 
     public void setSelectSquarePos(Vector3 playerPos)
     {
-        var multiplier = wallManager.getGridGap();
-        selectedPos = new Vector3(Mathf.RoundToInt(playerPos.x / multiplier), Mathf.RoundToInt(playerPos.z / multiplier));
+        selectedPos = new Vector3(Mathf.RoundToInt(playerPos.x / gridGap), Mathf.RoundToInt(playerPos.y / gridGap));
     }
 
 
     public int getSelectedPicture()
     {
         //Go from world coordinates to array rotation (array has weird orientation)
-        var squareDim = wallManager.getGridWidthAndHeight();
+        var squareDim = (Mathf.Sqrt(allPictures.Length) / 2) * gridGap;
         var pos = selectedPos + new Vector2(squareDim / 2, -squareDim / 2);
         pos.y = -pos.y;
         if ((squareDim % 2) != 0) pos -= new Vector2(0.5f,0.5f); //Make up for uneven length eg 9 boxes instead of 8
 
 
         //Translate to index that position would have in the array
-        return (int) (pos.y * squareDim + pos.x);
+        return (int) (pos.y * squareDim + pos.x) - 1;
     }
 
     private void disableSelection()
