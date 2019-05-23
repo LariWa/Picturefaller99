@@ -22,7 +22,6 @@ public class PictureManager : MonoBehaviour
         scoreManager = GetComponent<ScoreManager>();
 
         currPicSearched = Random.Range(0,allPictures.Length);
-
         picSearched.sprite = allPictures[currPicSearched];
         //else picSearched.sprite = blackPicture;
     }
@@ -56,6 +55,7 @@ public class PictureManager : MonoBehaviour
             print("The selection was correct!");
         }
 
+        currPicSearched = Random.Range(0, allPictures.Length);
         picSearched.sprite = allPictures[currPicSearched];
         //else picSearched.sprite = blackPicture;
 

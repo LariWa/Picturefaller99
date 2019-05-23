@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     private ChunkManager chunkManager;
     private ScienceTimer scienceTimer;
     private PictureManager pictureManager;
+    private TransitionManager transitionManager;
     private float inputHor;
     private float inputVert;
     private float startFloatZ;
@@ -29,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        transitionManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<TransitionManager>();
         pictureManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<PictureManager>();
         scienceTimer = GameObject.FindGameObjectWithTag("Managers").GetComponent<ScienceTimer>();
         chunkManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<ChunkManager>();
@@ -48,6 +50,8 @@ public class PlayerMovement : MonoBehaviour
             slowmoTimer = 0;
         }
         if(floating) gravity = slowmoTimer.Remap(0, slowmoDuration, 0, gravityNormal);
+
+
 
         //freeze player at -3 while camera fully zoomed in to hide him
         //if (gravity <= 0) transform.position = new Vector3(transform.position.x, -3, transform.position.z);
@@ -116,9 +120,18 @@ public class PlayerMovement : MonoBehaviour
         else if (other.tag == "Wall")
         {
             pictureManager.hitPicWall();
+            transitionManager.hitPicWall();
             divingDown = false;
             floating = false;
         }
+    }
+
+
+
+    public void reroute()
+    {
+        transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+        
     }
 }
 

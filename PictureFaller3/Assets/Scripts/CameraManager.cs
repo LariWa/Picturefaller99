@@ -32,13 +32,18 @@ public class CameraManager : MonoBehaviour
             camPics.SetActive(true);
             camNormal.SetActive(false);
         }
-        else
-        {
-            camPics.SetActive(false);
-            camNormal.SetActive(true);
-        }
+        //else
+        //{
+       //     camPics.SetActive(false);
+        //    camNormal.SetActive(true);
+       // }
     }
 
 
+    public void setNormalCam()
+    {
+        camPics.SetActive(false);
+        camNormal.SetActive(true);
+    }
 
 }

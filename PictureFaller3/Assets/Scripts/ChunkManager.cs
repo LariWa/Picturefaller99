@@ -28,12 +28,8 @@ public class ChunkManager : MonoBehaviour
 
         //Setup chunk parent + spawn first few chunks + picturewall
         chunkParent = new GameObject("Environment Chunks");
-        spawnChunk(false, false);
 
-        for (int i = 0; i < spawnAhead; i++)
-            spawnChunk(true, false);
-
-        spawnPicWall();
+        setupChunksAndWall();
     }
 
 
@@ -62,14 +58,40 @@ public class ChunkManager : MonoBehaviour
     }
 
 
-    public void spawnPicWall()
+    private void spawnPicWall()
     {
         var chunksUntilPicture = Random.Range(chunksUntilPictureMin, chunksUntilPictureMax);
         currentPictureWall = Instantiate(pictureWallPre, Vector3.forward * chunksUntilPicture * chunkLength, Quaternion.Euler(-90, 0, 0));  //TODO: probably not accurate pos !!!
 
         currentPictureWall.GetComponent<WallController>().deleteNearObstacles();
     }
-    
+
+
+
+
+    public void resetChunksAndWall()
+    {
+        Destroy(currentPictureWall);
+
+        zSpawnNext = 0;
+
+        setupChunksAndWall();
+
+        
+        //spawnPicWall();
+    }
+
+
+
+    private void setupChunksAndWall()
+    {
+        spawnChunk(false, false);
+
+        for (int i = 0; i < spawnAhead; i++)
+            spawnChunk(true, false);
+
+        spawnPicWall();
+    }
 
 
 
