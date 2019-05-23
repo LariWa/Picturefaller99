@@ -1914,7 +1914,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 853630108}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.7, y: -4499.3, z: -2.2}
+  m_LocalPosition: {x: -0.1, y: -4460.7, z: -2.2}
   m_LocalScale: {x: 2.7080426, y: 2.7080426, z: 2.7080426}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2310,6 +2310,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealthPack: {fileID: 3981542964382420313, guid: cbf196eb9ced644829972db195cdcb6e,
     type: 3}
+  spawnTime: 5
 --- !u!136 &1151475802
 CapsuleCollider:
   m_ObjectHideFlags: 0
