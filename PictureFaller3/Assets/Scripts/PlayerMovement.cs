@@ -5,63 +5,69 @@ using DG.Tweening;
 
 public class PlayerMovement : MonoBehaviour
 {
-
     [SerializeField] private float moveSpeed = 16f;
-    [SerializeField] private float moveSpeedSlowMoMax = 64f;
-    [SerializeField] private float fastGravity = 16f;
-    [SerializeField] private float normalGravity = 32f;
-    [SerializeField] private float slowGravity = 2f;
+    [SerializeField] private float gravityNormal = 32f;
+    //[SerializeField] private float slowmoCurve = 1;
+    [SerializeField] private float slowmoDuration = 1; //how long until full stop
+    //[SerializeField] private enum slowmoEase;
+
     private Rigidbody rb;
-    private TimeManager timeManager;
     private ScoreManager scoreManager;
-    private LevelMasterManager levelManager;
+    private ChunkManager chunkManager;
+    private PictureManager pictureManager;
     private float inputHor;
     private float inputVert;
+    private float startFloatZ;
     private float gravity;
+    private float slowmoTimer;
 
-
-    [Space]
-    [SerializeField] private float floatSpeed = 1;
-    [SerializeField] private float floatAmplitude = 1;
-    //[SerializeField] private GameObject meshGO;
-    [SerializeField] private float smoothFollowSquare = 0.5f;
-    private float startFloatY;
-    private Vector3 m_refPos = Vector3.zero;
     public bool divingDown { get; private set; }
-    public bool floating { get; private set; }
+    public bool floating { get; private set; } // rename to inSlowmo
 
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        levelManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<LevelMasterManager>();
+        pictureManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<PictureManager>();
+        chunkManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<ChunkManager>();
         scoreManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<ScoreManager>(); 
-        timeManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<TimeManager>();
+
+        gravity = gravityNormal;
     }
+
 
     void Update()
     {
+        slowmoTimer -= Time.deltaTime;
+
+        if (slowmoTimer <= 0)
+        {
+            gravity = gravityNormal;
+            slowmoTimer = 0;
+        }
+        if(floating) gravity = slowmoTimer.Remap(0, slowmoDuration, 0, gravityNormal);
+
+        //freeze player at -3 while camera fully zoomed in to hide him
+        //if (gravity <= 0) transform.position = new Vector3(transform.position.x, -3, transform.position.z);
+
 
         inputHor = Input.GetAxisRaw("Horizontal"); //GetAxis
         inputVert = Input.GetAxisRaw("Vertical");
 
-        gravity = normalGravity;
 
-        if (Input.GetKey(KeyCode.P)) // PAUSE DEBUG, DELETE THIS !!!!!!!!!!!!!!
-            Time.timeScale = 0;
-
-        if (Input.GetKey(KeyCode.J)) //LeftShift
-            gravity = fastGravity;
-
-        if (Input.GetKey(KeyCode.K)) // OR RATHER MAKE A JUMP
-            gravity = slowGravity;
-
-
-        if (Input.GetKeyDown(KeyCode.Space) && floating) //KeypadEnter
+        if (Input.GetKeyDown(KeyCode.Space) && floating) //KeypadEnter?
         {
+            pictureManager.selectedPic();
             divingDown = true;
             floating = false;
+            gravity = gravityNormal;
+
+            // Vector3 target = transform.position;
+            //target.y = -3;
+            //transform.DOMove(target, 5f);
         }
+
+
 
         scoreManager.scoreIncreasing = true;
 
@@ -69,41 +75,26 @@ public class PlayerMovement : MonoBehaviour
         {
             inputHor = 0;
             inputVert = 0;
-            gravity = normalGravity;
         }
         else if (floating)
         {
-            gravity = 0;
             scoreManager.scoreIncreasing = false;
-
-            //Animate floating? or use addforce and dont set velocity below???
-            transform.position = new Vector3(transform.position.x, startFloatY + floatAmplitude * Mathf.Sin(floatSpeed * Time.time), transform.position.z); //Does it center itself again afterwards wit hcollider????
-
-            // Move smoothly to selection square
-            Vector3 target = levelManager.getSelectSquarePos();
-            target.y = transform.position.y;
-            //transform.position = Vector3.SmoothDamp(transform.position, target, ref m_refPos, smoothFollowSquare);
-            transform.DOMove(target, smoothFollowSquare);
         } 
     }
 
     void FixedUpdate()
     {
-        Vector3 moveVec = (Vector3.right * inputHor) + (Vector3.forward * inputVert);
+        Vector3 moveVec = (Vector3.right * inputHor) + (Vector3.up * inputVert);
 
         moveVec.Normalize();
 
-        if(!floating) rb.velocity = (moveVec * moveSpeed) + (Vector3.down * gravity); //Bad...
 
-        //rb.AddForce(moveVec * speed, ForceMode.Impulse); //ForceMode.VelocityChange?  ADD DRAG, but not on y... https://answers.unity.com/questions/1130605/can-i-prevent-rigidbody-drag-from-affecting-the-z.html
+        rb.velocity = (moveVec * moveSpeed) + (Vector3.forward * gravity); //Bad...
+
+        //rb.AddForce(moveVec * speed, ForceMode.Impulse); //ForceMode.VelocityChange?  ADD DRAG, but not on y... maybe just bigger rb mass https://answers.unity.com/questions/1130605/can-i-prevent-rigidbody-drag-from-affecting-the-z.html
     }
 
 
-
-    public void damage()
-    {
-        Time.timeScale = 0;
-    }
 
 
     private void OnTriggerEnter(Collider other)
@@ -114,21 +105,20 @@ public class PlayerMovement : MonoBehaviour
             //First time hitting wind
             if (!floating)
             {
-                levelManager.setSelectSquarePos(new Vector3(transform.position.x, levelManager.getSelectSquarePos().y, transform.position.z));
-                startFloatY = transform.position.y;
+                chunkManager.setSelectSquarePos(new Vector3(transform.position.x, transform.position.y, chunkManager.getSelectSquarePos().z));
+                slowmoTimer = slowmoDuration;
             }
             floating = true;
         }
         else if (other.tag == "Wall")
         {
-            levelManager.hitWall();
+            pictureManager.hitPicWall();
             divingDown = false;
             floating = false;
         }
-
-        //if its image container tell some manager which one(s) hit
     }
 }
+
 
 
 public static class ExtensionMethods

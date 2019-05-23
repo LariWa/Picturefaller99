@@ -17,7 +17,7 @@ public class DamageObject : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(doFall) rb.velocity = Vector3.down * gravity;
+        if(doFall) rb.velocity = Vector3.forward * gravity;
     }
 
     private void OnTriggerEnter(Collider other)
