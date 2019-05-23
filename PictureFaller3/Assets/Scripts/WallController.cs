@@ -9,6 +9,7 @@ public class WallController : MonoBehaviour
     [SerializeField] private GameObject pictureBlockPrefab; //TODO: make frame instead
     [SerializeField] private float pictureBlockScale = 1.5f;
     [SerializeField] private float gridGap = 2f;
+    [SerializeField] private float delteObstaclesRadius = 40f;
 
     [Space]
 
@@ -51,6 +52,15 @@ public class WallController : MonoBehaviour
         //Setup images
         for (int i = 0; i < wallSpr.Length; i++)
             wallSpr[i].sprite = allPictures[i];
+
+        //Delete any obstacles  that might obstruct the wall
+        var allObstacles = FindObjectsOfType<DamageObject>();
+        foreach (DamageObject d in allObstacles)
+        {
+            if (Vector3.Distance(d.transform.position, transform.position) <= delteObstaclesRadius)
+                Destroy(d.transform.parent.gameObject);
+        }
+
     }
 
 
