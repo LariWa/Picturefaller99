@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: 7206916431017776868}
   - component: {fileID: 4382968554001365805}
   m_Layer: 0
-  m_Name: Collider
+  m_Name: Collider + Dmg Logic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
