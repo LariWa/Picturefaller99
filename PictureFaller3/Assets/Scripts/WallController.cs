@@ -41,7 +41,7 @@ public class WallController : MonoBehaviour
         for (int y = gridCells - 1; y >= 0; y--)
             for (int x = 0; x < gridCells; x++)
             {
-                var frame = Instantiate(pictureBlockPrefab, new Vector3(x * gridGap - maxDistHalf, y * gridGap - maxDistHalf, transform.position.z), Quaternion.Euler(-90,0,0));
+                var frame = Instantiate(pictureBlockPrefab, new Vector3(x * gridGap - maxDistHalf, y * gridGap - maxDistHalf, transform.position.z), Quaternion.Euler(-90, 0, 0));
 
                 frame.transform.parent = imgParent.transform;
                 frame.transform.localScale = new Vector3(pictureBlockScale, pictureBlockScale, pictureBlockScale);
@@ -65,7 +65,11 @@ public class WallController : MonoBehaviour
         //Move selection square like in tetris (Move this somewhere else?)
         if (player.floating)
         {
+
             //Vector3 playerStartOffset = Vector3.zero;
+            float posX = selectedPos.x * gridGap;
+            float posY = selectedPos.y * gridGap;
+            float width2 = (Mathf.Sqrt(allPictures.Length - 1) * gridGap) / 2 - 1;
 
             if (Input.GetKeyDown(KeyCode.W))
             {
@@ -83,7 +87,7 @@ public class WallController : MonoBehaviour
                 selectedPos += new Vector2(-1, 0);
                 accelerationCoroutines[1] = StartCoroutine(moveAcceleration(new Vector2(-1, 0)));
             }
-            if ( Input.GetKeyDown(KeyCode.LeftArrow))
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 selectedPos += new Vector2(-1, 0);
                 accelerationCoroutines[5] = StartCoroutine(moveAcceleration(new Vector2(-1, 0)));
@@ -111,22 +115,29 @@ public class WallController : MonoBehaviour
                 accelerationCoroutines[7] = StartCoroutine(moveAcceleration(new Vector2(1, 0)));
             }
 
+
             if (Input.GetKeyUp(KeyCode.W)) if (accelerationCoroutines[0] != null) StopCoroutine(accelerationCoroutines[0]);
             if (Input.GetKeyUp(KeyCode.A)) if (accelerationCoroutines[1] != null) StopCoroutine(accelerationCoroutines[1]);
             if (Input.GetKeyUp(KeyCode.S)) if (accelerationCoroutines[2] != null) StopCoroutine(accelerationCoroutines[2]);
             if (Input.GetKeyUp(KeyCode.D)) if (accelerationCoroutines[3] != null) StopCoroutine(accelerationCoroutines[3]);
 
-            if (Input.GetKeyUp(KeyCode.UpArrow))   if (accelerationCoroutines[4] != null) StopCoroutine(accelerationCoroutines[4]);
+            if (Input.GetKeyUp(KeyCode.UpArrow)) if (accelerationCoroutines[4] != null) StopCoroutine(accelerationCoroutines[4]);
             if (Input.GetKeyUp(KeyCode.LeftArrow)) if (accelerationCoroutines[5] != null) StopCoroutine(accelerationCoroutines[5]);
             if (Input.GetKeyUp(KeyCode.DownArrow)) if (accelerationCoroutines[6] != null) StopCoroutine(accelerationCoroutines[6]);
-            if (Input.GetKeyUp(KeyCode.RightArrow))if (accelerationCoroutines[7] != null) StopCoroutine(accelerationCoroutines[7]);
+            if (Input.GetKeyUp(KeyCode.RightArrow)) if (accelerationCoroutines[7] != null) StopCoroutine(accelerationCoroutines[7]);
 
-            //TODO: add bounds check for selectedPos
+            //boundary check
+            float posXNew = selectedPos.x * gridGap;
+            float posYNew = selectedPos.y * gridGap;
+            if (posXNew >= -width2 && posXNew <= width2 && posYNew >= -width2 && posYNew <= width2)
+                selectingSquare.transform.position = new Vector3(selectedPos.x * gridGap, selectedPos.y * gridGap, selectingSquare.transform.position.z);
 
-            selectingSquare.transform.position = new Vector3(selectedPos.x * gridGap, selectedPos.y * gridGap, selectingSquare.transform.position.z);
+            else
+            {
+                selectedPos.x = posX / gridGap;
+                selectedPos.y = posY / gridGap;
+            }
         }
-
-
     }
 
 
@@ -162,11 +173,11 @@ public class WallController : MonoBehaviour
         var squareDim = (Mathf.Sqrt(allPictures.Length) / 2) * gridGap;
         var pos = selectedPos + new Vector2(squareDim / 2, -squareDim / 2);
         pos.y = -pos.y;
-        if ((squareDim % 2) != 0) pos -= new Vector2(0.5f,0.5f); //Make up for uneven length eg 9 boxes instead of 8
+        if ((squareDim % 2) != 0) pos -= new Vector2(0.5f, 0.5f); //Make up for uneven length eg 9 boxes instead of 8
 
 
         //Translate to index that position would have in the array
-        return (int) (pos.y * squareDim + pos.x) - 1;
+        return (int)(pos.y * squareDim + pos.x) - 1;
     }
 
     private void disableSelection()
@@ -189,11 +200,20 @@ public class WallController : MonoBehaviour
     {
         yield return new WaitForSeconds(selectingDelay);
 
-        while(true)
+        float width2 = (Mathf.Sqrt(allPictures.Length - 1) * gridGap) / 2 - 1;
+
+        while (true)
         {
-            selectedPos += dir;
-            yield return new WaitForSeconds(selectingSpeed);
+            if (selectedPos.x * gridGap > -width2 && selectedPos.x * gridGap < width2 && selectedPos.y * gridGap > -width2 && selectedPos.y * gridGap < width2)
+            {
+                selectedPos += dir;
+                yield return new WaitForSeconds(selectingSpeed);
+            }
+            else
+                yield return null;
+
         }
+
     }
 
 
