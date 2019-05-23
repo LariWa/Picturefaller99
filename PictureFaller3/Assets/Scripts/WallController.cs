@@ -16,7 +16,7 @@ public class WallController : MonoBehaviour
     [SerializeField] private float selectingSpeed = 0.1f;
     [SerializeField] private float selectingDelay = 0.2f;
     private Vector2 selectedPos;
-    private Coroutine[] accelerationCoroutines = new Coroutine[4];
+    private Coroutine[] accelerationCoroutines = new Coroutine[8];
 
     private PlayerMovement player;
     private PictureManager wallManager;
@@ -68,26 +68,54 @@ public class WallController : MonoBehaviour
                 selectedPos += new Vector2(0, 1);
                 accelerationCoroutines[0] = StartCoroutine(moveAcceleration(new Vector2(0, 1)));
             }
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                selectedPos += new Vector2(0, 1);
+                accelerationCoroutines[4] = StartCoroutine(moveAcceleration(new Vector2(0, 1)));
+            }
+
             if (Input.GetKeyDown(KeyCode.A))
             {
                 selectedPos += new Vector2(-1, 0);
                 accelerationCoroutines[1] = StartCoroutine(moveAcceleration(new Vector2(-1, 0)));
             }
+            if ( Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                selectedPos += new Vector2(-1, 0);
+                accelerationCoroutines[5] = StartCoroutine(moveAcceleration(new Vector2(-1, 0)));
+            }
+
             if (Input.GetKeyDown(KeyCode.S))
             {
                 selectedPos += new Vector2(0, -1);
                 accelerationCoroutines[2] = StartCoroutine(moveAcceleration(new Vector2(0, -1)));
             }
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                selectedPos += new Vector2(0, -1);
+                accelerationCoroutines[6] = StartCoroutine(moveAcceleration(new Vector2(0, -1)));
+            }
+
             if (Input.GetKeyDown(KeyCode.D))
             {
                 selectedPos += new Vector2(1, 0);
                 accelerationCoroutines[3] = StartCoroutine(moveAcceleration(new Vector2(1, 0)));
+            }
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                selectedPos += new Vector2(1, 0);
+                accelerationCoroutines[7] = StartCoroutine(moveAcceleration(new Vector2(1, 0)));
             }
 
             if (Input.GetKeyUp(KeyCode.W)) if (accelerationCoroutines[0] != null) StopCoroutine(accelerationCoroutines[0]);
             if (Input.GetKeyUp(KeyCode.A)) if (accelerationCoroutines[1] != null) StopCoroutine(accelerationCoroutines[1]);
             if (Input.GetKeyUp(KeyCode.S)) if (accelerationCoroutines[2] != null) StopCoroutine(accelerationCoroutines[2]);
             if (Input.GetKeyUp(KeyCode.D)) if (accelerationCoroutines[3] != null) StopCoroutine(accelerationCoroutines[3]);
+
+            if (Input.GetKeyUp(KeyCode.UpArrow))   if (accelerationCoroutines[4] != null) StopCoroutine(accelerationCoroutines[4]);
+            if (Input.GetKeyUp(KeyCode.LeftArrow)) if (accelerationCoroutines[5] != null) StopCoroutine(accelerationCoroutines[5]);
+            if (Input.GetKeyUp(KeyCode.DownArrow)) if (accelerationCoroutines[6] != null) StopCoroutine(accelerationCoroutines[6]);
+            if (Input.GetKeyUp(KeyCode.RightArrow))if (accelerationCoroutines[7] != null) StopCoroutine(accelerationCoroutines[7]);
 
             //TODO: add bounds check for selectedPos
 
