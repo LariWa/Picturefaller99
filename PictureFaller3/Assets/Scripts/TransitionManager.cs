@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class TransitionManager : MonoBehaviour
 {
     [SerializeField] private Image screenFadeImg;
-    [SerializeField] private float screenFadeSpd = 0.25f;
+    [SerializeField] private float screenFadeSpdIn = 0.25f;
+    [SerializeField] private float screenFadeSpdOut = 0.5f;
     [SerializeField] private float screenWhiteDur = 0.5f;
 
     // TODO: Move player slowmoTimer here !!!
@@ -35,7 +36,7 @@ public class TransitionManager : MonoBehaviour
         if(!hitWall)
         {
             hitWall = true;
-            StartCoroutine(fadeScreenWhiteOver(1, screenFadeSpd));
+            StartCoroutine(fadeScreenWhiteOver(1, screenFadeSpdIn));
         }
     }
 
@@ -54,30 +55,31 @@ public class TransitionManager : MonoBehaviour
     {
         float alpha = screenFadeImg.color.a;
 
-        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
+        for (float t = 0f; t <= 1f; t += Time.deltaTime / aTime)
         {
             setFadeAlpha(Mathf.Lerp(alpha, aValue, t));
             yield return null;
         }
+        setFadeAlpha(aValue);
     }
 
 
-        private IEnumerator fadeScreenWhiteOver(float aValue, float aTime)
+    private IEnumerator fadeScreenWhiteOver(float aValue, float aTime)
     {
         float alpha = screenFadeImg.color.a;
 
-        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
+        for (float t = 0f; t <= 1f; t += Time.deltaTime / aTime)
         {
             setFadeAlpha(Mathf.Lerp(alpha, aValue, t));
             yield return null;
         }
+        setFadeAlpha(aValue);
 
 
         yield return new WaitForSeconds(screenWhiteDur);
 
 
         // Screen is now completely white
-        StartCoroutine(fadeScreenBackOver(0, screenFadeSpd));
 
         chunkManager.resetChunksAndWall();
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().reroute();
@@ -86,6 +88,7 @@ public class TransitionManager : MonoBehaviour
 
         hitWall = false;
 
+        StartCoroutine(fadeScreenBackOver(0, screenFadeSpdOut));
     }
 
 }
