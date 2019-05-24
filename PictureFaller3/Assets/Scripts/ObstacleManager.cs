@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class ObstacleManager : MonoBehaviour
 {
+    public GameObject obstacle;
     public GameObject laserPrefab;
+    public bool useLasers;
     public float maxOnScreen = 20;
     public float randomNess = 10;
     public float laserSafeZoneTop = 20f;
@@ -22,10 +24,22 @@ public class ObstacleManager : MonoBehaviour
 
         laserParentA = new GameObject("Laser Parent A").transform;
         laserParentB = new GameObject("Laser Parent B").transform;
-        for (int i = 0; i < maxOnScreen; i++)
-            initializeLasers(laserParentA);
-        for (int i = 0; i < maxOnScreen; i++)
-            initializeLasers(laserParentB);
+
+        if (useLasers)
+        {
+            for (int i = 0; i < maxOnScreen; i++)
+                initializeLasers(laserParentA);
+            for (int i = 0; i < maxOnScreen; i++)
+                initializeLasers(laserParentB);
+        }
+
+        if(obstacle != null)
+        {
+            Instantiate(obstacle, new Vector3(Random.Range(-5, 5), -50, Random.Range(-5, 5)), Random.rotation);
+            Instantiate(obstacle, new Vector3(Random.Range(-5, 5), -50, Random.Range(-5, 5)), Random.rotation);
+            Instantiate(obstacle, new Vector3(Random.Range(-5, 5), -50, Random.Range(-5, 5)), Random.rotation);
+
+        }
     }
 
     private void initializeLasers(Transform par)

@@ -19,12 +19,11 @@ public class ScienceTimer : MonoBehaviour
         if(timerStarted)
         {
             timer += Time.unscaledDeltaTime;// deltaTime;
-
         }
 
     }
 
-    public void printTimer()
+    public void printTimer() //Instead put it into Datenbank
     {
         print("It took the player: " + timer);
     }
