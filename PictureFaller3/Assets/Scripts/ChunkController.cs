@@ -6,6 +6,8 @@ public class ChunkController : MonoBehaviour
 {
     [SerializeField] private GameObject[] allObstacles;
     [SerializeField] private GameObject obstacleParent;
+    [SerializeField] private int randObstacAmmount = 30;
+    [SerializeField] private int randomMoreOrLessObstac = 15;
     private enum obstaclePattern { circle, verticalLines, random };
 
 
@@ -34,9 +36,16 @@ public class ChunkController : MonoBehaviour
 
 
 
-        //TODO: spawn additional obstacles in the air (test for space with hitscan and do patterns)
-        var o = Instantiate(allObstacles[0], transform.position + (Random.insideUnitSphere * 5f), Quaternion.identity);
-        o.transform.rotation = Quaternion.Euler(Random.Range(0,360), Random.Range(0, 360), Random.Range(0, 360));
-        o.transform.parent = obstacleParent.transform;
+        // Spawn additional obstacles in the air 
+        var obstacleAm = randObstacAmmount + Random.Range(-randomMoreOrLessObstac, randomMoreOrLessObstac);
+
+        for (int i = 0; i < obstacleAm; i++)
+        {
+            var o = Instantiate(allObstacles[Random.Range(0, allObstacles.Length)], transform.position + new Vector3(Random.Range(-10, 10), Random.Range(-10, 10), Random.Range(-50, 50)), Quaternion.identity);
+            o.transform.rotation = Quaternion.Euler(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360));
+            o.transform.parent = obstacleParent.transform;
+        }
+
+        //TODO: not perfect, sometimes empty spaces? do patterns, check and prevent overlaps (maybe buildings new collider then)
     }
 }

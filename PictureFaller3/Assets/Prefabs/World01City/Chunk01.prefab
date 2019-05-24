@@ -445,7 +445,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allObstacles:
   - {fileID: 7206916430411002965, guid: 7bf90f36edfcf464fa6e20658bbd0d94, type: 3}
+  - {fileID: 7206916430411002965, guid: c0f648cf4e9bc464c824b60c419f49d2, type: 3}
+  - {fileID: 7206916430411002965, guid: df0cc9f29441fbd409cae66944215678, type: 3}
+  - {fileID: 7206916430411002965, guid: c8ac4adffa05e8d42a1f228bbcb1e2bd, type: 3}
+  - {fileID: 7206916430411002965, guid: 97c1764c6d6050d4bb5b1ce5bff300f2, type: 3}
   obstacleParent: {fileID: 8816975775219294463}
+  randObstacAmmount: 30
+  randomMoreOrLessObstac: 15
 --- !u!1 &997914699862712057
 GameObject:
   m_ObjectHideFlags: 0
