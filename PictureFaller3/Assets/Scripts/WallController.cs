@@ -166,7 +166,7 @@ public class WallController : MonoBehaviour
 
 
         //Translate to index that position would have in the array
-        return (int) (pos.y * squareDim + pos.x) - 1;
+        return (int) (pos.y * squareDim + pos.x);
     }
 
     private void disableSelection()
