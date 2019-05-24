@@ -70,49 +70,61 @@ public class WallController : MonoBehaviour
             float posX = selectedPos.x * gridGap;
             float posY = selectedPos.y * gridGap;
             float width2 = (Mathf.Sqrt(allPictures.Length - 1) * gridGap) / 2 - 1;
-
-            if (Input.GetKeyDown(KeyCode.W))
+                
+            if(!(posY + 1 > width2))
             {
-                selectedPos += new Vector2(0, 1);
-                accelerationCoroutines[0] = StartCoroutine(moveAcceleration(new Vector2(0, 1)));
-            }
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                selectedPos += new Vector2(0, 1);
-                accelerationCoroutines[4] = StartCoroutine(moveAcceleration(new Vector2(0, 1)));
-            }
-
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                selectedPos += new Vector2(-1, 0);
-                accelerationCoroutines[1] = StartCoroutine(moveAcceleration(new Vector2(-1, 0)));
-            }
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                selectedPos += new Vector2(-1, 0);
-                accelerationCoroutines[5] = StartCoroutine(moveAcceleration(new Vector2(-1, 0)));
+                if (Input.GetKeyDown(KeyCode.W))
+                {
+                    selectedPos += new Vector2(0, 1);
+                    accelerationCoroutines[0] = StartCoroutine(moveAcceleration(new Vector2(0, 1)));
+                }
+                if (Input.GetKeyDown(KeyCode.UpArrow))
+                {
+                    selectedPos += new Vector2(0, 1);
+                    accelerationCoroutines[4] = StartCoroutine(moveAcceleration(new Vector2(0, 1)));
+                }
             }
 
-            if (Input.GetKeyDown(KeyCode.S))
+            if (!(posX - 1 < -width2))
             {
-                selectedPos += new Vector2(0, -1);
-                accelerationCoroutines[2] = StartCoroutine(moveAcceleration(new Vector2(0, -1)));
-            }
-            if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                selectedPos += new Vector2(0, -1);
-                accelerationCoroutines[6] = StartCoroutine(moveAcceleration(new Vector2(0, -1)));
+                if (Input.GetKeyDown(KeyCode.A))
+                {
+                    selectedPos += new Vector2(-1, 0);
+                    accelerationCoroutines[1] = StartCoroutine(moveAcceleration(new Vector2(-1, 0)));
+                }
+                if (Input.GetKeyDown(KeyCode.LeftArrow))
+                {
+                    selectedPos += new Vector2(-1, 0);
+                    accelerationCoroutines[5] = StartCoroutine(moveAcceleration(new Vector2(-1, 0)));
+                }
             }
 
-            if (Input.GetKeyDown(KeyCode.D))
+            if (!(posY - 1 < -width2))
             {
-                selectedPos += new Vector2(1, 0);
-                accelerationCoroutines[3] = StartCoroutine(moveAcceleration(new Vector2(1, 0)));
+                if (Input.GetKeyDown(KeyCode.S))
+                {
+                    selectedPos += new Vector2(0, -1);
+                    accelerationCoroutines[2] = StartCoroutine(moveAcceleration(new Vector2(0, -1)));
+                }
+                if (Input.GetKeyDown(KeyCode.DownArrow))
+                {
+                    selectedPos += new Vector2(0, -1);
+                    accelerationCoroutines[6] = StartCoroutine(moveAcceleration(new Vector2(0, -1)));
+                }
             }
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+
+            if (!(posX + 1 > width2))
             {
-                selectedPos += new Vector2(1, 0);
-                accelerationCoroutines[7] = StartCoroutine(moveAcceleration(new Vector2(1, 0)));
+                if (Input.GetKeyDown(KeyCode.D))
+                {
+                    selectedPos += new Vector2(1, 0);
+                    accelerationCoroutines[3] = StartCoroutine(moveAcceleration(new Vector2(1, 0)));
+                }
+                if (Input.GetKeyDown(KeyCode.RightArrow))
+                {
+                    selectedPos += new Vector2(1, 0);
+                    accelerationCoroutines[7] = StartCoroutine(moveAcceleration(new Vector2(1, 0)));
+                }
             }
 
 
@@ -126,17 +138,8 @@ public class WallController : MonoBehaviour
             if (Input.GetKeyUp(KeyCode.DownArrow)) if (accelerationCoroutines[6] != null) StopCoroutine(accelerationCoroutines[6]);
             if (Input.GetKeyUp(KeyCode.RightArrow)) if (accelerationCoroutines[7] != null) StopCoroutine(accelerationCoroutines[7]);
 
-            //boundary check
-            float posXNew = selectedPos.x * gridGap;
-            float posYNew = selectedPos.y * gridGap;
-            if (posXNew >= -width2 && posXNew <= width2 && posYNew >= -width2 && posYNew <= width2)
-                selectingSquare.transform.position = new Vector3(selectedPos.x * gridGap, selectedPos.y * gridGap, selectingSquare.transform.position.z);
-
-            else
-            {
-                selectedPos.x = posX / gridGap;
-                selectedPos.y = posY / gridGap;
-            }
+            selectingSquare.transform.position = new Vector3(selectedPos.x * gridGap, selectedPos.y * gridGap, selectingSquare.transform.position.z);
+           
         }
     }
 
@@ -206,16 +209,19 @@ public class WallController : MonoBehaviour
 
         while (true)
         {
-            if (selectedPos.x * gridGap > -width2 && selectedPos.x * gridGap < width2 && selectedPos.y * gridGap > -width2 && selectedPos.y * gridGap < width2)
+            float posX = selectedPos.x * gridGap;
+            float posY = selectedPos.y * gridGap;
+           
+            //check boundarys
+            if (dir.y == 1 && !(posY + 1 > width2) || dir.x == -1 && !(posX - 1 < -width2) || dir.y == -1 && !(posY - 1 < -width2) || dir.x == 1 && !(posX + 1 > width2))
             {
                 selectedPos += dir;
                 yield return new WaitForSeconds(selectingSpeed);
-            }
+            }          
             else
                 yield return null;
 
         }
-
     }
 
 
