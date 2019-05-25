@@ -10,10 +10,14 @@ public class FloatingObject : MonoBehaviour
     [SerializeField] private float floatDirChangeSpd = 0.1f; // 0 means dont change initial float dir
 
     private Vector3 moveDir; //offset from my origin to move to
+    private Rigidbody rb;
+    private float speed;
     
     void Start()
     {
-        if (doFloat) moveDir = Random.insideUnitSphere * Random.Range(floatSpeedMin, floatSpeedMax);
+        rb = GetComponent<Rigidbody>();
+        speed = Random.Range(floatSpeedMin, floatSpeedMax);
+        if (doFloat) moveDir = Random.insideUnitSphere;
     }
 
 
@@ -23,8 +27,11 @@ public class FloatingObject : MonoBehaviour
         {
             moveDir += Random.insideUnitSphere * floatDirChangeSpd;
             moveDir.Normalize();
+            moveDir *= speed;
 
-            transform.position += moveDir * Time.deltaTime;
+            //transform.position += moveDir * Time.deltaTime;
+            //rb.AddForce(moveDir);
+            rb.velocity = moveDir;
         }
     }
 }
