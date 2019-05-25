@@ -11,7 +11,7 @@ public class SettingManager : MonoBehaviour
     [SerializeField] private GameObject[] cityChunks;
     [SerializeField] private GameObject[] forestChunks;
 
-    void Start()
+    void Awake()
     {
         currentSetting = startSetting;
     }
