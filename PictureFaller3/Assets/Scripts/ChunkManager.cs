@@ -8,12 +8,13 @@ public class ChunkManager : MonoBehaviour
     [SerializeField] private int chunksUntilPictureMax = 8;
     [SerializeField] private float chunkLength = 100f;
     [SerializeField] private int spawnAhead = 3;
-    [SerializeField] private GameObject[] allChunks;
+    //[SerializeField] private GameObject[] allChunks;
     [SerializeField] private GameObject pictureWallPre;
 
     private ObstacleManager obstacleManager;
 
     private PictureManager pictureManager;
+    private SettingManager settingManager;
     private Transform player;
     private GameObject currentPictureWall;
     private GameObject chunkParent;
@@ -21,6 +22,7 @@ public class ChunkManager : MonoBehaviour
 
     void Start()
     {
+        settingManager = GetComponent<SettingManager>();
         obstacleManager = GetComponent<ObstacleManager>();
         pictureManager = GetComponent<PictureManager>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -42,7 +44,7 @@ public class ChunkManager : MonoBehaviour
 
     private void spawnChunk(bool spawnObstacles, bool deleteLastChunk)
     {
-        var ch = Instantiate(allChunks[Random.Range(0, allChunks.Length)], Vector3.forward * zSpawnNext, Quaternion.identity);
+        var ch = Instantiate(settingManager.getRandomChunkCurrSetting(), Vector3.forward * zSpawnNext, Quaternion.identity);
         ch.transform.parent = chunkParent.transform;
         if(spawnObstacles) ch.GetComponent<ChunkController>().spawnObstacles();
         else ch.GetComponent<ChunkController>().disableAllObstacles();
@@ -72,6 +74,9 @@ public class ChunkManager : MonoBehaviour
     public void resetChunksAndWall()
     {
         Destroy(currentPictureWall);
+
+        for (int i = 0; i < chunkParent.transform.childCount; i++)
+            Destroy(chunkParent.transform.GetChild(i).gameObject);
 
         zSpawnNext = 0;
 
