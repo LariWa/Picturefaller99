@@ -14,11 +14,13 @@ public class TransitionManager : MonoBehaviour
 
     private ChunkManager chunkManager;
     private CameraManager cameraManager; 
+    private SettingManager settingManager; 
     private bool hitWall;
 
     void Start()
     {
         chunkManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<ChunkManager>();
+        settingManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<SettingManager>();
         cameraManager = Camera.main.GetComponent<CameraManager>();
 
         setFadeAlpha(0);
@@ -80,6 +82,8 @@ public class TransitionManager : MonoBehaviour
 
 
         // Screen is now completely white
+
+        settingManager.changeSettingToDifferentOne();
 
         chunkManager.resetChunksAndWall();
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().reroute();
