@@ -33,7 +33,7 @@ public class TransitionManager : MonoBehaviour
     }
 
 
-    public void hitPicWall()
+    public void doSettingTransition()
     {
         if(!hitWall)
         {
@@ -88,7 +88,7 @@ public class TransitionManager : MonoBehaviour
         chunkManager.resetChunksAndWall();
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().reroute();
 
-        cameraManager.setNormalCam();
+        cameraManager.setNormalCam(true);
 
         hitWall = false;
 

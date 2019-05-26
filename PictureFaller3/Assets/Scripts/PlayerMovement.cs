@@ -5,24 +5,32 @@ using DG.Tweening;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 16f;
-    [SerializeField] private float gravityNormal = 32f;
+    [SerializeField] private float xyDrag = 0; // between 0 and 1 to restrict floaty movement on xy axis (come to stop faster)
+    [SerializeField] private float controlSpeed = 16f; // how fast to move on xy axis from input
+    [SerializeField] private float gravity = 9.81f; //how fast fall accelerates
+    [SerializeField] private float maxFallSpeed = 10f; //maximum fall speed
+
+    [Space]
+
     //[SerializeField] private float slowmoCurve = 1;
     [SerializeField] private float slowmoDuration = 1; //how long until full stop
      //[SerializeField] private enum slowmoEase;
     [SerializeField] private float knockback = 2;
     [SerializeField] private float knockbackSideways = 2;
 
+    [Space]
+
+    [SerializeField] private float flyPicDur = 2f;
+
     private Rigidbody rb;
     private ScoreManager scoreManager;
     private ChunkManager chunkManager;
     private ScienceTimer scienceTimer;
     private PictureManager pictureManager;
-    private TransitionManager transitionManager;
+
     private float inputHor;
     private float inputVert;
     private float startFloatZ;
-    private float gravity;
     private float slowmoTimer;
 
     public bool divingDown { get; private set; }
@@ -32,13 +40,13 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        transitionManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<TransitionManager>();
+
         pictureManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<PictureManager>();
         scienceTimer = GameObject.FindGameObjectWithTag("Managers").GetComponent<ScienceTimer>();
         chunkManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<ChunkManager>();
-        scoreManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<ScoreManager>(); 
+        scoreManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<ScoreManager>();
 
-        gravity = gravityNormal;
+        Physics.gravity = new Vector3(0, 0, gravity);
     }
 
 
@@ -48,11 +56,16 @@ public class PlayerMovement : MonoBehaviour
 
         if (slowmoTimer <= 0)
         {
-            gravity = gravityNormal;
+            rb.useGravity = true;
             slowmoTimer = 0;
         }
-        if(floating) gravity = slowmoTimer.Remap(0, slowmoDuration, 0, gravityNormal);
+        if (floating)
+        {
+            rb.useGravity = false;
+            rb.velocity = Vector3.zero;
+            //gravity = slowmoTimer.Remap(0, slowmoDuration, 0, gravityNormal);
 
+        }
 
 
         //freeze player at -3 while camera fully zoomed in to hide him
@@ -68,11 +81,11 @@ public class PlayerMovement : MonoBehaviour
             pictureManager.selectedPic();
             divingDown = true;
             floating = false;
-            gravity = gravityNormal;
+            rb.useGravity = true;
 
-            // Vector3 target = transform.position;
-            //target.y = -3;
-            //transform.DOMove(target, 5f);
+            Vector3 target = chunkManager.getSelectSquarePos();
+            //target.z = transform.position.z;
+            transform.DOMove(target, flyPicDur).SetEase(Ease.InFlash);
         }
 
 
@@ -97,14 +110,36 @@ public class PlayerMovement : MonoBehaviour
         moveVec.Normalize();
 
 
-        rb.velocity = (moveVec * moveSpeed) + (Vector3.forward * gravity); //Bad...
+        //rb.velocity = (moveVec * moveSpeed) + (Vector3.forward * gravity); //Bad...
 
         //rb.AddForce(moveVec * speed, ForceMode.Impulse); //ForceMode.VelocityChange?  ADD DRAG, but not on y... maybe just bigger rb mass https://answers.unity.com/questions/1130605/can-i-prevent-rigidbody-drag-from-affecting-the-z.html
+
+
+        // Player controlls
+        rb.AddForce(moveVec * controlSpeed);//, ForceMode.Impulse);
+
+
+        // Drag
+        Vector3 vel = rb.velocity;
+        vel.x *= xyDrag;
+        vel.y *= xyDrag;
+        if (vel.z >= maxFallSpeed) vel.z = maxFallSpeed; // Max fall speed
+        rb.velocity = vel;
     }
 
-    public void knockBack()
+    public void knockBack(Vector3 objectPos)
     {
-        rb.AddForce(-transform.forward * knockback, ForceMode.Impulse);
+        rb.velocity = Vector3.zero;
+
+        //Prevent being knocked into positive z
+        var knockDirSideways = transform.position - objectPos;
+        knockDirSideways.z = 0f;
+        knockDirSideways.Normalize();
+        knockDirSideways *= knockbackSideways;
+
+        var knockVec = (-transform.forward * knockback) + knockDirSideways;
+
+        rb.AddForce(knockVec, ForceMode.Impulse);
         //transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 10);
     }
 
@@ -118,6 +153,7 @@ public class PlayerMovement : MonoBehaviour
             //First time hitting wind
             if (!floating)
             {
+                Camera.main.GetComponent<CameraManager>().setPictureCam();
                 chunkManager.setSelectSquarePos(new Vector3(transform.position.x, transform.position.y, chunkManager.getSelectSquarePos().z));
                 slowmoTimer = slowmoDuration;
                 scienceTimer.resetTimer();
@@ -127,7 +163,6 @@ public class PlayerMovement : MonoBehaviour
         else if (other.tag == "Wall")
         {
             pictureManager.hitPicWall();
-            transitionManager.hitPicWall();
             divingDown = false;
             floating = false;
         }

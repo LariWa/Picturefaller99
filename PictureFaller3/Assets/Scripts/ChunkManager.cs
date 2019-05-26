@@ -68,6 +68,18 @@ public class ChunkManager : MonoBehaviour
         currentPictureWall.GetComponent<WallController>().deleteNearObstacles();
     }
 
+    public void spawnPicWallOffsetFromLast()
+    {
+        var oldPos = currentPictureWall.transform.position;
+
+        Destroy(currentPictureWall);
+
+        var chunksUntilPicture = Random.Range(chunksUntilPictureMin, chunksUntilPictureMax);
+        currentPictureWall = Instantiate(pictureWallPre, Vector3.forward * chunksUntilPicture * chunkLength + oldPos, Quaternion.Euler(-90, 0, 0));  //TODO: probably not accurate pos !!!
+
+        currentPictureWall.GetComponent<WallController>().deleteNearObstacles();
+    }
+
 
 
 
