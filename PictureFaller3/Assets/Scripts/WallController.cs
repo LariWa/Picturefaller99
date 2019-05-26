@@ -41,7 +41,7 @@ public class WallController : MonoBehaviour
         for (int y = gridCells - 1; y >= 0; y--)
             for (int x = 0; x < gridCells; x++)
             {
-                var frame = Instantiate(pictureBlockPrefab, new Vector3(x * gridGap - maxDistHalf, y * gridGap - maxDistHalf, transform.position.z), Quaternion.Euler(-90, 0, 0));
+                var frame = Instantiate(pictureBlockPrefab, new Vector3(x * gridGap - maxDistHalf, y * gridGap - maxDistHalf, transform.position.z), Quaternion.Euler(-90,0,0));
 
                 frame.transform.parent = imgParent.transform;
                 frame.transform.localScale = new Vector3(pictureBlockScale, pictureBlockScale, pictureBlockScale);
@@ -70,8 +70,8 @@ public class WallController : MonoBehaviour
             float posX = selectedPos.x * gridGap;
             float posY = selectedPos.y * gridGap;
             float width2 = (Mathf.Sqrt(allPictures.Length - 1) * gridGap) / 2 - 1;
-                
-            if(!(posY + 1 > width2))
+
+            if (!(posY + 1 > width2))
             {
                 if (Input.GetKeyDown(KeyCode.W))
                 {
@@ -139,8 +139,9 @@ public class WallController : MonoBehaviour
             if (Input.GetKeyUp(KeyCode.RightArrow)) if (accelerationCoroutines[7] != null) StopCoroutine(accelerationCoroutines[7]);
 
             selectingSquare.transform.position = new Vector3(selectedPos.x * gridGap, selectedPos.y * gridGap, selectingSquare.transform.position.z);
-           
+
         }
+
     }
 
 
@@ -159,7 +160,6 @@ public class WallController : MonoBehaviour
         }
     }
 
-
     public Vector3 getSelectSquarePos()
     {
         return selectingSquare.transform.position;
@@ -177,13 +177,11 @@ public class WallController : MonoBehaviour
         var squareDim = (Mathf.Sqrt(allPictures.Length) / 2) * gridGap;
         var pos = selectedPos + new Vector2(squareDim / 2, -squareDim / 2);
         pos.y = -pos.y;
-        if ((squareDim % 2) != 0) pos -= new Vector2(0.5f, 0.5f); //Make up for uneven length eg 9 boxes instead of 8
+        if ((squareDim % 2) != 0) pos -= new Vector2(0.5f,0.5f); //Make up for uneven length eg 9 boxes instead of 8
 
 
         //Translate to index that position would have in the array
-
         return (int) (pos.y * squareDim + pos.x);
-
     }
 
     private void disableSelection()
@@ -212,13 +210,13 @@ public class WallController : MonoBehaviour
         {
             float posX = selectedPos.x * gridGap;
             float posY = selectedPos.y * gridGap;
-           
+
             //check boundarys
             if (dir.y == 1 && !(posY + 1 > width2) || dir.x == -1 && !(posX - 1 < -width2) || dir.y == -1 && !(posY - 1 < -width2) || dir.x == 1 && !(posX + 1 > width2))
             {
                 selectedPos += dir;
                 yield return new WaitForSeconds(selectingSpeed);
-            }          
+            }
             else
                 yield return null;
 
