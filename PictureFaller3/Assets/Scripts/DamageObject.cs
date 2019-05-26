@@ -24,5 +24,12 @@ public class DamageObject : MonoBehaviour
 
         if (thing != null)
             thing.damagePlayer(damage);
+
+        var playMov = other.transform.GetComponentInChildren<PlayerMovement>();
+        if (playMov != null)
+        {
+            playMov.knockBack();
+        }
     }
-}
+
+    }

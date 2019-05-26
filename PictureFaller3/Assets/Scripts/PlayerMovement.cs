@@ -79,8 +79,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (divingDown)
         {
-            inputHor = 4;
-            inputVert = 4;
+            inputHor = 0;
+            inputVert = 0;
         }
         else if (floating)
         {
@@ -100,6 +100,10 @@ public class PlayerMovement : MonoBehaviour
         //rb.AddForce(moveVec * speed, ForceMode.Impulse); //ForceMode.VelocityChange?  ADD DRAG, but not on y... maybe just bigger rb mass https://answers.unity.com/questions/1130605/can-i-prevent-rigidbody-drag-from-affecting-the-z.html
     }
 
+    public void knockBack()
+    {
+        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 10);
+    }
 
 
 
@@ -123,6 +127,11 @@ public class PlayerMovement : MonoBehaviour
             transitionManager.hitPicWall();
             divingDown = false;
             floating = false;
+        }
+        //Delete Damage object
+        else if (other.name == "Collider + Dmg Logic")
+        {
+            Destroy(other.transform.parent.gameObject);
         }
     }
 
