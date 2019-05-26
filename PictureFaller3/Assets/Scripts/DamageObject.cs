@@ -23,13 +23,11 @@ public class DamageObject : MonoBehaviour
         var thing = other.transform.GetComponentInChildren<PlayerStats>();
 
         if (thing != null)
-            thing.damagePlayer(damage);
-
-        var playMov = other.transform.GetComponentInChildren<PlayerMovement>();
-        if (playMov != null)
         {
-            playMov.knockBack();
+            thing.damagePlayer(damage);
+            other.transform.GetComponentInChildren<PlayerMovement>().knockBack();
+            Destroy(transform.parent.gameObject);
         }
-    }
 
     }
+}

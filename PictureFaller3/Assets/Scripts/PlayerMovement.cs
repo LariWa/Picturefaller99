@@ -9,7 +9,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float gravityNormal = 32f;
     //[SerializeField] private float slowmoCurve = 1;
     [SerializeField] private float slowmoDuration = 1; //how long until full stop
-    //[SerializeField] private enum slowmoEase;
+     //[SerializeField] private enum slowmoEase;
+    [SerializeField] private float knockback = 2;
+    [SerializeField] private float knockbackSideways = 2;
 
     private Rigidbody rb;
     private ScoreManager scoreManager;
@@ -102,7 +104,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void knockBack()
     {
-        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 10);
+        rb.AddForce(-transform.forward * knockback, ForceMode.Impulse);
+        //transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 10);
     }
 
 
@@ -127,11 +130,6 @@ public class PlayerMovement : MonoBehaviour
             transitionManager.hitPicWall();
             divingDown = false;
             floating = false;
-        }
-        //Delete Damage object
-        else if (other.name == "Collider + Dmg Logic")
-        {
-            Destroy(other.transform.parent.gameObject);
         }
     }
 

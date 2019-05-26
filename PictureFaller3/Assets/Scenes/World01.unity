@@ -3013,7 +3013,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae918e2cfb8b6d34ea1ad2e4d5a27285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startSetting: 1
+  startSetting: 0
   cityChunks:
   - {fileID: 997914699770420152, guid: a228b1e1983cfcd46a5fbb9effdcd9a4, type: 3}
   - {fileID: 997914699770420152, guid: d592c8873ad91fa479af9174ddb646b5, type: 3}
@@ -4539,6 +4539,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 91.23601
+      objectReference: {fileID: 0}
+    - target: {fileID: 2117485184423083691, guid: 1945a9b6cfd321644bdfc680efd1b7cb,
+        type: 3}
+      propertyPath: knockback
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 2117485184423083691, guid: 1945a9b6cfd321644bdfc680efd1b7cb,
+        type: 3}
+      propertyPath: knockbackSideways
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1945a9b6cfd321644bdfc680efd1b7cb, type: 3}
