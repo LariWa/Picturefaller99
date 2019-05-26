@@ -79,8 +79,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (divingDown)
         {
-            inputHor = 0;
-            inputVert = 0;
+            inputHor = 4;
+            inputVert = 4;
         }
         else if (floating)
         {
