@@ -5,8 +5,6 @@ using UnityEngine;
 public class DamageObject : MonoBehaviour
 {
     [SerializeField] private int damage = 5;
-    [SerializeField] private bool doFall;
-    [SerializeField] private float gravity = 4;
     private Rigidbody rb;
     
 
@@ -17,7 +15,7 @@ public class DamageObject : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(doFall) rb.velocity = Vector3.forward * gravity;
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -25,6 +23,11 @@ public class DamageObject : MonoBehaviour
         var thing = other.transform.GetComponentInChildren<PlayerStats>();
 
         if (thing != null)
+        {
             thing.damagePlayer(damage);
+            other.transform.GetComponentInChildren<PlayerMovement>().knockBack(transform.position);
+            Destroy(transform.parent.gameObject);
+        }
+
     }
 }
