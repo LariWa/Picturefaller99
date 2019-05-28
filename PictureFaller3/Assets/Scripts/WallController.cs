@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WallController : MonoBehaviour
 {
@@ -22,6 +23,10 @@ public class WallController : MonoBehaviour
     private PictureManager wallManager;
 
     private Vector3 playerStartOffset = Vector3.zero;
+
+
+    public Image background;
+    public Image pictureToFind;
 
     void Start()
     {
@@ -182,6 +187,5 @@ public class WallController : MonoBehaviour
             yield return new WaitForSeconds(selectingSpeed);
         }
     }
-
 
 }

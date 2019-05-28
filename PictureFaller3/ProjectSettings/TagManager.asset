@@ -9,6 +9,7 @@ TagManager:
   - Goal
   - Wind
   - Health
+  - searchpic
   layers:
   - Default
   - TransparentFX

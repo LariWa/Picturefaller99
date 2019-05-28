@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     private float gravity;
     private float slowmoTimer;
 
+
     public bool divingDown { get; private set; }
     public bool floating { get; private set; } // rename to inSlowmo
 
