@@ -7,6 +7,7 @@ public class CameraManager : MonoBehaviour
 {
 
     [SerializeField] private float defaultBlendTime = 2f;
+    [SerializeField] private Vector3 fixedPosOffset;
     [SerializeField] private GameObject camNormal;
     [SerializeField] private GameObject camPics;
     private CinemachineFramingTransposer framing;
@@ -61,7 +62,7 @@ public class CameraManager : MonoBehaviour
 
 
         //Dont follow player but stay at his last position
-        fixedPos.position = new Vector3(0,0, player.transform.position.z);
+        fixedPos.position = new Vector3(0,0, player.transform.position.z) + fixedPosOffset;
         camPics.GetComponent<CinemachineVirtualCamera>().Follow = fixedPos;
 
         camPics.SetActive(true);

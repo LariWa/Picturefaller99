@@ -153,6 +153,7 @@ public class PlayerMovement : MonoBehaviour
             //First time hitting wind
             if (!floating)
             {
+                pictureManager.rollPicToSearch();
                 Camera.main.GetComponent<CameraManager>().setPictureCam();
                 chunkManager.setSelectSquarePos(new Vector3(transform.position.x, transform.position.y, chunkManager.getSelectSquarePos().z));
                 slowmoTimer = slowmoDuration;

@@ -9,7 +9,7 @@ public class PictureManager : MonoBehaviour
     private int currPicSearched;
 
     [SerializeField] private Sprite blackPicture;
-    [SerializeField] private Sprite[] allPictures; // CURRENTLY THESE ARE HARDWIRED IN WALL PREFAB(?)
+    
 
     private ChunkManager chunkManager;
     private ScienceTimer scienceTimer;
@@ -22,11 +22,10 @@ public class PictureManager : MonoBehaviour
         chunkManager = GetComponent<ChunkManager>();
         scienceTimer = GetComponent<ScienceTimer>();
         scoreManager = GetComponent<ScoreManager>();
-        transitionManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<TransitionManager>();
+        transitionManager = GetComponent<TransitionManager>();
 
-        currPicSearched = Random.Range(0,allPictures.Length);
-        picSearched.sprite = allPictures[currPicSearched];
-        //else picSearched.sprite = blackPicture;
+        //rollPicToSearch();
+        picSearched.sprite = null;
     }
 
 
@@ -37,7 +36,7 @@ public class PictureManager : MonoBehaviour
     public bool hitCorrectPicture()
     {
         var selectedPictureIndex = chunkManager.getCurrPictureWall().GetComponent<WallController>().getSelectedPicture();
-        
+
         if (selectedPictureIndex == currPicSearched) return true;
 
         return false;
@@ -66,12 +65,17 @@ public class PictureManager : MonoBehaviour
             Camera.main.GetComponent<CameraManager>().setNormalCam(false);
         }
 
-        currPicSearched = Random.Range(0, allPictures.Length);
-        picSearched.sprite = allPictures[currPicSearched];
-        //else picSearched.sprite = blackPicture;
+
+        picSearched.sprite = null;
 
 
         //chunkManager.spawnPicWall();
     }
 
+    public void rollPicToSearch()
+    {
+        var currentPics = GetComponent<SettingManager>().getAllCurrentPicturesInSort();
+        currPicSearched = Random.Range(0, currentPics.Length);
+        picSearched.sprite = currentPics[currPicSearched];
+    }
 }

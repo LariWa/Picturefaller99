@@ -5,7 +5,7 @@ using UnityEngine;
 public class WallController : MonoBehaviour
 {
     [SerializeField] private Sprite blackPicture;
-    [SerializeField] private Sprite[] allPictures; // ammount needs to be squared so 4, 9, 16, 25 etc
+    private Sprite[] allPictures; // ammount needs to be squared so 4, 9, 16, 25 etc
     [SerializeField] private GameObject pictureBlockPrefab; //TODO: make frame instead
     [SerializeField] private float pictureBlockScale = 1.5f;
     [SerializeField] private float gridGap = 2f;
@@ -29,6 +29,9 @@ public class WallController : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         wallManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<PictureManager>();
 
+
+        GameObject.FindGameObjectWithTag("Managers").GetComponent<SettingManager>().randomSortForCurrSetting();
+        allPictures = GameObject.FindGameObjectWithTag("Managers").GetComponent<SettingManager>().getAllCurrentPicturesInSort();
 
         // ------ Init ---------
         GameObject imgParent = new GameObject("Image Parent");
@@ -141,7 +144,6 @@ public class WallController : MonoBehaviour
             selectingSquare.transform.position = new Vector3(selectedPos.x * gridGap, selectedPos.y * gridGap, selectingSquare.transform.position.z);
 
         }
-
     }
 
 
@@ -173,15 +175,27 @@ public class WallController : MonoBehaviour
 
     public int getSelectedPicture()
     {
+        /*
         //Go from world coordinates to array rotation (array has weird orientation)
-        var squareDim = (Mathf.Sqrt(allPictures.Length) / 2) * gridGap;
-        var pos = selectedPos + new Vector2(squareDim / 2, -squareDim / 2);
+        float squareDim = (Mathf.Sqrt(allPictures.Length) / 2) * gridGap;
+        Vector2 pos = selectedPos + new Vector2(squareDim / 2, -squareDim / 2);
         pos.y = -pos.y;
         if ((squareDim % 2) != 0) pos -= new Vector2(0.5f,0.5f); //Make up for uneven length eg 9 boxes instead of 8
 
 
         //Translate to index that position would have in the array
-        return (int) (pos.y * squareDim + pos.x);
+        return Mathf.RoundToInt(pos.y * squareDim + pos.x);*/
+
+
+        // DONT USE VISUALS (gridGap)
+        float squareWidth = Mathf.Sqrt(allPictures.Length);
+
+        var selectPosToArr = selectedPos;
+        selectPosToArr.y = -selectPosToArr.y;
+        selectPosToArr = selectPosToArr + new Vector2((int)(squareWidth/2), (int)(squareWidth/2));
+
+        return Mathf.RoundToInt(selectPosToArr.y * (int)squareWidth + selectPosToArr.x);
+
     }
 
     private void disableSelection()
