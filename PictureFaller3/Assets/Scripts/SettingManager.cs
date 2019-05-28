@@ -77,7 +77,7 @@ public class SettingManager : MonoBehaviour
 
 
                 var id = int.Parse(sortId) - 1;
-                if(id <= settingAllPictures.Length)
+                if(id < settingAllPictures.Length)
                 {
                     //print(id);
                     settinPicturesInSort[index] = settingAllPictures[id];

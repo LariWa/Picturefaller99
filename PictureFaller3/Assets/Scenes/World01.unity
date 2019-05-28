@@ -3102,12 +3102,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 7ff3b72d302fba5408f5aec320a0d882, type: 3}
   - {fileID: 21300000, guid: f6a34550cb549db4da16933c6d3c0269, type: 3}
   citySorts:
-  - {fileID: 4900000, guid: 5da139af35c117e4687fe6c0a8c5cc38, type: 3}
-  - {fileID: 4900000, guid: 4d984e8ee17fe264ba40803e59426b3a, type: 3}
+  - {fileID: 4900000, guid: b4854cae8339508409a84bb2c4a6728c, type: 3}
+  - {fileID: 4900000, guid: 4815346c484744944b8623316de5a787, type: 3}
   forestSorts:
-  - {fileID: 4900000, guid: 8aae15a525cd4be47b07e348888e3dc2, type: 3}
-  - {fileID: 4900000, guid: b0f3a080d7789d34a84143ec69b320a8, type: 3}
-  useSorts: 0
+  - {fileID: 4900000, guid: 7333cd3749522f54bbafd742b4546400, type: 3}
+  - {fileID: 4900000, guid: 72f815bb6b1608d47bdd4ee4ea74828d, type: 3}
+  useSorts: 1
 --- !u!114 &1645297939
 MonoBehaviour:
   m_ObjectHideFlags: 0
