@@ -75,10 +75,14 @@ public class SettingManager : MonoBehaviour
                 if (int.TryParse(sortCars[c + 2].ToString(), out int n)) sortId += sortCars[c + 2]; //Bad implementation 
                 if (int.TryParse(sortCars[c + 3].ToString(), out int m)) sortId += sortCars[c + 3];
 
-                //print(sortId);
 
-                settinPicturesInSort[index] = settingAllPictures[int.Parse(sortId) - 1];
-                index++;
+                var id = int.Parse(sortId) - 1;
+                if(id <= settingAllPictures.Length)
+                {
+                    //print(id);
+                    settinPicturesInSort[index] = settingAllPictures[id];
+                    index++;
+                }
             }
 
 

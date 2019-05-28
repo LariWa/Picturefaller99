@@ -192,7 +192,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9083136, g: 0.8349056, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2917,7 +2917,7 @@ MonoBehaviour:
   chunksUntilPictureMax: 5
   chunkLength: 100
   spawnAhead: 3
-  pictureWallPre: {fileID: 4817432992000025126, guid: c415676ef210fe6428c7002d80253889,
+  pictureWallPre: {fileID: 4817432992000025126, guid: cafce1e2074d24d4e89dda3f514cc3a9,
     type: 3}
 --- !u!114 &1645297938
 MonoBehaviour:

@@ -3107,7 +3107,7 @@ MonoBehaviour:
   forestSorts:
   - {fileID: 4900000, guid: 8aae15a525cd4be47b07e348888e3dc2, type: 3}
   - {fileID: 4900000, guid: b0f3a080d7789d34a84143ec69b320a8, type: 3}
-  is15x15: 0
+  useSorts: 0
 --- !u!114 &1645297939
 MonoBehaviour:
   m_ObjectHideFlags: 0
