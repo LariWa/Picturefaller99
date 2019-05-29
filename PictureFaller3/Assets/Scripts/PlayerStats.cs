@@ -13,7 +13,7 @@ public class PlayerStats : MonoBehaviour
 
     void Start()
     {
-        gameOver = GetComponent<GameOverMenu>();
+        //gameOver = GetComponent<GameOverMenu>();
         health = maxHealth;
         hpBar.maxValue = maxHealth;
     }
