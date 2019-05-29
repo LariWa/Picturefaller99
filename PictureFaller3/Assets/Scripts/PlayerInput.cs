@@ -15,7 +15,7 @@ public class PlayerInput : MonoBehaviour
 
     void Update()
     {
-        if(!movement.floating && Input.GetKey(KeyCode.Space))
+        if(!movement.floating && !movement.divingDown && Input.GetKey(KeyCode.Space))
             skills.getPrimary().tryToDoSkill(transform.position + Vector3.down);
 
 

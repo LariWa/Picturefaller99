@@ -6,10 +6,20 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
+    [SerializeField] private float normalGravity = 32f;
+    private float gravity;
+    private Rigidbody rb;
 
-
-    void Update()
+    private void Start()
     {
+        rb = GetComponent<Rigidbody>();
+    }
+
+    void FixedUpdate()
+    {
+        gravity = normalGravity;
+
+       rb.velocity = Vector3.down * gravity; 
     }
 
 }

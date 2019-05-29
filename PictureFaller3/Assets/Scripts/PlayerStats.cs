@@ -9,8 +9,7 @@ public class PlayerStats : MonoBehaviour
 
     [SerializeField] private Slider hpBar;
     [SerializeField] private int maxHealth = 100;
-    private int health;
-    private GameOverMenu gameOver;
+    static public int health;
 
     void Start()
     {
@@ -18,17 +17,20 @@ public class PlayerStats : MonoBehaviour
         health = maxHealth;
         hpBar.maxValue = maxHealth;
     }
-    
+
     void Update()
 
     {
-        hpBar.value = health; //TODO: sometimes trigger doesnt work?? 
+        hpBar.value = health; //TODO: sometimes trigger doesnt work??
 
         if (health <= 0)
             // Time.timeScale = 0; //TODO: stop setting timescale in time manager
             // SceneManager.LoadScene("GameOverMenu");
-            gameOver.gameObject.SetActive(true);
-            
+            // gameOver.gameObject.SetActive(true);
+
+            //Player is dead, game over
+            Time.timeScale = 0; //TODO: stop setting timescale in time manager
+
     }
 
     public void damagePlayer(int damage)
