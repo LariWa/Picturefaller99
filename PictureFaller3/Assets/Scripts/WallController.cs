@@ -31,8 +31,8 @@ public class WallController : MonoBehaviour
         wallManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<PictureManager>();
 
 
-        GameObject.FindGameObjectWithTag("Managers").GetComponent<SettingManager>().randomSortForCurrSetting();
-        allPictures = GameObject.FindGameObjectWithTag("Managers").GetComponent<SettingManager>().getAllCurrentPicturesInSort();
+        GameObject.FindGameObjectWithTag("Managers").GetComponent<SettingManager>().randomSortForNextSetting();
+        allPictures = GameObject.FindGameObjectWithTag("Managers").GetComponent<SettingManager>().getAllNextPicturesInSort();
 
         // ------ Init ---------
         GameObject imgParent = new GameObject("Image Parent");

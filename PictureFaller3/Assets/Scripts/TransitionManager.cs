@@ -83,7 +83,7 @@ public class TransitionManager : MonoBehaviour
 
         // Screen is now completely white
 
-        settingManager.changeSettingToDifferentOne();
+        settingManager.changeSettingToPictures();
 
         chunkManager.resetChunksAndWall();
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().reroute();

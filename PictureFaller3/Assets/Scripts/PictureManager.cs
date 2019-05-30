@@ -74,7 +74,7 @@ public class PictureManager : MonoBehaviour
 
     public void rollPicToSearch()
     {
-        var currentPics = GetComponent<SettingManager>().getAllCurrentPicturesInSort();
+        var currentPics = GetComponent<SettingManager>().getAllNextPicturesInSort();
         currPicSearched = Random.Range(0, currentPics.Length);
         picSearched.sprite = currentPics[currPicSearched];
     }

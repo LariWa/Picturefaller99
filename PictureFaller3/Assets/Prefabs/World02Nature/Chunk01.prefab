@@ -51,8 +51,8 @@ MonoBehaviour:
   - {fileID: 7206916430411002965, guid: 92753a935f27351449da18ebd8f46375, type: 3}
   - {fileID: 5911113092883533101, guid: 786023ebd0d345e478429c3523bd938c, type: 3}
   obstacleParent: {fileID: 8656679429761202976}
-  randObstacAmmount: 30
-  randomMoreOrLessObstac: 15
+  randObstacAmmount: 20
+  randomMoreOrLessObstac: 10
 --- !u!1 &2197970032658731808
 GameObject:
   m_ObjectHideFlags: 0
