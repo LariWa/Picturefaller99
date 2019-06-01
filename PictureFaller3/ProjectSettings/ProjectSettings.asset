@@ -626,10 +626,10 @@ PlayerSettings:
   facebookXfbml: 0
   facebookFrictionlessRequests: 1
   apiCompatibilityLevel: 6
-  cloudProjectId: e2e7b620-9b03-4795-839a-1444e0ac2af9
+  cloudProjectId: 6fe75be6-e3e3-4f19-8adc-0525a617a0a5
   framebufferDepthMemorylessMode: 0
   projectName: PictureFaller2
-  organizationId: nitero
+  organizationId: unity_4t9n9kf7wyx6tq
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
