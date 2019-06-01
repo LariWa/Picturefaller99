@@ -14,6 +14,7 @@ public class PictureManager : MonoBehaviour
     private ChunkManager chunkManager;
     private ScienceTimer scienceTimer;
     private ScoreManager scoreManager;
+    private DifficultyManager difficultyManager;
     private TransitionManager transitionManager;
 
 
@@ -22,6 +23,7 @@ public class PictureManager : MonoBehaviour
         chunkManager = GetComponent<ChunkManager>();
         scienceTimer = GetComponent<ScienceTimer>();
         scoreManager = GetComponent<ScoreManager>();
+        difficultyManager = GetComponent<DifficultyManager>();
         transitionManager = GetComponent<TransitionManager>();
 
         //rollPicToSearch();
@@ -65,6 +67,7 @@ public class PictureManager : MonoBehaviour
             Camera.main.GetComponent<CameraManager>().setNormalCam(false);
         }
 
+        difficultyManager.hitWall();
 
         picSearched.sprite = null;
 
@@ -74,7 +77,8 @@ public class PictureManager : MonoBehaviour
 
     public void rollPicToSearch()
     {
-        var currentPics = GetComponent<SettingManager>().getAllNextPicturesInSort();
+        var settingManager = GetComponent<SettingManager>();
+        var currentPics = settingManager.getAllPicturesInSort(settingManager.getNextSetting());
         currPicSearched = Random.Range(0, currentPics.Length);
         picSearched.sprite = currentPics[currPicSearched];
     }

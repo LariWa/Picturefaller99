@@ -51,8 +51,7 @@ MonoBehaviour:
   - {fileID: 7206916430411002965, guid: 92753a935f27351449da18ebd8f46375, type: 3}
   - {fileID: 5911113092883533101, guid: 786023ebd0d345e478429c3523bd938c, type: 3}
   obstacleParent: {fileID: 8656679429761202976}
-  randObstacAmmount: 20
-  randomMoreOrLessObstac: 10
+  playAreaSpawnObjWidth: 8
 --- !u!1 &2197970032658731808
 GameObject:
   m_ObjectHideFlags: 0
@@ -886,6 +885,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 34.729
       objectReference: {fileID: 0}
+    - target: {fileID: 2826332133075512459, guid: 9f7ed25ac2305574e803b4c807127420,
+        type: 3}
+      propertyPath: doFloat
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f7ed25ac2305574e803b4c807127420, type: 3}
 --- !u!4 &7830941740642268269 stripped
@@ -1249,6 +1253,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3665917911556500046, guid: 28182a8e3be0190478d4c0cc124dcbc6,
+        type: 3}
+      propertyPath: doFloat
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28182a8e3be0190478d4c0cc124dcbc6, type: 3}
 --- !u!4 &7206916430411002964 stripped
@@ -1399,6 +1408,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -31.496002
       objectReference: {fileID: 0}
+    - target: {fileID: 3441090135423082320, guid: eb659f301947be8499461f134a5a8cf9,
+        type: 3}
+      propertyPath: doFloat
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb659f301947be8499461f134a5a8cf9, type: 3}
 --- !u!4 &8193131634832015731 stripped
@@ -1473,6 +1487,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -135
+      objectReference: {fileID: 0}
+    - target: {fileID: 2826332133075512459, guid: 9f7ed25ac2305574e803b4c807127420,
+        type: 3}
+      propertyPath: doFloat
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f7ed25ac2305574e803b4c807127420, type: 3}
@@ -1761,6 +1780,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 22.344002
+      objectReference: {fileID: 0}
+    - target: {fileID: 1253218065601488401, guid: 786023ebd0d345e478429c3523bd938c,
+        type: 3}
+      propertyPath: doFloat
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 786023ebd0d345e478429c3523bd938c, type: 3}
@@ -2062,6 +2086,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2839573946770022249, guid: 92753a935f27351449da18ebd8f46375,
+        type: 3}
+      propertyPath: doFloat
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 92753a935f27351449da18ebd8f46375, type: 3}
 --- !u!4 &4024658092408056167 stripped
@@ -2299,6 +2328,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
       objectReference: {fileID: 0}
+    - target: {fileID: 2839573946770022249, guid: 92753a935f27351449da18ebd8f46375,
+        type: 3}
+      propertyPath: doFloat
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 92753a935f27351449da18ebd8f46375, type: 3}
 --- !u!4 &1465593127699854088 stripped
@@ -2372,6 +2406,11 @@ PrefabInstance:
     - target: {fileID: 7229697022889052086, guid: 9f7ed25ac2305574e803b4c807127420,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2826332133075512459, guid: 9f7ed25ac2305574e803b4c807127420,
+        type: 3}
+      propertyPath: doFloat
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

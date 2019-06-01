@@ -212,14 +212,16 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if(dashTimer >= 0 && lastDir == new Vector2(0, 1))
+            if (dashTimer >= 0 && lastDir == new Vector2(0, 1))
             {
                 rb.AddForce(lastDir * dashImpulse, ForceMode.Impulse);
                 dashTimer = -1;
             }
-
-            dashTimer = dashDelay;
-            lastDir = new Vector2(0, 1);
+            else
+            {
+                dashTimer = dashDelay;
+                lastDir = new Vector2(0, 1);
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
@@ -229,9 +231,11 @@ public class PlayerMovement : MonoBehaviour
                 rb.AddForce(lastDir * dashImpulse, ForceMode.Impulse);
                 dashTimer = -1;
             }
-
-            dashTimer = dashDelay;
-            lastDir = new Vector2(-1, 0);
+            else
+            {
+                dashTimer = dashDelay;
+                lastDir = new Vector2(-1, 0);
+            }
         }
 
 
@@ -242,9 +246,11 @@ public class PlayerMovement : MonoBehaviour
                 rb.AddForce(lastDir * dashImpulse, ForceMode.Impulse);
                 dashTimer = -1;
             }
-
-            dashTimer = dashDelay;
-            lastDir = new Vector2(0, -1);
+            else
+            {
+                dashTimer = dashDelay;
+                lastDir = new Vector2(0, -1);
+            }
         }
 
 
@@ -255,14 +261,16 @@ public class PlayerMovement : MonoBehaviour
                 rb.AddForce(lastDir * dashImpulse, ForceMode.Impulse);
                 dashTimer = -1;
             }
-
-            dashTimer = dashDelay;
-            lastDir = new Vector2(1, 0);
+            else
+            {
+                dashTimer = dashDelay;
+                lastDir = new Vector2(1, 0);
+            }
         }
 
     }
 
-
+    
     private IEnumerator dashCorout(Vector2 dir)
     {
         yield return new WaitForSeconds(dashDelay);
