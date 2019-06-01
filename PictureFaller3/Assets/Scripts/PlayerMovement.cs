@@ -215,7 +215,7 @@ public class PlayerMovement : MonoBehaviour
             if(dashTimer >= 0 && lastDir == new Vector2(0, 1))
             {
                 rb.AddForce(lastDir * dashImpulse, ForceMode.Impulse);
-                dashTimer = 0;
+                dashTimer = -1;
             }
 
             dashTimer = dashDelay;
@@ -227,7 +227,7 @@ public class PlayerMovement : MonoBehaviour
             if (dashTimer >= 0 && lastDir == new Vector2(-1, 0))
             {
                 rb.AddForce(lastDir * dashImpulse, ForceMode.Impulse);
-                dashTimer = 0;
+                dashTimer = -1;
             }
 
             dashTimer = dashDelay;
@@ -240,7 +240,7 @@ public class PlayerMovement : MonoBehaviour
             if (dashTimer >= 0 && lastDir == new Vector2(0, -1))
             {
                 rb.AddForce(lastDir * dashImpulse, ForceMode.Impulse);
-                dashTimer = 0;
+                dashTimer = -1;
             }
 
             dashTimer = dashDelay;
@@ -253,7 +253,7 @@ public class PlayerMovement : MonoBehaviour
             if (dashTimer >= 0 && lastDir == new Vector2(1, 0))
             {
                 rb.AddForce(lastDir * dashImpulse, ForceMode.Impulse);
-                dashTimer = 0;
+                dashTimer = -1;
             }
 
             dashTimer = dashDelay;

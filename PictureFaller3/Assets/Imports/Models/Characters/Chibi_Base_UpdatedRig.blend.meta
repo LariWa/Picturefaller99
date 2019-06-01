@@ -1,85 +1,10 @@
 fileFormatVersion: 2
-guid: e1b44d44ace9d3c42a1581bcc8963018
+guid: 815b1aa6de7567444a49a7381860b586
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: bip
-    100002: bip Head
-    100004: bip L Calf
-    100006: bip L Clavicle
-    100008: bip L Finger0
-    100010: bip L Finger01
-    100012: bip L Finger1
-    100014: bip L Finger11
-    100016: bip L Foot
-    100018: bip L Forearm
-    100020: bip L Hand
-    100022: bip L Thigh
-    100024: bip L Toe0
-    100026: bip L UpperArm
-    100028: bip Neck
-    100030: bip Pelvis
-    100032: bip R Calf
-    100034: bip R Clavicle
-    100036: bip R Finger0
-    100038: bip R Finger01
-    100040: bip R Finger1
-    100042: bip R Finger11
-    100044: bip R Foot
-    100046: bip R Forearm
-    100048: bip R Hand
-    100050: bip R Thigh
-    100052: bip R Toe0
-    100054: bip R UpperArm
-    100056: bip Spine
-    100058: bip Spine1
-    100060: //RootNode
-    100062: lpMaleG
-    100064: rig_CharRoot
-    400000: bip
-    400002: bip Head
-    400004: bip L Calf
-    400006: bip L Clavicle
-    400008: bip L Finger0
-    400010: bip L Finger01
-    400012: bip L Finger1
-    400014: bip L Finger11
-    400016: bip L Foot
-    400018: bip L Forearm
-    400020: bip L Hand
-    400022: bip L Thigh
-    400024: bip L Toe0
-    400026: bip L UpperArm
-    400028: bip Neck
-    400030: bip Pelvis
-    400032: bip R Calf
-    400034: bip R Clavicle
-    400036: bip R Finger0
-    400038: bip R Finger01
-    400040: bip R Finger1
-    400042: bip R Finger11
-    400044: bip R Foot
-    400046: bip R Forearm
-    400048: bip R Hand
-    400050: bip R Thigh
-    400052: bip R Toe0
-    400054: bip R UpperArm
-    400056: bip Spine
-    400058: bip Spine1
-    400060: //RootNode
-    400062: lpMaleG
-    400064: rig_CharRoot
-    2100000: peopleColors
-    4300000: lpMaleG
-    7400000: Take 001
-    9500000: //RootNode
-    13700000: lpMaleG
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: peopleColors
-    second: {fileID: 2100000, guid: 60028747663dce54ca5bde0fd5c82afb, type: 2}
+    2186277476908879412: ImportLogs
+  externalObjects: {}
   materials:
     importMaterials: 1
     materialName: 0
@@ -131,8 +56,8 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.01
-    hasPreviousCalculatedGlobalScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
