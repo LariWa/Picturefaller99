@@ -46,9 +46,11 @@ public class PictureManager : MonoBehaviour
 
 
 
-    public void selectedPic()
+    public void selectedAPic()
     {
-        scienceTimer.printTimer();
+        if(hitCorrectPicture()) scienceTimer.printTimer();
+
+        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerStats>().selectedAPicture(hitCorrectPicture());
     }
 
 

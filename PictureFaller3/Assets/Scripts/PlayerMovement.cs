@@ -91,14 +91,18 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && floating) //KeypadEnter?
         {
-            pictureManager.selectedPic();
-            divingDown = true;
-            floating = false;
-            rb.useGravity = true;
+            pictureManager.selectedAPic();
 
-            Vector3 target = chunkManager.getSelectSquarePos();
-            //target.z = transform.position.z;
-            transform.DOMove(target, flyPicDur).SetEase(Ease.InFlash);
+            if(pictureManager.hitCorrectPicture())
+            {
+                divingDown = true;
+                floating = false;
+                rb.useGravity = true;
+
+                Vector3 target = chunkManager.getSelectSquarePos();
+                //target.z = transform.position.z;
+                transform.DOMove(target, flyPicDur).SetEase(Ease.InFlash);
+            }
         }
 
 

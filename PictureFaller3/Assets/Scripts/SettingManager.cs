@@ -71,10 +71,7 @@ public class SettingManager : MonoBehaviour
 
         //A single txt with sort in it
         var randSort = settingSorts[Random.Range(0, settingSorts.Length)]; //Get a random sort (good/ bad atm)
-        print(Random.Range(0, settingSorts.Length));
-        print(Random.Range(0, settingSorts.Length));
-        print(Random.Range(0, settingSorts.Length));
-        print(Random.Range(0, settingSorts.Length));
+
         string sort = randSort.text;
         char[] sortChars = sort.ToCharArray();
 
