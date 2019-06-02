@@ -187,8 +187,10 @@ public class WallController : MonoBehaviour
         float squareWidth = Mathf.Sqrt(allPictures.Length);
 
         var selectPosToArr = selectedPos;
+
         selectPosToArr.y = -selectPosToArr.y;
-        selectPosToArr = selectPosToArr + new Vector2Int((int)(squareWidth/2), (int)(squareWidth/2));
+        if (squareWidth % 2 == 0) selectPosToArr = selectPosToArr + new Vector2Int((int)(squareWidth/2)-1, (int)(squareWidth/2));
+        if (squareWidth % 2 != 0) selectPosToArr = selectPosToArr + new Vector2Int((int)(squareWidth/2), (int)(squareWidth/2));
 
         return Mathf.RoundToInt(selectPosToArr.y * (int)squareWidth + selectPosToArr.x);
 
