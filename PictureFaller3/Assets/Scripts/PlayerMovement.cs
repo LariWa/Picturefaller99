@@ -10,7 +10,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float gravity = 9.81f; //how fast fall accelerates
     [SerializeField] private float maxFallSpeed = 10f; //maximum fall speed
     [SerializeField] private float maxFallSpeedBOOST = 60f; //maximum fall speed when holding down space
-    [SerializeField] private float boostImpulse = 20f; //maximum fall speed when holding down space
+    [SerializeField] private float boostImpulse = 20f; 
+    [SerializeField] private float jumpImpulse = 200f;
 
     [Space]
 
@@ -138,13 +139,21 @@ public class PlayerMovement : MonoBehaviour
         dash();
 
 
-        // If pressing space add an impulse boost and make falling limit speed bigger
-        if (Input.GetKeyDown(KeyCode.Space))
+
+        // If pressing ... add an impulse boost and make falling limit speed bigger
+        float maxDown = maxFallSpeed;
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             rb.AddForce(Vector3.forward * boostImpulse, ForceMode.Impulse);
         }
-        float maxDown = maxFallSpeed;
-        if (Input.GetKey(KeyCode.Space)) maxDown = maxFallSpeedBOOST;
+        if (Input.GetKey(KeyCode.LeftShift)) maxDown = maxFallSpeedBOOST;
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            rb.velocity = Vector3.zero;
+            rb.AddForce(-Vector3.forward * jumpImpulse, ForceMode.Impulse);
+        }
+
 
 
         // Drag for controlls
@@ -275,19 +284,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     
-    private IEnumerator dashCorout(Vector2 dir)
-    {
-        yield return new WaitForSeconds(dashDelay);
 
-        rb.AddForce(dir * dashImpulse, ForceMode.Impulse);
-
-        /*
-        while (true)
-        {
-            selectedPos += dir;
-            yield return new WaitForSeconds(selectingSpeed);
-        }*/
-    }
 }
 
 
