@@ -5901,6 +5901,11 @@ PrefabInstance:
       propertyPath: hpBar
       value: 
       objectReference: {fileID: 397193375}
+    - target: {fileID: 2117485183603230946, guid: 1945a9b6cfd321644bdfc680efd1b7cb,
+        type: 3}
+      propertyPath: healthLossDelay
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 2117485184423083693, guid: 1945a9b6cfd321644bdfc680efd1b7cb,
         type: 3}
       propertyPath: m_Height
@@ -6424,7 +6429,7 @@ PrefabInstance:
     - target: {fileID: 2117485184423083691, guid: 1945a9b6cfd321644bdfc680efd1b7cb,
         type: 3}
       propertyPath: dashDelay
-      value: 0.25
+      value: 0.333
       objectReference: {fileID: 0}
     - target: {fileID: 2117485184423083690, guid: 1945a9b6cfd321644bdfc680efd1b7cb,
         type: 3}
@@ -6436,7 +6441,10 @@ PrefabInstance:
       propertyPath: m_Mass
       value: 10
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2117485183603230945, guid: 1945a9b6cfd321644bdfc680efd1b7cb, type: 3}
+    - {fileID: 2117485183603230947, guid: 1945a9b6cfd321644bdfc680efd1b7cb, type: 3}
+    - {fileID: 2117485183603230948, guid: 1945a9b6cfd321644bdfc680efd1b7cb, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1945a9b6cfd321644bdfc680efd1b7cb, type: 3}
 --- !u!1001 &6188468870232326066
 PrefabInstance:
