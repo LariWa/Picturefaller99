@@ -32,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
     [Space]
 
     [SerializeField] private float flyPicDur = 2f;
+    [SerializeField] private bool useDebugAbilities = false;
 
     private Rigidbody rb;
     private ScoreManager scoreManager;
@@ -140,20 +141,22 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-        // If pressing ... add an impulse boost and make falling limit speed bigger
         float maxDown = maxFallSpeed;
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (useDebugAbilities)
         {
-            rb.AddForce(Vector3.forward * boostImpulse, ForceMode.Impulse);
-        }
-        if (Input.GetKey(KeyCode.LeftShift)) maxDown = maxFallSpeedBOOST;
+            // If pressing ... add an impulse boost and make falling limit speed bigger
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                rb.AddForce(Vector3.forward * boostImpulse, ForceMode.Impulse);
+            }
+            if (Input.GetKey(KeyCode.LeftShift)) maxDown = maxFallSpeedBOOST;
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            rb.velocity = Vector3.zero;
-            rb.AddForce(-Vector3.forward * jumpImpulse, ForceMode.Impulse);
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                rb.velocity = Vector3.zero;
+                rb.AddForce(-Vector3.forward * jumpImpulse, ForceMode.Impulse);
+            }
         }
-
 
 
         // Drag for controlls
@@ -208,10 +211,10 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-    public void reroute()
+    public void rerouteAndReset()
     {
         transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-        
+        rb.velocity = Vector3.zero;
     }
 
 

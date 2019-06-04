@@ -86,7 +86,7 @@ public class TransitionManager : MonoBehaviour
         settingManager.changeSettingToPictures();
 
         chunkManager.resetChunksAndWall();
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().reroute();
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().rerouteAndReset();
 
         cameraManager.setNormalCam(true);
 
