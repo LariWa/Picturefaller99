@@ -39,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
     private ChunkManager chunkManager;
     private ScienceTimer scienceTimer;
     private PictureManager pictureManager;
+    private PlayerStats stats;
 
     private float inputHor;
     private float inputVert;
@@ -54,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        stats = GetComponentInChildren<PlayerStats>();
 
         pictureManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<PictureManager>();
         scienceTimer = GameObject.FindGameObjectWithTag("Managers").GetComponent<ScienceTimer>();
@@ -66,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        dashTimer -= Time.deltaTime;
+        dashTimer -= Time.deltaTime;// unscaledDeltaTime; //ignore slow motion(?) TRY https://answers.unity.com/questions/1155266/timescale-not-affect-timer-c.html
         slowmoTimer -= Time.deltaTime;
 
         if (slowmoTimer <= 0)
@@ -95,7 +97,7 @@ public class PlayerMovement : MonoBehaviour
         {
             pictureManager.selectedAPic();
 
-            if(pictureManager.hitCorrectPicture())
+            if(pictureManager.hitCorrectPicture() && stats.getHealth() != 0)
             {
                 divingDown = true;
                 floating = false;
@@ -221,17 +223,20 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-    private void dash()
+    private void dash() // or try https://forum.unity.com/threads/double-tapping-axis-input.8620/
     {
         if (floating) return;
         
 
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if (dashTimer >= 0 && lastDir == new Vector2(0, 1))
+            if (dashTimer >= 0)
             {
-                rb.AddForce(lastDir * dashImpulse, ForceMode.Impulse);
-                dashTimer = -1;
+                if (lastDir == new Vector2(0, 1))
+                {
+                    rb.AddForce(lastDir * dashImpulse, ForceMode.Impulse);
+                    dashTimer = -1;
+                }
             }
             else
             {
@@ -242,10 +247,13 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            if (dashTimer >= 0 && lastDir == new Vector2(-1, 0))
+            if (dashTimer >= 0)
             {
-                rb.AddForce(lastDir * dashImpulse, ForceMode.Impulse);
-                dashTimer = -1;
+                if (lastDir == new Vector2(-1, 0))
+                {
+                    rb.AddForce(lastDir * dashImpulse, ForceMode.Impulse);
+                    dashTimer = -1;
+                }
             }
             else
             {
@@ -257,10 +265,13 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
-            if (dashTimer >= 0 && lastDir == new Vector2(0, -1))
+            if (dashTimer >= 0)
             {
-                rb.AddForce(lastDir * dashImpulse, ForceMode.Impulse);
-                dashTimer = -1;
+                if (lastDir == new Vector2(0, -1))
+                {
+                    rb.AddForce(lastDir * dashImpulse, ForceMode.Impulse);
+                    dashTimer = -1;
+                }
             }
             else
             {
@@ -272,10 +283,13 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if (dashTimer >= 0 && lastDir == new Vector2(1, 0))
+            if (dashTimer >= 0)
             {
-                rb.AddForce(lastDir * dashImpulse, ForceMode.Impulse);
-                dashTimer = -1;
+                if (lastDir == new Vector2(1, 0))
+                {
+                    rb.AddForce(lastDir * dashImpulse, ForceMode.Impulse);
+                    dashTimer = -1;
+                }
             }
             else
             {

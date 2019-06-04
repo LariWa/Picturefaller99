@@ -44,7 +44,7 @@ public class PlayerStats : MonoBehaviour
 
 
 
-    public void selectedAPicture(bool wasCorrect)
+    public void selectedPicHealOrDmg(bool wasCorrect)
     {
         if (wasCorrect) healPlayer(healOnSelect);
         if (!wasCorrect) damagePlayer(damageOnSelect);

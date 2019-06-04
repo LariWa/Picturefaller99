@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 public class SettingManager : MonoBehaviour
 {
     public enum Settings { City, Forest };
+    [SerializeField] private bool startRandom;
     [SerializeField] private Settings startSetting;
     private Settings currentSetting; //For chunks
     private Settings nextSetting; //For picture wall
@@ -16,11 +17,11 @@ public class SettingManager : MonoBehaviour
     [Space]
 
     // SHOULD BE IN PICTURE MANAGER?
-    [SerializeField] private Sprite[] allCityPictures; //original order
-    [SerializeField] private Sprite[] allForestPictures; //original order
+    [SerializeField] private Sprite[] allCityPictures;  //original order
+    [SerializeField] private Sprite[] allForestPictures;//original order
 
-    private Sprite[] cityPicturesInSort;
-    private Sprite[] forestPicturesInSort;
+    private Sprite[] cityPicturesInSort;  //Sorted always differently
+    private Sprite[] forestPicturesInSort;//Sorted always differently
 
     [Space]
 
@@ -33,8 +34,9 @@ public class SettingManager : MonoBehaviour
     void Awake()
     {
         difficultyManager = GetComponent<DifficultyManager>();
-
-        currentSetting = startSetting;
+        
+        if(startRandom) currentSetting = (Settings)Random.Range(0, System.Enum.GetValues(typeof(Settings)).Length);
+        else currentSetting = startSetting;
 
         //Get random next setting
         nextSetting = (Settings)Random.Range(0, System.Enum.GetValues(typeof(Settings)).Length);

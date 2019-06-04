@@ -7,11 +7,14 @@ public class WallController : MonoBehaviour
     [SerializeField] private Sprite blackPicture;
     private Sprite[] allPictures; // ammount needs to be squared so 4, 9, 16, 25 etc
     [SerializeField] private GameObject pictureBlockPrefab;
+    [SerializeField] private GameObject pictureBlockPrefabBigWall;
 
-    [SerializeField] private float totalPicDimMin = 5f; //Whole space pics will take up
-    [SerializeField] private float totalPicDimMax = 10f; //Whole space pics will take up
+    [SerializeField] private float bigFrameScaleMulti = 1.25f;
+    [SerializeField] private float totalPicDimMin = 5f; //Whole space pics will take up at start (dim 2x2)
+    [SerializeField] private float totalPicDimMax = 10f; //Whole space pics will take up at end (dim 15x15)
     [SerializeField] private float picGapsMin = 0.5f;
     [SerializeField] private float picGapsMax = 0.05f;
+    [SerializeField] private int oneBigFrameFromDim = 5; //put all pictures tight together to calculate data and put frame around
     //[SerializeField] private float pictureBlockScale = 1.2f;
     //[SerializeField] private float gridGap = 1.25f;
     private float gridGap;
@@ -56,17 +59,38 @@ public class WallController : MonoBehaviour
         var totalPicDim = floatWidth.Remap(2, 15, totalPicDimMin, totalPicDimMax);
         gridGap = totalPicDim / gridWidth;
         var picGaps = floatWidth.Remap(2,15, picGapsMin, picGapsMax);
-        pictureBlockScale = gridGap - picGaps;
+
+        if (gridWidth >= oneBigFrameFromDim) picGaps = 0;
+
+         pictureBlockScale = gridGap - picGaps;
 
         float maxDistHalf = ((gridWidth - 1) * gridGap) / 2; //Used to center images for even and uneven gridCells
 
         for (int y = gridWidth - 1; y >= 0; y--)
             for (int x = 0; x < gridWidth; x++)
             {
-                var frame = Instantiate(pictureBlockPrefab, new Vector3(x * gridGap - maxDistHalf, y * gridGap - maxDistHalf, transform.position.z), Quaternion.Euler(-90,0,0));
+                GameObject frame;
+
+                if (gridWidth >= oneBigFrameFromDim) // One big pic
+                {
+                    frame = Instantiate(pictureBlockPrefabBigWall, new Vector3(x * gridGap - maxDistHalf, y * gridGap - maxDistHalf, transform.position.z), Quaternion.Euler(-90, 0, 0));
+
+                    if(x == 0 && y == 0)
+                    {
+                        var bigframe = Instantiate(pictureBlockPrefab, new Vector3(x * gridGap - maxDistHalf, y * gridGap - maxDistHalf, transform.position.z), Quaternion.Euler(-90, 0, 0));
+                        Destroy(bigframe.transform.GetChild(0).gameObject);
+                        bigframe.transform.localScale = new Vector3(totalPicDim * bigFrameScaleMulti, totalPicDim/2, totalPicDim * bigFrameScaleMulti);
+                        bigframe.transform.position = new Vector3(0,0, bigframe.transform.position.z);
+                        bigframe.transform.parent = imgParent.transform.parent;
+                    }
+                }
+                else // Each pic has frame
+                    frame = Instantiate(pictureBlockPrefab, new Vector3(x * gridGap - maxDistHalf, y * gridGap - maxDistHalf, transform.position.z), Quaternion.Euler(-90, 0, 0));
+                
 
                 frame.transform.parent = imgParent.transform;
                 frame.transform.localScale = new Vector3(pictureBlockScale, pictureBlockScale, pictureBlockScale);
+
             }
 
         var wallSpr = imgParent.GetComponentsInChildren<SpriteRenderer>();
@@ -208,8 +232,8 @@ public class WallController : MonoBehaviour
         var selectPosToArr = selectedPos;
 
         selectPosToArr.y = -selectPosToArr.y;
-        if (squareWidth % 2 == 0) selectPosToArr = selectPosToArr + new Vector2Int((int)(squareWidth/2)-1, (int)(squareWidth/2));
-        if (squareWidth % 2 != 0) selectPosToArr = selectPosToArr + new Vector2Int((int)(squareWidth/2), (int)(squareWidth/2));
+        selectPosToArr = selectPosToArr + new Vector2Int((int)(squareWidth/2), (int)(squareWidth/2));
+        if (squareWidth % 2 == 0) selectPosToArr = selectPosToArr - new Vector2Int(1, 0);
 
         return Mathf.RoundToInt(selectPosToArr.y * (int)squareWidth + selectPosToArr.x);
 
