@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class GameOverMenu : MonoBehaviour
 {
+    public GameObject scoreText;
     public void PlayGame () 
     {
         SceneManager.LoadScene("World01big");

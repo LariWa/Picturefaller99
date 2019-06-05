@@ -18,7 +18,8 @@ public class Slowmotion : MonoBehaviour
 
     private PlayerMovement player;
     private float timer; //If 1 then full slow, if 0 then no slow
-    private int timerDir = -1; 
+    private int timerDir = -1;
+    bool alive = true;
 
     void Start()
     {
@@ -34,10 +35,10 @@ public class Slowmotion : MonoBehaviour
             timerDir = -1;
 
         timer += timerDir * slowSpeed;
-
+        
         if (timer <= 0) timer = 0;
         if (timer >= 1) timer = 1;
-
+        if (alive) 
         Time.timeScale = timer.Remap(0, 1, 1, minTimeScale);
         //print(Time.timeScale);
 
@@ -61,5 +62,10 @@ public class Slowmotion : MonoBehaviour
         if (fuel >= 1) fuel = 1;
 
         slider.value = fuel;
+    }
+
+    public void gameOver()
+    {
+        alive = false;
     }
 }
