@@ -11,7 +11,7 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float healthLossDelay = 0.1f;
     [SerializeField] private int damageOnSelect = 10;
     [SerializeField] private int healOnSelect = 25;
-    private int health;
+    public int health;
     private float healthTimer;
     private PlayerMovement playerMovement;
 
