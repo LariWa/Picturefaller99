@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ChunkManager : MonoBehaviour
 {
-    [SerializeField] private int chunksUntilPictureMin = 4;
-    [SerializeField] private int chunksUntilPictureMax = 8;
+    //[SerializeField] private int chunksUntilPictureMin = 4;
+    //[SerializeField] private int chunksUntilPictureMax = 8;
     [SerializeField] private float chunkLength = 100f;
     [SerializeField] private int spawnAhead = 3;
     //[SerializeField] private GameObject[] allChunks;
@@ -13,6 +13,7 @@ public class ChunkManager : MonoBehaviour
 
     private ObstacleManager obstacleManager;
 
+    private DifficultyManager difficultyManager;
     private PictureManager pictureManager;
     private SettingManager settingManager;
     private Transform player;
@@ -22,6 +23,7 @@ public class ChunkManager : MonoBehaviour
 
     void Start()
     {
+        difficultyManager = GetComponent<DifficultyManager>();
         settingManager = GetComponent<SettingManager>();
         obstacleManager = GetComponent<ObstacleManager>();
         pictureManager = GetComponent<PictureManager>();
@@ -46,7 +48,7 @@ public class ChunkManager : MonoBehaviour
     {
         var ch = Instantiate(settingManager.getRandomChunkCurrSetting(), Vector3.forward * zSpawnNext, Quaternion.identity);
         ch.transform.parent = chunkParent.transform;
-        if(spawnObstacles) ch.GetComponent<ChunkController>().spawnObstacles();
+        if(spawnObstacles) ch.GetComponent<ChunkController>().spawnObstacles(difficultyManager.getObstacDifficulty(), difficultyManager.getObstacRand());
         else ch.GetComponent<ChunkController>().disableAllObstacles();
 
         zSpawnNext += chunkLength;
@@ -62,7 +64,8 @@ public class ChunkManager : MonoBehaviour
 
     private void spawnPicWall()
     {
-        var chunksUntilPicture = Random.Range(chunksUntilPictureMin, chunksUntilPictureMax);
+        //var chunksUntilPicture = Random.Range(chunksUntilPictureMin, chunksUntilPictureMax);
+        var chunksUntilPicture = difficultyManager.getWallChunkOffset();
         currentPictureWall = Instantiate(pictureWallPre, Vector3.forward * chunksUntilPicture * chunkLength, Quaternion.Euler(-90, 0, 0));  //TODO: probably not accurate pos !!!
 
         currentPictureWall.GetComponent<WallController>().deleteNearObstacles();
@@ -74,7 +77,8 @@ public class ChunkManager : MonoBehaviour
 
         Destroy(currentPictureWall);
 
-        var chunksUntilPicture = Random.Range(chunksUntilPictureMin, chunksUntilPictureMax);
+        //var chunksUntilPicture = Random.Range(chunksUntilPictureMin, chunksUntilPictureMax);
+        var chunksUntilPicture = difficultyManager.getWallChunkOffset();
         currentPictureWall = Instantiate(pictureWallPre, Vector3.forward * chunksUntilPicture * chunkLength + oldPos, Quaternion.Euler(-90, 0, 0));  //TODO: probably not accurate pos !!!
 
         currentPictureWall.GetComponent<WallController>().deleteNearObstacles();

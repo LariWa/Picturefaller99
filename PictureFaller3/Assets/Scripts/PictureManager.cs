@@ -14,14 +14,18 @@ public class PictureManager : MonoBehaviour
     private ChunkManager chunkManager;
     private ScienceTimer scienceTimer;
     private ScoreManager scoreManager;
+    private DifficultyManager difficultyManager;
     private TransitionManager transitionManager;
+    private PlayerStats playerStats;
 
 
     void Start()
     {
+        playerStats = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerStats>();
         chunkManager = GetComponent<ChunkManager>();
         scienceTimer = GetComponent<ScienceTimer>();
         scoreManager = GetComponent<ScoreManager>();
+        difficultyManager = GetComponent<DifficultyManager>();
         transitionManager = GetComponent<TransitionManager>();
 
         //rollPicToSearch();
@@ -44,9 +48,13 @@ public class PictureManager : MonoBehaviour
 
 
 
-    public void selectedPic()
+    public void selectedAPic()
     {
-        scienceTimer.printTimer();
+        if(playerStats.getHealth() != 0 && hitCorrectPicture())
+            scienceTimer.printTimer();
+
+        if(playerStats.getHealth() != 0)
+            GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerStats>().selectedPicHealOrDmg(hitCorrectPicture());
     }
 
 
@@ -65,6 +73,7 @@ public class PictureManager : MonoBehaviour
             Camera.main.GetComponent<CameraManager>().setNormalCam(false);
         }
 
+        difficultyManager.hitWall();
 
         picSearched.sprite = null;
 
@@ -74,7 +83,7 @@ public class PictureManager : MonoBehaviour
 
     public void rollPicToSearch()
     {
-        var currentPics = GetComponent<SettingManager>().getAllCurrentPicturesInSort();
+        var currentPics = GetComponent<SettingManager>().getAllPicturesInSort(GetComponent<SettingManager>().getNextSetting());
         currPicSearched = Random.Range(0, currentPics.Length);
         picSearched.sprite = currentPics[currPicSearched];
     }
