@@ -9,11 +9,16 @@ public class PlayerStats : MonoBehaviour
 
     [SerializeField] private Slider hpBar;
     [SerializeField] private int maxHealth = 100;
-    static public int health;
+    [SerializeField] private float healthLossDelay = 0.1f;
+    [SerializeField] private int damageOnSelect = 10;
+    [SerializeField] private int healOnSelect = 25;
+    private int health;
+    private float healthTimer;
+    private PlayerMovement playerMovement;
 
     void Start()
     {
-        //gameOver = GetComponent<GameOverMenu>();
+        playerMovement = GetComponentInParent<PlayerMovement>();
         health = maxHealth;
         hpBar.maxValue = maxHealth;
     }
@@ -21,6 +26,18 @@ public class PlayerStats : MonoBehaviour
     void Update()
 
     {
+        if (playerMovement.floating)
+        {
+            healthTimer -= Time.deltaTime;
+
+            if(healthTimer <= 0)
+            {
+                healthTimer = healthLossDelay;
+                damagePlayer(1);
+            }
+        }
+
+
         hpBar.value = health; //TODO: sometimes trigger doesnt work??
 
         if (health <= 0)
@@ -33,10 +50,31 @@ public class PlayerStats : MonoBehaviour
 
     }
 
+
+
+    public void selectedPicHealOrDmg(bool wasCorrect)
+    {
+        if (wasCorrect) healPlayer(healOnSelect);
+        if (!wasCorrect) damagePlayer(damageOnSelect);
+    }
+
+
+
     public void damagePlayer(int damage)
     {
         health -= damage;
+
+        if (health <= 0)
+            Time.timeScale = 0;
     }
+    public void healPlayer(int am)
+    {
+        health += am;
+
+        if (health >= maxHealth)
+            health = maxHealth;
+    }
+
 
     public int getHealth()
     {

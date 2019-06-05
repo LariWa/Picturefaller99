@@ -9,6 +9,17 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float controlSpeed = 16f; // how fast to move on xy axis from input
     [SerializeField] private float gravity = 9.81f; //how fast fall accelerates
     [SerializeField] private float maxFallSpeed = 10f; //maximum fall speed
+    [SerializeField] private float maxFallSpeedBOOST = 60f; //maximum fall speed when holding down space
+    [SerializeField] private float boostImpulse = 20f;
+    [SerializeField] private float jumpImpulse = 200f;
+
+    [Space]
+
+    [SerializeField] private float dashDelay = 0.2f; //how long to wait until second click registers as double click
+    [SerializeField] private float dashImpulse = 50f;
+    //private Coroutine doubleTapCoroutine = new Coroutine();
+    private float dashTimer;
+    private Vector2 lastDir;
 
     [Space]
 
@@ -21,12 +32,14 @@ public class PlayerMovement : MonoBehaviour
     [Space]
 
     [SerializeField] private float flyPicDur = 2f;
+    [SerializeField] private bool useDebugAbilities = false;
 
     private Rigidbody rb;
     private ScoreManager scoreManager;
     private ChunkManager chunkManager;
     private ScienceTimer scienceTimer;
     private PictureManager pictureManager;
+    private PlayerStats stats;
 
     private float inputHor;
     private float inputVert;
@@ -38,9 +51,12 @@ public class PlayerMovement : MonoBehaviour
     public bool floating { get; private set; } // rename to inSlowmo
 
 
+
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        stats = GetComponentInChildren<PlayerStats>();
 
         pictureManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<PictureManager>();
         scienceTimer = GameObject.FindGameObjectWithTag("Managers").GetComponent<ScienceTimer>();
@@ -53,6 +69,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        dashTimer -= Time.deltaTime;// unscaledDeltaTime; //ignore slow motion(?) TRY https://answers.unity.com/questions/1155266/timescale-not-affect-timer-c.html
         slowmoTimer -= Time.deltaTime;
 
         if (slowmoTimer <= 0)
@@ -79,14 +96,18 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && floating) //KeypadEnter?
         {
-            pictureManager.selectedPic();
-            divingDown = true;
-            floating = false;
-            rb.useGravity = true;
+            pictureManager.selectedAPic();
 
-            Vector3 target = chunkManager.getSelectSquarePos();
-            //target.z = transform.position.z;
-            transform.DOMove(target, flyPicDur).SetEase(Ease.InFlash);
+            if(pictureManager.hitCorrectPicture() && stats.getHealth() != 0)
+            {
+                divingDown = true;
+                floating = false;
+                rb.useGravity = true;
+
+                Vector3 target = chunkManager.getSelectSquarePos();
+                //target.z = transform.position.z;
+                transform.DOMove(target, flyPicDur).SetEase(Ease.InFlash);
+            }
         }
 
 
@@ -112,19 +133,40 @@ public class PlayerMovement : MonoBehaviour
 
 
         //rb.velocity = (moveVec * moveSpeed) + (Vector3.forward * gravity); //Bad...
-
         //rb.AddForce(moveVec * speed, ForceMode.Impulse); //ForceMode.VelocityChange?  ADD DRAG, but not on y... maybe just bigger rb mass https://answers.unity.com/questions/1130605/can-i-prevent-rigidbody-drag-from-affecting-the-z.html
 
 
         // Player controlls
         rb.AddForce(moveVec * controlSpeed);//, ForceMode.Impulse);
 
+        // Check and do dash
+        dash();
 
-        // Drag
+
+
+        float maxDown = maxFallSpeed;
+        if (useDebugAbilities)
+        {
+            // If pressing ... add an impulse boost and make falling limit speed bigger
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                rb.AddForce(Vector3.forward * boostImpulse, ForceMode.Impulse);
+            }
+            if (Input.GetKey(KeyCode.LeftShift)) maxDown = maxFallSpeedBOOST;
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                rb.velocity = Vector3.zero;
+                rb.AddForce(-Vector3.forward * jumpImpulse, ForceMode.Impulse);
+            }
+        }
+
+
+        // Drag for controlls
         Vector3 vel = rb.velocity;
         vel.x *= xyDrag;
         vel.y *= xyDrag;
-        if (vel.z >= maxFallSpeed) vel.z = maxFallSpeed; // Max fall speed
+        if (vel.z >= maxDown) vel.z = maxDown; // Max fall speed
         rb.velocity = vel;
     }
 
@@ -172,11 +214,95 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-    public void reroute()
+    public void rerouteAndReset()
     {
         transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+        rb.velocity = Vector3.zero;
+    }
+
+
+
+
+
+    private void dash() // or try https://forum.unity.com/threads/double-tapping-axis-input.8620/
+    {
+        if (floating) return;
+
+
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            if (dashTimer >= 0)
+            {
+                if (lastDir == new Vector2(0, 1))
+                {
+                    rb.AddForce(lastDir * dashImpulse, ForceMode.Impulse);
+                    dashTimer = -1;
+                }
+            }
+            else
+            {
+                dashTimer = dashDelay;
+                lastDir = new Vector2(0, 1);
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            if (dashTimer >= 0)
+            {
+                if (lastDir == new Vector2(-1, 0))
+                {
+                    rb.AddForce(lastDir * dashImpulse, ForceMode.Impulse);
+                    dashTimer = -1;
+                }
+            }
+            else
+            {
+                dashTimer = dashDelay;
+                lastDir = new Vector2(-1, 0);
+            }
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            if (dashTimer >= 0)
+            {
+                if (lastDir == new Vector2(0, -1))
+                {
+                    rb.AddForce(lastDir * dashImpulse, ForceMode.Impulse);
+                    dashTimer = -1;
+                }
+            }
+            else
+            {
+                dashTimer = dashDelay;
+                lastDir = new Vector2(0, -1);
+            }
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            if (dashTimer >= 0)
+            {
+                if (lastDir == new Vector2(1, 0))
+                {
+                    rb.AddForce(lastDir * dashImpulse, ForceMode.Impulse);
+                    dashTimer = -1;
+                }
+            }
+            else
+            {
+                dashTimer = dashDelay;
+                lastDir = new Vector2(1, 0);
+            }
+        }
 
     }
+
+
+
 }
 
 

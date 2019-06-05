@@ -10,7 +10,10 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private Vector3 fixedPosOffset;
     [SerializeField] private GameObject camNormal;
     [SerializeField] private GameObject camPics;
+    [SerializeField] private Camera ignorePostCamera;
     private CinemachineFramingTransposer framing;
+
+    private Camera mainCam;
 
     //private float slowMoProgress = 1;
     private PlayerMovement player;
@@ -20,11 +23,13 @@ public class CameraManager : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
 
+        mainCam = GetComponent<Camera>();
+
         fixedPos = new GameObject("Fixed Pos").transform;
     }
 
    
-    void Update() //Late?
+    void LateUpdate()
     {
 
         //Just linear...
@@ -34,14 +39,25 @@ public class CameraManager : MonoBehaviour
 
         //if (player.floating)
         //{
-       //     camPics.SetActive(true);
-       //     camNormal.SetActive(false);
-       // }
+        //     camPics.SetActive(true);
+        //     camNormal.SetActive(false);
+        // }
         //else
         //{
-       //     camPics.SetActive(false);
+        //     camPics.SetActive(false);
         //    camNormal.SetActive(true);
-       // }
+        // }
+
+        if(player.floating || player.divingDown)
+        {
+            ignorePostCamera.gameObject.SetActive(true);
+            ignorePostCamera.fieldOfView = mainCam.fieldOfView;
+        }
+        else
+        {
+            ignorePostCamera.gameObject.SetActive(false);
+        }
+
     }
 
 

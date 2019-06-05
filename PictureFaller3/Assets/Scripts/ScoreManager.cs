@@ -39,8 +39,8 @@ public class ScoreManager : MonoBehaviour
 			highscoreCount = scoreCount;
 			PlayerPrefs.SetFloat("Highscore", highscoreCount);
 		}
-		scoreText.text = "Score: " + Mathf.Round(scoreCount);
-		highscoreText.text = "High: " + Mathf.Round(highscoreCount);
+		scoreText.text = Mathf.Round(scoreCount) +         " Score"; //" Current"
+        highscoreText.text = Mathf.Round(highscoreCount) + " HighS"; //" Highest"
     }
 
 
