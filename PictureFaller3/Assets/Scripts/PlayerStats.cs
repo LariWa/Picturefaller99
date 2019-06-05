@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour
@@ -39,7 +40,11 @@ public class PlayerStats : MonoBehaviour
         hpBar.value = health; //TODO: sometimes trigger doesnt work?? 
 
         if (health <= 0)
-            Time.timeScale = 0; //TODO: stop setting timescale in time manager
+        {
+            Time.timeScale = 0;
+            SceneManager.LoadScene("GameOverMenu");
+        }
+        //TODO: stop setting timescale in time manager
     }
 
 
