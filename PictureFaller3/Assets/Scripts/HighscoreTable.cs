@@ -90,7 +90,7 @@ public class HighscoreTable : MonoBehaviour
     }
 
   
-    public void AddHighscoreEntry(int score, string name)
+    public bool AddHighscoreEntry(int score, string name)
     {
         // Create HighscoreEntry
         HighscoreEntry highscoreEntry = new HighscoreEntry { score = score, name = name };
@@ -109,13 +109,17 @@ public class HighscoreTable : MonoBehaviour
         }
 
         // Add new entry to Highscores
-        highscores.highscoreEntryList.Add(highscoreEntry);
+        if (highscores.highscoreEntryList.Contains(highscoreEntry))
+            return false;
+        highscores.highscoreEntryList.Add(highscoreEntry);        
+       
         highscores.highscoreEntryList = highscores.highscoreEntryList.OrderByDescending(o => o.score).ToList().GetRange(0,10);
         
         // Save updated Highscores
         string json = JsonUtility.ToJson(highscores);
         PlayerPrefs.SetString("highscoreTable", json);
-        PlayerPrefs.Save();           
+        PlayerPrefs.Save();
+        return true;
     }
 
     private class Highscores

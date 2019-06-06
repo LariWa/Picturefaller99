@@ -10,6 +10,7 @@ public class GameOverMenu : MonoBehaviour
 {
     public GameObject scoreText;
     public Text name;
+    
     public GameObject GameOverCanvas;
     public GameObject LeaderboardCanvas;
     public GameObject MainMenu;
@@ -22,6 +23,11 @@ public class GameOverMenu : MonoBehaviour
         //GameOverCanvas.SetActive(false);
     }
 
+    public void Awake()
+    {
+        
+    }
+
     public void LoadMenu () 
     {
         SceneManager.LoadScene("MainMenu");
@@ -29,21 +35,18 @@ public class GameOverMenu : MonoBehaviour
 
     public void submit()
     {
-       highscoreTable = new HighscoreTable();
+        highscoreTable = new HighscoreTable();
         string Name = name.text;
-        Debug.Log(Name);
-        Debug.Log(scoreText.transform.GetComponent<TextMeshProUGUI>().text);
         string score = scoreText.transform.GetComponent<TextMeshProUGUI>().text;
         char[] charSeparator = new char[] { ' ' };
         score = score.Split(charSeparator, StringSplitOptions.None)[0];
-        Debug.Log(score);
-        int Score = int.Parse(score);
+        int Score = int.Parse(score); 
+        
 
-        //int score = int.Parse(scoreText.transform.GetComponent<TextMeshProUGUI>().text);
-        Debug.Log(Score);
-        highscoreTable.AddHighscoreEntry(Score, Name);
-        Debug.Log(Score);
-        Debug.Log(Name);
+     //highscoreTable.AddHighscoreEntry(Score, Name)
+     bool sub = highscoreTable.AddHighscoreEntry(Score, Name);
+        Debug.Log(sub);
+        
 
     }
 
