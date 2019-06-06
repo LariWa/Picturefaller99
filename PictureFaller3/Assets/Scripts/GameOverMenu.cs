@@ -18,14 +18,13 @@ public class GameOverMenu : MonoBehaviour
 
     public void PlayGame () 
     {
-
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         //GameOverCanvas.SetActive(false);
     }
 
     public void LoadMenu () 
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void submit()
