@@ -8,6 +8,6 @@ public class MainMenu : MonoBehaviour
    public void PlayGame()
     {
         print("changeScene");
-        SceneManager.LoadScene("World01");
+        SceneManager.LoadScene("World01big");
     }
 }
