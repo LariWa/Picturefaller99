@@ -37,6 +37,8 @@ public class WallController : MonoBehaviour
 
     private Vector3 playerStartOffset = Vector3.zero;
 
+    private bool widthIsEven;
+    private float totalPicDim;
     private bool mouseSelection;
 
     void Start()
@@ -54,6 +56,7 @@ public class WallController : MonoBehaviour
         if (mouseSelection)
         {
             //Hide mouse or put mouse sprite (crosshair)
+
         }
 
 
@@ -64,8 +67,9 @@ public class WallController : MonoBehaviour
         int gridWidth = Mathf.RoundToInt(Mathf.Sqrt(allPictures.Length));
         float floatWidth = (float)gridWidth;
 
+        widthIsEven = ((Mathf.Sqrt(allPictures.Length) / 2) % 1) == 0;
 
-        var totalPicDim = floatWidth.Remap(2, 15, totalPicDimMin, totalPicDimMax);
+        totalPicDim = floatWidth.Remap(2, 15, totalPicDimMin, totalPicDimMax);
         gridGap = totalPicDim / gridWidth;
         var picGaps = floatWidth.Remap(2,15, picGapsMin, picGapsMax);
 
@@ -128,8 +132,6 @@ public class WallController : MonoBehaviour
             
             int squareWidthHalf = (int) Mathf.Sqrt(allPictures.Length) / 2;
 
-            bool widthIsEven = ((Mathf.Sqrt(allPictures.Length) / 2) % 1) == 0;
-
             if(!widthIsEven) selectedPos.Clamp(new Vector2Int(-squareWidthHalf, -squareWidthHalf), (new Vector2Int(squareWidthHalf, squareWidthHalf)));
             if (widthIsEven) selectedPos.Clamp(new Vector2Int(-squareWidthHalf + 1, -squareWidthHalf + 1), (new Vector2Int(squareWidthHalf, squareWidthHalf)));
 
@@ -151,12 +153,16 @@ public class WallController : MonoBehaviour
         var mousePos = Input.mousePosition;
         mousePos.z = selectingSquare.transform.position.z;
         mousePos = Camera.main.ScreenToWorldPoint(mousePos);
-        print("old " + mousePos);
+;
 
-        //Convert from 3d Space into array (-2,-1,0,1,2)
-        mousePos = new Vector3(mousePos.x/gridGap, mousePos.y / gridGap, mousePos.z);
-        print("new " + mousePos);
-        //selectedPos = new Vector2Int(Mathf.RoundToInt(playerPos.x / gridGap), Mathf.RoundToInt(playerPos.y / gridGap));
+        // Convert from 3d Space into array (-2,-1,0,1,2)
+
+        //mousePos = new Vector3(mousePos.x/gridGap, mousePos.y / gridGap, mousePos.z);
+        //mousePos = new Vector3(mousePos.x/10, mousePos.y / 10, mousePos.z);
+        mousePos = new Vector3(mousePos.x/ totalPicDim, mousePos.y / totalPicDim, mousePos.z);
+        if (widthIsEven) mousePos += new Vector3(0.5f * gridGap, 0.5f * gridGap, 0f);
+
+
         setSelectSquarePos(mousePos);
     }
 
