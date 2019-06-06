@@ -355,6 +355,7 @@ MonoBehaviour:
   picGapsMax: 0.05
   oneBigFrameFromDim: 5
   delteObstaclesRadius: 40
+  mouseSelection: 1
   selectingSquare: {fileID: 8168526861704239927}
   selectionScaleMult: 0.7
   selectionZoffsetMult: 0.1

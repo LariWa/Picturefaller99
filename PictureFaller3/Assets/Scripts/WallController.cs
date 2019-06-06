@@ -37,8 +37,11 @@ public class WallController : MonoBehaviour
 
     private Vector3 playerStartOffset = Vector3.zero;
 
+    private bool mouseSelection;
+
     void Start()
     {
+
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         wallManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<PictureManager>();
 
@@ -46,6 +49,12 @@ public class WallController : MonoBehaviour
         settingManager.randomSortForSetting(settingManager.getNextSetting());
         allPictures = settingManager.getAllPicturesInSort(settingManager.getNextSetting());
 
+        mouseSelection = player.mouseSelection;
+
+        if (mouseSelection)
+        {
+            //Hide mouse or put mouse sprite (crosshair)
+        }
 
 
         // ------ Init ---------
@@ -111,63 +120,12 @@ public class WallController : MonoBehaviour
         //Move selection square like in tetris (Move this somewhere else?)
         if (player.floating)
         {
+            if (mouseSelection)
+                mouseControlls();
+            else
+                buttonControlls();
 
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                selectedPos += new Vector2Int(0, 1);
-                accelerationCoroutines[0] = StartCoroutine(moveAcceleration(new Vector2Int(0, 1)));
-            }
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                selectedPos += new Vector2Int(0, 1);
-                accelerationCoroutines[4] = StartCoroutine(moveAcceleration(new Vector2Int(0, 1)));
-            }
-
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                selectedPos += new Vector2Int(-1, 0);
-                accelerationCoroutines[1] = StartCoroutine(moveAcceleration(new Vector2Int(-1, 0)));
-            }
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                selectedPos += new Vector2Int(-1, 0);
-                accelerationCoroutines[5] = StartCoroutine(moveAcceleration(new Vector2Int(-1, 0)));
-            }
-
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                selectedPos += new Vector2Int(0, -1);
-                accelerationCoroutines[2] = StartCoroutine(moveAcceleration(new Vector2Int(0, -1)));
-            }
-            if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                selectedPos += new Vector2Int(0, -1);
-                accelerationCoroutines[6] = StartCoroutine(moveAcceleration(new Vector2Int(0, -1)));
-            }
-
-            if (Input.GetKeyDown(KeyCode.D))
-            {
-                selectedPos += new Vector2Int(1, 0);
-                accelerationCoroutines[3] = StartCoroutine(moveAcceleration(new Vector2Int(1, 0)));
-            }
-            if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                selectedPos += new Vector2Int(1, 0);
-                accelerationCoroutines[7] = StartCoroutine(moveAcceleration(new Vector2Int(1, 0)));
-            }
-
-
-            if (Input.GetKeyUp(KeyCode.W)) if (accelerationCoroutines[0] != null) StopCoroutine(accelerationCoroutines[0]);
-            if (Input.GetKeyUp(KeyCode.A)) if (accelerationCoroutines[1] != null) StopCoroutine(accelerationCoroutines[1]);
-            if (Input.GetKeyUp(KeyCode.S)) if (accelerationCoroutines[2] != null) StopCoroutine(accelerationCoroutines[2]);
-            if (Input.GetKeyUp(KeyCode.D)) if (accelerationCoroutines[3] != null) StopCoroutine(accelerationCoroutines[3]);
-
-            if (Input.GetKeyUp(KeyCode.UpArrow)) if (accelerationCoroutines[4] != null) StopCoroutine(accelerationCoroutines[4]);
-            if (Input.GetKeyUp(KeyCode.LeftArrow)) if (accelerationCoroutines[5] != null) StopCoroutine(accelerationCoroutines[5]);
-            if (Input.GetKeyUp(KeyCode.DownArrow)) if (accelerationCoroutines[6] != null) StopCoroutine(accelerationCoroutines[6]);
-            if (Input.GetKeyUp(KeyCode.RightArrow)) if (accelerationCoroutines[7] != null) StopCoroutine(accelerationCoroutines[7]);
-
-
+            
             int squareWidthHalf = (int) Mathf.Sqrt(allPictures.Length) / 2;
 
             bool widthIsEven = ((Mathf.Sqrt(allPictures.Length) / 2) % 1) == 0;
@@ -188,6 +146,78 @@ public class WallController : MonoBehaviour
 
 
 
+    private void mouseControlls()
+    {
+        var mousePos = Input.mousePosition;
+        mousePos.z = selectingSquare.transform.position.z;
+        mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+        print("old " + mousePos);
+
+        //Convert from 3d Space into array (-2,-1,0,1,2)
+        mousePos = new Vector3(mousePos.x/gridGap, mousePos.y / gridGap, mousePos.z);
+        print("new " + mousePos);
+        //selectedPos = new Vector2Int(Mathf.RoundToInt(playerPos.x / gridGap), Mathf.RoundToInt(playerPos.y / gridGap));
+        setSelectSquarePos(mousePos);
+    }
+
+
+    private void buttonControlls()
+    {
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            selectedPos += new Vector2Int(0, 1);
+            accelerationCoroutines[0] = StartCoroutine(moveAcceleration(new Vector2Int(0, 1)));
+        }
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            selectedPos += new Vector2Int(0, 1);
+            accelerationCoroutines[4] = StartCoroutine(moveAcceleration(new Vector2Int(0, 1)));
+        }
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            selectedPos += new Vector2Int(-1, 0);
+            accelerationCoroutines[1] = StartCoroutine(moveAcceleration(new Vector2Int(-1, 0)));
+        }
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            selectedPos += new Vector2Int(-1, 0);
+            accelerationCoroutines[5] = StartCoroutine(moveAcceleration(new Vector2Int(-1, 0)));
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            selectedPos += new Vector2Int(0, -1);
+            accelerationCoroutines[2] = StartCoroutine(moveAcceleration(new Vector2Int(0, -1)));
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            selectedPos += new Vector2Int(0, -1);
+            accelerationCoroutines[6] = StartCoroutine(moveAcceleration(new Vector2Int(0, -1)));
+        }
+
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            selectedPos += new Vector2Int(1, 0);
+            accelerationCoroutines[3] = StartCoroutine(moveAcceleration(new Vector2Int(1, 0)));
+        }
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            selectedPos += new Vector2Int(1, 0);
+            accelerationCoroutines[7] = StartCoroutine(moveAcceleration(new Vector2Int(1, 0)));
+        }
+
+
+        if (Input.GetKeyUp(KeyCode.W)) if (accelerationCoroutines[0] != null) StopCoroutine(accelerationCoroutines[0]);
+        if (Input.GetKeyUp(KeyCode.A)) if (accelerationCoroutines[1] != null) StopCoroutine(accelerationCoroutines[1]);
+        if (Input.GetKeyUp(KeyCode.S)) if (accelerationCoroutines[2] != null) StopCoroutine(accelerationCoroutines[2]);
+        if (Input.GetKeyUp(KeyCode.D)) if (accelerationCoroutines[3] != null) StopCoroutine(accelerationCoroutines[3]);
+
+        if (Input.GetKeyUp(KeyCode.UpArrow)) if (accelerationCoroutines[4] != null) StopCoroutine(accelerationCoroutines[4]);
+        if (Input.GetKeyUp(KeyCode.LeftArrow)) if (accelerationCoroutines[5] != null) StopCoroutine(accelerationCoroutines[5]);
+        if (Input.GetKeyUp(KeyCode.DownArrow)) if (accelerationCoroutines[6] != null) StopCoroutine(accelerationCoroutines[6]);
+        if (Input.GetKeyUp(KeyCode.RightArrow)) if (accelerationCoroutines[7] != null) StopCoroutine(accelerationCoroutines[7]);
+    }
 
 
 
