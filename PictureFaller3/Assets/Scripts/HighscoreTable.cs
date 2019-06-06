@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Newtonsoft.Json;
 
 public class HighscoreTable : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class HighscoreTable : MonoBehaviour
     private Transform entryContainer;
     private Transform entryTemplate;
     private List<Transform> highscoreEntryTransformList;
+    public GameObject Leaderboard;
+
 
     private void Awake()
     {
@@ -58,7 +61,10 @@ public class HighscoreTable : MonoBehaviour
             CreateHighscoreEntryTransform(highscoreEntry, entryContainer, highscoreEntryTransformList);
         }
     }
-
+    public void disable()
+    {
+        Leaderboard.SetActive(false);
+    }
     private void CreateHighscoreEntryTransform(HighscoreEntry highscoreEntry, Transform container, List<Transform> transformList)
     {
         float templateHeight = 20f;
@@ -98,6 +104,13 @@ public class HighscoreTable : MonoBehaviour
 
        
         transformList.Add(entryTransform);
+    }
+
+    public void sort(string json)
+    {       
+            var listOb = JsonConvert.DeserializeObject<List<RootObject>>(json);
+            var descListOb = listOb.OrderBy(x => x.id);
+            return JsonConvert.SerializeObject(descListOb);        
     }
 
     public void AddHighscoreEntry(int score, string name)

@@ -10,17 +10,22 @@ public class GameOverMenu : MonoBehaviour
 {
     public GameObject scoreText;
     public Text name;
+    public GameObject GameOverCanvas;
+    public GameObject LeaderboardCanvas;
+    public GameObject MainMenu;
 
     public HighscoreTable highscoreTable;
 
     public void PlayGame () 
     {
-        SceneManager.LoadScene("World01big");
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //GameOverCanvas.SetActive(false);
     }
 
     public void LoadMenu () 
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void submit()
@@ -43,4 +48,10 @@ public class GameOverMenu : MonoBehaviour
 
     }
 
+    public void showLeaderboard()
+    {
+        Debug.Log("show Leaderboard");
+       // GameOverCanvas.SetActive(false);
+        LeaderboardCanvas.SetActive(true);
+    }
 }
