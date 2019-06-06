@@ -137,7 +137,7 @@ public class WallController : MonoBehaviour
 
 
             selectingSquare.transform.position = new Vector3(selectedPos.x * gridGap, selectedPos.y * gridGap, transform.position.z - pictureBlockScale * selectionZoffsetMult); //Push out depending on pic scale
-            selectingSquare.transform.localScale = new Vector3(pictureBlockScale * selectionScaleMult, pictureBlockScale * selectionScaleMult, pictureBlockScale * selectionScaleMult);
+            selectingSquare.transform.localScale = new Vector3(pictureBlockScale + pictureBlockScale * selectionScaleMult, pictureBlockScale + pictureBlockScale * selectionScaleMult, pictureBlockScale + pictureBlockScale * selectionScaleMult);
 
             // Visual offset for uneven picture width
             if (widthIsEven)
