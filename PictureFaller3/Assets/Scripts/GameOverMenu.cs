@@ -10,12 +10,12 @@ public class GameOverMenu : MonoBehaviour
 {
     public GameObject scoreText;
     public Text name;
-    
+    public Text personalScore;
     public GameObject GameOverCanvas;
     public GameObject LeaderboardCanvas;
     public GameObject MainMenu;
 
-    public HighscoreTable highscoreTable;
+    public HighscoreTable highscoreTable = new HighscoreTable();
 
     public void PlayGame () 
     {
@@ -25,7 +25,12 @@ public class GameOverMenu : MonoBehaviour
 
     public void Awake()
     {
-        
+        string score = scoreText.transform.GetComponent<TextMeshProUGUI>().text;
+        char[] charSeparator = new char[] { ' ' };
+        score = score.Split(charSeparator, StringSplitOptions.None)[0];
+        personalScore.text = "Your Score: " + score;
+        int highscoreDif = highscoreTable.highestScore();
+        personalScore.text = "Your Score: " + score + " only " + highscoreDif;
     }
 
     public void LoadMenu () 
@@ -35,7 +40,7 @@ public class GameOverMenu : MonoBehaviour
 
     public void submit()
     {
-        highscoreTable = new HighscoreTable();
+        
         string Name = name.text;
         string score = scoreText.transform.GetComponent<TextMeshProUGUI>().text;
         char[] charSeparator = new char[] { ' ' };

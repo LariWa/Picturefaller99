@@ -89,6 +89,12 @@ public class HighscoreTable : MonoBehaviour
         transformList.Add(entryTransform);
     }
 
+    public int highestScore()
+    {
+        string jsonString = PlayerPrefs.GetString("highscoreTable");
+        Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
+        return highscores.highscoreEntryList[0].score;
+    }
   
     public bool AddHighscoreEntry(int score, string name)
     {
