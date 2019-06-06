@@ -4,6 +4,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
+
 public class GameOverMenu : MonoBehaviour
 {
     public GameObject scoreText;
@@ -28,10 +30,15 @@ public class GameOverMenu : MonoBehaviour
         Debug.Log(Name);
         Debug.Log(scoreText.transform.GetComponent<TextMeshProUGUI>().text);
         string score = scoreText.transform.GetComponent<TextMeshProUGUI>().text;
-        //int score = int.Parse(scoreText.transform.GetComponent<TextMeshProUGUI>().text);
-
-        highscoreTable.AddHighscoreEntry(10284934, "Mert");
+        char[] charSeparator = new char[] { ' ' };
+        score = score.Split(charSeparator, StringSplitOptions.None)[0];
         Debug.Log(score);
+        int Score = int.Parse(score);
+
+        //int score = int.Parse(scoreText.transform.GetComponent<TextMeshProUGUI>().text);
+        Debug.Log(Score);
+        highscoreTable.AddHighscoreEntry(Score, Name);
+        Debug.Log(Score);
         Debug.Log(Name);
 
     }
