@@ -193,13 +193,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        //if (other.tag == "PictureSafeZone")
+        //    pictureManager.rollPicToSearch();
 
         if (other.tag == "Wind")
         {
-            //First time hitting wind
+            //First time hitting wind trigger (slow down)
             if (!floating)
             {
-                pictureManager.rollPicToSearch();
                 Camera.main.GetComponent<CameraManager>().setPictureCam();
                 chunkManager.setSelectSquarePos(new Vector3(transform.position.x, transform.position.y, chunkManager.getSelectSquarePos().z));
                 slowmoTimer = slowmoDuration;
@@ -207,7 +208,7 @@ public class PlayerMovement : MonoBehaviour
             }
             floating = true;
         }
-        else if (other.tag == "Wall")
+        else if (other.tag == "Wall") //Actually hit the pictures
         {
             pictureManager.hitPicWall();
             divingDown = false;

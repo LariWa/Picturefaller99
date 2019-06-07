@@ -6,8 +6,9 @@ public class WallController : MonoBehaviour
 {
     [SerializeField] private Sprite blackPicture;
     private Sprite[] allPictures; // ammount needs to be squared so 4, 9, 16, 25 etc
+    [SerializeField] private GameObject pictureBlockSearched;
     [SerializeField] private GameObject pictureBlockPrefab;
-    [SerializeField] private GameObject pictureBlockPrefabBigWall;
+    [SerializeField] private GameObject pictureBlockPrefabOneFrame;
 
     [SerializeField] private float bigFrameScaleMulti = 1.25f;
     [SerializeField] private float totalPicDimMin = 5f; //Whole space pics will take up at start (dim 2x2)
@@ -86,7 +87,7 @@ public class WallController : MonoBehaviour
 
                 if (gridWidth >= oneBigFrameFromDim) // One big pic
                 {
-                    frame = Instantiate(pictureBlockPrefabBigWall, new Vector3(x * gridGap - maxDistHalf, y * gridGap - maxDistHalf, transform.position.z), Quaternion.Euler(-90, 0, 0));
+                    frame = Instantiate(pictureBlockPrefabOneFrame, new Vector3(x * gridGap - maxDistHalf, y * gridGap - maxDistHalf, transform.position.z), Quaternion.Euler(-90, 0, 0));
 
                     if(x == 0 && y == 0)
                     {
@@ -113,7 +114,11 @@ public class WallController : MonoBehaviour
             wallSpr[i].sprite = allPictures[i];
 
 
-        deleteNearObstacles();
+        //deleteNearObstacles(); //now implemented with PictureSafeZone trigger (Delete on cotnact)
+
+        PictureManager pictureManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<PictureManager>();
+        pictureManager.rollPicToSearch();
+        pictureBlockSearched.GetComponent<PictureToSearchGO>().setPicture(pictureManager.getCurrentSearchPic());
     }
 
 
@@ -227,7 +232,7 @@ public class WallController : MonoBehaviour
 
 
 
-    public void deleteNearObstacles()
+    /*public void deleteNearObstacles()
     {
         var allObstacles = FindObjectsOfType<DamageObject>();
         foreach (DamageObject d in allObstacles)
@@ -235,7 +240,7 @@ public class WallController : MonoBehaviour
             if (Vector3.Distance(d.transform.parent.position, transform.position) <= delteObstaclesRadius)
                 Destroy(d.transform.parent.gameObject);
         }
-    }
+    }*/
 
     public Vector3 getSelectSquarePos()
     {

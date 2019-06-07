@@ -8,6 +8,9 @@ TagManager:
   - Managers
   - Goal
   - Wind
+  - PictureSafeZone
+  - Picture Search UI
+  - GameplayCanvas
   layers:
   - Default
   - TransparentFX

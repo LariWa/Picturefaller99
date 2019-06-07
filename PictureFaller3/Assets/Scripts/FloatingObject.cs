@@ -34,4 +34,11 @@ public class FloatingObject : MonoBehaviour
             rb.velocity = moveDir;
         }
     }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Wind" || other.tag == "PictureSafeZone")
+            Destroy(gameObject);   
+    }
 }
