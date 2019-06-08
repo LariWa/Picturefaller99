@@ -10,47 +10,62 @@ public class GameOverMenu : MonoBehaviour
 {
     public GameObject scoreText;
     public Text name;
+    public Text personalScore;
     public GameObject GameOverCanvas;
     public GameObject LeaderboardCanvas;
     public GameObject MainMenu;
+    public Button submitButton;
 
+    public GameObject nameUsed;
     public HighscoreTable highscoreTable;
 
-    public void PlayGame () 
+    public void PlayGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         //GameOverCanvas.SetActive(false);
     }
 
-    public void LoadMenu () 
+    public void Awake()
+    {
+        string score = scoreText.transform.GetComponent<TextMeshProUGUI>().text;
+        char[] charSeparator = new char[] { ' ' };
+        score = score.Split(charSeparator, StringSplitOptions.None)[0];
+        int dif = highscoreTable.getHighestScore() - int.Parse(score);
+        personalScore.text = "Your Score: " + score + "\n only " + dif + " missing to the highscore!";
+    }
+
+    public void LoadMenu()
     {
         SceneManager.LoadScene("MainMenu");
     }
 
     public void submit()
     {
-       highscoreTable = new HighscoreTable();
         string Name = name.text;
-        Debug.Log(Name);
-        Debug.Log(scoreText.transform.GetComponent<TextMeshProUGUI>().text);
         string score = scoreText.transform.GetComponent<TextMeshProUGUI>().text;
         char[] charSeparator = new char[] { ' ' };
         score = score.Split(charSeparator, StringSplitOptions.None)[0];
-        Debug.Log(score);
         int Score = int.Parse(score);
 
-        //int score = int.Parse(scoreText.transform.GetComponent<TextMeshProUGUI>().text);
-        Debug.Log(Score);
-        highscoreTable.AddHighscoreEntry(Score, Name);
-        Debug.Log(Score);
-        Debug.Log(Name);
-
+        //highscoreTable.AddHighscoreEntry(Score, Name)
+        bool sub = highscoreTable.AddHighscoreEntry(Score, Name);
+        Debug.Log(sub);
+  
+        if (!sub)
+        {
+            nameUsed.SetActive(true);
+        }
+        else
+        {
+            submitButton.interactable = false;
+            nameUsed.SetActive(false);
+        }
     }
 
     public void showLeaderboard()
     {
         Debug.Log("show Leaderboard");
-       // GameOverCanvas.SetActive(false);
+        // GameOverCanvas.SetActive(false);
         LeaderboardCanvas.SetActive(true);
     }
 }

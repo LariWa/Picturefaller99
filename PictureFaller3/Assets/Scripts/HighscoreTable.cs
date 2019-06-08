@@ -29,15 +29,16 @@ public class HighscoreTable : MonoBehaviour
 
         if (highscores == null)
         {
+            //highscoreEntryList = new List<HighscoreEntry>();
             // There's no stored table, initialize
             Debug.Log("Initializing table with default values...");
-            AddHighscoreEntry(0, "default");
-           
+            // AddHighscoreEntry(0, "default");
+
             // Reload
             jsonString = PlayerPrefs.GetString("highscoreTable");
             highscores = JsonUtility.FromJson<Highscores>(jsonString);
         }
-               
+
         highscoreEntryTransformList = new List<Transform>();
         Debug.Log(highscoreEntryTransformList);
         foreach (HighscoreEntry highscoreEntry in highscores.highscoreEntryList)
@@ -89,8 +90,14 @@ public class HighscoreTable : MonoBehaviour
         transformList.Add(entryTransform);
     }
 
-  
-    public void AddHighscoreEntry(int score, string name)
+    public int getHighestScore()
+    {
+        string jsonString = PlayerPrefs.GetString("highscoreTable");
+        Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
+        return highscores.highscoreEntryList[0].score;
+    }
+
+    public bool AddHighscoreEntry(int score, string name)
     {
         // Create HighscoreEntry
         HighscoreEntry highscoreEntry = new HighscoreEntry { score = score, name = name };
@@ -109,13 +116,24 @@ public class HighscoreTable : MonoBehaviour
         }
 
         // Add new entry to Highscores
+
+        foreach (HighscoreEntry entry in highscores.highscoreEntryList) //check name
+        {
+            if (entry.name == name)
+                return false;
+        }
+
+
         highscores.highscoreEntryList.Add(highscoreEntry);
-        highscores.highscoreEntryList = highscores.highscoreEntryList.OrderByDescending(o => o.score).ToList().GetRange(0,10);
-        
+        highscores.highscoreEntryList = highscores.highscoreEntryList.OrderByDescending(o => o.score).ToList();
+        if (highscores.highscoreEntryList.Count > 10)
+            highscores.highscoreEntryList = highscores.highscoreEntryList.GetRange(0, 10);
+
         // Save updated Highscores
         string json = JsonUtility.ToJson(highscores);
         PlayerPrefs.SetString("highscoreTable", json);
-        PlayerPrefs.Save();           
+        PlayerPrefs.Save();
+        return true;
     }
 
     private class Highscores
