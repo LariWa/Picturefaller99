@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float dashDelay = 0.2f; //how long to wait until second click registers as double click
     [SerializeField] private float dashImpulse = 50f;
     //private Coroutine doubleTapCoroutine = new Coroutine();
-    private float dashTimer;
+    private float dashTimer = -1;
     private Vector2 lastDir;
 
     [Space]
@@ -33,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float flyPicDur = 2f;
     [SerializeField] private bool useDebugAbilities = false;
+    public bool mouseSelection;
 
     private Rigidbody rb;
     private ScoreManager scoreManager;
@@ -45,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
     private float inputVert;
     private float startFloatZ;
     private float slowmoTimer;
+    private KeyCode selectKey = KeyCode.Space;
 
     public bool divingDown { get; private set; }
     public bool floating { get; private set; } // rename to inSlowmo
@@ -61,6 +63,8 @@ public class PlayerMovement : MonoBehaviour
         scienceTimer = GameObject.FindGameObjectWithTag("Managers").GetComponent<ScienceTimer>();
         chunkManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<ChunkManager>();
         scoreManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<ScoreManager>();
+
+        if (mouseSelection) selectKey = KeyCode.Mouse0;
 
         Physics.gravity = new Vector3(0, 0, gravity);
     }
@@ -93,7 +97,7 @@ public class PlayerMovement : MonoBehaviour
         inputVert = Input.GetAxisRaw("Vertical");
 
 
-        if (Input.GetKeyDown(KeyCode.Space) && floating) //KeypadEnter?
+        if (floating && Input.GetKeyDown(selectKey)) //KeypadEnter?
         {
             pictureManager.selectedAPic();
 
@@ -189,13 +193,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        //if (other.tag == "PictureSafeZone")
+        //    pictureManager.rollPicToSearch();
 
         if (other.tag == "Wind")
         {
-            //First time hitting wind
+            //First time hitting wind trigger (slow down)
             if (!floating)
             {
-                pictureManager.rollPicToSearch();
                 Camera.main.GetComponent<CameraManager>().setPictureCam();
                 chunkManager.setSelectSquarePos(new Vector3(transform.position.x, transform.position.y, chunkManager.getSelectSquarePos().z));
                 slowmoTimer = slowmoDuration;
@@ -203,7 +208,7 @@ public class PlayerMovement : MonoBehaviour
             }
             floating = true;
         }
-        else if (other.tag == "Wall")
+        else if (other.tag == "Wall") //Actually hit the pictures
         {
             pictureManager.hitPicWall();
             divingDown = false;
@@ -226,11 +231,11 @@ public class PlayerMovement : MonoBehaviour
     private void dash() // or try https://forum.unity.com/threads/double-tapping-axis-input.8620/
     {
         if (floating) return;
-        
+
 
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if (dashTimer >= 0)
+            if (dashTimer > 0)
             {
                 if (lastDir == new Vector2(0, 1))
                 {
@@ -247,7 +252,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            if (dashTimer >= 0)
+            if (dashTimer > 0)
             {
                 if (lastDir == new Vector2(-1, 0))
                 {
@@ -265,7 +270,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
-            if (dashTimer >= 0)
+            if (dashTimer > 0)
             {
                 if (lastDir == new Vector2(0, -1))
                 {
@@ -283,7 +288,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if (dashTimer >= 0)
+            if (dashTimer > 0)
             {
                 if (lastDir == new Vector2(1, 0))
                 {
@@ -300,7 +305,7 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    
+
 
 }
 

@@ -6,8 +6,9 @@ public class WallController : MonoBehaviour
 {
     [SerializeField] private Sprite blackPicture;
     private Sprite[] allPictures; // ammount needs to be squared so 4, 9, 16, 25 etc
+    [SerializeField] private GameObject pictureBlockSearched;
     [SerializeField] private GameObject pictureBlockPrefab;
-    [SerializeField] private GameObject pictureBlockPrefabBigWall;
+    [SerializeField] private GameObject pictureBlockPrefabOneFrame;
 
     [SerializeField] private float bigFrameScaleMulti = 1.25f;
     [SerializeField] private float totalPicDimMin = 5f; //Whole space pics will take up at start (dim 2x2)
@@ -37,8 +38,13 @@ public class WallController : MonoBehaviour
 
     private Vector3 playerStartOffset = Vector3.zero;
 
+    private bool widthIsEven;
+    private float totalPicDim;
+    private bool mouseSelection;
+
     void Start()
     {
+
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         wallManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<PictureManager>();
 
@@ -46,6 +52,13 @@ public class WallController : MonoBehaviour
         settingManager.randomSortForSetting(settingManager.getNextSetting());
         allPictures = settingManager.getAllPicturesInSort(settingManager.getNextSetting());
 
+        mouseSelection = player.mouseSelection;
+
+        if (mouseSelection)
+        {
+            //Hide mouse or put mouse sprite (crosshair)
+
+        }
 
 
         // ------ Init ---------
@@ -55,8 +68,9 @@ public class WallController : MonoBehaviour
         int gridWidth = Mathf.RoundToInt(Mathf.Sqrt(allPictures.Length));
         float floatWidth = (float)gridWidth;
 
+        widthIsEven = ((Mathf.Sqrt(allPictures.Length) / 2) % 1) == 0;
 
-        var totalPicDim = floatWidth.Remap(2, 15, totalPicDimMin, totalPicDimMax);
+        totalPicDim = floatWidth.Remap(2, 15, totalPicDimMin, totalPicDimMax);
         gridGap = totalPicDim / gridWidth;
         var picGaps = floatWidth.Remap(2,15, picGapsMin, picGapsMax);
 
@@ -73,7 +87,7 @@ public class WallController : MonoBehaviour
 
                 if (gridWidth >= oneBigFrameFromDim) // One big pic
                 {
-                    frame = Instantiate(pictureBlockPrefabBigWall, new Vector3(x * gridGap - maxDistHalf, y * gridGap - maxDistHalf, transform.position.z), Quaternion.Euler(-90, 0, 0));
+                    frame = Instantiate(pictureBlockPrefabOneFrame, new Vector3(x * gridGap - maxDistHalf, y * gridGap - maxDistHalf, transform.position.z), Quaternion.Euler(-90, 0, 0));
 
                     if(x == 0 && y == 0)
                     {
@@ -100,7 +114,11 @@ public class WallController : MonoBehaviour
             wallSpr[i].sprite = allPictures[i];
 
 
-        deleteNearObstacles();
+        //deleteNearObstacles(); //now implemented with PictureSafeZone trigger (Delete on cotnact)
+
+        PictureManager pictureManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<PictureManager>();
+        pictureManager.rollPicToSearch();
+        pictureBlockSearched.GetComponent<PictureToSearchGO>().setPicture(pictureManager.getCurrentSearchPic());
     }
 
 
@@ -111,73 +129,20 @@ public class WallController : MonoBehaviour
         //Move selection square like in tetris (Move this somewhere else?)
         if (player.floating)
         {
+            if (mouseSelection)
+                mouseControlls();
+            else
+                buttonControlls();
 
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                selectedPos += new Vector2Int(0, 1);
-                accelerationCoroutines[0] = StartCoroutine(moveAcceleration(new Vector2Int(0, 1)));
-            }
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                selectedPos += new Vector2Int(0, 1);
-                accelerationCoroutines[4] = StartCoroutine(moveAcceleration(new Vector2Int(0, 1)));
-            }
-
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                selectedPos += new Vector2Int(-1, 0);
-                accelerationCoroutines[1] = StartCoroutine(moveAcceleration(new Vector2Int(-1, 0)));
-            }
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                selectedPos += new Vector2Int(-1, 0);
-                accelerationCoroutines[5] = StartCoroutine(moveAcceleration(new Vector2Int(-1, 0)));
-            }
-
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                selectedPos += new Vector2Int(0, -1);
-                accelerationCoroutines[2] = StartCoroutine(moveAcceleration(new Vector2Int(0, -1)));
-            }
-            if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                selectedPos += new Vector2Int(0, -1);
-                accelerationCoroutines[6] = StartCoroutine(moveAcceleration(new Vector2Int(0, -1)));
-            }
-
-            if (Input.GetKeyDown(KeyCode.D))
-            {
-                selectedPos += new Vector2Int(1, 0);
-                accelerationCoroutines[3] = StartCoroutine(moveAcceleration(new Vector2Int(1, 0)));
-            }
-            if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                selectedPos += new Vector2Int(1, 0);
-                accelerationCoroutines[7] = StartCoroutine(moveAcceleration(new Vector2Int(1, 0)));
-            }
-
-
-            if (Input.GetKeyUp(KeyCode.W)) if (accelerationCoroutines[0] != null) StopCoroutine(accelerationCoroutines[0]);
-            if (Input.GetKeyUp(KeyCode.A)) if (accelerationCoroutines[1] != null) StopCoroutine(accelerationCoroutines[1]);
-            if (Input.GetKeyUp(KeyCode.S)) if (accelerationCoroutines[2] != null) StopCoroutine(accelerationCoroutines[2]);
-            if (Input.GetKeyUp(KeyCode.D)) if (accelerationCoroutines[3] != null) StopCoroutine(accelerationCoroutines[3]);
-
-            if (Input.GetKeyUp(KeyCode.UpArrow)) if (accelerationCoroutines[4] != null) StopCoroutine(accelerationCoroutines[4]);
-            if (Input.GetKeyUp(KeyCode.LeftArrow)) if (accelerationCoroutines[5] != null) StopCoroutine(accelerationCoroutines[5]);
-            if (Input.GetKeyUp(KeyCode.DownArrow)) if (accelerationCoroutines[6] != null) StopCoroutine(accelerationCoroutines[6]);
-            if (Input.GetKeyUp(KeyCode.RightArrow)) if (accelerationCoroutines[7] != null) StopCoroutine(accelerationCoroutines[7]);
-
-
+            
             int squareWidthHalf = (int) Mathf.Sqrt(allPictures.Length) / 2;
-
-            bool widthIsEven = ((Mathf.Sqrt(allPictures.Length) / 2) % 1) == 0;
 
             if(!widthIsEven) selectedPos.Clamp(new Vector2Int(-squareWidthHalf, -squareWidthHalf), (new Vector2Int(squareWidthHalf, squareWidthHalf)));
             if (widthIsEven) selectedPos.Clamp(new Vector2Int(-squareWidthHalf + 1, -squareWidthHalf + 1), (new Vector2Int(squareWidthHalf, squareWidthHalf)));
 
 
             selectingSquare.transform.position = new Vector3(selectedPos.x * gridGap, selectedPos.y * gridGap, transform.position.z - pictureBlockScale * selectionZoffsetMult); //Push out depending on pic scale
-            selectingSquare.transform.localScale = new Vector3(pictureBlockScale * selectionScaleMult, pictureBlockScale * selectionScaleMult, pictureBlockScale * selectionScaleMult);
+            selectingSquare.transform.localScale = new Vector3(pictureBlockScale + pictureBlockScale * selectionScaleMult, pictureBlockScale + pictureBlockScale * selectionScaleMult, pictureBlockScale + pictureBlockScale * selectionScaleMult);
 
             // Visual offset for uneven picture width
             if (widthIsEven)
@@ -188,10 +153,86 @@ public class WallController : MonoBehaviour
 
 
 
+    private void mouseControlls()
+    {
+        var mousePos = Input.mousePosition;
+        mousePos.z = selectingSquare.transform.position.z;
+        mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+;
+
+        // Convert from 3d Space into array (-2,-1,0,1,2)
+
+        //mousePos = new Vector3(mousePos.x/gridGap, mousePos.y / gridGap, mousePos.z);
+        //mousePos = new Vector3(mousePos.x/10, mousePos.y / 10, mousePos.z);
+        mousePos = new Vector3(mousePos.x/ totalPicDim, mousePos.y / totalPicDim, mousePos.z);
+        if (widthIsEven) mousePos += new Vector3(0.5f * gridGap, 0.5f * gridGap, 0f);
+
+
+        setSelectSquarePos(mousePos);
+    }
+
+
+    private void buttonControlls()
+    {
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            selectedPos += new Vector2Int(0, 1);
+            accelerationCoroutines[0] = StartCoroutine(moveAcceleration(new Vector2Int(0, 1)));
+        }
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            selectedPos += new Vector2Int(0, 1);
+            accelerationCoroutines[4] = StartCoroutine(moveAcceleration(new Vector2Int(0, 1)));
+        }
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            selectedPos += new Vector2Int(-1, 0);
+            accelerationCoroutines[1] = StartCoroutine(moveAcceleration(new Vector2Int(-1, 0)));
+        }
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            selectedPos += new Vector2Int(-1, 0);
+            accelerationCoroutines[5] = StartCoroutine(moveAcceleration(new Vector2Int(-1, 0)));
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            selectedPos += new Vector2Int(0, -1);
+            accelerationCoroutines[2] = StartCoroutine(moveAcceleration(new Vector2Int(0, -1)));
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            selectedPos += new Vector2Int(0, -1);
+            accelerationCoroutines[6] = StartCoroutine(moveAcceleration(new Vector2Int(0, -1)));
+        }
+
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            selectedPos += new Vector2Int(1, 0);
+            accelerationCoroutines[3] = StartCoroutine(moveAcceleration(new Vector2Int(1, 0)));
+        }
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            selectedPos += new Vector2Int(1, 0);
+            accelerationCoroutines[7] = StartCoroutine(moveAcceleration(new Vector2Int(1, 0)));
+        }
+
+
+        if (Input.GetKeyUp(KeyCode.W)) if (accelerationCoroutines[0] != null) StopCoroutine(accelerationCoroutines[0]);
+        if (Input.GetKeyUp(KeyCode.A)) if (accelerationCoroutines[1] != null) StopCoroutine(accelerationCoroutines[1]);
+        if (Input.GetKeyUp(KeyCode.S)) if (accelerationCoroutines[2] != null) StopCoroutine(accelerationCoroutines[2]);
+        if (Input.GetKeyUp(KeyCode.D)) if (accelerationCoroutines[3] != null) StopCoroutine(accelerationCoroutines[3]);
+
+        if (Input.GetKeyUp(KeyCode.UpArrow)) if (accelerationCoroutines[4] != null) StopCoroutine(accelerationCoroutines[4]);
+        if (Input.GetKeyUp(KeyCode.LeftArrow)) if (accelerationCoroutines[5] != null) StopCoroutine(accelerationCoroutines[5]);
+        if (Input.GetKeyUp(KeyCode.DownArrow)) if (accelerationCoroutines[6] != null) StopCoroutine(accelerationCoroutines[6]);
+        if (Input.GetKeyUp(KeyCode.RightArrow)) if (accelerationCoroutines[7] != null) StopCoroutine(accelerationCoroutines[7]);
+    }
 
 
 
-    public void deleteNearObstacles()
+    /*public void deleteNearObstacles()
     {
         var allObstacles = FindObjectsOfType<DamageObject>();
         foreach (DamageObject d in allObstacles)
@@ -199,7 +240,7 @@ public class WallController : MonoBehaviour
             if (Vector3.Distance(d.transform.parent.position, transform.position) <= delteObstaclesRadius)
                 Destroy(d.transform.parent.gameObject);
         }
-    }
+    }*/
 
     public Vector3 getSelectSquarePos()
     {
