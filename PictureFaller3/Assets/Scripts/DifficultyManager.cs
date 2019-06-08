@@ -5,10 +5,9 @@ using UnityEngine;
 public class DifficultyManager : MonoBehaviour
 {
     [SerializeField] private AnimationCurve objectSpawns; //first values for 2x2 pictures, last for 15x15
-    [SerializeField] private AnimationCurve wallChunkDistance;
+    [SerializeField] private AnimationCurve wallDistance;
     //[SerializeField] private int wallDistanceRandPlus = 5;
     [SerializeField] private int objRandMore = 5;
-    [SerializeField] private int wallDistRandMore = 2;
 
     [Space]
 
@@ -49,11 +48,11 @@ public class DifficultyManager : MonoBehaviour
         t = t.Remap(startDim, maxDim, 0, 1);
 
         //Get how many obstacles to spawn here
-        var offset = wallChunkDistance.Evaluate(t);
+        var offset = wallDistance.Evaluate(t);
 
         //offset += Random.Range(0, offset/2f);
 
-        return Mathf.RoundToInt(offset) + wallDistRandMore;
+        return Mathf.RoundToInt(offset);
     }
 
 

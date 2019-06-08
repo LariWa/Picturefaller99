@@ -40,7 +40,7 @@ public class ScoreManager : MonoBehaviour
 			PlayerPrefs.SetFloat("Highscore", highscoreCount);
 		}
 		scoreText.text = Mathf.Round(scoreCount) +         " Score"; //" Current"
-        highscoreText.text = Mathf.Round(highscoreCount) + " Best"; //" Highest"
+        highscoreText.text = Mathf.Round(highscoreCount) + " HighS"; //" Highest"
     }
 
 

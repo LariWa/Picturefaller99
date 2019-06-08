@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class PictureManager : MonoBehaviour
 {
-
     [SerializeField] private Image picSearched; //Move somewhere else? UI
     private int currPicSearched;
 
@@ -86,15 +85,6 @@ public class PictureManager : MonoBehaviour
     {
         var currentPics = GetComponent<SettingManager>().getAllPicturesInSort(GetComponent<SettingManager>().getNextSetting());
         currPicSearched = Random.Range(0, currentPics.Length);
-
-        
-        //picSearched.sprite = currentPics[currPicSearched];
-
-    }
-
-    public Sprite getCurrentSearchPic()
-    {
-        var currentPics = GetComponent<SettingManager>().getAllPicturesInSort(GetComponent<SettingManager>().getNextSetting());
-        return currentPics[currPicSearched];
+        picSearched.sprite = currentPics[currPicSearched];
     }
 }

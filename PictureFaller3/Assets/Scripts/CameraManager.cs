@@ -7,7 +7,7 @@ public class CameraManager : MonoBehaviour
 {
 
     [SerializeField] private float defaultBlendTime = 2f;
-    //[SerializeField] private Vector3 fixedPosOffset;
+    [SerializeField] private Vector3 fixedPosOffset;
     [SerializeField] private GameObject camNormal;
     [SerializeField] private GameObject camPics;
     [SerializeField] private Camera ignorePostCamera;
@@ -74,11 +74,11 @@ public class CameraManager : MonoBehaviour
     public void setPictureCam()
     {
         var brain = FindObjectOfType<CinemachineBrain>();
-        brain.m_DefaultBlend.m_Time = defaultBlendTime;
+        brain.m_DefaultBlend.m_Time = defaultBlendTime; 
 
 
         //Dont follow player but stay at his last position
-        fixedPos.position = new Vector3(0, 0, player.transform.position.z);// + fixedPosOffset;
+        fixedPos.position = new Vector3(0,0, player.transform.position.z) + fixedPosOffset;
         camPics.GetComponent<CinemachineVirtualCamera>().Follow = fixedPos;
 
         camPics.SetActive(true);

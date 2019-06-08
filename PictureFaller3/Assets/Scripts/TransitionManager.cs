@@ -9,7 +9,6 @@ public class TransitionManager : MonoBehaviour
     [SerializeField] private float screenFadeSpdIn = 0.25f;
     [SerializeField] private float screenFadeSpdOut = 0.5f;
     [SerializeField] private float screenWhiteDur = 0.5f;
-    [SerializeField] private float delayBeforeTransition = 0.5f; //how long after pic hit wait?
 
     // TODO: Move player slowmoTimer here !!!
 
@@ -69,8 +68,6 @@ public class TransitionManager : MonoBehaviour
 
     private IEnumerator fadeScreenWhiteOver(float aValue, float aTime)
     {
-        yield return new WaitForSeconds(delayBeforeTransition);
-
         float alpha = screenFadeImg.color.a;
 
         for (float t = 0f; t <= 1f; t += Time.deltaTime / aTime)

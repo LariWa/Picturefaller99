@@ -53,7 +53,8 @@ public class ChunkManager : MonoBehaviour
 
         zSpawnNext += chunkLength;
         
-        //if(currentPictureWall) currentPictureWall.GetComponent<WallController>().deleteNearObstacles();
+        //Delete any new ojects that might be near the wall
+        if(currentPictureWall) currentPictureWall.GetComponent<WallController>().deleteNearObstacles();
 
 
         //TODO: instead of deleting use pooling (or maybe not?)
@@ -67,7 +68,7 @@ public class ChunkManager : MonoBehaviour
         var chunksUntilPicture = difficultyManager.getWallChunkOffset();
         currentPictureWall = Instantiate(pictureWallPre, Vector3.forward * chunksUntilPicture * chunkLength, Quaternion.Euler(-90, 0, 0));  //TODO: probably not accurate pos !!!
 
-        //currentPictureWall.GetComponent<WallController>().deleteNearObstacles();
+        currentPictureWall.GetComponent<WallController>().deleteNearObstacles();
     }
 
     public void spawnPicWallOffsetFromLast()
@@ -80,7 +81,7 @@ public class ChunkManager : MonoBehaviour
         var chunksUntilPicture = difficultyManager.getWallChunkOffset();
         currentPictureWall = Instantiate(pictureWallPre, Vector3.forward * chunksUntilPicture * chunkLength + oldPos, Quaternion.Euler(-90, 0, 0));  //TODO: probably not accurate pos !!!
 
-        //currentPictureWall.GetComponent<WallController>().deleteNearObstacles();
+        currentPictureWall.GetComponent<WallController>().deleteNearObstacles();
     }
 
 

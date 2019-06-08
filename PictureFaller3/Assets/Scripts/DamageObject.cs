@@ -20,15 +20,13 @@ public class DamageObject : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        var playerStats = other.transform.GetComponentInChildren<PlayerStats>();
+        var thing = other.transform.GetComponentInChildren<PlayerStats>();
 
-        if (playerStats != null)
+        if (thing != null)
         {
-            playerStats.damagePlayer(damage);
+            thing.damagePlayer(damage);
             other.transform.GetComponentInChildren<PlayerMovement>().knockBack(transform.position);
-            
-            //Destroy(transform.parent.gameObject);
-            GetComponent<Collider>().enabled = false;
+            Destroy(transform.parent.gameObject);
         }
 
     }
