@@ -14,8 +14,10 @@ public class GameOverMenu : MonoBehaviour
     public GameObject GameOverCanvas;
     public GameObject LeaderboardCanvas;
     public GameObject MainMenu;
+    public Button submitButton;
 
-    public HighscoreTable highscoreTable = new HighscoreTable();
+    public GameObject nameUsed;
+    public HighscoreTable highscoreTable;
 
     public void PlayGame () 
     {
@@ -28,9 +30,8 @@ public class GameOverMenu : MonoBehaviour
         string score = scoreText.transform.GetComponent<TextMeshProUGUI>().text;
         char[] charSeparator = new char[] { ' ' };
         score = score.Split(charSeparator, StringSplitOptions.None)[0];
-        personalScore.text = "Your Score: " + score;
-        int highscoreDif = highscoreTable.highestScore();
-        personalScore.text = "Your Score: " + score + " only " + highscoreDif;
+        int dif = highscoreTable.getHighestScore() - int.Parse(score);
+        personalScore.text = "Your Score: " + score + "\n only "+ dif +" missing to the highscore!";       
     }
 
     public void LoadMenu () 
@@ -40,19 +41,24 @@ public class GameOverMenu : MonoBehaviour
 
     public void submit()
     {
-        
         string Name = name.text;
         string score = scoreText.transform.GetComponent<TextMeshProUGUI>().text;
         char[] charSeparator = new char[] { ' ' };
         score = score.Split(charSeparator, StringSplitOptions.None)[0];
-        int Score = int.Parse(score); 
-        
+        int Score = int.Parse(score);
 
-     //highscoreTable.AddHighscoreEntry(Score, Name)
-     bool sub = highscoreTable.AddHighscoreEntry(Score, Name);
+        //highscoreTable.AddHighscoreEntry(Score, Name)
+        bool sub = highscoreTable.AddHighscoreEntry(Score, Name);
         Debug.Log(sub);
-        
-
+        if (!sub)
+        {
+           nameUsed.SetActive(true);
+        }
+        else
+        {
+            submitButton.interactable = false;
+            nameUsed.SetActive(false);
+        }
     }
 
     public void showLeaderboard()
