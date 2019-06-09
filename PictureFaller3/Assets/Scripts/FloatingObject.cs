@@ -39,6 +39,6 @@ public class FloatingObject : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Wind" || other.tag == "PictureSafeZone")
-            Destroy(gameObject);   
+            Destroy(gameObject);
     }
 }
