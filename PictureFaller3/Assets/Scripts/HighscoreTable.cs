@@ -104,6 +104,7 @@ public class HighscoreTable : MonoBehaviour
 
         // Load saved Highscores
         string jsonString = PlayerPrefs.GetString("highscoreTable");
+        Debug.Log(jsonString);
         Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
 
         if (highscores == null)

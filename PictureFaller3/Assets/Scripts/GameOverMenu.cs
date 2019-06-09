@@ -31,7 +31,12 @@ public class GameOverMenu : MonoBehaviour
         char[] charSeparator = new char[] { ' ' };
         score = score.Split(charSeparator, StringSplitOptions.None)[0];
         int dif = highscoreTable.getHighestScore() - int.Parse(score);
-        personalScore.text = "Your Score: " + score + "\n only " + dif + " missing to the highscore!";
+        string message;
+        if (dif < 0)
+            message = "\n You beat the highscore!";
+        else
+            message = "\n only " + dif + " missing to the highscore!";
+        personalScore.text = "Your Score: " + score + message;
     }
 
     public void LoadMenu()

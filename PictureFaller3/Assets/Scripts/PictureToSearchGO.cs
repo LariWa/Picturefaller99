@@ -93,21 +93,25 @@ public class PictureToSearchGO : MonoBehaviour
             //https://answers.unity.com/questions/799616/unity-46-beta-19-how-to-convert-from-world-space-t.html
             //https://forum.unity.com/threads/world-size-to-screen-size.596425/
 
-
-            StartCoroutine(moveUItopLeftAndKillThis(recUI, recUI.anchoredPosition, UIorigin, moveTopLeftSpd));
+            GameObject x = new GameObject("f", typeof(RectTransform));
+            var rec = x.GetComponent <RectTransform>();
+            StartCoroutine(moveUItopLeftAndKillThis(recUI, recUI.anchoredPosition, UIorigin, moveTopLeftSpd,rec));
         }
     }
 
 
 
-    private IEnumerator moveUItopLeftAndKillThis(RectTransform recUI, Vector3 start, Vector3 end, float time)
+    private IEnumerator moveUItopLeftAndKillThis(RectTransform recUI, Vector3 start, Vector3 end, float time, RectTransform f)
     {
         for (float t = 0f; t <= 1f; t += Time.deltaTime / time)
         {
             recUI.anchoredPosition = Vector3.Lerp(start, end, t);
+            f.anchoredPosition = Vector3.Lerp(start, end, t);
             yield return null;
         }
         recUI.anchoredPosition = end;
+        f.anchoredPosition = end;
+
 
         Destroy(gameObject);
     }
