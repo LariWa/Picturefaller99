@@ -10,7 +10,7 @@ TagManager:
   - Wind
   - PictureSafeZone
   - Picture Search UI
-  - GameplayCanvas
+  - MainCanvas
   layers:
   - Default
   - TransparentFX
