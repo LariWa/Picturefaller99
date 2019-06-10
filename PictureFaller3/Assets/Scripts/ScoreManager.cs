@@ -29,16 +29,20 @@ public class ScoreManager : MonoBehaviour
 
     void Update()
     {
-        if (scoreIncreasing)
-		{
-			scoreCount += pointsPerSecond * Time.deltaTime;
-		}
+        if ((scoreIncreasing) && (!PauseMenu.GameIsPaused))
+        {
+            scoreCount += pointsPerSecond * Time.deltaTime;
+        } else {
+            scoreCount += 0;
+        }
 	
 		if (scoreCount > highscoreCount)
 		{
 			highscoreCount = scoreCount;
 			PlayerPrefs.SetFloat("Highscore", highscoreCount);
 		}
+
+       
 		scoreText.text = Mathf.Round(scoreCount) +         " Score"; //" Current"
         highscoreText.text = Mathf.Round(highscoreCount) + " HighS"; //" Highest"
     }

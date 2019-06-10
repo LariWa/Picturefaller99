@@ -85,6 +85,11 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
+        if (PauseMenu.GameIsPaused)
+        {
+            rb.velocity = Vector3.zero;
+        }
+       
 
         //freeze player at -3 while camera fully zoomed in to hide him
         //if (gravity <= 0) transform.position = new Vector3(transform.position.x, -3, transform.position.z);
