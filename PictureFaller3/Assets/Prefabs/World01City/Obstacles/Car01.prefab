@@ -172,6 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 20
+  fadeSpd: 0.5
 --- !u!1 &7206916431017776870
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,3 +231,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 20
+  fadeSpd: 0.5

@@ -12,9 +12,11 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float healthLossDelay = 0.1f;
     [SerializeField] private int damageOnSelect = 10;
     [SerializeField] private int healOnSelect = 25;
-    public int health;
+    [SerializeField] private GameObject GameOverCanvas;
+    private int health;
     private float healthTimer;
     private PlayerMovement playerMovement;
+
 
     void Start()
     {
@@ -42,7 +44,12 @@ public class PlayerStats : MonoBehaviour
         if (health <= 0)
         {
             Time.timeScale = 0;
-            SceneManager.LoadScene("GameOverMenu");
+            GameObject.FindGameObjectWithTag("Managers").GetComponent<Slowmotion>().gameOver();
+            GameOverCanvas.SetActive(true);
+
+
+
+
         }
         //TODO: stop setting timescale in time manager
     }
