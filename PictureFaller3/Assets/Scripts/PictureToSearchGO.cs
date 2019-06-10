@@ -161,17 +161,14 @@ public class PictureToSearchGO : MonoBehaviour
 
 
 
-    private IEnumerator moveUItopLeftAndKillThis(RectTransform recUI, Vector3 start, Vector3 end, float time, RectTransform f)
+    private IEnumerator moveUItopLeftAndKillThis(RectTransform recUI, Vector3 start, Vector3 end, float time)
     {
         for (float t = 0f; t <= 1f; t += Time.deltaTime / time)
         {
             recUI.anchoredPosition = Vector3.Lerp(start, end, t);
-            f.anchoredPosition = Vector3.Lerp(start, end, t);
             yield return null;
         }
         recUI.anchoredPosition = end;
-        f.anchoredPosition = end;
-
 
         Destroy(gameObject);
     }
