@@ -48,7 +48,9 @@ public class CameraManager : MonoBehaviour
         //    camNormal.SetActive(true);
         // }
 
-        if(player.floating || player.divingDown)
+        
+        
+        if (player.floating || player.divingDown)
         {
             ignorePostCamera.gameObject.SetActive(true);
             ignorePostCamera.fieldOfView = mainCam.fieldOfView;

@@ -25,7 +25,7 @@ public class DamageObject : MonoBehaviour
 
         if (playerStats != null)
         {
-            playerStats.damagePlayer(damage);
+            playerStats.damagePlayer(damage, true);
             other.transform.GetComponentInChildren<PlayerMovement>().knockBack(transform.position);
             
             //Destroy(transform.parent.gameObject);

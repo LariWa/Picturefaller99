@@ -19,6 +19,10 @@ public class PictureToSearchGO : MonoBehaviour
     [SerializeField] private float randStart = 5f;
     [SerializeField] private float moveTopLeftSpd = 1f;
 
+    [Space]
+    [SerializeField] private float shrinkTime = 0.25f;
+    [SerializeField] private float shrinkScale = 0.5f;
+
     private Transform player;
     private bool notCollected = true;
     private Vector3 moveDir;
@@ -56,7 +60,7 @@ public class PictureToSearchGO : MonoBehaviour
 
                 Vector3 target = player.position;
                 target.z = transform.position.z;
-                transform.DOMove(target, animSpeed).SetEase(Ease.OutExpo);
+                transform.DOMove(target, animSpeed).SetEase(Ease.OutExpo); // OTHER EASE NOT WORKING CUZ EVERY FRAME???
 
                 if (player.position.z > transform.position.z) hitPlayer();
             }
@@ -103,7 +107,8 @@ public class PictureToSearchGO : MonoBehaviour
         //https://answers.unity.com/questions/799616/unity-46-beta-19-how-to-convert-from-world-space-t.html
 
 
-        StartCoroutine(moveUItopLeftAndKillThis(recUI, recUI.anchoredPosition, UIorigin, moveTopLeftSpd));
+
+        StartCoroutine(moveUItopLeftAndKillThis(recUI, UIorigin));
     }
 
 
@@ -161,19 +166,21 @@ public class PictureToSearchGO : MonoBehaviour
 
 
 
-    private IEnumerator moveUItopLeftAndKillThis(RectTransform recUI, Vector3 start, Vector3 end, float time)
+    private IEnumerator moveUItopLeftAndKillThis(RectTransform recUI, Vector3 end)
     {
-        for (float t = 0f; t <= 1f; t += Time.deltaTime / time)
-        {
-            recUI.anchoredPosition = Vector3.Lerp(start, end, t);
-            yield return null;
-        }
-        recUI.anchoredPosition = end;
+        var orgScale = recUI.localScale;
 
-        Destroy(gameObject);
+        recUI.DOScale(recUI.localScale * shrinkScale, shrinkTime).SetEase(Ease.OutCubic);
+
+        yield return new WaitForSeconds(shrinkTime);
+
+        recUI.DOScale(orgScale, moveTopLeftSpd).SetEase(Ease.InOutQuad);
+
+        recUI.DOAnchorPos(end, moveTopLeftSpd).SetEase(Ease.InCubic);
+
+        Destroy(gameObject, moveTopLeftSpd);
     }
-
-
-
-
 }
+
+
+

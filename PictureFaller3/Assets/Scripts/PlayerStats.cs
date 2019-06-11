@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -10,11 +11,17 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private Slider hpBar;
     [SerializeField] private int maxHealth = 100;
     [SerializeField] private float healthLossDelay = 0.1f;
+    [SerializeField] private int damageOnThinking = 1;
     [SerializeField] private int damageOnSelect = 10;
     [SerializeField] private int healOnSelect = 25;
+    [SerializeField] private float alphaMaxFlicker = 0.5f;
+    [SerializeField] private float timeFlicker = 0.5f;
+    [SerializeField] private int flickerTimes = 8; //Even!
+    [SerializeField] private Image damageFlicker;
     [SerializeField] private GameObject GameOverCanvas;
     private int health;
     private float healthTimer;
+    private bool invincible;
     private PlayerMovement playerMovement;
 
 
@@ -34,7 +41,7 @@ public class PlayerStats : MonoBehaviour
             if(healthTimer <= 0)
             {
                 healthTimer = healthLossDelay;
-                damagePlayer(1);
+                damagePlayer(damageOnThinking, false);
             }
         }
 
@@ -59,13 +66,23 @@ public class PlayerStats : MonoBehaviour
     public void selectedPicHealOrDmg(bool wasCorrect)
     {
         if (wasCorrect) healPlayer(healOnSelect);
-        if (!wasCorrect) damagePlayer(damageOnSelect);
+        if (!wasCorrect) damagePlayer(damageOnSelect, true);
     }
 
 
 
-    public void damagePlayer(int damage)
+    public void damagePlayer(int damage, bool flicker)
     {
+        if (invincible) return;
+
+        if (flicker)
+        {
+            var desCol = damageFlicker.color;
+            desCol.a = alphaMaxFlicker;
+            damageFlicker.DOColor(desCol, timeFlicker).SetEase(Ease.InFlash, flickerTimes, 1);
+        }
+
+
         health -= damage;
 
         if (health <= 0)
@@ -83,5 +100,10 @@ public class PlayerStats : MonoBehaviour
     public int getHealth()
     {
         return health;
+    }
+
+    public void setInvincible(bool b)
+    {
+        invincible = b;
     }
 }

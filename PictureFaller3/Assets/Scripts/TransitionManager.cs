@@ -71,6 +71,8 @@ public class TransitionManager : MonoBehaviour
     {
         yield return new WaitForSeconds(delayBeforeTransition);
 
+        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerStats>().setInvincible(true);
+
         float alpha = screenFadeImg.color.a;
 
         for (float t = 0f; t <= 1f; t += Time.deltaTime / aTime)
@@ -90,6 +92,7 @@ public class TransitionManager : MonoBehaviour
 
         chunkManager.resetChunksAndWall();
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().rerouteAndReset();
+        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerStats>().setInvincible(false);
 
         cameraManager.setNormalCam(true);
 
