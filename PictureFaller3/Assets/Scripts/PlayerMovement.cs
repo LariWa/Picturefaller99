@@ -105,9 +105,9 @@ public class PlayerMovement : MonoBehaviour
 
         if (floating && Input.GetKeyDown(selectKey)) //KeypadEnter?
         {
-            pictureManager.selectedAPic();
+            var correct = pictureManager.selectedAPic();
 
-            if(pictureManager.hitCorrectPicture() && stats.getHealth() != 0)
+            if(correct && stats.getHealth() != 0)
             {
                 divingDown = true;
                 floating = false;
@@ -208,7 +208,7 @@ public class PlayerMovement : MonoBehaviour
             if (!floating)
             {
                 Camera.main.GetComponent<CameraManager>().setPictureCam();
-                chunkManager.setSelectSquarePos(new Vector3(transform.position.x, transform.position.y, chunkManager.getSelectSquarePos().z));
+                //chunkManager.setSelectSquarePos(new Vector3(transform.position.x, transform.position.y, chunkManager.getSelectSquarePos().z));
                 slowmoTimer = slowmoDuration;
                 scienceTimer.resetTimer();
             }

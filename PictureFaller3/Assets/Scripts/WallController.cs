@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class WallController : MonoBehaviour
 {
@@ -30,6 +31,8 @@ public class WallController : MonoBehaviour
     [SerializeField] private float selectionZoffsetMult = 0.5f;
     [SerializeField] private float selectingSpeed = 0.1f;
     [SerializeField] private float selectingDelay = 0.2f;
+    [SerializeField] private float correctSelScale = 1.25f;
+    [SerializeField] private float correctSelScaleDur = 0.25f;
 
     private Vector2Int selectedPos; //intern array position of selection
     private Coroutine[] accelerationCoroutines = new Coroutine[8];
@@ -42,6 +45,8 @@ public class WallController : MonoBehaviour
     private bool widthIsEven;
     private float totalPicDim;
     private bool mouseSelection;
+    private GameObject imgParent;
+    private int lastSelectionIndex = -999;
 
     void Start()
     {
@@ -63,7 +68,7 @@ public class WallController : MonoBehaviour
 
 
         // ------ Init ---------
-        GameObject imgParent = new GameObject("Image Parent");
+        imgParent = new GameObject("Image Parent");
         imgParent.transform.parent = transform;
 
         int gridWidth = Mathf.RoundToInt(Mathf.Sqrt(allPictures.Length));
@@ -120,6 +125,10 @@ public class WallController : MonoBehaviour
         PictureManager pictureManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<PictureManager>();
         pictureManager.rollPicToSearch();
         pictureBlockSearched.GetComponent<PictureToSearchGO>().setPicture(pictureManager.getCurrentSearchPic());
+
+
+        selectingSquare.transform.localScale = new Vector3(pictureBlockScale + pictureBlockScale * selectionScaleMult, pictureBlockScale + pictureBlockScale * selectionScaleMult, pictureBlockScale + pictureBlockScale * selectionScaleMult);
+        selectingSquare.SetActive(false);
     }
 
 
@@ -130,12 +139,16 @@ public class WallController : MonoBehaviour
         //Move selection square like in tetris (Move this somewhere else?)
         if (player.floating)
         {
+            selectingSquare.SetActive(true);
+
             if (mouseSelection)
                 mouseControlls();
             else
                 buttonControlls();
 
 
+
+            /*
             int squareWidthHalf = (int) Mathf.Sqrt(allPictures.Length) / 2;
 
             if(!widthIsEven) selectedPos.Clamp(new Vector2Int(-squareWidthHalf, -squareWidthHalf), (new Vector2Int(squareWidthHalf, squareWidthHalf)));
@@ -147,29 +160,53 @@ public class WallController : MonoBehaviour
 
             // Visual offset for uneven picture width
             if (widthIsEven)
-                selectingSquare.transform.position -= new Vector3(0.5f * gridGap, 0.5f * gridGap, 0f);
+                selectingSquare.transform.position -= new Vector3(0.5f * gridGap, 0.5f * gridGap, 0f);*/
         }
     }
 
 
 
+    private Vector3 offscreenVec = new Vector3(-999, -999, -999);
 
     private void mouseControlls()
     {
+        /*
         var mousePos = Input.mousePosition;
         mousePos.z = selectingSquare.transform.position.z;
         mousePos = Camera.main.ScreenToWorldPoint(mousePos);
-;
 
         // Convert from 3d Space into array (-2,-1,0,1,2)
-
-        //mousePos = new Vector3(mousePos.x/gridGap, mousePos.y / gridGap, mousePos.z);
-        //mousePos = new Vector3(mousePos.x/10, mousePos.y / 10, mousePos.z);
         mousePos = new Vector3(mousePos.x/ totalPicDim, mousePos.y / totalPicDim, mousePos.z);
         if (widthIsEven) mousePos += new Vector3(0.5f * gridGap, 0.5f * gridGap, 0f);
+        */
 
 
-        setSelectSquarePos(mousePos);
+        //Maybe bad for performance (https://answers.unity.com/questions/949222/is-raycast-efficient-in-update.html)
+        RaycastHit[] hits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition), 100f);
+        Vector3 newSquarePos = offscreenVec;
+
+        for (int i = 0; i < hits.Length; i++)
+        {
+            RaycastHit hit = hits[i];
+
+            if (hit.transform.parent.gameObject == imgParent)
+            {
+                newSquarePos = hit.transform.position;
+                lastSelectionIndex = hit.transform.GetSiblingIndex();
+                break; 
+            }
+        }
+
+        if(newSquarePos == offscreenVec)
+            lastSelectionIndex = -999;
+
+
+
+        newSquarePos.z = selectingSquare.transform.position.z;
+
+        selectingSquare.transform.position = newSquarePos;
+        selectingSquare.transform.position = new Vector3(selectingSquare.transform.position.x, selectingSquare.transform.position.y, transform.position.z - pictureBlockScale * selectionZoffsetMult); //Push out depending on pic scale
+        //setSelectSquarePos(newSquarePos);
     }
 
 
@@ -248,9 +285,18 @@ public class WallController : MonoBehaviour
         return selectingSquare.transform.position;
     }
 
-    public void setSelectSquarePos(Vector3 playerPos)
+    public void setSelectSquarePos(Vector3 setPos)
     {
-        selectedPos = new Vector2Int(Mathf.RoundToInt(playerPos.x / gridGap), Mathf.RoundToInt(playerPos.y / gridGap));
+        selectedPos = new Vector2Int(Mathf.RoundToInt(setPos.x / gridGap), Mathf.RoundToInt(setPos.y / gridGap));
+    }
+
+
+    public void pictureSquashSelect()
+    {
+        //Cant squash picture itself because later ones dont have frame, so squash selection square
+
+        var scale = selectingSquare.transform.localScale * correctSelScale;
+        selectingSquare.transform.DOPunchScale(scale, correctSelScaleDur); // OR SHAKE SCALE?
     }
 
 
@@ -269,7 +315,7 @@ public class WallController : MonoBehaviour
 
 
         // DONT USE VISUALS (gridGap)
-        float squareWidth = Mathf.Sqrt(allPictures.Length);
+        /*float squareWidth = Mathf.Sqrt(allPictures.Length);
 
         var selectPosToArr = selectedPos;
 
@@ -277,7 +323,11 @@ public class WallController : MonoBehaviour
         selectPosToArr = selectPosToArr + new Vector2Int((int)(squareWidth/2), (int)(squareWidth/2));
         if (squareWidth % 2 == 0) selectPosToArr = selectPosToArr - new Vector2Int(1, 0);
 
-        return Mathf.RoundToInt(selectPosToArr.y * (int)squareWidth + selectPosToArr.x);
+        return Mathf.RoundToInt(selectPosToArr.y * (int)squareWidth + selectPosToArr.x);*/
+
+
+
+        return lastSelectionIndex;
 
     }
 

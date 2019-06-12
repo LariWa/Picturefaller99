@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.Rendering.PostProcessing;
+using DG.Tweening;
 
 public class CameraManager : MonoBehaviour
 {
@@ -11,19 +13,35 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private GameObject camNormal;
     [SerializeField] private GameObject camPics;
     [SerializeField] private Camera ignorePostCamera;
+    [SerializeField] private CinemachineVirtualCamera normalVCam;
+    [SerializeField] private float fovNormal = 60f;
+    [SerializeField] private float fovSlow = 40f;
+    [SerializeField] private float maxLensDist = 30f;
+    [SerializeField] private float slowEffectTimeIn = 0.25f;
+    [SerializeField] private float slowEffectTimeBack = 0.1f;
+    [SerializeField] private float normalSaturation = 5f;
+    [SerializeField] private float slowSaturation = -100f;
+    [SerializeField] private float normalVigInt = 0.4f;
+    [SerializeField] private float slowVigInt = 0.45f;
+    [SerializeField] private float normalVigSmo = 0.2f;
+    [SerializeField] private float slowVigSmo = 0.6f;
     private CinemachineFramingTransposer framing;
 
     private Camera mainCam;
+    private bool slowmoSet;
 
     //private float slowMoProgress = 1;
     private PlayerMovement player;
     private Transform fixedPos;
+
+    private PostProcessVolume ppVol;
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
 
         mainCam = GetComponent<Camera>();
+        ppVol = mainCam.GetComponent<PostProcessVolume>();
 
         fixedPos = new GameObject("Fixed Pos").transform;
     }
@@ -60,6 +78,61 @@ public class CameraManager : MonoBehaviour
             ignorePostCamera.gameObject.SetActive(false);
         }
 
+    }
+
+
+
+    public void setSlowMoCam(bool mode) // TODO: refactor this mess
+    {
+        if (mode)
+        {
+            if(!slowmoSet)
+            {
+                slowmoSet = true;
+
+                LensDistortion lens;
+                ppVol.profile.TryGetSettings(out lens);
+                lens.intensity.value = 0f; 
+                DOTween.To(() => lens.intensity.value, x => lens.intensity.value = x, maxLensDist, slowEffectTimeIn);
+
+                ColorGrading col;
+                ppVol.profile.TryGetSettings(out col);
+                col.saturation.value = normalSaturation;
+                DOTween.To(() => col.saturation.value, x => col.saturation.value = x, slowSaturation, slowEffectTimeIn);
+
+                Vignette vig;
+                ppVol.profile.TryGetSettings(out vig);
+                vig.intensity.value = normalVigInt;
+                DOTween.To(() => vig.intensity.value, x => vig.intensity.value = x, slowVigInt, slowEffectTimeIn);
+                vig.smoothness.value = normalVigSmo;
+                DOTween.To(() => vig.smoothness.value, x => vig.smoothness.value = x, slowVigSmo, slowEffectTimeIn);
+
+
+                DOTween.To(() => normalVCam.m_Lens.FieldOfView, x => normalVCam.m_Lens.FieldOfView = x, fovSlow, slowEffectTimeIn);
+            }
+        }
+        else
+        {
+            //if (slowmoSet)
+            //{
+                slowmoSet = false;
+
+                LensDistortion lens;
+                ppVol.profile.TryGetSettings(out lens);
+                DOTween.To(() => lens.intensity.value, x => lens.intensity.value = x, 0, slowEffectTimeBack);
+
+                ColorGrading col;
+                ppVol.profile.TryGetSettings(out col);
+                DOTween.To(() => col.saturation.value, x => col.saturation.value = x, normalSaturation, slowEffectTimeBack);
+
+                Vignette vig;
+                ppVol.profile.TryGetSettings(out vig);
+                DOTween.To(() => vig.intensity.value, x => vig.intensity.value = x, normalVigInt, slowEffectTimeBack);
+                DOTween.To(() => vig.smoothness.value, x => vig.smoothness.value = x, normalVigSmo, slowEffectTimeBack);
+
+                DOTween.To(() => normalVCam.m_Lens.FieldOfView, x => normalVCam.m_Lens.FieldOfView = x, fovNormal, slowEffectTimeBack);
+            //}
+        }
     }
 
 

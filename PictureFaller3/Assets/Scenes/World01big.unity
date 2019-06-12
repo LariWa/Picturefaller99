@@ -3652,6 +3652,18 @@ MonoBehaviour:
   camNormal: {fileID: 1863979971}
   camPics: {fileID: 52515276}
   ignorePostCamera: {fileID: 1365899153}
+  normalVCam: {fileID: 1863979972}
+  fovNormal: 60
+  fovSlow: 50
+  maxLensDist: 30
+  slowEffectTimeIn: 0.25
+  slowEffectTimeBack: 0.1
+  normalSaturation: 5
+  slowSaturation: -100
+  normalVigInt: 0.4
+  slowVigInt: 0.45
+  normalVigSmo: 0.2
+  slowVigSmo: 0.6
 --- !u!1 &540511702
 GameObject:
   m_ObjectHideFlags: 0
@@ -11946,20 +11958,20 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 3
-      inSlope: 23.61711
-      outSlope: 23.61711
+      inSlope: 19.260658
+      outSlope: 19.260658
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.1590909
+      outWeight: 0.060606062
     - serializedVersion: 3
       time: 1
-      value: 30.001379
-      inSlope: 51.521145
-      outSlope: 51.521145
+      value: 20.066908
+      inSlope: 40.307625
+      outSlope: 40.307625
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.04696971
+      inWeight: 0.04393941
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2

@@ -21,6 +21,7 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private GameObject GameOverCanvas;
     private int health;
     private float healthTimer;
+    private float flickerTimer;
     private bool invincible;
     private PlayerMovement playerMovement;
 
@@ -34,6 +35,8 @@ public class PlayerStats : MonoBehaviour
 
     void Update()
     {
+        flickerTimer -= Time.deltaTime;
+
         if (playerMovement.floating)
         {
             healthTimer -= Time.deltaTime;
@@ -75,8 +78,9 @@ public class PlayerStats : MonoBehaviour
     {
         if (invincible) return;
 
-        if (flicker)
+        if (flicker && flickerTimer < 0) //flickerTimer prevents alpha adding on many damage after another
         {
+            flickerTimer = timeFlicker;
             var desCol = damageFlicker.color;
             desCol.a = alphaMaxFlicker;
             damageFlicker.DOColor(desCol, timeFlicker).SetEase(Ease.InFlash, flickerTimes, 1);
