@@ -92,6 +92,8 @@ public class HighscoreTable : MonoBehaviour
 
     public int getHighestScore()
     {
+        AddHighscoreEntry(123430, "dsfflj");
+
         string jsonString = PlayerPrefs.GetString("highscoreTable");
         Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
         return highscores.highscoreEntryList[0].score;
