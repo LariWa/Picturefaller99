@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using DG.Tweening;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -10,11 +11,20 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private Slider hpBar;
     [SerializeField] private int maxHealth = 100;
     [SerializeField] private float healthLossDelay = 0.1f;
+    [SerializeField] private int damageOnThinking = 1;
     [SerializeField] private int damageOnSelect = 10;
     [SerializeField] private int healOnSelect = 25;
+    [SerializeField] private float alphaMaxFlicker = 0.5f;
+    [SerializeField] private float timeFlicker = 0.5f;
+    [SerializeField] private int flickerTimes = 8; //Even!
+    [SerializeField] private Image damageFlicker;
+    [SerializeField] private GameObject GameOverCanvas;
     private int health;
     private float healthTimer;
+    private float flickerTimer;
+    private bool invincible;
     private PlayerMovement playerMovement;
+
 
     void Start()
     {
@@ -26,6 +36,8 @@ public class PlayerStats : MonoBehaviour
     void Update()
 
     {
+        flickerTimer -= Time.deltaTime;
+
         if (playerMovement.floating)
         {
             healthTimer -= Time.deltaTime;
@@ -33,7 +45,7 @@ public class PlayerStats : MonoBehaviour
             if(healthTimer <= 0)
             {
                 healthTimer = healthLossDelay;
-                damagePlayer(1);
+                damagePlayer(damageOnThinking, false);
             }
         }
 
@@ -41,13 +53,16 @@ public class PlayerStats : MonoBehaviour
         hpBar.value = health; //TODO: sometimes trigger doesnt work??
 
         if (health <= 0)
-            // Time.timeScale = 0; //TODO: stop setting timescale in time manager
-            // SceneManager.LoadScene("GameOverMenu");
-            // gameOver.gameObject.SetActive(true);
+        {
+            Time.timeScale = 0;
+            GameObject.FindGameObjectWithTag("Managers").GetComponent<Slowmotion>().gameOver();
+            GameOverCanvas.SetActive(true);
 
-            //Player is dead, game over
-            Time.timeScale = 0; //TODO: stop setting timescale in time manager
 
+
+
+        }
+        //TODO: stop setting timescale in time manager
     }
 
 
@@ -55,13 +70,24 @@ public class PlayerStats : MonoBehaviour
     public void selectedPicHealOrDmg(bool wasCorrect)
     {
         if (wasCorrect) healPlayer(healOnSelect);
-        if (!wasCorrect) damagePlayer(damageOnSelect);
+        if (!wasCorrect) damagePlayer(damageOnSelect, true);
     }
 
 
 
-    public void damagePlayer(int damage)
+    public void damagePlayer(int damage, bool flicker)
     {
+        if (invincible) return;
+
+        if (flicker && flickerTimer < 0) //flickerTimer prevents alpha adding on many damage after another
+        {
+            flickerTimer = timeFlicker;
+            var desCol = damageFlicker.color;
+            desCol.a = alphaMaxFlicker;
+            damageFlicker.DOColor(desCol, timeFlicker).SetEase(Ease.InFlash, flickerTimes, 1);
+        }
+
+
         health -= damage;
 
         if (health <= 0)
@@ -79,5 +105,10 @@ public class PlayerStats : MonoBehaviour
     public int getHealth()
     {
         return health;
+    }
+
+    public void setInvincible(bool b)
+    {
+        invincible = b;
     }
 }

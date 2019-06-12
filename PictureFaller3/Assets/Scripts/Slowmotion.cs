@@ -18,26 +18,36 @@ public class Slowmotion : MonoBehaviour
 
     private PlayerMovement player;
     private float timer; //If 1 then full slow, if 0 then no slow
-    private int timerDir = -1; 
+    private int timerDir = -1;
+    bool alive = true;
+    private CameraManager cam;
+
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+        cam = Camera.main.GetComponent<CameraManager>();
     }
 
 
     void Update()
     {
         if (Input.GetKey(KeyCode.Space) && fuel != 0 && !player.floating && !player.divingDown)
+        { 
             timerDir = 1;
+            cam.setSlowMoCam(true);
+        }
         else
+        { 
             timerDir = -1;
+            cam.setSlowMoCam(false);
+        }
 
         timer += timerDir * slowSpeed;
-
+        
         if (timer <= 0) timer = 0;
         if (timer >= 1) timer = 1;
-
+        if (alive) 
         Time.timeScale = timer.Remap(0, 1, 1, minTimeScale);
         //print(Time.timeScale);
 
@@ -57,9 +67,15 @@ public class Slowmotion : MonoBehaviour
                 fuel += refillRate;
 
 
+
         if (fuel <= 0) fuel = 0;
         if (fuel >= 1) fuel = 1;
 
         slider.value = fuel;
+    }
+
+    public void gameOver()
+    {
+        alive = false;
     }
 }

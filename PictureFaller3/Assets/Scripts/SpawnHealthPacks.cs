@@ -32,6 +32,6 @@ public class SpawnHealthPacks : MonoBehaviour
             Destroy(collision.gameObject);
         }
 
-        //PlayerStats.health += 5;
+//        PlayerStats.health += 5;
     }
 }

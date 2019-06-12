@@ -8,8 +8,9 @@ TagManager:
   - Managers
   - Goal
   - Wind
-  - Health
-  - searchpic
+  - PictureSafeZone
+  - Picture Search UI
+  - MainCanvas
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - UI
   - 
   - 
-  - PostProcessing
+  - 
   - IgnorePostProcessing
   - 
   - 

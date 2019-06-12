@@ -9,6 +9,7 @@ public class TransitionManager : MonoBehaviour
     [SerializeField] private float screenFadeSpdIn = 0.25f;
     [SerializeField] private float screenFadeSpdOut = 0.5f;
     [SerializeField] private float screenWhiteDur = 0.5f;
+    [SerializeField] private float delayBeforeTransition = 0.5f; //how long after pic hit wait?
 
     // TODO: Move player slowmoTimer here !!!
 
@@ -68,6 +69,10 @@ public class TransitionManager : MonoBehaviour
 
     private IEnumerator fadeScreenWhiteOver(float aValue, float aTime)
     {
+        yield return new WaitForSeconds(delayBeforeTransition);
+
+        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerStats>().setInvincible(true);
+
         float alpha = screenFadeImg.color.a;
 
         for (float t = 0f; t <= 1f; t += Time.deltaTime / aTime)
@@ -87,6 +92,7 @@ public class TransitionManager : MonoBehaviour
 
         chunkManager.resetChunksAndWall();
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().rerouteAndReset();
+        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerStats>().setInvincible(false);
 
         cameraManager.setNormalCam(true);
 

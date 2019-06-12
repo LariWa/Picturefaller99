@@ -5,8 +5,10 @@ using UnityEngine.UI;
 
 public class PictureManager : MonoBehaviour
 {
+
     [SerializeField] private Image picSearched; //Move somewhere else? UI
     private int currPicSearched;
+    private bool justSelectedCorrect;
 
     [SerializeField] private Sprite blackPicture;
     
@@ -39,28 +41,36 @@ public class PictureManager : MonoBehaviour
     
     public bool hitCorrectPicture()
     {
+
         var selectedPictureIndex = chunkManager.getCurrPictureWall().GetComponent<WallController>().getSelectedPicture();
 
-        if (selectedPictureIndex == currPicSearched) return true;
-
+        if (selectedPictureIndex == currPicSearched)
+            return true;
+        
         return false;
     }
 
 
 
-    public void selectedAPic()
+    public bool selectedAPic()
     {
-        if(playerStats.getHealth() != 0 && hitCorrectPicture())
-            scienceTimer.printTimer();
+        justSelectedCorrect = hitCorrectPicture();
 
-        if(playerStats.getHealth() != 0)
-            GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerStats>().selectedPicHealOrDmg(hitCorrectPicture());
+        if (playerStats.getHealth() != 0 && justSelectedCorrect)
+            scienceTimer.printTimer();
+        
+        chunkManager.getCurrPictureWall().GetComponent<WallController>().selectionSquashOrShake(justSelectedCorrect);
+
+        if (playerStats.getHealth() != 0 && chunkManager.getCurrPictureWall().GetComponent<WallController>().selectionNotOffscreen())
+            GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerStats>().selectedPicHealOrDmg(justSelectedCorrect);
+
+        return justSelectedCorrect;
     }
 
 
     public void hitPicWall()
     {
-        if (hitCorrectPicture())
+        if (justSelectedCorrect)
         {
             scoreManager.addScorePictureHit(scienceTimer.getTime());
             print("The selection was correct!");
@@ -85,6 +95,15 @@ public class PictureManager : MonoBehaviour
     {
         var currentPics = GetComponent<SettingManager>().getAllPicturesInSort(GetComponent<SettingManager>().getNextSetting());
         currPicSearched = Random.Range(0, currentPics.Length);
-        picSearched.sprite = currentPics[currPicSearched];
+
+        
+        //picSearched.sprite = currentPics[currPicSearched];
+
+    }
+
+    public Sprite getCurrentSearchPic()
+    {
+        var currentPics = GetComponent<SettingManager>().getAllPicturesInSort(GetComponent<SettingManager>().getNextSetting());
+        return currentPics[currPicSearched];
     }
 }
