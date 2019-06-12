@@ -33,6 +33,8 @@ public class WallController : MonoBehaviour
     [SerializeField] private float selectingDelay = 0.2f;
     [SerializeField] private float correctSelScale = 1.25f;
     [SerializeField] private float correctSelScaleDur = 0.25f;
+    [SerializeField] private float wrongShakeDur = 0.25f;
+    [SerializeField] private int wrongShakeVibrate = 20;
 
     private Vector2Int selectedPos; //intern array position of selection
     private Coroutine[] accelerationCoroutines = new Coroutine[8];
@@ -209,6 +211,14 @@ public class WallController : MonoBehaviour
         //setSelectSquarePos(newSquarePos);
     }
 
+    public bool selectionNotOffscreen()
+    {
+        if (lastSelectionIndex == -999)
+            return false;
+
+        return true;
+    }
+
 
     private void buttonControlls()
     {
@@ -291,12 +301,21 @@ public class WallController : MonoBehaviour
     }
 
 
-    public void pictureSquashSelect()
+    public void selectionSquashOrShake(bool correctSelection)
     {
         //Cant squash picture itself because later ones dont have frame, so squash selection square
+        if(correctSelection)
+        {
+            var scale = selectingSquare.transform.localScale * correctSelScale;
+            selectingSquare.transform.DOPunchScale(scale, correctSelScaleDur); // OR SHAKE SCALE?
 
-        var scale = selectingSquare.transform.localScale * correctSelScale;
-        selectingSquare.transform.DOPunchScale(scale, correctSelScaleDur); // OR SHAKE SCALE?
+            selectingSquare.GetComponent<SpriteRenderer>().DOFade(0, correctSelScaleDur * 2).SetDelay(correctSelScaleDur);
+        }
+        else
+        {
+            selectingSquare.transform.DOShakePosition(wrongShakeDur, 1, wrongShakeVibrate);
+        }
+
     }
 
 

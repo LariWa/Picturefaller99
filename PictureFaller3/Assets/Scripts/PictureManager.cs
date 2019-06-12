@@ -59,10 +59,9 @@ public class PictureManager : MonoBehaviour
         if (playerStats.getHealth() != 0 && justSelectedCorrect)
             scienceTimer.printTimer();
         
-        if(justSelectedCorrect)
-            chunkManager.getCurrPictureWall().GetComponent<WallController>().pictureSquashSelect();
+        chunkManager.getCurrPictureWall().GetComponent<WallController>().selectionSquashOrShake(justSelectedCorrect);
 
-        if (playerStats.getHealth() != 0)
+        if (playerStats.getHealth() != 0 && chunkManager.getCurrPictureWall().GetComponent<WallController>().selectionNotOffscreen())
             GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerStats>().selectedPicHealOrDmg(justSelectedCorrect);
 
         return justSelectedCorrect;
