@@ -34,6 +34,7 @@ public class PlayerStats : MonoBehaviour
     }
 
     void Update()
+
     {
         flickerTimer -= Time.deltaTime;
 

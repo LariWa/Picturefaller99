@@ -55,7 +55,7 @@ public class GameOverMenu : MonoBehaviour
         //highscoreTable.AddHighscoreEntry(Score, Name)
         bool sub = highscoreTable.AddHighscoreEntry(Score, Name);
         Debug.Log(sub);
-  
+
         if (!sub)
         {
             nameUsed.SetActive(true);
