@@ -151,7 +151,7 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(moveVec * controlSpeed);//, ForceMode.Impulse);
 
         // Check and do dash
-        dash();
+        //dash();
 
 
 
