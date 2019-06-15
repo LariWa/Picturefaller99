@@ -50,18 +50,22 @@ public class ScoreManager : MonoBehaviour
 
     public void addScorePictureHit(float time)
     {
+        //Calculate how much bonus poitns for fast selection
         var am = Mathf.RoundToInt((correctPictureMultiplier * 100) / time); //TODO: Better interpolation
 
+        //Display the gained score
         var s = Instantiate(scorePlusPrefab, Vector3.zero, Quaternion.identity);
         s.transform.parent = effectsParent.transform;
         s.transform.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
         s.transform.GetComponent<TextMeshProUGUI>().text = "+" + am;
-        scoreCount += am;
 
-        //Animation....     FIX IT (position, fade, scale)
+        //Animate the displayed score     TODO: FIX IT (position, fade, scale)
         Destroy(s, 1f);
         Sequence seq = DOTween.Sequence();
         seq.Append(s.transform.DOPunchScale(Vector3.one, 0.5f));
         seq.Append(s.transform.DOScale(0f, 0.5f));
+
+        //Add the score
+        scoreCount += am;
     }
 }
