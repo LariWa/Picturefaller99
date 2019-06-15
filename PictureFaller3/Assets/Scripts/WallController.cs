@@ -141,6 +141,7 @@ public class WallController : MonoBehaviour
         //Move selection square like in tetris (Move this somewhere else?)
         if (player.floating)
         {
+            player.moveBack(); //so that the player is not in the way
             selectingSquare.SetActive(true);
 
             if (mouseSelection)

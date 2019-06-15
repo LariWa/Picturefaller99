@@ -195,6 +195,12 @@ public class PlayerMovement : MonoBehaviour
         //transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 10);
     }
 
+    public void moveBack()
+    {   
+        var back = (-transform.forward * 4);
+        rb.velocity = back;
+    }
+
 
 
     private void OnTriggerEnter(Collider other)
