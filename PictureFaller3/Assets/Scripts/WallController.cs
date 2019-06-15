@@ -88,37 +88,32 @@ public class WallController : MonoBehaviour
 
         float maxDistHalf = ((gridWidth - 1) * gridGap) / 2; //Used to center images for even and uneven gridCells
 
-        //Initialize the picture prefabs
         for (int y = gridWidth - 1; y >= 0; y--)
-        {
             for (int x = 0; x < gridWidth; x++)
             {
                 GameObject frame;
 
-                // One big picture frame
-                if (gridWidth >= oneBigFrameFromDim)
+                if (gridWidth >= oneBigFrameFromDim) // One big pic
                 {
                     frame = Instantiate(pictureBlockPrefabOneFrame, new Vector3(x * gridGap - maxDistHalf, y * gridGap - maxDistHalf, transform.position.z), Quaternion.Euler(-90, 0, 0));
 
-                    if (x == 0 && y == 0)
+                    if(x == 0 && y == 0)
                     {
                         var bigframe = Instantiate(pictureBlockPrefab, new Vector3(x * gridGap - maxDistHalf, y * gridGap - maxDistHalf, transform.position.z), Quaternion.Euler(-90, 0, 0));
                         Destroy(bigframe.transform.GetChild(0).gameObject);
-                        bigframe.transform.localScale = new Vector3(totalPicDim * bigFrameScaleMulti, totalPicDim / 2, totalPicDim * bigFrameScaleMulti);
-                        bigframe.transform.position = new Vector3(0, 0, bigframe.transform.position.z);
+                        bigframe.transform.localScale = new Vector3(totalPicDim * bigFrameScaleMulti, totalPicDim/2, totalPicDim * bigFrameScaleMulti);
+                        bigframe.transform.position = new Vector3(0,0, bigframe.transform.position.z);
                         bigframe.transform.parent = imgParent.transform.parent;
                     }
                 }
-                // Each picture has an own frame
-                else
-                {
+                else // Each pic has frame
                     frame = Instantiate(pictureBlockPrefab, new Vector3(x * gridGap - maxDistHalf, y * gridGap - maxDistHalf, transform.position.z), Quaternion.Euler(-90, 0, 0));
-                }
+
 
                 frame.transform.parent = imgParent.transform;
                 frame.transform.localScale = new Vector3(pictureBlockScale, pictureBlockScale, pictureBlockScale);
+
             }
-        }
 
         var wallSpr = imgParent.GetComponentsInChildren<SpriteRenderer>();
 
