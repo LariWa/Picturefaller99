@@ -67,6 +67,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (mouseSelection) selectKey = KeyCode.Mouse0;
 
+        StartCoroutine(DoubleTapInputListener());
+
         Physics.gravity = new Vector3(0, 0, gravity);
     }
 
@@ -149,7 +151,7 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(moveVec * controlSpeed);//, ForceMode.Impulse);
 
         // Check and do dash
-        dash();
+        //dash();
 
 
 
@@ -233,83 +235,124 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-
-    private void dash() // or try https://forum.unity.com/threads/double-tapping-axis-input.8620/
+    // https://gamedev.stackexchange.com/questions/116455/how-to-properly-differentiate-single-clicks-and-double-click-in-unity3d-using-c
+    private IEnumerator DoubleTapInputListener()
     {
-        if (floating) return;
-
-
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+        while (enabled)//Run as long as this is active
         {
-            if (dashTimer > 0)
-            {
-                if (lastDir == new Vector2(0, 1))
-                {
-                    rb.AddForce(lastDir * dashImpulse, ForceMode.Impulse);
-                    dashTimer = -1;
-                }
-            }
-            else
-            {
-                dashTimer = dashDelay;
-                lastDir = new Vector2(0, 1);
-            }
+            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+                yield return ClickEvent(new Vector2(0, 1), KeyCode.W, KeyCode.UpArrow);
+
+            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+                yield return ClickEvent(new Vector2(-1, 0), KeyCode.A, KeyCode.LeftArrow);
+
+            if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+                yield return ClickEvent(new Vector2(0, -1), KeyCode.S, KeyCode.DownArrow);
+
+            if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+                yield return ClickEvent(new Vector2(1, 0), KeyCode.D, KeyCode.RightArrow);
+
+            yield return null;
         }
-
-        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            if (dashTimer > 0)
-            {
-                if (lastDir == new Vector2(-1, 0))
-                {
-                    rb.AddForce(lastDir * dashImpulse, ForceMode.Impulse);
-                    dashTimer = -1;
-                }
-            }
-            else
-            {
-                dashTimer = dashDelay;
-                lastDir = new Vector2(-1, 0);
-            }
-        }
-
-
-        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            if (dashTimer > 0)
-            {
-                if (lastDir == new Vector2(0, -1))
-                {
-                    rb.AddForce(lastDir * dashImpulse, ForceMode.Impulse);
-                    dashTimer = -1;
-                }
-            }
-            else
-            {
-                dashTimer = dashDelay;
-                lastDir = new Vector2(0, -1);
-            }
-        }
-
-
-        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            if (dashTimer > 0)
-            {
-                if (lastDir == new Vector2(1, 0))
-                {
-                    rb.AddForce(lastDir * dashImpulse, ForceMode.Impulse);
-                    dashTimer = -1;
-                }
-            }
-            else
-            {
-                dashTimer = dashDelay;
-                lastDir = new Vector2(1, 0);
-            }
-        }
-
     }
+
+    private IEnumerator ClickEvent(Vector2 dir, KeyCode a, KeyCode b)
+    {
+        //pause a frame so you don't pick up the same mouse down event
+        yield return new WaitForEndOfFrame();
+
+        float count = 0f;
+        while (count < dashDelay)
+        {
+            if (Input.GetKeyDown(a) || Input.GetKeyDown(b))
+            {
+                rb.AddForce(dir * dashImpulse, ForceMode.Impulse); //Dash here
+                yield break;
+            }
+            count += Time.deltaTime;// increment counter by change in time between frames
+            yield return null; // wait for the next frame
+        }
+        //SingleClick();
+    }
+
+
+
+    /* private void dash() // or try https://forum.unity.com/threads/double-tapping-axis-input.8620/
+     {
+         if (floating) return;
+
+
+         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+         {
+             if (dashTimer > 0)
+             {
+                 if (lastDir == new Vector2(0, 1))
+                 {
+                     rb.AddForce(lastDir * dashImpulse, ForceMode.Impulse);
+                     dashTimer = -1;
+                 }
+             }
+             else
+             {
+                 dashTimer = dashDelay;
+                 lastDir = new Vector2(0, 1);
+             }
+         }
+
+         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+         {
+             if (dashTimer > 0)
+             {
+                 if (lastDir == new Vector2(-1, 0))
+                 {
+                     rb.AddForce(lastDir * dashImpulse, ForceMode.Impulse);
+                     dashTimer = -1;
+                 }
+             }
+             else
+             {
+                 dashTimer = dashDelay;
+                 lastDir = new Vector2(-1, 0);
+             }
+         }
+
+
+         if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+         {
+             if (dashTimer > 0)
+             {
+                 if (lastDir == new Vector2(0, -1))
+                 {
+                     rb.AddForce(lastDir * dashImpulse, ForceMode.Impulse);
+                     dashTimer = -1;
+                 }
+             }
+             else
+             {
+                 dashTimer = dashDelay;
+                 lastDir = new Vector2(0, -1);
+             }
+         }
+
+
+         if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+         {
+             if (dashTimer > 0)
+             {
+                 if (lastDir == new Vector2(1, 0))
+                 {
+                     rb.AddForce(lastDir * dashImpulse, ForceMode.Impulse);
+                     dashTimer = -1;
+                 }
+             }
+             else
+             {
+                 dashTimer = dashDelay;
+                 lastDir = new Vector2(1, 0);
+             }
+         }
+
+    }*/
 
 
 
