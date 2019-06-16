@@ -52,14 +52,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allObstacles:
-  - {fileID: 6096284755229162406}
-  - {fileID: 747086103212992046}
-  - {fileID: 6321756129672481524}
-  - {fileID: 5185515025894583061}
-  - {fileID: 7543452504866221010}
-  - {fileID: 1361988071311189193}
-  - {fileID: 4953240319636661931}
-  - {fileID: 5256732421976984527}
+  - {fileID: 3086850478861100234, guid: 435c12d9f6b203448a27ccb4cfe61aa6, type: 3}
+  - {fileID: 4561928048349341143, guid: 46c754296be8e2c49a21cce651b92871, type: 3}
+  - {fileID: 3055313744290494721, guid: 42a2f65e148a37245a0edcf0abc38d8c, type: 3}
+  - {fileID: 5538970031661927029, guid: b13c912078558f14ca1df6ba5d990792, type: 3}
+  - {fileID: 6944088936305326249, guid: 5ee3903fcf0afc843901abfe35d151e6, type: 3}
+  - {fileID: 1122252698952585624, guid: 603bbd4aab5c74f419eadc38bec233c7, type: 3}
+  - {fileID: 8043427313780455380, guid: 9d931ccced62d814281e225a1f88be69, type: 3}
+  - {fileID: 1091128031221527590, guid: e0a633c4c023ff845b6f37c12eab881a, type: 3}
   obstacleParent: {fileID: 8816975775219294463}
   playAreaSpawnObjWidth: 8
 --- !u!1 &7966482017948110706
@@ -498,12 +498,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 517989345401641990}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &7543452504866221010 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8043427313780455380, guid: 9d931ccced62d814281e225a1f88be69,
-    type: 3}
-  m_PrefabInstance: {fileID: 517989345401641990}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1422663419311043628
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -588,12 +582,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2276e8c29c5134d429d79311f95661f4, type: 3}
---- !u!1 &5185515025894583061 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6073375293439975225, guid: 2276e8c29c5134d429d79311f95661f4,
-    type: 3}
-  m_PrefabInstance: {fileID: 1422663419311043628}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5185515025894356789 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6073375293439476505, guid: 2276e8c29c5134d429d79311f95661f4,
@@ -774,12 +762,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b13c912078558f14ca1df6ba5d990792, type: 3}
---- !u!1 &6096284755229162406 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5538970031661927029, guid: b13c912078558f14ca1df6ba5d990792,
-    type: 3}
-  m_PrefabInstance: {fileID: 1748528374263738835}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6096284755229648774 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5538970031661635157, guid: b13c912078558f14ca1df6ba5d990792,
@@ -793,11 +775,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6591981769631977590}
     m_Modifications:
-    - target: {fileID: 1122252698952585624, guid: 27fb868f1b536c44787ba89f0f3be33c,
-        type: 3}
-      propertyPath: m_Name
-      value: Low_Poly_Food_icecream_stick
-      objectReference: {fileID: 0}
     - target: {fileID: 1122252698952748472, guid: 27fb868f1b536c44787ba89f0f3be33c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -868,14 +845,13 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1122252698952585624, guid: 27fb868f1b536c44787ba89f0f3be33c,
+        type: 3}
+      propertyPath: m_Name
+      value: Low_Poly_Food_icecream_stick
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27fb868f1b536c44787ba89f0f3be33c, type: 3}
---- !u!1 &1361988071311189193 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1122252698952585624, guid: 27fb868f1b536c44787ba89f0f3be33c,
-    type: 3}
-  m_PrefabInstance: {fileID: 2122824958564922705}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1361988071311358185 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1122252698952748472, guid: 27fb868f1b536c44787ba89f0f3be33c,
@@ -889,11 +865,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6591981769631977590}
     m_Modifications:
-    - target: {fileID: 3055313744290494721, guid: 42a2f65e148a37245a0edcf0abc38d8c,
-        type: 3}
-      propertyPath: m_Name
-      value: Low_Poly_Food_candy02
-      objectReference: {fileID: 0}
     - target: {fileID: 3055313744290260257, guid: 42a2f65e148a37245a0edcf0abc38d8c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -964,17 +935,16 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 3055313744290494721, guid: 42a2f65e148a37245a0edcf0abc38d8c,
+        type: 3}
+      propertyPath: m_Name
+      value: Low_Poly_Food_candy02
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a2f65e148a37245a0edcf0abc38d8c, type: 3}
 --- !u!4 &747086103212964366 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3055313744290260257, guid: 42a2f65e148a37245a0edcf0abc38d8c,
-    type: 3}
-  m_PrefabInstance: {fileID: 2321756738739085103}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &747086103212992046 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3055313744290494721, guid: 42a2f65e148a37245a0edcf0abc38d8c,
     type: 3}
   m_PrefabInstance: {fileID: 2321756738739085103}
   m_PrefabAsset: {fileID: 0}
@@ -985,11 +955,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7188117835919799672}
     m_Modifications:
-    - target: {fileID: 4072786499789761525, guid: ac425a2a69903bb4d956fb5850dcbb6d,
-        type: 3}
-      propertyPath: m_Name
-      value: Low_Poly_Food_pancake
-      objectReference: {fileID: 0}
     - target: {fileID: 4072786499790059477, guid: ac425a2a69903bb4d956fb5850dcbb6d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1059,6 +1024,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4072786499789761525, guid: ac425a2a69903bb4d956fb5850dcbb6d,
+        type: 3}
+      propertyPath: m_Name
+      value: Low_Poly_Food_pancake
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac425a2a69903bb4d956fb5850dcbb6d, type: 3}
@@ -1435,11 +1405,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 997914699770420159}
     m_Modifications:
-    - target: {fileID: 1213599578347330430, guid: 214adea718462f440a969647a4630958,
-        type: 3}
-      propertyPath: m_Name
-      value: Low_Poly_Food_donut02
-      objectReference: {fileID: 0}
     - target: {fileID: 1213599578347226974, guid: 214adea718462f440a969647a4630958,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1510,6 +1475,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 1213599578347330430, guid: 214adea718462f440a969647a4630958,
+        type: 3}
+      propertyPath: m_Name
+      value: Low_Poly_Food_donut02
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 214adea718462f440a969647a4630958, type: 3}
 --- !u!4 &5199939085228404156 stripped
@@ -1525,11 +1495,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 997914699770420159}
     m_Modifications:
-    - target: {fileID: 5893721094840356949, guid: d41602b1a73571d4ab7867d0a62ad767,
-        type: 3}
-      propertyPath: m_Name
-      value: Low_Poly_Food_pumpkin
-      objectReference: {fileID: 0}
     - target: {fileID: 5893721094839864437, guid: d41602b1a73571d4ab7867d0a62ad767,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1600,6 +1565,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 5893721094840356949, guid: d41602b1a73571d4ab7867d0a62ad767,
+        type: 3}
+      propertyPath: m_Name
+      value: Low_Poly_Food_pumpkin
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d41602b1a73571d4ab7867d0a62ad767, type: 3}
 --- !u!4 &828503393483719384 stripped
@@ -1615,11 +1585,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6591981769631977590}
     m_Modifications:
-    - target: {fileID: 4561928048349341143, guid: 46c754296be8e2c49a21cce651b92871,
-        type: 3}
-      propertyPath: m_Name
-      value: Low_Poly_Food_candy01
-      objectReference: {fileID: 0}
     - target: {fileID: 4561928048349772279, guid: 46c754296be8e2c49a21cce651b92871,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1690,14 +1655,13 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4561928048349341143, guid: 46c754296be8e2c49a21cce651b92871,
+        type: 3}
+      propertyPath: m_Name
+      value: Low_Poly_Food_candy01
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46c754296be8e2c49a21cce651b92871, type: 3}
---- !u!1 &6321756129672481524 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4561928048349341143, guid: 46c754296be8e2c49a21cce651b92871,
-    type: 3}
-  m_PrefabInstance: {fileID: 7562769555823931171}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6321756129672124116 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4561928048349772279, guid: 46c754296be8e2c49a21cce651b92871,
@@ -1711,11 +1675,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6591981769631977590}
     m_Modifications:
-    - target: {fileID: 2417336787616907201, guid: f708c74093fce194f97fdc1a1a1bdd36,
-        type: 3}
-      propertyPath: m_Name
-      value: Low_Poly_Food_watermelonSlice
-      objectReference: {fileID: 0}
     - target: {fileID: 2417336787616932833, guid: f708c74093fce194f97fdc1a1a1bdd36,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1786,17 +1745,16 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2417336787616907201, guid: f708c74093fce194f97fdc1a1a1bdd36,
+        type: 3}
+      propertyPath: m_Name
+      value: Low_Poly_Food_watermelonSlice
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f708c74093fce194f97fdc1a1a1bdd36, type: 3}
 --- !u!4 &5256732421976496111 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2417336787616932833, guid: f708c74093fce194f97fdc1a1a1bdd36,
-    type: 3}
-  m_PrefabInstance: {fileID: 7601989624781878286}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &5256732421976984527 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2417336787616907201, guid: f708c74093fce194f97fdc1a1a1bdd36,
     type: 3}
   m_PrefabInstance: {fileID: 7601989624781878286}
   m_PrefabAsset: {fileID: 0}
@@ -1897,11 +1855,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 997914699770420159}
     m_Modifications:
-    - target: {fileID: 9088424419359357745, guid: 5ef7cf0342c5419489ceee9864139cec,
-        type: 3}
-      propertyPath: m_Name
-      value: Table
-      objectReference: {fileID: 0}
     - target: {fileID: 8570559911309393730, guid: 5ef7cf0342c5419489ceee9864139cec,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1957,6 +1910,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9088424419359357745, guid: 5ef7cf0342c5419489ceee9864139cec,
+        type: 3}
+      propertyPath: m_Name
+      value: Table
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ef7cf0342c5419489ceee9864139cec, type: 3}
 --- !u!4 &2156888046294489234 stripped
@@ -1972,11 +1930,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6591981769631977590}
     m_Modifications:
-    - target: {fileID: 3086850478861100234, guid: 435c12d9f6b203448a27ccb4cfe61aa6,
-        type: 3}
-      propertyPath: m_Name
-      value: Low_Poly_Food_banana
-      objectReference: {fileID: 0}
     - target: {fileID: 3086850478861269226, guid: 435c12d9f6b203448a27ccb4cfe61aa6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2047,14 +2000,13 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3086850478861100234, guid: 435c12d9f6b203448a27ccb4cfe61aa6,
+        type: 3}
+      propertyPath: m_Name
+      value: Low_Poly_Food_banana
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 435c12d9f6b203448a27ccb4cfe61aa6, type: 3}
---- !u!1 &4953240319636661931 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3086850478861100234, guid: 435c12d9f6b203448a27ccb4cfe61aa6,
-    type: 3}
-  m_PrefabInstance: {fileID: 7956668619693703777}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4953240319636437643 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3086850478861269226, guid: 435c12d9f6b203448a27ccb4cfe61aa6,
@@ -2068,11 +2020,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7188117835919799672}
     m_Modifications:
-    - target: {fileID: 5827893852394381070, guid: 17b046eeaf9a0cb49b7c0e0f4cf25b77,
-        type: 3}
-      propertyPath: m_Name
-      value: Low_Poly_Food_burger
-      objectReference: {fileID: 0}
     - target: {fileID: 5827893852394079022, guid: 17b046eeaf9a0cb49b7c0e0f4cf25b77,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2142,6 +2089,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5827893852394381070, guid: 17b046eeaf9a0cb49b7c0e0f4cf25b77,
+        type: 3}
+      propertyPath: m_Name
+      value: Low_Poly_Food_burger
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17b046eeaf9a0cb49b7c0e0f4cf25b77, type: 3}
