@@ -105,18 +105,18 @@ public class PlayerMovement : MonoBehaviour
         inputVert = Input.GetAxisRaw("Vertical");
 
 
-        if (floating && Input.GetKeyDown(selectKey)) //KeypadEnter?
+        if (floating && Input.GetKeyDown(selectKey))
         {
             var correct = pictureManager.selectedAPic();
 
-            if(correct && stats.getHealth() != 0)
+            if(correct && stats.getHealth() != 0) //Dive down since into a picture
             {
                 divingDown = true;
                 floating = false;
                 rb.useGravity = true;
 
                 Vector3 target = chunkManager.getSelectSquarePos();
-                //target.z = transform.position.z;
+                target.z += 0.5f;
                 transform.DOMove(target, flyPicDur).SetEase(Ease.InFlash);
             }
         }
@@ -199,8 +199,10 @@ public class PlayerMovement : MonoBehaviour
 
     public void moveBack()
     {   
-        var back = (-transform.forward * 4);
-        rb.velocity = back;
+        //var back = (-transform.forward * 4);
+        //rb.velocity = back;
+
+        transform.DOMove(new Vector3(transform.position.x, transform.position.y, transform.position.z - 4), 0.5f); //makes the camera float weirdly back when diving (?)
     }
 
 
@@ -219,6 +221,7 @@ public class PlayerMovement : MonoBehaviour
                 //chunkManager.setSelectSquarePos(new Vector3(transform.position.x, transform.position.y, chunkManager.getSelectSquarePos().z));
                 slowmoTimer = slowmoDuration;
                 scienceTimer.resetTimer();
+                moveBack(); //so that the player is not in the way
             }
             floating = true;
         }
