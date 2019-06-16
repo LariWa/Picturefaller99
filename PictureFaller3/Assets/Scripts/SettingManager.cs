@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 public class SettingManager : MonoBehaviour
 {
-    public enum Settings { City, Forest, Food};
+    public enum Settings { City, Forest, Food, Water};
     [SerializeField] private bool startRandom;
     [SerializeField] private Settings startSetting;
     private Settings currentSetting; //For chunks
@@ -14,6 +14,7 @@ public class SettingManager : MonoBehaviour
     [SerializeField] private GameObject[] cityChunks;
     [SerializeField] private GameObject[] forestChunks;
     [SerializeField] private GameObject[] foodChunks;
+    [SerializeField] private GameObject[] waterChunks;
 
     [Space]
 
@@ -21,16 +22,19 @@ public class SettingManager : MonoBehaviour
     [SerializeField] private Sprite[] allCityPictures;  //original order
     [SerializeField] private Sprite[] allForestPictures;//original order
     [SerializeField] private Sprite[] allFoodPictures;//original order
+    [SerializeField] private Sprite[] allWaterPictures;//original order
 
     private Sprite[] cityPicturesInSort;  //Sorted always differently
     private Sprite[] forestPicturesInSort;//Sorted always differently
     private Sprite[] foodPicturesInSort;//Sorted always differently
+    private Sprite[] waterPicturesInSort;//Sorted always differently
 
     [Space]
 
     [SerializeField] private TextAsset[] citySorts;
     [SerializeField] private TextAsset[] forestSorts;
     [SerializeField] private TextAsset[] foodSorts;
+    [SerializeField] private TextAsset[] waterSorts;
 
     public bool useSorts;
     private DifficultyManager difficultyManager;
@@ -165,6 +169,7 @@ public class SettingManager : MonoBehaviour
         if (s == Settings.City) return citySorts;
         if (s == Settings.Forest) return forestSorts;
         if (s == Settings.Food) return foodSorts;
+        if (s == Settings.Water) return waterSorts;
 
         return null;
     }
@@ -174,6 +179,7 @@ public class SettingManager : MonoBehaviour
         if (s == Settings.City) return allCityPictures;
         if (s == Settings.Forest) return allForestPictures;
         if (s == Settings.Food) return allFoodPictures;
+        if (s == Settings.Water) return allWaterPictures;
 
         return null;
     }
@@ -185,6 +191,7 @@ public class SettingManager : MonoBehaviour
         if (s == Settings.City) return cityPicturesInSort;
         if (s == Settings.Forest) return forestPicturesInSort;
         if (s == Settings.Food) return foodPicturesInSort;
+        if (s == Settings.Water) return waterPicturesInSort;
 
         return null;
     }
@@ -193,6 +200,7 @@ public class SettingManager : MonoBehaviour
         if (s == Settings.City) cityPicturesInSort = spr;
         if (s == Settings.Forest) forestPicturesInSort = spr;
         if (s == Settings.Food) foodPicturesInSort = spr;
+        if (s == Settings.Water) waterPicturesInSort = spr;
     }
 
 
@@ -201,6 +209,7 @@ public class SettingManager : MonoBehaviour
         if (currentSetting == Settings.City) return cityChunks[Random.Range(0, cityChunks.Length)];
         if (currentSetting == Settings.Forest) return forestChunks[Random.Range(0, forestChunks.Length)];
         if (currentSetting == Settings.Food) return foodChunks[Random.Range(0, foodChunks.Length)];
+        if (currentSetting == Settings.Water) return waterChunks[Random.Range(0, waterChunks.Length)];
 
         return null;
     }

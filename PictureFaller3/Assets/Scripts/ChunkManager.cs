@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ChunkManager : MonoBehaviour
 {
@@ -46,10 +44,11 @@ public class ChunkManager : MonoBehaviour
 
     private void spawnChunk(bool spawnObstacles, bool deleteLastChunk)
     {
-        var ch = Instantiate(settingManager.getRandomChunkCurrSetting(), Vector3.forward * zSpawnNext, Quaternion.identity);
-        ch.transform.parent = chunkParent.transform;
-        if(spawnObstacles) ch.GetComponent<ChunkController>().spawnObstacles(difficultyManager.getObstacDifficulty(), difficultyManager.getObstacRand());
-        else ch.GetComponent<ChunkController>().disableAllObstacles();
+        var chunkPrefab = settingManager.getRandomChunkCurrSetting();
+        var chunk = Instantiate(chunkPrefab, Vector3.forward * zSpawnNext, chunkPrefab.transform.rotation);
+        chunk.transform.parent = chunkParent.transform;
+        if(spawnObstacles) chunk.GetComponent<ChunkController>().spawnObstacles(difficultyManager.getObstacDifficulty(), difficultyManager.getObstacRand());
+        else chunk.GetComponent<ChunkController>().disableAllObstacles();
 
         zSpawnNext += chunkLength;
         
