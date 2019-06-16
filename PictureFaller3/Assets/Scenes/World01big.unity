@@ -9622,7 +9622,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 084ca67a8f4587d4bad252dc1aa2b4a9, type: 3}
   allFoodPictures:
   - {fileID: 21300000, guid: cd018b2364fc997439e401c8fb7a97d4, type: 3}
-  - {fileID: 21300000, guid: cd018b2364fc997439e401c8fb7a97d4, type: 3}
   - {fileID: 21300000, guid: 451125217bfb27d46ba9fccf9af88f19, type: 3}
   - {fileID: 21300000, guid: ddeb0892dac1c84449c84cf2a2f33068, type: 3}
   - {fileID: 21300000, guid: 3a718ea155f08c04b8bf6788b6755a9e, type: 3}
