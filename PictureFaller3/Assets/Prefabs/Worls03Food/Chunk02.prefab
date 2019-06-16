@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 997914699770420159}
   - component: {fileID: 6224436233994793765}
   m_Layer: 0
-  m_Name: Chunk04
+  m_Name: Chunk02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,11 +47,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allObstacles:
-  - {fileID: 7206916430411002965, guid: 7bf90f36edfcf464fa6e20658bbd0d94, type: 3}
-  - {fileID: 7206916430411002965, guid: c0f648cf4e9bc464c824b60c419f49d2, type: 3}
-  - {fileID: 7206916430411002965, guid: df0cc9f29441fbd409cae66944215678, type: 3}
-  - {fileID: 7206916430411002965, guid: c8ac4adffa05e8d42a1f228bbcb1e2bd, type: 3}
-  - {fileID: 7206916430411002965, guid: 97c1764c6d6050d4bb5b1ce5bff300f2, type: 3}
+  - {fileID: 7206916430411002965, guid: 62493f7a1a130974e8446502e773b3f3, type: 3}
+  - {fileID: 7206916430411002965, guid: 5c586310089c37b4a979abd560db86bd, type: 3}
+  - {fileID: 7206916430411002965, guid: 0dc25d15eb64fb34895bb8cf616a6282, type: 3}
+  - {fileID: 7206916430411002965, guid: 80b3430c724499943b4645d95a44ee8e, type: 3}
+  - {fileID: 7206916430411002965, guid: 24f5f00404eb4c945a7b5dc8887bb3f0, type: 3}
   obstacleParent: {fileID: 8816975775219294463}
   playAreaSpawnObjWidth: 8
 --- !u!1 &7966482017948110706
@@ -309,11 +309,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7188117835919799672}
     m_Modifications:
-    - target: {fileID: 4072786499789761525, guid: ac425a2a69903bb4d956fb5850dcbb6d,
-        type: 3}
-      propertyPath: m_Name
-      value: Low_Poly_Food_pancake
-      objectReference: {fileID: 0}
     - target: {fileID: 4072786499790059477, guid: ac425a2a69903bb4d956fb5850dcbb6d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -383,6 +378,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4072786499789761525, guid: ac425a2a69903bb4d956fb5850dcbb6d,
+        type: 3}
+      propertyPath: m_Name
+      value: Low_Poly_Food_pancake
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac425a2a69903bb4d956fb5850dcbb6d, type: 3}
@@ -759,11 +759,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 997914699770420159}
     m_Modifications:
-    - target: {fileID: 9088424419359357745, guid: 5ef7cf0342c5419489ceee9864139cec,
-        type: 3}
-      propertyPath: m_Name
-      value: Table
-      objectReference: {fileID: 0}
     - target: {fileID: 8570559911309393730, guid: 5ef7cf0342c5419489ceee9864139cec,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -819,6 +814,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9088424419359357745, guid: 5ef7cf0342c5419489ceee9864139cec,
+        type: 3}
+      propertyPath: m_Name
+      value: Table
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ef7cf0342c5419489ceee9864139cec, type: 3}
 --- !u!4 &2156888046294489234 stripped
@@ -834,11 +834,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7188117835919799672}
     m_Modifications:
-    - target: {fileID: 5827893852394381070, guid: 17b046eeaf9a0cb49b7c0e0f4cf25b77,
-        type: 3}
-      propertyPath: m_Name
-      value: Low_Poly_Food_burger
-      objectReference: {fileID: 0}
     - target: {fileID: 5827893852394079022, guid: 17b046eeaf9a0cb49b7c0e0f4cf25b77,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -908,6 +903,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5827893852394381070, guid: 17b046eeaf9a0cb49b7c0e0f4cf25b77,
+        type: 3}
+      propertyPath: m_Name
+      value: Low_Poly_Food_burger
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17b046eeaf9a0cb49b7c0e0f4cf25b77, type: 3}
