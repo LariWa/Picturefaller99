@@ -191,7 +191,7 @@ public class WallController : MonoBehaviour
         {
             RaycastHit hit = hits[i];
 
-            if (hit.transform.parent.gameObject == imgParent)
+            if (hit.transform.parent != null && hit.transform.parent.gameObject == imgParent)
             {
                 newSquarePos = hit.transform.position;
                 lastSelectionIndex = hit.transform.GetSiblingIndex();
