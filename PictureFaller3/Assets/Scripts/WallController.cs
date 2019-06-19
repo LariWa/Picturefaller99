@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class WallController : MonoBehaviour
 {
@@ -49,6 +50,9 @@ public class WallController : MonoBehaviour
     private bool mouseSelection;
     private GameObject imgParent;
     private int lastSelectionIndex = -999;
+
+    public AudioClip correctPic;
+    public bool tutorial;
 
     void Start()
     {
@@ -306,10 +310,16 @@ public class WallController : MonoBehaviour
         //Cant squash picture itself because later ones dont have frame, so squash selection square
         if(correctSelection)
         {
+           
+            AudioSource.PlayClipAtPoint(correctPic, transform.position);
             var scale = selectingSquare.transform.localScale * correctSelScale;
             selectingSquare.transform.DOPunchScale(scale, correctSelScaleDur); // OR SHAKE SCALE?
 
             selectingSquare.GetComponent<SpriteRenderer>().DOFade(0, correctSelScaleDur * 2).SetDelay(correctSelScaleDur);
+            if (tutorial)
+            {
+                SceneManager.LoadScene("World01big");
+            }
         }
         else
         {
