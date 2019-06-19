@@ -502,7 +502,7 @@ GameObject:
   - component: {fileID: 4817432992000025127}
   - component: {fileID: 8419316313164437103}
   m_Layer: 0
-  m_Name: Picture Wall
+  m_Name: Picture Wall Tutorial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -565,7 +565,7 @@ MonoBehaviour:
   wrongShakeDur: 0.25
   wrongShakeVibrate: 20
   correctPic: {fileID: 8300000, guid: e29c6d02bf67d0b49aeddbff8d10923d, type: 3}
-  tutorial: 0
+  tutorial: 1
 --- !u!1 &4941366167957179745
 GameObject:
   m_ObjectHideFlags: 0
