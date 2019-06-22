@@ -54,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
 
 
     bool gerade = true;
+    Quaternion startRot;
 
 
 
@@ -75,6 +76,7 @@ public class PlayerMovement : MonoBehaviour
         StartCoroutine(DoubleTapInputListener());
 
         Physics.gravity = new Vector3(0, 0, gravity);
+        startRot = rb.rotation;
       
     }
 
@@ -146,11 +148,7 @@ public class PlayerMovement : MonoBehaviour
 
     void rotNormal()
     {
-
-        Vector3 m_EulerAngleVelocity = new Vector3(0, 0, 100);
-      Quaternion  deltaRotation = Quaternion.Euler(m_EulerAngleVelocity * Time.deltaTime);
-        rb.MoveRotation(rb.rotation * deltaRotation);
-        gerade = true;
+        rb.MoveRotation(startRot);      
     }
 
     void FixedUpdate()
@@ -161,21 +159,32 @@ public class PlayerMovement : MonoBehaviour
 
         moveVec.Normalize();
 
-        //Set the axis the Rigidbody rotates in (100 in the y axis)
-        Vector3 m_EulerAngleVelocity = new Vector3(0, 0, -100);
+      
+        if (inputHor > 0)
+        {
+            rb.MoveRotation(rb.rotation * Quaternion.Euler(0,5,0));
+            Invoke("rotNormal", 0.3f);
 
+        }
+        if (inputHor < 0)
+        {
+            rb.MoveRotation(rb.rotation * Quaternion.Euler(0, -5, 0));
+            Invoke("rotNormal", 0.3f);
 
-        Quaternion deltaRotation = Quaternion.Euler(m_EulerAngleVelocity * Time.deltaTime);
+        }
+        if (inputVert< 0)
+        {
+            rb.MoveRotation(rb.rotation * Quaternion.Euler(2, 0, 0));
+            Invoke("rotNormal", 0.3f);
 
-        //    if (inputHor > 0) { 
-        //        rb.MoveRotation(rb.rotation * deltaRotation);
-        //        m_EulerAngleVelocity = new Vector3(0, 0, 100);
-        //        deltaRotation = Quaternion.Euler(m_EulerAngleVelocity * Time.deltaTime);
-        //        rb.MoveRotation(rb.rotation * deltaRotation);
-        //        gerade = false;
+        }
+        if (inputVert > 0)
+        {
+            rb.MoveRotation(rb.rotation * Quaternion.Euler(-2, 0, 0));
+            Invoke("rotNormal", 0.3f);
 
-        //}
-     
+        }
+
 
 
 
@@ -220,8 +229,7 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = vel;
 
 
-        int rotationSpeed = 5;
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(transform.position - prevLoc), Time.fixedDeltaTime * lookSpeed);
+      
     }
 
     public void knockBack(Vector3 objectPos)

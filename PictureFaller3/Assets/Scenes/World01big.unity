@@ -8396,8 +8396,7 @@ MonoBehaviour:
   - {fileID: 997914699770420152, guid: 93b15e97412f1904995736ae2b0728bb, type: 3}
   waterChunks:
   - {fileID: 997914699770420152, guid: 7407d3a768d755847be02eac33300d2c, type: 3}
-  mountainChunks:
-  - {fileID: 9088424419359357745, guid: 75742258bf6c822488c1a4e9cef20810, type: 3}
+  mountainChunks: []
   allCityPictures:
   - {fileID: 21300000, guid: 7c1e3d37dd45e2f489cccbc9fabb8957, type: 3}
   - {fileID: 21300000, guid: 64750d35529e9074091011ce526a488b, type: 3}
@@ -9539,9 +9538,7 @@ MonoBehaviour:
   - {fileID: 4900000, guid: 70e40fe1076e8ff40a731a3895d146c5, type: 3}
   waterSorts:
   - {fileID: 4900000, guid: d1fae13c4de901b4cb084cad1ffeed2d, type: 3}
-  mountainSorts:
-  - {fileID: 4900000, guid: ebd261f08a0680049a974fc1e185e259, type: 3}
-  - {fileID: 4900000, guid: d1fae13c4de901b4cb084cad1ffeed2d, type: 3}
+  mountainSorts: []
   useSorts: 1
 --- !u!114 &1645297939
 MonoBehaviour:
