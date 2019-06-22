@@ -139,6 +139,7 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         Vector3 moveVec = (Vector3.right * inputHor) + (Vector3.up * inputVert);
+       
 
         moveVec.Normalize();
 
