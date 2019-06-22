@@ -560,8 +560,12 @@ MonoBehaviour:
   selectionZoffsetMult: 0.3
   selectingSpeed: 0.1
   selectingDelay: 0.2
-  selScaleEffect: 1.25
-  scaleEffectDur: 0.25
+  correctSelScale: 1.25
+  correctSelScaleDur: 0.25
+  wrongShakeDur: 0.25
+  wrongShakeVibrate: 20
+  correctPic: {fileID: 8300000, guid: e29c6d02bf67d0b49aeddbff8d10923d, type: 3}
+  tutorial: 0
 --- !u!1 &4941366167957179745
 GameObject:
   m_ObjectHideFlags: 0
