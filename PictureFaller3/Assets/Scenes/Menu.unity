@@ -1448,6 +1448,11 @@ PrefabInstance:
       propertyPath: reference
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6188468870061753792, guid: 90577a96bf7174046a70859008312145,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6188468870061753793, guid: 90577a96bf7174046a70859008312145,
         type: 3}
       propertyPath: m_LightProbeUsage
