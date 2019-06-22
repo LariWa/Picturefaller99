@@ -53,6 +53,11 @@ public class PlayerMovement : MonoBehaviour
     public bool floating { get; private set; } // rename to inSlowmo
 
 
+    bool gerade = true;
+
+
+
+
 
 
     void Start()
@@ -70,6 +75,7 @@ public class PlayerMovement : MonoBehaviour
         StartCoroutine(DoubleTapInputListener());
 
         Physics.gravity = new Vector3(0, 0, gravity);
+      
     }
 
 
@@ -136,12 +142,44 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+
+
+    void rotNormal()
+    {
+
+        Vector3 m_EulerAngleVelocity = new Vector3(0, 0, 100);
+      Quaternion  deltaRotation = Quaternion.Euler(m_EulerAngleVelocity * Time.deltaTime);
+        rb.MoveRotation(rb.rotation * deltaRotation);
+        gerade = true;
+    }
+
     void FixedUpdate()
     {
+        Vector3 previousLoaction = transform.position;
         Vector3 moveVec = (Vector3.right * inputHor) + (Vector3.up * inputVert);
-       
+
 
         moveVec.Normalize();
+
+        //Set the axis the Rigidbody rotates in (100 in the y axis)
+        Vector3 m_EulerAngleVelocity = new Vector3(0, 0, -100);
+
+
+        Quaternion deltaRotation = Quaternion.Euler(m_EulerAngleVelocity * Time.deltaTime);
+
+        //    if (inputHor > 0) { 
+        //        rb.MoveRotation(rb.rotation * deltaRotation);
+        //        m_EulerAngleVelocity = new Vector3(0, 0, 100);
+        //        deltaRotation = Quaternion.Euler(m_EulerAngleVelocity * Time.deltaTime);
+        //        rb.MoveRotation(rb.rotation * deltaRotation);
+        //        gerade = false;
+
+        //}
+     
+
+
+
+
 
 
         //rb.velocity = (moveVec * moveSpeed) + (Vector3.forward * gravity); //Bad...
@@ -180,6 +218,10 @@ public class PlayerMovement : MonoBehaviour
         vel.y *= xyDrag;
         if (vel.z >= maxDown) vel.z = maxDown; // Max fall speed
         rb.velocity = vel;
+
+
+        int rotationSpeed = 5;
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(transform.position - prevLoc), Time.fixedDeltaTime * lookSpeed);
     }
 
     public void knockBack(Vector3 objectPos)
