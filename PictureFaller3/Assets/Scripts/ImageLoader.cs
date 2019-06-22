@@ -1,12 +1,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
-public class ImageLoader : MonoBehaviour
+
+[System.Serializable]
+public class PictureJSON
 {
+     public string[] nature = new string[255];
+     public string[] food = new string[255];
+     public string[] city = new string[255];
+   
+}
+
+
+
+public class ImageLoader
+{
+    
+
     public string url = "http://localhost:8000/nature_255/nature_9.jpg";
     public Renderer thisRenderer;
-    public JsonUtility jsonPictures;
+
+    private static PictureJSON loadJson()
+    {
+        PictureJSON pictureJSON;
+        string path = Application.dataPath + "/StreamingAssets/pictures_all.json";
+        string contents = File.ReadAllText(path);
+        pictureJSON = JsonUtility.FromJson<PictureJSON>(contents);
+
+        Debug.Log(pictureJSON);
+        return pictureJSON;
+    }
+
 
     // automatically called when game started
     public Sprite[] nature;
@@ -17,7 +43,6 @@ public class ImageLoader : MonoBehaviour
         this.city = city;
         this.food = food;
     }
-
 
     // this section will be run independently
     private IEnumerator LoadFromLikeCoroutine(string url, int pos, Sprite[]array)
@@ -36,27 +61,23 @@ public class ImageLoader : MonoBehaviour
     }
 
   
-    public void loadPictures(string jsonString)
+    public void loadPictures(PictureJSON pictureJSON)
     {
-        var json = JsonUtility.FromJson<PictureJSON>(jsonString);
-        for (int i = 0; i < json.nature.Length; i++)
+        pictureJSON = loadJson();
+
+        for (int i = 0; i < pictureJSON.nature.Length; i++)
         {
 
-            LoadFromLikeCoroutine(json.nature[i], i, nature);
-            LoadFromLikeCoroutine(json.city[i], i, city);
-            LoadFromLikeCoroutine(json.food[i], i, food);
+            LoadFromLikeCoroutine(pictureJSON.nature[i], i, nature);
+            LoadFromLikeCoroutine(pictureJSON.city[i], i, city);
+            LoadFromLikeCoroutine(pictureJSON.food[i], i, food);
         }
 
-           
-
-    }
-
-    public class PictureJSON : MonoBehaviour
-    {
-        public string[] nature = new string[255];
-        public string[] food = new string[255];
-        public string[] city = new string[255];
 
 
     }
+
+   
+
+
 }
