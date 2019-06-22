@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 public class SettingManager : MonoBehaviour
 {
-    public enum Settings { City, Forest, Food, Water};
+    public enum Settings { City, Forest, Food, Water };
     [SerializeField] private bool startRandom;
     [SerializeField] private Settings startSetting;
     private Settings currentSetting; //For chunks
@@ -39,8 +39,39 @@ public class SettingManager : MonoBehaviour
     public bool useSorts;
     private DifficultyManager difficultyManager;
 
+    public void setPicture()
+    {
+        var ImageLoader = new ImageLoader();
+
+
+    // automatically called when game started
+}
+    void Start()
+    {
+        ImageLoader imageLoader = new ImageLoader(allForestPictures, allCityPictures, allFoodPictures);
+        StartCoroutine(LoadFromLikeCoroutine()); // execute the section independently
+
+       
+    }
+
+    // this section will be run independently
+    private IEnumerator LoadFromLikeCoroutine()
+    {
+        string url = "http://localhost:8000/nature_255/nature_9.jpg";
+
+        Debug.Log("Loading ....");
+        WWW wwwLoader = new WWW(url);   // create WWW object pointing to the url
+        yield return wwwLoader;         // start loading whatever in that url ( delay happens here )
+
+        Debug.Log("Loaded");
+        // set white
+        Sprite pic = Sprite.Create(wwwLoader.texture, new Rect(0.0f, 0.0f, wwwLoader.texture.width, wwwLoader.texture.height), new Vector2(0.5f, 0.5f));
+
+        allForestPictures[1] = pic;  // set loaded image
+    }
     void Awake()
     {
+        setPicture();
         difficultyManager = GetComponent<DifficultyManager>();
         
         if(startRandom) currentSetting = (Settings)Random.Range(0, System.Enum.GetValues(typeof(Settings)).Length);
