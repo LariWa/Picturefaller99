@@ -1580,6 +1580,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87c1afaf263cbea45b159cbe84407e1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pauseMenuUI: {fileID: 0}
 --- !u!224 &1580474272
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2392,6 +2393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87c1afaf263cbea45b159cbe84407e1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pauseMenuUI: {fileID: 0}
 --- !u!1001 &2106341640
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -2,21 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour
 {
     public static bool GameIsPaused = false;
     public GameObject pauseMenuUI;
+    private float timeBeforeLoading =5f;
+    private float timePassed;
+    
 
     // Start is called before the first frame update
     void Start()
     {
+
         if (SceneManager.GetActiveScene().name == "Menu")
         {
             //This time scale is need for the character animation in the main menu
             //But it breaks the Pause menu if used in the main game, thus if statement
             Time.timeScale = 1;
         }
+
+        
     }
 
     // Update is called once per frame
@@ -24,13 +31,24 @@ public class MenuController : MonoBehaviour
     {
         MoveCharacter();
 
+        //Checking the timer for the intro scene. The game is going to be loaded 5 seconds after the Intro
+        timePassed += Time.deltaTime;
+        if (SceneManager.GetActiveScene().name == "Intro")
+        {
+            if (timePassed > timeBeforeLoading)
+            {
+                SceneManager.LoadScene("World01big");
+            }
+        }
     }
+
 
     //Play Game is being used in Main Menu
     public void PlayGame()
     {
-        SceneManager.LoadScene("World01big");
+        SceneManager.LoadScene("Intro");
     }
+
     //Load the main menu
     public void LoadMenu()
     {
