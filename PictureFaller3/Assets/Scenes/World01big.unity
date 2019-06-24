@@ -2809,9 +2809,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 615848405}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0a7a60c896db7d4485f6a142dd59697, type: 3}
+  m_Script: {fileID: 11500000, guid: 87c1afaf263cbea45b159cbe84407e1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pauseMenuUI: {fileID: 1263752149}
 --- !u!224 &615848407
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6323,6 +6324,19 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1605514690}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1263752150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1263752149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87c1afaf263cbea45b159cbe84407e1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseMenuUI: {fileID: 1263752149}
 --- !u!1 &1316556042
 GameObject:
   m_ObjectHideFlags: 0
@@ -8217,7 +8231,28 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 2696275644692848561, guid: 848e289455f234347894f5f1952ac82b,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2645177003030935293, guid: 848e289455f234347894f5f1952ac82b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1263752150}
+    - target: {fileID: 2645177004042599161, guid: 848e289455f234347894f5f1952ac82b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1263752150}
+    - target: {fileID: 2645177004042599161, guid: 848e289455f234347894f5f1952ac82b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Resume
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6401982680834606798, guid: 848e289455f234347894f5f1952ac82b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 848e289455f234347894f5f1952ac82b, type: 3}
 --- !u!1 &1620482449
 GameObject:

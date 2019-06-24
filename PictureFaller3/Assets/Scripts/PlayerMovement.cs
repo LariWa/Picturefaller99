@@ -91,10 +91,10 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-        if (PauseMenu.GameIsPaused)
-        {
-            rb.velocity = Vector3.zero;
-        }
+        //if (MenuController.GameIsPaused)
+        //{
+        //    rb.velocity = Vector3.zero;
+        //}
        
 
         //freeze player at -3 while camera fully zoomed in to hide him
