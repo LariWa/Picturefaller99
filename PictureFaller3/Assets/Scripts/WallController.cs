@@ -51,7 +51,7 @@ public class WallController : MonoBehaviour
     private GameObject imgParent;
     private int lastSelectionIndex = -999;
 
-    public AudioClip correctPic;
+    public AudioClip correctPicturehit;
     public bool tutorial;
 
     void Start()
@@ -311,7 +311,7 @@ public class WallController : MonoBehaviour
         if(correctSelection)
         {
            
-            AudioSource.PlayClipAtPoint(correctPic, transform.position);
+            AudioSource.PlayClipAtPoint(correctPicturehit, transform.position);
             var scale = selectingSquare.transform.localScale * correctSelScale;
             selectingSquare.transform.DOPunchScale(scale, correctSelScaleDur); // OR SHAKE SCALE?
 

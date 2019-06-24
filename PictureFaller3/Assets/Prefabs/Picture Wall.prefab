@@ -564,7 +564,7 @@ MonoBehaviour:
   correctSelScaleDur: 0.25
   wrongShakeDur: 0.25
   wrongShakeVibrate: 20
-  correctPic: {fileID: 8300000, guid: e29c6d02bf67d0b49aeddbff8d10923d, type: 3}
+  correctPicturehit: {fileID: 8300000, guid: e29c6d02bf67d0b49aeddbff8d10923d, type: 3}
   tutorial: 0
 --- !u!1 &4941366167957179745
 GameObject:
