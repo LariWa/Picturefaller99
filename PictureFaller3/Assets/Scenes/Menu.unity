@@ -1558,9 +1558,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1580474272}
-  - component: {fileID: 1580474271}
   - component: {fileID: 1580474274}
   - component: {fileID: 1580474273}
+  - component: {fileID: 1580474271}
   m_Layer: 5
   m_Name: MainMenu
   m_TagString: Untagged
@@ -1577,7 +1577,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1580474270}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0a7a60c896db7d4485f6a142dd59697, type: 3}
+  m_Script: {fileID: 11500000, guid: 87c1afaf263cbea45b159cbe84407e1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &1580474272
@@ -1735,6 +1735,10 @@ PrefabInstance:
     - target: {fileID: 100072, guid: ed8c47f26da984d4d981889bb1d9cfe7, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100072, guid: ed8c47f26da984d4d981889bb1d9cfe7, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: ed8c47f26da984d4d981889bb1d9cfe7, type: 3}
       propertyPath: m_LocalRotation.x
@@ -2376,7 +2380,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &2031234870
+--- !u!114 &2031234873
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2385,7 +2389,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2031234868}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 963a71a9ac6307842bfdc0b11b90fd00, type: 3}
+  m_Script: {fileID: 11500000, guid: 87c1afaf263cbea45b159cbe84407e1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &2106341640
