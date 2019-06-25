@@ -9575,8 +9575,8 @@ MonoBehaviour:
   waterSorts:
   - {fileID: 4900000, guid: d1fae13c4de901b4cb084cad1ffeed2d, type: 3}
   mountainSorts:
-  - {fileID: 4900000, guid: ebd261f08a0680049a974fc1e185e259, type: 3}
   - {fileID: 4900000, guid: d1fae13c4de901b4cb084cad1ffeed2d, type: 3}
+  - {fileID: 4900000, guid: ebd261f08a0680049a974fc1e185e259, type: 3}
   useSorts: 1
 --- !u!114 &1645297939
 MonoBehaviour:
