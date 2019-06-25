@@ -53,7 +53,6 @@ public class PlayerMovement : MonoBehaviour
     public bool floating { get; private set; } // rename to inSlowmo
 
 
-    bool gerade = true;
     Quaternion startRot;
 
 
@@ -162,13 +161,13 @@ public class PlayerMovement : MonoBehaviour
       
         if (inputHor > 0)
         {
-            rb.MoveRotation(rb.rotation * Quaternion.Euler(0,5,0));
+            rb.MoveRotation(rb.rotation * Quaternion.Euler(0,0,-3));
             Invoke("rotNormal", 0.3f);
 
         }
         if (inputHor < 0)
         {
-            rb.MoveRotation(rb.rotation * Quaternion.Euler(0, -5, 0));
+            rb.MoveRotation(rb.rotation * Quaternion.Euler(0, 0, 3));
             Invoke("rotNormal", 0.3f);
 
         }
