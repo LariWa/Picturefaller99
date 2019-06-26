@@ -53,6 +53,12 @@ public class PlayerMovement : MonoBehaviour
     public bool floating { get; private set; } // rename to inSlowmo
 
 
+    bool gerade = true;
+    Quaternion startRot;
+
+
+
+
 
 
     void Start()
@@ -70,6 +76,8 @@ public class PlayerMovement : MonoBehaviour
         StartCoroutine(DoubleTapInputListener());
 
         Physics.gravity = new Vector3(0, 0, gravity);
+        startRot = rb.rotation;
+      
     }
 
 
@@ -91,10 +99,10 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-        if (PauseMenu.GameIsPaused)
-        {
-            rb.velocity = Vector3.zero;
-        }
+        //if (MenuController.GameIsPaused)
+        //{
+        //    rb.velocity = Vector3.zero;
+        //}
        
 
         //freeze player at -3 while camera fully zoomed in to hide him
@@ -136,12 +144,51 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+
+
+    void rotNormal()
+    {
+        rb.MoveRotation(startRot);      
+    }
+
     void FixedUpdate()
     {
+        Vector3 previousLoaction = transform.position;
         Vector3 moveVec = (Vector3.right * inputHor) + (Vector3.up * inputVert);
-       
+
 
         moveVec.Normalize();
+
+      
+        if (inputHor > 0)
+        {
+            rb.MoveRotation(rb.rotation * Quaternion.Euler(0,5,0));
+            Invoke("rotNormal", 0.3f);
+
+        }
+        if (inputHor < 0)
+        {
+            rb.MoveRotation(rb.rotation * Quaternion.Euler(0, -5, 0));
+            Invoke("rotNormal", 0.3f);
+
+        }
+        if (inputVert< 0)
+        {
+            rb.MoveRotation(rb.rotation * Quaternion.Euler(2, 0, 0));
+            Invoke("rotNormal", 0.3f);
+
+        }
+        if (inputVert > 0)
+        {
+            rb.MoveRotation(rb.rotation * Quaternion.Euler(-2, 0, 0));
+            Invoke("rotNormal", 0.3f);
+
+        }
+
+
+
+
+
 
 
         //rb.velocity = (moveVec * moveSpeed) + (Vector3.forward * gravity); //Bad...
@@ -180,6 +227,9 @@ public class PlayerMovement : MonoBehaviour
         vel.y *= xyDrag;
         if (vel.z >= maxDown) vel.z = maxDown; // Max fall speed
         rb.velocity = vel;
+
+
+      
     }
 
     public void knockBack(Vector3 objectPos)

@@ -66,8 +66,10 @@ public class PlayerStats : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            //If pause hasn't been activated
             if (!pause)
             {
+
                 Time.timeScale = 0f;
                 GameObject.FindGameObjectWithTag("Managers").GetComponent<Slowmotion>().gameOver();
                 pause = true;
