@@ -2815,6 +2815,9 @@ MonoBehaviour:
   pauseMenuUI: {fileID: 1263752149}
   black: {fileID: 0}
   anim: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: f0a7a60c896db7d4485f6a142dd59697, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &615848407
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6108,32 +6111,32 @@ PrefabInstance:
     - target: {fileID: 2645177002301511734, guid: 98cf2ed6f6f74ed4e89b756656318f13,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2645177004042599162, guid: 98cf2ed6f6f74ed4e89b756656318f13,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2645177003030935294, guid: 98cf2ed6f6f74ed4e89b756656318f13,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2645177002293364173, guid: 98cf2ed6f6f74ed4e89b756656318f13,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2645177003947843128, guid: 98cf2ed6f6f74ed4e89b756656318f13,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2645177004176024196, guid: 98cf2ed6f6f74ed4e89b756656318f13,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2645177003701960642, guid: 98cf2ed6f6f74ed4e89b756656318f13,
         type: 3}
@@ -6148,12 +6151,27 @@ PrefabInstance:
     - target: {fileID: 672020633945475104, guid: 98cf2ed6f6f74ed4e89b756656318f13,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2645177002688853473, guid: 98cf2ed6f6f74ed4e89b756656318f13,
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 4.2999268
+      objectReference: {fileID: 0}
+    - target: {fileID: 1307100858283968493, guid: 98cf2ed6f6f74ed4e89b756656318f13,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2608688360020315917, guid: 98cf2ed6f6f74ed4e89b756656318f13,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 215518545155813597, guid: 98cf2ed6f6f74ed4e89b756656318f13,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98cf2ed6f6f74ed4e89b756656318f13, type: 3}
