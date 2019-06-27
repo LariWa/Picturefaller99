@@ -15,15 +15,23 @@ public class WobbleController : MonoBehaviour
     [SerializeField] private float speedFalloff = 0.1f;
     [SerializeField] private float heightFalloff = 0.1f;
     [SerializeField] private int initialThickness = 10;
-    [SerializeField] private bool noRenderPipeline;
+    [SerializeField] private Mesh highResPlane;
+
     private Material mat;
     private Texture2D texture;
     private int middle;
     private float timer;
+    private bool wobbleActive;
 
 
 
     void Start()
+    {
+        //init();
+        Invoke("init", 2);
+    }
+
+    private void init()
     {
         if (GetComponent<MeshRenderer>() != null) mat = GetComponent<MeshRenderer>().material;
 
@@ -39,12 +47,17 @@ public class WobbleController : MonoBehaviour
         texture.Apply();
 
         middle = texture.height / 2;
+        mat.SetFloat("_Amount", heightMulti);
 
+        GetComponent<MeshFilter>().mesh = highResPlane;
+        wobbleActive = true;
     }
 
 
     void LateUpdate()
     {
+        if (!wobbleActive) return;
+
         timer -= Time.deltaTime * speed;
 
         // NOT PERFORMANT, instead do this once? or every couple of frames??? or just lover resolution....
@@ -64,23 +77,25 @@ public class WobbleController : MonoBehaviour
 
                 float height = testCurve.Evaluate(ix); // y
 
-                height *= heightMulti; // How to animate better? more drops? sinus?
+                //height *= heightMulti; // How to animate better? more drops? sinus?
 
                 texture.SetPixel(x, y, new Color(height, height, height, 1));
             }
 
 
-
-
         texture.Apply(); // Apply all SetPixel calls
 
-
-        if (!noRenderPipeline)
-            mat.SetTexture("_Wobbl", texture);
-        else
-            mat.SetTexture("_RippleTex", texture);
+        mat.SetTexture("_RippleTex", texture);
     }
 
+
+
+
+
+    public void activateWobble()
+    {
+        init();
+    }
 
 
 
