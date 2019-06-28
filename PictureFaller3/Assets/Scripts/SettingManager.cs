@@ -21,7 +21,7 @@ public class SettingManager : MonoBehaviour
 
     // SHOULD BE IN PICTURE MANAGER?
     [SerializeField] private Sprite[] allCityPictures;  //original order
-    [SerializeField] private Sprite[] allForestPictures;//original order
+    [SerializeField] private Sprite[] allForestPictures = new Sprite[225];//original order
     [SerializeField] private Sprite[] allFoodPictures;//original order
     [SerializeField] private Sprite[] allWaterPictures;//original order
     [SerializeField] private Sprite[] allMountainPictures;//original order
@@ -46,6 +46,10 @@ public class SettingManager : MonoBehaviour
 
     void Awake()
     {
+        
+        ImageLoader imageLoader = new ImageLoader(allForestPictures, allCityPictures, allFoodPictures);
+        imageLoader.loadPictures();
+
         difficultyManager = GetComponent<DifficultyManager>();
         
         if(startRandom) currentSetting = (Settings)Random.Range(0, System.Enum.GetValues(typeof(Settings)).Length);
