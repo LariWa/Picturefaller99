@@ -19,6 +19,8 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private int flickerTimes = 8; //Even!
     [SerializeField] private Image damageFlicker;
     [SerializeField] private GameObject GameOverCanvas;
+    [SerializeField] private GameObject PauseMenuCanvas;
+    bool pause = false;
     private int health;
     private float healthTimer;
     private float flickerTimer;
@@ -62,8 +64,26 @@ public class PlayerStats : MonoBehaviour
 
 
         }
-        //TODO: stop setting timescale in time manager
-    }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            //If pause hasn't been activated
+            if (!pause)
+            {
+
+                Time.timeScale = 0f;
+                GameObject.FindGameObjectWithTag("Managers").GetComponent<Slowmotion>().gameOver();
+                pause = true;
+                PauseMenuCanvas.SetActive(true);
+            }
+            else
+            {
+                Time.timeScale = 1f;
+                PauseMenuCanvas.SetActive(false);
+                pause = false;
+            }
+        }
+            //TODO: stop setting timescale in time manager
+        }
 
 
 

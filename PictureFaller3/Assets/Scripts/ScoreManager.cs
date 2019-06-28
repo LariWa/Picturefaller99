@@ -29,7 +29,7 @@ public class ScoreManager : MonoBehaviour
 
     void Update()
     {
-        if ((scoreIncreasing) && (!PauseMenu.GameIsPaused))
+        if ((scoreIncreasing) && (!MenuController.GameIsPaused))
         {
             scoreCount += pointsPerSecond * Time.deltaTime;
         } else {

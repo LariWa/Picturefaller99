@@ -92,8 +92,6 @@ public class HighscoreTable : MonoBehaviour
 
     public int getHighestScore()
     {
-        AddHighscoreEntry(123430, "dsfflj");
-
         string jsonString = PlayerPrefs.GetString("highscoreTable");
         Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
         return highscores.highscoreEntryList[0].score;
@@ -136,6 +134,7 @@ public class HighscoreTable : MonoBehaviour
         string json = JsonUtility.ToJson(highscores);
         PlayerPrefs.SetString("highscoreTable", json);
         PlayerPrefs.Save();
+        //sendScoreRequest(name, score); FÜR DATENBANK
         return true;
     }
 
@@ -154,6 +153,35 @@ public class HighscoreTable : MonoBehaviour
         public string name;
     }
 
+    /* FÜR DATENBANK AUSKOMMENTIERT sonst funkt es nicht (socket error)
+    private string sendScoreRequest(string name,int score)
+    {
+
+        var httpWebRequest = (System.Net.HttpWebRequest)System.Net.WebRequest.Create("http://localhost:3000/addscore");
+        httpWebRequest.ContentType = "application/json";
+        httpWebRequest.Method = "POST";
+
+        using (var streamWriter = new System.IO.StreamWriter(httpWebRequest.GetRequestStream()))
+        {
+            string json = "{\"name\":" + '"' + name + '"' + "," + "\"score\":" + score + "}";
+
+
+            Debug.Log(json);
+            streamWriter.Write(json);
+        }
+
+        var httpResponse = (System.Net.HttpWebResponse)httpWebRequest.GetResponse();
+        using (var streamReader = new System.IO.StreamReader(httpResponse.GetResponseStream()))
+        {
+            var result = streamReader.ReadToEnd();
+            return result;
+        }
+
+    }*/
+
 }
+
+
+
 
 

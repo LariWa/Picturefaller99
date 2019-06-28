@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 public class SettingManager : MonoBehaviour
 {
-    public enum Settings { City, Forest, Food, Water};
+    public enum Settings { City, Forest, Food, Mountain, Water};
     [SerializeField] private bool startRandom;
     [SerializeField] private Settings startSetting;
     private Settings currentSetting; //For chunks
@@ -15,6 +15,7 @@ public class SettingManager : MonoBehaviour
     [SerializeField] private GameObject[] forestChunks;
     [SerializeField] private GameObject[] foodChunks;
     [SerializeField] private GameObject[] waterChunks;
+    [SerializeField] private GameObject[] mountainChunks;
 
     [Space]
 
@@ -23,11 +24,13 @@ public class SettingManager : MonoBehaviour
     [SerializeField] private Sprite[] allForestPictures;//original order
     [SerializeField] private Sprite[] allFoodPictures;//original order
     [SerializeField] private Sprite[] allWaterPictures;//original order
+    [SerializeField] private Sprite[] allMountainPictures;//original order
 
     private Sprite[] cityPicturesInSort;  //Sorted always differently
     private Sprite[] forestPicturesInSort;//Sorted always differently
     private Sprite[] foodPicturesInSort;//Sorted always differently
     private Sprite[] waterPicturesInSort;//Sorted always differently
+    private Sprite[] mountainPicturesInSort;//Sorted always differently
 
     [Space]
 
@@ -35,8 +38,10 @@ public class SettingManager : MonoBehaviour
     [SerializeField] private TextAsset[] forestSorts;
     [SerializeField] private TextAsset[] foodSorts;
     [SerializeField] private TextAsset[] waterSorts;
+    [SerializeField] private TextAsset[] mountainSorts;
 
     public bool useSorts;
+    private int sortQuality;
     private DifficultyManager difficultyManager;
 
     void Awake()
@@ -80,7 +85,10 @@ public class SettingManager : MonoBehaviour
         var settingSorts = getSorts(set);
 
         //A single txt with sort in it
-        var randSort = settingSorts[Random.Range(0, settingSorts.Length)]; //Get a random sort (good/ bad atm)
+        int sortIndex = Random.Range(0, settingSorts.Length);
+        var randSort = settingSorts[sortIndex]; //Get a random sort (good/ bad atm)
+
+        sortQuality = sortIndex; //sortIndex == 0 ? true : false;
 
         string sort = randSort.text;
         char[] sortChars = sort.ToCharArray();
@@ -170,6 +178,7 @@ public class SettingManager : MonoBehaviour
         if (s == Settings.Forest) return forestSorts;
         if (s == Settings.Food) return foodSorts;
         if (s == Settings.Water) return waterSorts;
+        if (s == Settings.Mountain) return mountainSorts;
 
         return null;
     }
@@ -180,6 +189,7 @@ public class SettingManager : MonoBehaviour
         if (s == Settings.Forest) return allForestPictures;
         if (s == Settings.Food) return allFoodPictures;
         if (s == Settings.Water) return allWaterPictures;
+        if (s == Settings.Mountain) return allMountainPictures;
 
         return null;
     }
@@ -192,6 +202,7 @@ public class SettingManager : MonoBehaviour
         if (s == Settings.Forest) return forestPicturesInSort;
         if (s == Settings.Food) return foodPicturesInSort;
         if (s == Settings.Water) return waterPicturesInSort;
+        if (s == Settings.Mountain) return mountainPicturesInSort;
 
         return null;
     }
@@ -201,6 +212,7 @@ public class SettingManager : MonoBehaviour
         if (s == Settings.Forest) forestPicturesInSort = spr;
         if (s == Settings.Food) foodPicturesInSort = spr;
         if (s == Settings.Water) waterPicturesInSort = spr;
+        if (s == Settings.Mountain) mountainPicturesInSort = spr;
     }
 
 
@@ -210,6 +222,7 @@ public class SettingManager : MonoBehaviour
         if (currentSetting == Settings.Forest) return forestChunks[Random.Range(0, forestChunks.Length)];
         if (currentSetting == Settings.Food) return foodChunks[Random.Range(0, foodChunks.Length)];
         if (currentSetting == Settings.Water) return waterChunks[Random.Range(0, waterChunks.Length)];
+        if (currentSetting == Settings.Mountain) return mountainChunks[Random.Range(0, mountainChunks.Length)];
 
         return null;
     }
@@ -260,6 +273,11 @@ public void changeSettingRandomly()
         char[] charArray = s.ToCharArray();
         System.Array.Reverse(charArray);
         return new string(charArray);
+    }
+
+    public int getQuality()
+    {
+        return sortQuality;
     }
 }
 

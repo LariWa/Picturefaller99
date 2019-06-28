@@ -43,7 +43,13 @@ public class ChunkController : MonoBehaviour
 
         for (int i = 0; i < obstacleAm; i++)
         {
-            var o = Instantiate(allObstacles[Random.Range(0, allObstacles.Length)], transform.position + new Vector3(Random.Range(-playAreaSpawnObjWidth, playAreaSpawnObjWidth), Random.Range(-playAreaSpawnObjWidth, playAreaSpawnObjWidth), Random.Range(-50, 50)), Quaternion.identity);
+            var o = Instantiate(allObstacles[Random.Range(0, allObstacles.Length)],
+                transform.position + new Vector3(Random.Range(-playAreaSpawnObjWidth, 
+                            playAreaSpawnObjWidth),
+                            Random.Range(-playAreaSpawnObjWidth,
+                            playAreaSpawnObjWidth),
+                            Random.Range(-50, 50)),
+                Quaternion.identity);
             o.transform.rotation = Quaternion.Euler(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360));
             o.transform.parent = obstacleParent.transform;
         }
