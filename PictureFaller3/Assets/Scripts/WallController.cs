@@ -9,6 +9,7 @@ public class WallController : MonoBehaviour
 {
     [SerializeField] private Sprite blackPicture;
     private Sprite[] allPictures; // ammount needs to be squared so 4, 9, 16, 25 etc
+    [SerializeField] private bool showSelectionSquare;
     [SerializeField] private GameObject pictureBlockSearched;
     [SerializeField] private GameObject pictureBlockPrefab;
     [SerializeField] private GameObject pictureBlockPrefabOneFrame;
@@ -27,6 +28,8 @@ public class WallController : MonoBehaviour
 
     [Space]
 
+    [SerializeField] private Texture2D selectingCursor;
+    [SerializeField] private Texture2D regularCursor;
     [SerializeField] private GameObject selectingSquare;
     [SerializeField] private float selectionScaleMult = 0.7f;
     [SerializeField] private float selectionZoffsetMult = 0.5f;
@@ -50,6 +53,7 @@ public class WallController : MonoBehaviour
     private bool mouseSelection;
     private GameObject imgParent;
     private int lastSelectionIndex = -999;
+    private bool selectedCorrect;
 
     public AudioClip correctPic;
     public bool tutorial;
@@ -154,6 +158,7 @@ public class WallController : MonoBehaviour
         if (player.floating)
         {
             selectingSquare.SetActive(true);
+            if (!showSelectionSquare) selectingSquare.GetComponent<SpriteRenderer>().enabled = false;
 
             if (mouseSelection)
                 mouseControlls();
@@ -211,9 +216,22 @@ public class WallController : MonoBehaviour
             }
         }
 
+        // Hit nothing with raycast
         if(newSquarePos == offscreenVec)
+        {
             lastSelectionIndex = -999;
+            Cursor.SetCursor(regularCursor, Vector2.zero, CursorMode.Auto);
+        }
+        else
+        {
+            if (!selectedCorrect)
+                Cursor.SetCursor(selectingCursor, Vector2.zero, CursorMode.Auto);
 
+            //move picture that is selected slightly infront
+            //var transf = imgParent.transform.GetChild(lastSelectionIndex).transform;
+            //transf.DOMoveZ(transf.position.z - 0.1f, 0.25f);
+            //imgParent.transform.GetChild(lastSelectionIndex).transform.DOScale();
+        }
 
 
         newSquarePos.z = selectingSquare.transform.position.z;
@@ -229,6 +247,13 @@ public class WallController : MonoBehaviour
             return false;
 
         return true;
+    }
+
+
+    public void changeCursorToDefault()
+    {
+        selectedCorrect = true;
+        Cursor.SetCursor(regularCursor, Vector2.zero, CursorMode.Auto);
     }
 
 
@@ -368,6 +393,7 @@ public class WallController : MonoBehaviour
 
     }
 
+    /*
     private void disableSelection()
     {
         //crosshair.SetActive(false);
@@ -378,7 +404,7 @@ public class WallController : MonoBehaviour
         //crosshair.SetActive(true);
         selectingSquare.SetActive(true);
     }
-
+    */
 
 
 

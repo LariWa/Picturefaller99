@@ -62,6 +62,7 @@ public class PictureManager : MonoBehaviour
         {
             scienceTimer.printTimer();
             transitionManager.doDiveCamera();
+            chunkManager.getCurrPictureWall().GetComponent<WallController>().changeCursorToDefault();
         }
 
         chunkManager.getCurrPictureWall().GetComponent<WallController>().selectionSquashOrShake(justSelectedCorrect);

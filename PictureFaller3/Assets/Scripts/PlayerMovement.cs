@@ -115,23 +115,26 @@ public class PlayerMovement : MonoBehaviour
 
         if (floating && Input.GetKeyDown(selectKey))
         {
-            var correct = pictureManager.selectedAPic();
-
-            if(correct && stats.getHealth() != 0) //Dive down since into a picture
+            if(!divingDown) //only allow one correct selection
             {
-                divingDown = true;
-                floating = false;
-                rb.useGravity = true;
+                var correct = pictureManager.selectedAPic();
 
-                /*if(activeTween != null)
+                if (correct && stats.getHealth() != 0) //Dive down since into a picture
                 {
-                    print("y");
-                    //activeTween.Kill();
-                    DOTween.Kill(activeTween.id);   }*/
+                    divingDown = true;
+                    floating = false;
+                    rb.useGravity = true;
 
-                Vector3 target = chunkManager.getSelectSquarePos();
-                target.z += 1.5f;
-                transform.DOMove(target, flyPicDur).SetEase(Ease.InFlash/*InCubic*/);
+                    /*if(activeTween != null)
+                    {
+                        print("y");
+                        //activeTween.Kill();
+                        DOTween.Kill(activeTween.id);   }*/
+
+                    Vector3 target = chunkManager.getSelectSquarePos();
+                    target.z += 2f;
+                    transform.DOMove(target, flyPicDur).SetEase(Ease.InFlash/*InCubic*/);
+                }
             }
         }
 
@@ -149,8 +152,6 @@ public class PlayerMovement : MonoBehaviour
             scoreManager.scoreIncreasing = false;
         }
 
-        print("flt: " + floating);
-        print("div: " + divingDown);
     }
 
 

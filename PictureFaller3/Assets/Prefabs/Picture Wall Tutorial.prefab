@@ -555,6 +555,8 @@ MonoBehaviour:
   picGapsMax: 0.05
   oneBigFrameFromDim: 5
   delteObstaclesRadius: 40
+  selectingCursor: {fileID: 2800000, guid: 706bba43b67a73947b7330ea114a0156, type: 3}
+  regularCursor: {fileID: 2800000, guid: e896334523b2a084ba2a35bd5fb70b08, type: 3}
   selectingSquare: {fileID: 5907094678552717304}
   selectionScaleMult: 3
   selectionZoffsetMult: 0.3
