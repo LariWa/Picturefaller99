@@ -41,6 +41,7 @@ public class SettingManager : MonoBehaviour
     [SerializeField] private TextAsset[] mountainSorts;
 
     public bool useSorts;
+    private int sortQuality;
     private DifficultyManager difficultyManager;
 
     void Awake()
@@ -84,7 +85,10 @@ public class SettingManager : MonoBehaviour
         var settingSorts = getSorts(set);
 
         //A single txt with sort in it
-        var randSort = settingSorts[Random.Range(0, settingSorts.Length)]; //Get a random sort (good/ bad atm)
+        int sortIndex = Random.Range(0, settingSorts.Length);
+        var randSort = settingSorts[sortIndex]; //Get a random sort (good/ bad atm)
+
+        sortQuality = sortIndex; //sortIndex == 0 ? true : false;
 
         string sort = randSort.text;
         char[] sortChars = sort.ToCharArray();
@@ -269,6 +273,11 @@ public void changeSettingRandomly()
         char[] charArray = s.ToCharArray();
         System.Array.Reverse(charArray);
         return new string(charArray);
+    }
+
+    public int getQuality()
+    {
+        return sortQuality;
     }
 }
 
