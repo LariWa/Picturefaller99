@@ -8675,10 +8675,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   screenFadeImg: {fileID: 2066223464}
-  screenFadeSpdIn: 0.5
+  screenFadeSpdIn: 0.75
   screenFadeSpdOut: 1
   screenWhiteDur: 0.25
   delayBeforeTransition: 0.75
+  cameraDiveZdist: 10
+  cameraDiveZdur: 1
 --- !u!114 &1645297937
 MonoBehaviour:
   m_ObjectHideFlags: 0

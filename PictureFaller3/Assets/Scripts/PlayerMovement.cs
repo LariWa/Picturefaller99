@@ -48,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
     private float slowmoTimer;
     private KeyCode selectKey = KeyCode.Space;
 
+    //private Tween activeTween;
 
     public bool divingDown { get; private set; }
     public bool floating { get; private set; } // rename to inSlowmo
@@ -57,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
     Quaternion startRot;
 
 
-
+    
 
 
 
@@ -112,7 +113,6 @@ public class PlayerMovement : MonoBehaviour
         inputHor = Input.GetAxisRaw("Horizontal"); //GetAxis
         inputVert = Input.GetAxisRaw("Vertical");
 
-
         if (floating && Input.GetKeyDown(selectKey))
         {
             var correct = pictureManager.selectedAPic();
@@ -123,9 +123,15 @@ public class PlayerMovement : MonoBehaviour
                 floating = false;
                 rb.useGravity = true;
 
+                /*if(activeTween != null)
+                {
+                    print("y");
+                    //activeTween.Kill();
+                    DOTween.Kill(activeTween.id);   }*/
+
                 Vector3 target = chunkManager.getSelectSquarePos();
                 target.z += 1.5f;
-                transform.DOMove(target, flyPicDur).SetEase(Ease.InFlash);
+                transform.DOMove(target, flyPicDur).SetEase(Ease.InFlash/*InCubic*/);
             }
         }
 
@@ -142,6 +148,9 @@ public class PlayerMovement : MonoBehaviour
         {
             scoreManager.scoreIncreasing = false;
         }
+
+        print("flt: " + floating);
+        print("div: " + divingDown);
     }
 
 
@@ -153,6 +162,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+
         Vector3 previousLoaction = transform.position;
         Vector3 moveVec = (Vector3.right * inputHor) + (Vector3.up * inputVert);
 
@@ -227,9 +237,6 @@ public class PlayerMovement : MonoBehaviour
         vel.y *= xyDrag;
         if (vel.z >= maxDown) vel.z = maxDown; // Max fall speed
         rb.velocity = vel;
-
-
-      
     }
 
     public void knockBack(Vector3 objectPos)
@@ -249,11 +256,12 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void moveBack()
-    {   
+    {
         //var back = (-transform.forward * 4);
         //rb.velocity = back;
 
-        transform.DOMove(new Vector3(transform.position.x, transform.position.y, transform.position.z - 4), 0.5f); //makes the camera float weirdly back when diving (?)
+        if(!divingDown)
+            transform.DOMove(new Vector3(transform.position.x, transform.position.y, transform.position.z - 4), 0.5f); //makes the camera float weirdly back when diving (?)
     }
 
 
@@ -280,7 +288,7 @@ public class PlayerMovement : MonoBehaviour
         {
             pictureManager.hitPicWall();
             //divingDown = false;
-            floating = false;
+            
         }
     }
 
@@ -289,7 +297,7 @@ public class PlayerMovement : MonoBehaviour
     public void rerouteAndReset()
     {
         divingDown = false;
-
+        floating = false;
 
         //transform.position = new Vector3(transform.position.x, transform.position.y, 0);
         transform.position = new Vector3(0, -1, 0); // don't preserve X and Y because then will end up on the sides often

@@ -59,8 +59,11 @@ public class PictureManager : MonoBehaviour
         justSelectedCorrect = hitCorrectPicture();
 
         if (playerStats.getHealth() != 0 && justSelectedCorrect)
+        {
             scienceTimer.printTimer();
-        
+            transitionManager.doDiveCamera();
+        }
+
         chunkManager.getCurrPictureWall().GetComponent<WallController>().selectionSquashOrShake(justSelectedCorrect);
 
         if (playerStats.getHealth() != 0 && chunkManager.getCurrPictureWall().GetComponent<WallController>().selectionNotOffscreen())
