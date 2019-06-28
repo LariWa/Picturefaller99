@@ -288,7 +288,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void rerouteAndReset()
     {
-        transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+        //transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+        transform.position = new Vector3(0, -1, 0); // don't preserve X and Y because then will end up on the sides often
         rb.velocity = Vector3.zero;
     }
 

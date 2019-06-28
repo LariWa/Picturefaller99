@@ -8692,7 +8692,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chunkLength: 100
-  spawnAhead: 3
+  spawnAhead: 2
   pictureWallPre: {fileID: 4817432992000025126, guid: cafce1e2074d24d4e89dda3f514cc3a9,
     type: 3}
 --- !u!114 &1645297938
@@ -12072,7 +12072,7 @@ PrefabInstance:
     - target: {fileID: 2117485184423083692, guid: 1945a9b6cfd321644bdfc680efd1b7cb,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 2117485184423083692, guid: 1945a9b6cfd321644bdfc680efd1b7cb,
         type: 3}
