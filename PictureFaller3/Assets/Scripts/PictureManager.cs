@@ -38,7 +38,9 @@ public class PictureManager : MonoBehaviour
 
 
 
-    
+
+
+
     public bool hitCorrectPicture()
     {
 
@@ -76,6 +78,8 @@ public class PictureManager : MonoBehaviour
             print("The selection was correct!");
 
             transitionManager.doSettingTransition(); //also resets chunks and picwall
+
+            chunkManager.getCurrPictureWall().GetComponent<WallController>().correctPicWobble(currPicSearched);
         }
         else
         {

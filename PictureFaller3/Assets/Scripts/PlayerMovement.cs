@@ -124,7 +124,7 @@ public class PlayerMovement : MonoBehaviour
                 rb.useGravity = true;
 
                 Vector3 target = chunkManager.getSelectSquarePos();
-                target.z += 0.5f;
+                target.z += 1.5f;
                 transform.DOMove(target, flyPicDur).SetEase(Ease.InFlash);
             }
         }
@@ -279,7 +279,7 @@ public class PlayerMovement : MonoBehaviour
         else if (other.tag == "Wall") //Actually hit the pictures
         {
             pictureManager.hitPicWall();
-            divingDown = false;
+            //divingDown = false;
             floating = false;
         }
     }
@@ -288,6 +288,9 @@ public class PlayerMovement : MonoBehaviour
 
     public void rerouteAndReset()
     {
+        divingDown = false;
+
+
         //transform.position = new Vector3(transform.position.x, transform.position.y, 0);
         transform.position = new Vector3(0, -1, 0); // don't preserve X and Y because then will end up on the sides often
         rb.velocity = Vector3.zero;

@@ -6,12 +6,14 @@ public class WobbleController : MonoBehaviour
 {
 
     [SerializeField] private AnimationCurve testCurve;
+    //[SerializeField] private AnimationCurve speedCurve;
 
     // maybe use: https://docs.unity3d.com/Manual/class-CustomRenderTexture.html !!!!!!!!!!!!
     //[SerializeField] private CustomRenderTexture wobbleTex;
     [SerializeField] private int resolution = 256;
     [SerializeField] private float heightMulti = 1;
-    [SerializeField] private float speed = 10;
+    [SerializeField] private float initSpeed = 200;
+    //[SerializeField] private float speedMin = 100;
     [SerializeField] private float speedFalloff = 0.1f;
     [SerializeField] private float heightFalloff = 0.1f;
     [SerializeField] private int initialThickness = 10;
@@ -20,15 +22,17 @@ public class WobbleController : MonoBehaviour
     private Material mat;
     private Texture2D texture;
     private int middle;
+    private float speed;
     private float timer;
     private bool wobbleActive;
 
-
+    [SerializeField] private bool startImmedietly;
 
     void Start()
     {
-        //init();
-        Invoke("init", 2);
+        speed = initSpeed;
+        if(startImmedietly) init();
+        //Invoke("init", 2);
     }
 
     private void init()
@@ -58,7 +62,12 @@ public class WobbleController : MonoBehaviour
     {
         if (!wobbleActive) return;
 
+        speed -= Time.deltaTime * speedFalloff;
+        if (speed <= 0) speed = 0;
+        //print(speed);
         timer -= Time.deltaTime * speed;
+
+        
 
         // NOT PERFORMANT, instead do this once? or every couple of frames??? or just lover resolution....
 
@@ -69,7 +78,6 @@ public class WobbleController : MonoBehaviour
             {
                 var distFromMiddle = Vector2.Distance(mid, new Vector2(x, y));
                 distFromMiddle += timer; //Move it
-
 
                 var ix = distFromMiddle / resolution;
 

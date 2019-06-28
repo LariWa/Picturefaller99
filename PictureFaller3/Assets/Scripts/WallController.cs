@@ -119,11 +119,19 @@ public class WallController : MonoBehaviour
 
             }
 
-        var wallSpr = imgParent.GetComponentsInChildren<SpriteRenderer>();
+        var wallMeshs = imgParent.GetComponentsInChildren<MeshRenderer>();
 
         //Setup images
-        for (int i = 0; i < wallSpr.Length; i++)
-            wallSpr[i].sprite = allPictures[i];
+        int index = 0;
+        for (int i = 0; i < wallMeshs.Length; i++)
+        {
+            // Not the frame, but actual image
+            if (wallMeshs[i].GetComponent<WobbleController>() != null)
+            {
+                wallMeshs[i].material.SetTexture("_MainTex", allPictures[index].texture);
+                index++;
+            }
+        }
 
 
         //deleteNearObstacles(); //now implemented with PictureSafeZone trigger (Delete on cotnact)
@@ -374,7 +382,10 @@ public class WallController : MonoBehaviour
 
 
 
-
+    public void correctPicWobble(int picNr)
+    {
+        imgParent.transform.GetChild(picNr).GetComponentInChildren<WobbleController>().activateWobble();
+    }
 
     private IEnumerator moveAcceleration(Vector2Int dir)
     {

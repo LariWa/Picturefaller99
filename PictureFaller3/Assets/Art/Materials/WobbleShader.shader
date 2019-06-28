@@ -5,8 +5,8 @@
 		_Color("Color", Color) = (1,1,1,1)
 		_MainTex("Albedo (RGB)", 2D) = "white" {}
 		_RippleTex("Ripple (S/W)", 2D) = "white" {}
-		_Glossiness("Smoothness", Range(0,1)) = 0.5
-		_Metallic("Metallic", Range(0,1)) = 0.0
+		//_Glossiness("Smoothness", Range(0,1)) = 0.5
+		//_Metallic("Metallic", Range(0,1)) = 0.0
 		_Amount("Extrusion Amount", Range(-10,10)) = 0.5
 	}
 		SubShader
@@ -14,12 +14,28 @@
 			Tags { "RenderType" = "Opaque" }
 			//LOD 200
 
+			//Lighting Off
+
 			CGPROGRAM
 			// Physically based Standard lighting model, and enable shadows on all light types
 			#pragma surface surf Standard fullforwardshadows vertex:vert addshadow
+			//#pragma surface surf NoLighting noforwardadd vertex:vert addshadow
+			//#pragma surface surf NoLighting
+			//#pragma surface surf NoLighting noambient
+			//#pragma vertex vert
+			//#pragma fragment frag
 
 			// Use shader model 3.0 target, to get nicer looking lighting
 			#pragma target 3.0
+
+			/*fixed4 LightingNoLighting(SurfaceOutput s, fixed3 lightDir, fixed atten)
+			 {
+				 fixed4 c;
+				 c.rgb = s.Albedo;
+				 c.a = s.Alpha;
+				 return c;
+			 }*/
+
 
 			sampler2D _MainTex;
 			sampler2D _RippleTex;
@@ -56,7 +72,7 @@
 			void surf(Input IN, inout SurfaceOutputStandard o)
 			{
 				// Albedo comes from a texture tinted by color
-				fixed4 c = tex2D(_MainTex, IN.uv_MainTex) * _Color;
+				fixed4 c = tex2D(_MainTex, IN.uv_MainTex);// *_Color;
 				//fixed4 c = tex2D(_RippleTex, IN.uv_RippleTex);
 
 				//c = (IN.objectNormal * (c * 10)) * IN.objectNormal + worldPos;
