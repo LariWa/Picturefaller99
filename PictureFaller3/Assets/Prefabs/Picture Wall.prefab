@@ -543,6 +543,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blackPicture: {fileID: 21300000, guid: e1c60877669e7ce4594a35c30c2768cd, type: 3}
+  showSelectionSquare: 0
+  imageSelectedTint: {r: 0.8, g: 0.8, b: 0.8, a: 1}
+  tintInDur: 0.25
+  tintOutDur: 0.1
   pictureBlockSearched: {fileID: 2805658879923757880}
   pictureBlockPrefab: {fileID: 7913602741264333982, guid: 63e2667402fc6b84882bcc6666118c8c,
     type: 3}

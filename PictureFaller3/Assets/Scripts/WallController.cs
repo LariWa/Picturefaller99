@@ -10,6 +10,10 @@ public class WallController : MonoBehaviour
     [SerializeField] private Sprite blackPicture;
     private Sprite[] allPictures; // ammount needs to be squared so 4, 9, 16, 25 etc
     [SerializeField] private bool showSelectionSquare;
+    [SerializeField] private Color imageSelectedTint;
+    [SerializeField] private float tintInDur = 0.25f;
+    [SerializeField] private float tintOutDur = 0.25f;
+    private Color imageDefaultTint;
     [SerializeField] private GameObject pictureBlockSearched;
     [SerializeField] private GameObject pictureBlockPrefab;
     [SerializeField] private GameObject pictureBlockPrefabOneFrame;
@@ -58,8 +62,12 @@ public class WallController : MonoBehaviour
     public AudioClip correctPic;
     public bool tutorial;
 
+    private List<GameObject> tintedImages = new List<GameObject>();
+    private List<GameObject> allImages = new List<GameObject>();
+
     void Start()
     {
+
 
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         wallManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<PictureManager>();
@@ -138,6 +146,16 @@ public class WallController : MonoBehaviour
         }
 
 
+        if (!showSelectionSquare)
+        {
+            for (int i = 0; i < imgParent.transform.childCount; i++)
+                allImages.Add(imgParent.transform.GetChild(i).GetChild(1).gameObject);//bad hard coded the position in hiearchy for performance
+
+            imageDefaultTint = imgParent.transform.GetChild(0).GetChild(1).GetComponent<MeshRenderer>().material.color;
+        }
+
+        
+
         //deleteNearObstacles(); //now implemented with PictureSafeZone trigger (Delete on cotnact)
 
         PictureManager pictureManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<PictureManager>();
@@ -184,6 +202,34 @@ public class WallController : MonoBehaviour
     }
 
 
+    private void LateUpdate()
+    {
+        // If image is not in tinted then look if it is already white, if not then start fade
+        // If image is in tinted and is still white, start to fade
+        foreach (GameObject go in allImages)
+        {
+            var col = go.GetComponent<MeshRenderer>().material.color;
+
+            if (tintedImages.Contains(go))
+            {
+                if (col == imageDefaultTint)
+                {
+                    go.GetComponent<MeshRenderer>().material.DOColor(imageSelectedTint, tintInDur); //.material.color = imageSelectedTint;
+                }
+            }
+            else
+            {
+                if (col == imageSelectedTint)
+                {
+                    go.GetComponent<MeshRenderer>().material.DOColor(imageDefaultTint, tintOutDur); //.material.color = imageDefaultTint;
+                }
+            }
+        }
+
+
+    }
+
+
 
     private Vector3 offscreenVec = new Vector3(-999, -999, -999);
 
@@ -216,8 +262,10 @@ public class WallController : MonoBehaviour
             }
         }
 
+        tintedImages.Clear();
+
         // Hit nothing with raycast
-        if(newSquarePos == offscreenVec)
+        if (newSquarePos == offscreenVec)
         {
             lastSelectionIndex = -999;
             Cursor.SetCursor(regularCursor, Vector2.zero, CursorMode.Auto);
@@ -226,6 +274,11 @@ public class WallController : MonoBehaviour
         {
             if (!selectedCorrect)
                 Cursor.SetCursor(selectingCursor, Vector2.zero, CursorMode.Auto);
+
+            if (!showSelectionSquare && !selectedCorrect)
+                tintedImages.Add(imgParent.transform.GetChild(lastSelectionIndex).GetChild(1).gameObject);//bad hard coded the position in hiearchy for performance
+
+            
 
             //move picture that is selected slightly infront
             //var transf = imgParent.transform.GetChild(lastSelectionIndex).transform;
