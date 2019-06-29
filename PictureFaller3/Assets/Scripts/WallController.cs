@@ -9,6 +9,11 @@ public class WallController : MonoBehaviour
 {
     [SerializeField] private Sprite blackPicture;
     private Sprite[] allPictures; // ammount needs to be squared so 4, 9, 16, 25 etc
+    [SerializeField] private bool showSelectionSquare;
+    [SerializeField] private Color imageSelectedTint;
+    [SerializeField] private float tintInDur = 0.25f;
+    [SerializeField] private float tintOutDur = 0.25f;
+    private Color imageDefaultTint;
     [SerializeField] private GameObject pictureBlockSearched;
     [SerializeField] private GameObject pictureBlockPrefab;
     [SerializeField] private GameObject pictureBlockPrefabOneFrame;
@@ -27,6 +32,8 @@ public class WallController : MonoBehaviour
 
     [Space]
 
+    [SerializeField] private Texture2D selectingCursor;
+    [SerializeField] private Texture2D regularCursor;
     [SerializeField] private GameObject selectingSquare;
     [SerializeField] private float selectionScaleMult = 0.7f;
     [SerializeField] private float selectionZoffsetMult = 0.5f;
@@ -50,12 +57,17 @@ public class WallController : MonoBehaviour
     private bool mouseSelection;
     private GameObject imgParent;
     private int lastSelectionIndex = -999;
+    private bool selectedCorrect;
 
     public AudioClip correctPic;
     public bool tutorial;
 
+    private List<GameObject> tintedImages = new List<GameObject>();
+    private List<GameObject> allImages = new List<GameObject>();
+
     void Start()
     {
+
 
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         wallManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<PictureManager>();
@@ -119,12 +131,30 @@ public class WallController : MonoBehaviour
 
             }
 
-        var wallSpr = imgParent.GetComponentsInChildren<SpriteRenderer>();
+        var wallMeshs = imgParent.GetComponentsInChildren<MeshRenderer>();
 
         //Setup images
-        for (int i = 0; i < wallSpr.Length; i++)
-            wallSpr[i].sprite = allPictures[i];
+        int index = 0;
+        for (int i = 0; i < wallMeshs.Length; i++)
+        {
+            // Not the frame, but actual image
+            if (wallMeshs[i].GetComponent<WobbleController>() != null)
+            {
+                wallMeshs[i].material.SetTexture("_MainTex", allPictures[index].texture);
+                index++;
+            }
+        }
 
+
+        if (!showSelectionSquare)
+        {
+            for (int i = 0; i < imgParent.transform.childCount; i++)
+                allImages.Add(imgParent.transform.GetChild(i).GetChild(1).gameObject);//bad hard coded the position in hiearchy for performance
+
+            imageDefaultTint = imgParent.transform.GetChild(0).GetChild(1).GetComponent<MeshRenderer>().material.color;
+        }
+
+        
 
         //deleteNearObstacles(); //now implemented with PictureSafeZone trigger (Delete on cotnact)
 
@@ -146,6 +176,7 @@ public class WallController : MonoBehaviour
         if (player.floating)
         {
             selectingSquare.SetActive(true);
+            if (!showSelectionSquare) selectingSquare.GetComponent<SpriteRenderer>().enabled = false;
 
             if (mouseSelection)
                 mouseControlls();
@@ -168,6 +199,34 @@ public class WallController : MonoBehaviour
             if (widthIsEven)
                 selectingSquare.transform.position -= new Vector3(0.5f * gridGap, 0.5f * gridGap, 0f);*/
         }
+    }
+
+
+    private void LateUpdate()
+    {
+        // If image is not in tinted then look if it is already white, if not then start fade
+        // If image is in tinted and is still white, start to fade
+        foreach (GameObject go in allImages)
+        {
+            var col = go.GetComponent<MeshRenderer>().material.color;
+
+            if (tintedImages.Contains(go))
+            {
+                if (col == imageDefaultTint)
+                {
+                    go.GetComponent<MeshRenderer>().material.DOColor(imageSelectedTint, tintInDur); //.material.color = imageSelectedTint;
+                }
+            }
+            else
+            {
+                if (col == imageSelectedTint)
+                {
+                    go.GetComponent<MeshRenderer>().material.DOColor(imageDefaultTint, tintOutDur); //.material.color = imageDefaultTint;
+                }
+            }
+        }
+
+
     }
 
 
@@ -203,9 +262,29 @@ public class WallController : MonoBehaviour
             }
         }
 
-        if(newSquarePos == offscreenVec)
-            lastSelectionIndex = -999;
+        tintedImages.Clear();
 
+        // Hit nothing with raycast
+        if (newSquarePos == offscreenVec)
+        {
+            lastSelectionIndex = -999;
+            Cursor.SetCursor(regularCursor, Vector2.zero, CursorMode.Auto);
+        }
+        else
+        {
+            if (!selectedCorrect)
+                Cursor.SetCursor(selectingCursor, Vector2.zero, CursorMode.Auto);
+
+            if (!showSelectionSquare && !selectedCorrect)
+                tintedImages.Add(imgParent.transform.GetChild(lastSelectionIndex).GetChild(1).gameObject);//bad hard coded the position in hiearchy for performance
+
+            
+
+            //move picture that is selected slightly infront
+            //var transf = imgParent.transform.GetChild(lastSelectionIndex).transform;
+            //transf.DOMoveZ(transf.position.z - 0.1f, 0.25f);
+            //imgParent.transform.GetChild(lastSelectionIndex).transform.DOScale();
+        }
 
 
         newSquarePos.z = selectingSquare.transform.position.z;
@@ -221,6 +300,13 @@ public class WallController : MonoBehaviour
             return false;
 
         return true;
+    }
+
+
+    public void changeCursorToDefault()
+    {
+        selectedCorrect = true;
+        Cursor.SetCursor(regularCursor, Vector2.zero, CursorMode.Auto);
     }
 
 
@@ -360,6 +446,7 @@ public class WallController : MonoBehaviour
 
     }
 
+    /*
     private void disableSelection()
     {
         //crosshair.SetActive(false);
@@ -370,11 +457,14 @@ public class WallController : MonoBehaviour
         //crosshair.SetActive(true);
         selectingSquare.SetActive(true);
     }
+    */
 
 
 
-
-
+    public void correctPicWobble(int picNr)
+    {
+        imgParent.transform.GetChild(picNr).GetComponentInChildren<WobbleController>().activateWobble();
+    }
 
     private IEnumerator moveAcceleration(Vector2Int dir)
     {

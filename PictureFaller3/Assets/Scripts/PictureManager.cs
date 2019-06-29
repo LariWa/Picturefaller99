@@ -38,7 +38,9 @@ public class PictureManager : MonoBehaviour
 
 
 
-    
+
+
+
     public bool hitCorrectPicture()
     {
 
@@ -57,8 +59,12 @@ public class PictureManager : MonoBehaviour
         justSelectedCorrect = hitCorrectPicture();
 
         if (playerStats.getHealth() != 0 && justSelectedCorrect)
+        {
             scienceTimer.printTimer();
-        
+            transitionManager.doDiveCamera();
+            chunkManager.getCurrPictureWall().GetComponent<WallController>().changeCursorToDefault();
+        }
+
         chunkManager.getCurrPictureWall().GetComponent<WallController>().selectionSquashOrShake(justSelectedCorrect);
 
         if (playerStats.getHealth() != 0 && chunkManager.getCurrPictureWall().GetComponent<WallController>().selectionNotOffscreen())
@@ -76,6 +82,8 @@ public class PictureManager : MonoBehaviour
             print("The selection was correct!");
 
             transitionManager.doSettingTransition(); //also resets chunks and picwall
+
+            chunkManager.getCurrPictureWall().GetComponent<WallController>().correctPicWobble(currPicSearched);
         }
         else
         {
