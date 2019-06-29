@@ -53,6 +53,8 @@ public class PlayerMovement : MonoBehaviour
     public bool divingDown { get; private set; }
     public bool floating { get; private set; } // rename to inSlowmo
 
+    public bool maus=true;
+
 
     Quaternion startRot;
 
@@ -165,6 +167,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 previousLoaction = transform.position;
         Vector3 moveVec = (Vector3.right * inputHor) + (Vector3.up * inputVert);
+    
 
 
         moveVec.Normalize();
@@ -206,7 +209,52 @@ public class PlayerMovement : MonoBehaviour
 
 
         // Player controlls
+
+        Debug.Log("gk");
         rb.AddForce(moveVec * controlSpeed);//, ForceMode.Impulse);
+
+        
+            Debug.Log("ffhg");
+            Debug.Log(Input.mousePosition);
+            //Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 mousePosition = Input.mousePosition;
+
+            Debug.Log(mousePosition);
+            mousePosition.z = rb.transform.position.z;
+            mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+            Debug.Log(mousePosition);
+           // mousePosition.Normalize();
+            //Debug.Log(mousePosition);
+
+            //rb.transform.position = Vector3.MoveTowards(rb.transform.position, mousePosition, controlSpeed * Time.deltaTime);
+            Debug.Log(controlSpeed);
+            // rb.AddForce(mousePosition * controlSpeed);
+            //mousePosition.x = mousePosition.x * 150;
+            //mousePosition.y = mousePosition.y * 150;
+            //rb.MovePosition(mousePosition);
+
+            rb.transform.position = Vector3.MoveTowards(rb.transform.position, mousePosition, 10*Time.deltaTime);
+        
+
+        Debug.Log(Input.mousePosition);
+
+        //Vector3 mousePosition = Input.mousePosition;
+
+        //Debug.Log(mousePosition);
+        //mousePosition.z = rb.transform.position.z;
+        //mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+        //var x = 0;
+        //if (mousePosition.x > 1) x = 1;
+        //else x = -1;
+
+        //var y = 0;
+        //if (mousePosition.y > 1) y = 1;
+        //else y = -1;
+
+        //Vector3 mouseVec = (Vector3.right * x) + (Vector3.up * y);
+        //Debug.Log(mousePosition);
+        //rb.AddForce(mouseVec * controlSpeed);
+
 
         // Check and do dash
         //dash();
@@ -229,6 +277,7 @@ public class PlayerMovement : MonoBehaviour
                 rb.AddForce(-Vector3.forward * jumpImpulse, ForceMode.Impulse);
             }
         }
+        
 
 
         // Drag for controlls
