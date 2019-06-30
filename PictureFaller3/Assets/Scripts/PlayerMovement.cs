@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
+using System;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -53,8 +55,11 @@ public class PlayerMovement : MonoBehaviour
     public bool divingDown { get; private set; }
     public bool floating { get; private set; } // rename to inSlowmo
 
+    public bool maus;
 
-    bool gerade = true;
+    public Slider setting;
+
+
     Quaternion startRot;
 
 
@@ -152,6 +157,9 @@ public class PlayerMovement : MonoBehaviour
             scoreManager.scoreIncreasing = false;
         }
 
+
+        maus = Convert.ToBoolean(Convert.ToInt16(setting.value));
+
     }
 
 
@@ -166,6 +174,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 previousLoaction = transform.position;
         Vector3 moveVec = (Vector3.right * inputHor) + (Vector3.up * inputVert);
+    
 
 
         moveVec.Normalize();
@@ -173,13 +182,13 @@ public class PlayerMovement : MonoBehaviour
       
         if (inputHor > 0)
         {
-            rb.MoveRotation(rb.rotation * Quaternion.Euler(0,5,0));
+            rb.MoveRotation(rb.rotation * Quaternion.Euler(0,0,-3));
             Invoke("rotNormal", 0.3f);
 
         }
         if (inputHor < 0)
         {
-            rb.MoveRotation(rb.rotation * Quaternion.Euler(0, -5, 0));
+            rb.MoveRotation(rb.rotation * Quaternion.Euler(0, 0, 3));
             Invoke("rotNormal", 0.3f);
 
         }
@@ -207,7 +216,23 @@ public class PlayerMovement : MonoBehaviour
 
 
         // Player controlls
+
         rb.AddForce(moveVec * controlSpeed);//, ForceMode.Impulse);
+
+
+
+        if (maus)
+        {
+            Vector3 mousePosition = Input.mousePosition;
+            // mousePosition.z = Camera.main.nearClipPlane;
+            mousePosition.z = rb.transform.position.z;
+            mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+            Vector3 direction = (mousePosition - rb.transform.position).normalized;
+
+            rb.AddForce(new Vector2(direction.x * 300, direction.y * 300));
+        }
+        else
+            rb.AddForce(moveVec * controlSpeed);//, ForceMode.Impulse);
 
         // Check and do dash
         //dash();
@@ -230,6 +255,7 @@ public class PlayerMovement : MonoBehaviour
                 rb.AddForce(-Vector3.forward * jumpImpulse, ForceMode.Impulse);
             }
         }
+        
 
 
         // Drag for controlls
