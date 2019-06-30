@@ -58,7 +58,8 @@ public class PlayerStats : MonoBehaviour
         {
             Time.timeScale = 0;
             GameObject.FindGameObjectWithTag("Managers").GetComponent<Slowmotion>().gameOver();
-            GameOverCanvas.SetActive(true);
+            //GameOverCanvas.SetActive(true);
+            SceneManager.LoadScene("Outro");
 
 
 
