@@ -523,6 +523,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 0}
+  isOutro: 1
 --- !u!114 &563274969
 MonoBehaviour:
   m_ObjectHideFlags: 0
