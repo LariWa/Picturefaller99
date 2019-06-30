@@ -10,20 +10,19 @@ public class MenuController : MonoBehaviour
     public GameObject pauseMenuUI;
     private float timeBeforeLoading =5f;
     private float timePassed;
+    private bool tutorial;
     
 
     // Start is called before the first frame update
     void Start()
     {
-
+        tutorial = false;
         if (SceneManager.GetActiveScene().name == "Menu")
         {
             //This time scale is need for the character animation in the main menu
             //But it breaks the Pause menu if used in the main game, thus if statement
             Time.timeScale = 1;
         }
-
-        
     }
 
     // Update is called once per frame
@@ -33,12 +32,26 @@ public class MenuController : MonoBehaviour
 
         //Checking the timer for the intro scene. The game is going to be loaded 5 seconds after the Intro
         timePassed += Time.deltaTime;
-        if (SceneManager.GetActiveScene().name == "Intro")
+        if (SceneManager.GetActiveScene().name == "Intro" && tutorial == false && timePassed >=4f)
         {
-            if (timePassed > timeBeforeLoading)
-            {
-                SceneManager.LoadScene("World01big");
-            }
+            //if (timePassed > timeBeforeLoading)
+            //{
+            //    SceneManager.LoadScene("World01big");
+            //}
+
+            Debug.Log("Scene called!");
+
+            StartCoroutine(LoadAsyncronousy("Tutorial"));
+            tutorial = true;
+        }
+    }
+
+    IEnumerator LoadAsyncronousy(string Name) {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(Name);
+        while (operation.isDone == false) {
+            Debug.Log(operation.progress);
+
+            yield return null;
         }
     }
 

@@ -220,8 +220,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 0}
-  black: {fileID: 0}
-  anim: {fileID: 0}
 --- !u!1 &349228691
 GameObject:
   m_ObjectHideFlags: 0
