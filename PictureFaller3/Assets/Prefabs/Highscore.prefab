@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8840491859191589739}
   m_Layer: 5
-  m_Name: GameObject
+  m_Name: TableHead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -519,7 +519,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d47ea79adbc5cc458b2f3e881f16895, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Leaderboard: {fileID: 0}
+  entryContainer: {fileID: 4997567253594476988}
+  entryTemplate: {fileID: 0}
+  Leaderboard: {fileID: 4997567252617068469}
 --- !u!1 &4997567252617068469
 GameObject:
   m_ObjectHideFlags: 0
