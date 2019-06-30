@@ -54,14 +54,17 @@ public class ScoreManager : MonoBehaviour
 
         var s = Instantiate(scorePlusPrefab, Vector3.zero, Quaternion.identity);
         s.transform.parent = effectsParent.transform;
-        s.transform.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
+        s.transform.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,100);
         s.transform.GetComponent<TextMeshProUGUI>().text = "+" + am;
         scoreCount += am;
 
-        //Animation....     FIX IT (position, fade, scale)
+        //Animation....     better
         Destroy(s, 1f);
         Sequence seq = DOTween.Sequence();
-        seq.Append(s.transform.DOPunchScale(Vector3.one, 0.5f));
-        seq.Append(s.transform.DOScale(0f, 0.5f));
+        //seq.Append(s.transform.DOPunchScale(Vector3.one, 0.5f));
+        //seq.Append(s.transform.DOScale(0f, 0.5f));
+        seq.Append(s.transform.DOPunchScale(Vector3.one, 1, 1));
+        seq.Insert(0, s.transform.DOShakeScale(0.75f, 1));
+        seq.Insert(0.5f, s.transform.GetComponent<TextMeshProUGUI>().DOFade(0, 0.25f));
     }
 }

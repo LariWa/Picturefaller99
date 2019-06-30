@@ -31,7 +31,7 @@ public class ScienceTimer : MonoBehaviour
     public float getTime()
     {
         // var response = sendPostRequest(timer); SPIEL FUNKT SONST NICHT
-        Debug.Log(timer);
+        //Debug.Log(timer);
         //Debug.Log(response);
         return timer;
     }
