@@ -112,6 +112,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &74244896 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2645177002884196161, guid: 98cf2ed6f6f74ed4e89b756656318f13,
+    type: 3}
+  m_PrefabInstance: {fileID: 1601102619}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &266932284
 GameObject:
   m_ObjectHideFlags: 0
@@ -522,6 +528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87c1afaf263cbea45b159cbe84407e1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameOverCanvas: {fileID: 74244896}
   pauseMenuUI: {fileID: 0}
   isOutro: 1
 --- !u!114 &563274969

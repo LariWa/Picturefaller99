@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour
 {
+    [SerializeField] private GameObject GameOverCanvas;
     public static bool GameIsPaused = false;
     public GameObject pauseMenuUI;
     private float timeBeforeLoading =5f;
@@ -51,10 +52,15 @@ public class MenuController : MonoBehaviour
         timePassed += Time.deltaTime;
         if (SceneManager.GetActiveScene().name == "Intro" && tutorial == false && timePassed >=4f)
         {
-            Debug.Log("Scene called!");
+      
 
             StartCoroutine(LoadAsyncronousy("Tutorial"));
             tutorial = true;
+        }
+
+        if (SceneManager.GetActiveScene().name == "Outro" && timePassed >= 2f){
+            Debug.Log("GameOVER");
+            GameOverCanvas.SetActive(true);
         }
     }
 
