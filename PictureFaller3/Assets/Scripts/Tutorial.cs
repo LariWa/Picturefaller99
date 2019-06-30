@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Tutorial : MonoBehaviour
 {
@@ -22,6 +23,10 @@ public class Tutorial : MonoBehaviour
     void Update()
     {
         showTutorial();
+
+        if (Input.GetKeyDown(KeyCode.Return)) {
+            SceneManager.LoadScene("World01big");
+        }
 
     }
 
