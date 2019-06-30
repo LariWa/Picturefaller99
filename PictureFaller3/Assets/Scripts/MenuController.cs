@@ -33,7 +33,8 @@ public class MenuController : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "Outro")
         {
-            anim.SetBool("isOutro", true);
+            Time.timeScale = 1;
+            anim.Play("waking");
         }
 
         if (SceneManager.GetActiveScene().name == "Intro") {
