@@ -11,7 +11,7 @@ public class HighscoreTable : MonoBehaviour
 {
 
     public Transform entryContainer;
-    public Transform entryTemplate;
+    private Transform entryTemplate;
     private List<Transform> highscoreEntryTransformList;
     public GameObject Leaderboard;
 
