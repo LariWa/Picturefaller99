@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
+using System;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -53,7 +55,9 @@ public class PlayerMovement : MonoBehaviour
     public bool divingDown { get; private set; }
     public bool floating { get; private set; } // rename to inSlowmo
 
-    public bool maus=true;
+    public bool maus;
+
+    public Slider setting;
 
 
     Quaternion startRot;
@@ -153,6 +157,9 @@ public class PlayerMovement : MonoBehaviour
             scoreManager.scoreIncreasing = false;
         }
 
+
+        maus = Convert.ToBoolean(Convert.ToInt16(setting.value));
+
     }
 
 
@@ -210,51 +217,22 @@ public class PlayerMovement : MonoBehaviour
 
         // Player controlls
 
-        Debug.Log("gk");
         rb.AddForce(moveVec * controlSpeed);//, ForceMode.Impulse);
 
-        
-            Debug.Log("ffhg");
-            Debug.Log(Input.mousePosition);
-            //Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector3 mousePosition = Input.mousePosition;
 
-            Debug.Log(mousePosition);
+
+        if (maus)
+        {
+            Vector3 mousePosition = Input.mousePosition;
+            // mousePosition.z = Camera.main.nearClipPlane;
             mousePosition.z = rb.transform.position.z;
             mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-            Debug.Log(mousePosition);
-           // mousePosition.Normalize();
-            //Debug.Log(mousePosition);
+            Vector3 direction = (mousePosition - rb.transform.position).normalized;
 
-            //rb.transform.position = Vector3.MoveTowards(rb.transform.position, mousePosition, controlSpeed * Time.deltaTime);
-            Debug.Log(controlSpeed);
-            // rb.AddForce(mousePosition * controlSpeed);
-            //mousePosition.x = mousePosition.x * 150;
-            //mousePosition.y = mousePosition.y * 150;
-            //rb.MovePosition(mousePosition);
-
-            rb.transform.position = Vector3.MoveTowards(rb.transform.position, mousePosition, 10*Time.deltaTime);
-        
-
-        Debug.Log(Input.mousePosition);
-
-        //Vector3 mousePosition = Input.mousePosition;
-
-        //Debug.Log(mousePosition);
-        //mousePosition.z = rb.transform.position.z;
-        //mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-        //var x = 0;
-        //if (mousePosition.x > 1) x = 1;
-        //else x = -1;
-
-        //var y = 0;
-        //if (mousePosition.y > 1) y = 1;
-        //else y = -1;
-
-        //Vector3 mouseVec = (Vector3.right * x) + (Vector3.up * y);
-        //Debug.Log(mousePosition);
-        //rb.AddForce(mouseVec * controlSpeed);
-
+            rb.AddForce(new Vector2(direction.x * 300, direction.y * 300));
+        }
+        else
+            rb.AddForce(moveVec * controlSpeed);//, ForceMode.Impulse);
 
         // Check and do dash
         //dash();
