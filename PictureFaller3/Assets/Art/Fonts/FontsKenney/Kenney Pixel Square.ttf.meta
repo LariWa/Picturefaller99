@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5bf9deb6c7ee3492884ba14aba861447
+guid: 4b46fd697e630ff4095f83af06a47b9a
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -8,9 +8,9 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: moonhouse
+  fontName: Kenney Pixel Square
   fontNames:
-  - moonhouse
+  - Kenney Pixel Square
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
