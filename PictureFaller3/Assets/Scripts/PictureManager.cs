@@ -31,14 +31,16 @@ public class PictureManager : MonoBehaviour
         transitionManager = GetComponent<TransitionManager>();
 
         //rollPicToSearch();
-        picSearched.sprite = null;
+        //hideMovingSearchedUI();
     }
 
 
 
 
 
-    
+
+
+
     public bool hitCorrectPicture()
     {
 
@@ -57,8 +59,12 @@ public class PictureManager : MonoBehaviour
         justSelectedCorrect = hitCorrectPicture();
 
         if (playerStats.getHealth() != 0 && justSelectedCorrect)
+        {
             scienceTimer.printTimer();
-        
+            transitionManager.doDiveCamera();
+            chunkManager.getCurrPictureWall().GetComponent<WallController>().changeCursorToDefault();
+        }
+
         chunkManager.getCurrPictureWall().GetComponent<WallController>().selectionSquashOrShake(justSelectedCorrect);
 
         if (playerStats.getHealth() != 0 && chunkManager.getCurrPictureWall().GetComponent<WallController>().selectionNotOffscreen())
@@ -76,6 +82,8 @@ public class PictureManager : MonoBehaviour
             print("The selection was correct!");
 
             transitionManager.doSettingTransition(); //also resets chunks and picwall
+
+            chunkManager.getCurrPictureWall().GetComponent<WallController>().correctPicWobble(currPicSearched);
         }
         else
         {
@@ -85,8 +93,8 @@ public class PictureManager : MonoBehaviour
 
         difficultyManager.hitWall();
 
-        picSearched.sprite = null;
 
+        hideMovingSearchedUI();
 
         //chunkManager.spawnPicWall();
     }
@@ -105,5 +113,19 @@ public class PictureManager : MonoBehaviour
     {
         var currentPics = GetComponent<SettingManager>().getAllPicturesInSort(GetComponent<SettingManager>().getNextSetting());
         return currentPics[currPicSearched];
+    }
+
+
+
+    public void setSearchedUIvisible()
+    {
+        picSearched.transform.parent.gameObject.SetActive(true);
+    }
+
+    public void hideMovingSearchedUI()
+    {
+        //picSearched.sprite = null;
+
+        picSearched.transform.parent.gameObject.SetActive(false);
     }
 }
