@@ -31,7 +31,7 @@ public class PictureManager : MonoBehaviour
         transitionManager = GetComponent<TransitionManager>();
 
         //rollPicToSearch();
-        picSearched.sprite = null;
+        //hideMovingSearchedUI();
     }
 
 
@@ -93,8 +93,8 @@ public class PictureManager : MonoBehaviour
 
         difficultyManager.hitWall();
 
-        picSearched.sprite = null;
 
+        hideMovingSearchedUI();
 
         //chunkManager.spawnPicWall();
     }
@@ -113,5 +113,19 @@ public class PictureManager : MonoBehaviour
     {
         var currentPics = GetComponent<SettingManager>().getAllPicturesInSort(GetComponent<SettingManager>().getNextSetting());
         return currentPics[currPicSearched];
+    }
+
+
+
+    public void setSearchedUIvisible()
+    {
+        picSearched.transform.parent.gameObject.SetActive(true);
+    }
+
+    public void hideMovingSearchedUI()
+    {
+        //picSearched.sprite = null;
+
+        picSearched.transform.parent.gameObject.SetActive(false);
     }
 }
