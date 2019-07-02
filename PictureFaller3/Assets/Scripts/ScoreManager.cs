@@ -42,9 +42,9 @@ public class ScoreManager : MonoBehaviour
 			PlayerPrefs.SetFloat("Highscore", highscoreCount);
 		}
 
-       
-		scoreText.text = Mathf.Round(scoreCount) +         " Score"; //" Current"
-        highscoreText.text = Mathf.Round(highscoreCount) + " Best"; //" Highest"
+
+        scoreText.text = Mathf.Round(scoreCount) +         " Now";// " Score"; //" Current"
+        highscoreText.text = Mathf.Round(highscoreCount) + " Best"; // " Best"; //" Highest"
     }
 
 
