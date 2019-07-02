@@ -38,8 +38,12 @@ public class DifficultyManager : MonoBehaviour
 
         //Get how many obstacles to spawn here
         var objs = objectSpawns.Evaluate(t);
-       
-        return Mathf.RoundToInt(objs);
+
+        var am = Mathf.RoundToInt(objs);
+
+        if (am <= 0) am = 0;
+
+        return am;
     }
 
     public int getWallChunkOffset()
