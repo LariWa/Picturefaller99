@@ -38,5 +38,5 @@ public class SoundScript : MonoBehaviour
             AudioListener.volume = 0;
             musicToggleButton.GetComponent<Image>().sprite = musicOffSprite;
         }
-    }//https://www.youtube.com/watch?v=OeZuwgG6HJM
+    }
 }
