@@ -59,7 +59,7 @@ public class WallController : MonoBehaviour
     private int lastSelectionIndex = -999;
     private bool selectedCorrect;
 
-    public AudioClip correctPic;
+    public AudioClip correctPicturehit;
     public bool tutorial;
 
     private List<GameObject> tintedImages = new List<GameObject>();
@@ -397,7 +397,7 @@ public class WallController : MonoBehaviour
         if(correctSelection)
         {
            
-            AudioSource.PlayClipAtPoint(correctPic, transform.position);
+            AudioSource.PlayClipAtPoint(correctPicturehit, transform.position);
             var scale = selectingSquare.transform.localScale * correctSelScale;
             selectingSquare.transform.DOPunchScale(scale, correctSelScaleDur); // OR SHAKE SCALE?
 
