@@ -22,7 +22,7 @@ public class GameOverMenu : MonoBehaviour
     public void PlayGame()
     {
         SceneManager.LoadScene("World01big");
-        //GameOverCanvas.SetActive(false);
+        GameOverCanvas.SetActive(false);
     }
 
     public void Awake()
