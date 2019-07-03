@@ -59,7 +59,7 @@ public class MenuController : MonoBehaviour
         }
 
         if (SceneManager.GetActiveScene().name == "Outro" && timePassed >= 2f){
-            Debug.Log("GameOVER");
+      
             GameOverCanvas.SetActive(true);
         }
     }

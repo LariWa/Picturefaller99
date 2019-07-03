@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.17710379, g: 0.22170645, b: 0.30396852, a: 1}
+  m_IndirectSpecularColor: {r: 0.17710355, g: 0.22170608, b: 0.3039681, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -12888,6 +12888,11 @@ PrefabInstance:
       propertyPath: PauseMenuCanvas
       value: 
       objectReference: {fileID: 1263752149}
+    - target: {fileID: 2117485183603230946, guid: 1945a9b6cfd321644bdfc680efd1b7cb,
+        type: 3}
+      propertyPath: score
+      value: 
+      objectReference: {fileID: 668174788}
     - target: {fileID: 2117485184423083693, guid: 1945a9b6cfd321644bdfc680efd1b7cb,
         type: 3}
       propertyPath: m_Height

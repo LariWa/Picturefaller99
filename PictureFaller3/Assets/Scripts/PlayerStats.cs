@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
+using System;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -26,6 +28,8 @@ public class PlayerStats : MonoBehaviour
     private float flickerTimer;
     private bool invincible;
     private PlayerMovement playerMovement;
+
+    public GameObject score;
 
 
     void Start()
@@ -58,8 +62,14 @@ public class PlayerStats : MonoBehaviour
         {
             Time.timeScale = 0;
             GameObject.FindGameObjectWithTag("Managers").GetComponent<Slowmotion>().gameOver();
-            GameOverCanvas.SetActive(true);
-            //SceneManager.LoadScene("Outro");
+            //GameOverCanvas.SetActive(true);
+            char[] charSeparator = new char[] { ' ' };
+            string scoreNumber = score.transform.GetComponent<TextMeshProUGUI>().text;
+            string scoreNum = scoreNumber.Split(charSeparator, StringSplitOptions.None)[0];
+            Debug.Log(scoreNum);
+            PlayerPrefs.SetString("score", scoreNum);
+            PlayerPrefs.Save();
+            SceneManager.LoadScene("Outro");
 
 
 
