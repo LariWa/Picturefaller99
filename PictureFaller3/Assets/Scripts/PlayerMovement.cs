@@ -340,7 +340,7 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator ClickEvent(Vector2 dir, KeyCode a, KeyCode b)
     {
         //pause a frame so you don't pick up the same mouse down event
-        yield return new WaitForEndOfFrame();
+        yield return new WaitForFixedUpdate();//WaitForEndOfFrame();
 
         float count = 0f;
         while (count < dashDelay)
