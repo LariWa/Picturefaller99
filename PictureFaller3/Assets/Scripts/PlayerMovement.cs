@@ -82,6 +82,14 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
+    public void updateControlls(float fallSpd, float controlSPd)
+    {
+        controlSpeed = controlSPd;
+        maxFallSpeed = fallSpd;
+        //Physics.gravity = new Vector3(0, 0, grav);
+    }
+
+
     void Update()
     {
         dashTimer -= Time.deltaTime;// unscaledDeltaTime; //ignore slow motion(?) TRY https://answers.unity.com/questions/1155266/timescale-not-affect-timer-c.html

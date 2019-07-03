@@ -9783,8 +9783,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae918e2cfb8b6d34ea1ad2e4d5a27285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startRandom: 0
-  startSetting: 1
+  startRandom: 1
+  startSetting: 0
   cityChunks:
   - {fileID: 997914699770420152, guid: a228b1e1983cfcd46a5fbb9effdcd9a4, type: 3}
   - {fileID: 997914699770420152, guid: d592c8873ad91fa479af9174ddb646b5, type: 3}
@@ -9855,6 +9855,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3df69743aa69114cbecf98afd29e4d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fallSpeed:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 50.294807
+      inSlope: 39.705177
+      outSlope: 39.705177
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 89.999985
+      inSlope: 39.705177
+      outSlope: 39.705177
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  controlSpeed:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 200
+      inSlope: 50
+      outSlope: 50
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 250
+      inSlope: 50
+      outSlope: 50
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   objectSpawns:
     serializedVersion: 2
     m_Curve:
@@ -9903,6 +9951,59 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  hpAmmount:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 7
+      outSlope: 7
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 7
+      inSlope: 7
+      outSlope: 7
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  coinAmmount:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0
+      value: 1.019752
+      inSlope: 13.9802475
+      outSlope: 13.9802475
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 15
+      inSlope: 13.9802475
+      outSlope: 13.9802475
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  healthPrefab: {fileID: 5600943178128267096, guid: ab1af1b616fd6924f926ee8dbf6d88b6,
+    type: 3}
+  coinPrefab: {fileID: 3460961155567306439, guid: 0a191432cf7ec4b48827fff86ccdf23a,
+    type: 3}
+  collectibleRange: 6
   objRandMore: 1
   wallDistRandMore: 2
   startDim: 2
