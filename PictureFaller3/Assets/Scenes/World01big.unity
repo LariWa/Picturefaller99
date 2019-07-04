@@ -9893,30 +9893,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  controlSpeed:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 200
-      inSlope: 50
-      outSlope: 50
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 250
-      inSlope: 50
-      outSlope: 50
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  controlSpeedMinMax: {x: 250, y: 350}
   objectSpawns:
     serializedVersion: 2
     m_Curve:
@@ -10022,6 +9999,7 @@ MonoBehaviour:
   wallDistRandMore: 2
   startDim: 2
   maxDim: 13
+  leftoutDims: 0300000005000000
 --- !u!114 &1645297942
 MonoBehaviour:
   m_ObjectHideFlags: 0
