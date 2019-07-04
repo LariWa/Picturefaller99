@@ -143,8 +143,10 @@ public class DifficultyManager : MonoBehaviour
         if (am <= 0) am = 0;
 
         for (int i = 0; i < am; i++)
-        { 
-            var h = Instantiate(healthPrefab, new Vector3(Random.Range(-10, 10), Random.Range(-10, 10), Random.Range(10, wallZ)), healthPrefab.transform.rotation);
+        {
+            var pos = Random.insideUnitSphere * collectibleRange;
+            pos.z = Random.Range(10, wallZ);
+            var h = Instantiate(healthPrefab, pos, healthPrefab.transform.rotation);
             currCollectibles.Add(h);
         }
 

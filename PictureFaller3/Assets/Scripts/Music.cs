@@ -38,7 +38,6 @@ public class Music : MonoBehaviour
             var time = Time.timeScale;
             time = time.Remap(0,1, slowMoPitchMin ,1);
             audioSource.pitch = time;
-            print(time);
         }
     }
 
