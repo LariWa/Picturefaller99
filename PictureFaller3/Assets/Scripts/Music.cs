@@ -6,17 +6,39 @@ using UnityEngine.UI;
 public class Music : MonoBehaviour
 {
     static Music instance = null;
+    public float slowMoPitchMin = 0.8f;
 
-    private void Awake() 
+    private bool gameplay;
+    private AudioSource audioSource;
+
+    private void Awake()
     {
         if (instance != null)
         {
-            Destroy (gameObject);
+            Destroy(gameObject);
         }
         else
         {
             instance = this;
             GameObject.DontDestroyOnLoad(gameObject);
+        }
+
+        if (FindObjectOfType<PlayerStats>() != null)
+        {
+            gameplay = true;
+            audioSource = GetComponent<AudioSource>();
+        }
+
+    }
+
+    private void Update()
+    {
+        if(gameplay)
+        {
+            var time = Time.timeScale;
+            time = time.Remap(0,1, slowMoPitchMin ,1);
+            audioSource.pitch = time;
+            print(time);
         }
     }
 
@@ -33,4 +55,15 @@ public class Music : MonoBehaviour
             //AudioListener.volume = 0;
         }
     }
+
+    /*
+    public void soundSlowMo()
+    {
+        GetComponent<AudioSource>().pitch = slowMoPitch; 
+    }
+
+    public void soundSlowMoDone()
+    {
+        GetComponent<AudioSource>().pitch = 1f;
+    }*/
 }
