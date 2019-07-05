@@ -15,7 +15,6 @@ public class MenuController : MonoBehaviour
     private GameObject character;
     static Animator anim;
     public bool isOutro;
-    
 
     // Start is called before the first frame update
     void Start()
@@ -48,13 +47,11 @@ public class MenuController : MonoBehaviour
     {
         MoveCharacter();
 
-        //After the intro has played fo 4 seconds, start loading the Tutorial on the background
+        //During the intro start loading the Tutorial on the background
         timePassed += Time.deltaTime;
-        if (SceneManager.GetActiveScene().name == "Intro" && tutorial == false && timePassed >=4f)
+        if (SceneManager.GetActiveScene().name == "Intro" && tutorial == false)
         {
-
-
-            StartCoroutine(LoadAsyncronousy("World01big"));//"Tutorial"));
+            StartCoroutine(LoadAsyncronousy("World01big", 4)); //"Tutorial"
             tutorial = true;
         }
 
@@ -65,14 +62,25 @@ public class MenuController : MonoBehaviour
     }
 
     //Load any scene on the background - will help loading bigger scenes faster, needs a scene name to be called
-    IEnumerator LoadAsyncronousy(string Name) {
+    IEnumerator LoadAsyncronousy(string Name, float delay)
+    {
         AsyncOperation operation = SceneManager.LoadSceneAsync(Name);
-        while (operation.isDone == false) {
-            //Debug.Log(operation.progress);
+        operation.allowSceneActivation = false; //prevent opening the scene when its done loading
 
+        /*while (operation.isDone == false)
+        {
+            //TODO: loading bar
+
+            //Debug.Log(operation.progress);
             yield return null;
-        }
+        }*/
+
+        yield return new WaitForSeconds(delay);
+
+        operation.allowSceneActivation = true;
     }
+
+
 
 
     //Play Game is being used in Main Menu

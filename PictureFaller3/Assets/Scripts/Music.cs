@@ -39,7 +39,10 @@ public class Music : MonoBehaviour
         if (gameplay)
         {
             if (audioSource.clip != gameplayMusic)
+            {
                 audioSource.clip = gameplayMusic;
+                audioSource.Play();
+            }
 
             var time = Time.timeScale;
             time = time.Remap(0,1, slowMoPitchMin ,1);
@@ -48,7 +51,10 @@ public class Music : MonoBehaviour
         else
         {
             if (audioSource.clip != menuMusic)
+            {
                 audioSource.clip = menuMusic;
+                audioSource.Play();
+            }
         }
 
         print(audioSource.clip.name);

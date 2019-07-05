@@ -36,8 +36,15 @@ public class CameraManager : MonoBehaviour
 
     private PostProcessVolume ppVol;
 
+    private bool isGameplay;
+
     void Start()
     {
+        if (FindObjectOfType<PlayerMovement>() != null)
+            isGameplay = true;
+        else
+            return;
+
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
 
         mainCam = GetComponent<Camera>();
@@ -66,7 +73,7 @@ public class CameraManager : MonoBehaviour
         //    camNormal.SetActive(true);
         // }
 
-        
+        if (!isGameplay) return;
         
         if (player.floating || player.divingDown)
         {
