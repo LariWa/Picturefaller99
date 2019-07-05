@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Text.RegularExpressions;
+using System.Linq;
 
 public class SettingManager : MonoBehaviour
 {
@@ -20,11 +21,11 @@ public class SettingManager : MonoBehaviour
     [Space]
 
     // SHOULD BE IN PICTURE MANAGER?
-    [SerializeField] private Sprite[] allCityPictures;  //original order
-    [SerializeField] private Sprite[] allForestPictures;//original order
-    [SerializeField] private Sprite[] allFoodPictures;//original order
-    //[SerializeField] private Sprite[] allWaterPictures;//original order
-    [SerializeField] private Sprite[] allMountainPictures;//original order
+    private Sprite[] allCityPictures;  //original order
+    private Sprite[] allForestPictures;//original order
+    private Sprite[] allFoodPictures;//original order
+    //private Sprite[] allWaterPictures;//original order
+    private Sprite[] allMountainPictures;//original order
 
     private Sprite[] cityPicturesInSort;  //Sorted always differently
     private Sprite[] forestPicturesInSort;//Sorted always differently
@@ -32,13 +33,21 @@ public class SettingManager : MonoBehaviour
     //private Sprite[] waterPicturesInSort;//Sorted always differently
     private Sprite[] mountainPicturesInSort;//Sorted always differently
 
+    [SerializeField] private string citySortsLocationPics = "SortPics/city";
+    [SerializeField] private string natureSortsLocationPics = "SortPics/nature";
+    [SerializeField] private string foodSortsLocationPics = "SortPics/food";
+
     [Space]
 
-    [SerializeField] private TextAsset[] citySorts;
-    [SerializeField] private TextAsset[] forestSorts;
-    [SerializeField] private TextAsset[] foodSorts;
-    //[SerializeField] private TextAsset[] waterSorts;
-    [SerializeField] private TextAsset[] mountainSorts;
+    [SerializeField] private string citySortsLocation = "SortTxt/city";
+    [SerializeField] private string natureSortsLocation = "SortTxt/nature";
+    [SerializeField] private string foodSortsLocation = "SortTxt/food";
+
+    private TextAsset[] citySorts;
+    private TextAsset[] forestSorts;
+    private TextAsset[] foodSorts;
+    //private TextAsset[] waterSorts;
+    private TextAsset[] mountainSorts;
 
     [Space]
 
@@ -54,6 +63,37 @@ public class SettingManager : MonoBehaviour
 
     void Awake()
     {
+        // Load resources
+
+        //var sort = Resources.Load<TextAsset>("SortTxt/city_hq");   citySortsLocation
+        //citySorts.Add(sort);
+
+        citySorts = Resources.LoadAll<TextAsset>(citySortsLocation);
+        forestSorts = Resources.LoadAll<TextAsset>(natureSortsLocation);
+        mountainSorts = Resources.LoadAll<TextAsset>(natureSortsLocation);
+        foodSorts = Resources.LoadAll<TextAsset>(foodSortsLocation);
+
+        allCityPictures = Resources.LoadAll<Sprite>(citySortsLocationPics);
+        allForestPictures = Resources.LoadAll<Sprite>(natureSortsLocationPics);
+        allMountainPictures = Resources.LoadAll<Sprite>(natureSortsLocationPics);
+        allFoodPictures = Resources.LoadAll<Sprite>(foodSortsLocationPics);
+
+        // Sort properly so pic_01 is at array position 0, etc
+        allCityPictures = allCityPictures.OrderBy(obj => obj.name, new AlphanumComparatorFast()).ToArray();
+        allForestPictures = allForestPictures.OrderBy(obj => obj.name, new AlphanumComparatorFast()).ToArray();
+        allMountainPictures = allMountainPictures.OrderBy(obj => obj.name, new AlphanumComparatorFast()).ToArray();
+        allFoodPictures = allFoodPictures.OrderBy(obj => obj.name, new AlphanumComparatorFast()).ToArray();
+
+        //print(allCityPictures.Length);
+        //foreach (var s in citySortsTEST)
+        //    Debug.Log(s.name);
+
+
+
+
+
+
+
         difficultyManager = GetComponent<DifficultyManager>();
         
         if(startRandom) currentSetting = (Settings)Random.Range(0, System.Enum.GetValues(typeof(Settings)).Length);
