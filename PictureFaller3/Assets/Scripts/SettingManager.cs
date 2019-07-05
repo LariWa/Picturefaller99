@@ -73,16 +73,16 @@ public class SettingManager : MonoBehaviour
         mountainSorts = Resources.LoadAll<TextAsset>(natureSortsLocation);
         foodSorts = Resources.LoadAll<TextAsset>(foodSortsLocation);
 
-        allCityPictures = Resources.LoadAll<Sprite>(citySortsLocationPics);
-        allForestPictures = Resources.LoadAll<Sprite>(natureSortsLocationPics);
-        allMountainPictures = Resources.LoadAll<Sprite>(natureSortsLocationPics);
-        allFoodPictures = Resources.LoadAll<Sprite>(foodSortsLocationPics);
+        // allCityPictures = Resources.LoadAll<Sprite>(citySortsLocationPics);
+        // allForestPictures = Resources.LoadAll<Sprite>(natureSortsLocationPics);
+        // allMountainPictures = Resources.LoadAll<Sprite>(natureSortsLocationPics);
+        // allFoodPictures = Resources.LoadAll<Sprite>(foodSortsLocationPics);
 
         // Sort properly so pic_01 is at array position 0, etc
-        allCityPictures = allCityPictures.OrderBy(obj => obj.name, new AlphanumComparatorFast()).ToArray();
-        allForestPictures = allForestPictures.OrderBy(obj => obj.name, new AlphanumComparatorFast()).ToArray();
-        allMountainPictures = allMountainPictures.OrderBy(obj => obj.name, new AlphanumComparatorFast()).ToArray();
-        allFoodPictures = allFoodPictures.OrderBy(obj => obj.name, new AlphanumComparatorFast()).ToArray();
+        // allCityPictures = allCityPictures.OrderBy(obj => obj.name, new AlphanumComparatorFast()).ToArray();
+        // allForestPictures = allForestPictures.OrderBy(obj => obj.name, new AlphanumComparatorFast()).ToArray();
+        // allMountainPictures = allMountainPictures.OrderBy(obj => obj.name, new AlphanumComparatorFast()).ToArray();
+        // allFoodPictures = allFoodPictures.OrderBy(obj => obj.name, new AlphanumComparatorFast()).ToArray();
 
         //print(allCityPictures.Length);
         //foreach (var s in citySortsTEST)
@@ -93,6 +93,9 @@ public class SettingManager : MonoBehaviour
 
 
 
+        
+        ImageLoader imageLoader = new ImageLoader(allForestPictures, allCityPictures, allFoodPictures);
+        imageLoader.loadPictures();
 
         difficultyManager = GetComponent<DifficultyManager>();
         
@@ -339,11 +342,16 @@ public void changeSettingRandomly()
         System.Array.Reverse(charArray);
         return new string(charArray);
     }
-
+    
     public int getQuality()
     {
+
+        
         return sortQuality;
+   
+
     }
+
 }
 
 
