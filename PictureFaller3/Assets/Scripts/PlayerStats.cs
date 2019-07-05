@@ -82,7 +82,7 @@ public class PlayerStats : MonoBehaviour
             if(!alreadyDied)
             {
                 alreadyDied = true;
-                Time.timeScale = 0;
+                Time.timeScale = 1;
                 GameObject.FindGameObjectWithTag("Managers").GetComponent<Slowmotion>().gameOver();
                 //GameOverCanvas.SetActive(true);
                 //SceneManager.LoadScene("Outro");
