@@ -52,9 +52,9 @@ public class MenuController : MonoBehaviour
         timePassed += Time.deltaTime;
         if (SceneManager.GetActiveScene().name == "Intro" && tutorial == false && timePassed >=4f)
         {
-      
 
-            StartCoroutine(LoadAsyncronousy("Tutorial"));
+
+            StartCoroutine(LoadAsyncronousy("World01big"));//"Tutorial"));
             tutorial = true;
         }
 
@@ -68,7 +68,7 @@ public class MenuController : MonoBehaviour
     IEnumerator LoadAsyncronousy(string Name) {
         AsyncOperation operation = SceneManager.LoadSceneAsync(Name);
         while (operation.isDone == false) {
-            Debug.Log(operation.progress);
+            //Debug.Log(operation.progress);
 
             yield return null;
         }
