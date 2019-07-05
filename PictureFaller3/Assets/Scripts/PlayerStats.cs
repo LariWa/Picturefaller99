@@ -76,15 +76,15 @@ public class PlayerStats : MonoBehaviour
             if (phighScore < scoreInt)
                 PlayerPrefs.SetInt("personalHighscore",scoreInt);
             PlayerPrefs.Save();
-            SceneManager.LoadScene("Outro 1");
+            SceneManager.LoadScene("Outro");
 
 
             if(!alreadyDied)
             {
                 alreadyDied = true;
-                Time.timeScale = 0;
+                Time.timeScale = 1;
                 GameObject.FindGameObjectWithTag("Managers").GetComponent<Slowmotion>().gameOver();
-                GameOverCanvas.SetActive(true);
+                //GameOverCanvas.SetActive(true);
                 //SceneManager.LoadScene("Outro");
 
                 int id = 0;

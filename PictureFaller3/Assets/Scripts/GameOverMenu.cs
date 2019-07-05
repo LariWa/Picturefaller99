@@ -63,7 +63,7 @@ public class GameOverMenu : MonoBehaviour
         
         bool sub = highscoreTable.AddHighscoreEntry(Score, Name);
        
-        Debug.Log(sub);
+        //Debug.Log(sub);
 
         if (!sub)
         {
