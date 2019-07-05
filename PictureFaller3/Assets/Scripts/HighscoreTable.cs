@@ -134,7 +134,7 @@ public class HighscoreTable : MonoBehaviour
         string json = JsonUtility.ToJson(highscores);
         PlayerPrefs.SetString("highscoreTable", json);
         PlayerPrefs.Save();
-        //sendScoreRequest(name, score); FÜR DATENBANK
+        sendScoreRequest(name, score); //FÜR DATENBANK
         return true;
     }
 
@@ -153,7 +153,7 @@ public class HighscoreTable : MonoBehaviour
         public string name;
     }
 
-    /* FÜR DATENBANK AUSKOMMENTIERT sonst funkt es nicht (socket error)
+    /* FÜR DATENBANK AUSKOMMENTIERT sonst funkt es nicht (socket error) */
     private string sendScoreRequest(string name,int score)
     {
 
@@ -177,7 +177,7 @@ public class HighscoreTable : MonoBehaviour
             return result;
         }
 
-    }*/
+    }
 
 }
 

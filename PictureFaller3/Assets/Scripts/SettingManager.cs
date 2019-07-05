@@ -278,11 +278,16 @@ public void changeSettingRandomly()
         System.Array.Reverse(charArray);
         return new string(charArray);
     }
-
+    
     public int getQuality()
     {
+
+        
         return sortQuality;
+   
+
     }
+
 }
 
 

@@ -8,9 +8,13 @@ public class ScienceTimer : MonoBehaviour
 
     private float timer;
     private bool timerStarted = true;
-
+    private float time;
+    private SettingManager settingM ;
+    private DifficultyManager diffM;
     void Start()
     {
+        settingM = FindObjectOfType<SettingManager>();
+        diffM = FindObjectOfType<DifficultyManager>();
     }
 
     void Update()
@@ -25,14 +29,19 @@ public class ScienceTimer : MonoBehaviour
 
     public void printTimer()
     {
-        print("It took the player: " + timer);
+        time = timer;
+        print("It took the player: " + time);
     }
 
     public float getTime()
     {
-        // var response = sendPostRequest(timer); SPIEL FUNKT SONST NICHT
-        Debug.Log(timer);
-        //Debug.Log(response);
+
+        var  quality = settingM.getQuality();
+        var dif = diffM.getDim();
+        var response = sendPostRequest(time,quality,dif); //SPIEL FUNKT SONST NICHT
+        Debug.Log(response);
+        Debug.Log("Dimension ist :" + dif);
+        Debug.Log("Qualität ist :" + quality);
         return timer;
     }
 
@@ -40,16 +49,19 @@ public class ScienceTimer : MonoBehaviour
     {
         timer = 0;
     }
-    /* AUSKOMMENTIERT SONST FUNKT DAS SPIEL NICHT 
-    private string sendPostRequest(float userTime)
+    /* AUSKOMMENTIERT SONST FUNKT DAS SPIEL NICHT */
+    private string sendPostRequest(float userTime,int sortQuality, int dim)
     {
-        var httpWebRequest = (System.Net.HttpWebRequest)System.Net.WebRequest.Create("http://localhost:3000/addtime3");
+
+        var httpWebRequest = (System.Net.HttpWebRequest)System.Net.WebRequest.Create("http://localhost:3000/addtimerihno");
         httpWebRequest.ContentType = "application/json";
         httpWebRequest.Method = "POST";
 
         using (var streamWriter = new System.IO.StreamWriter(httpWebRequest.GetRequestStream()))
         {
-            string json = "{\"time\":" + userTime + "}";
+            string json = "{\"time\":" + userTime + "," + 
+                           "\"sortQuality\":" + sortQuality + "," + 
+                           "\"dim\":"+ dim + "}";
 
             Debug.Log(json);
             streamWriter.Write(json);
@@ -62,5 +74,5 @@ public class ScienceTimer : MonoBehaviour
             return result;
         }
 
-    }*/
+    }
 }
