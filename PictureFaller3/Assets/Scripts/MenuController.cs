@@ -6,16 +6,21 @@ using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour
 {
+    [SerializeField] private GameObject GameOverCanvas;
     public static bool GameIsPaused = false;
     public GameObject pauseMenuUI;
     private float timeBeforeLoading =5f;
     private float timePassed;
+    private bool tutorial;
+    private GameObject character;
+    static Animator anim;
+    public bool isOutro;
     
 
     // Start is called before the first frame update
     void Start()
     {
-
+        tutorial = false;
         if (SceneManager.GetActiveScene().name == "Menu")
         {
             //This time scale is need for the character animation in the main menu
@@ -23,7 +28,19 @@ public class MenuController : MonoBehaviour
             Time.timeScale = 1;
         }
 
-        
+
+
+        anim = GetComponent<Animator>();
+
+        if (SceneManager.GetActiveScene().name == "Outro")
+        {
+            Time.timeScale = 1;
+            anim.Play("waking");
+        }
+
+        if (SceneManager.GetActiveScene().name == "Intro") {
+            anim.SetBool("isOutro", false);
+        }
     }
 
     // Update is called once per frame
@@ -31,14 +48,29 @@ public class MenuController : MonoBehaviour
     {
         MoveCharacter();
 
-        //Checking the timer for the intro scene. The game is going to be loaded 5 seconds after the Intro
+        //After the intro has played fo 4 seconds, start loading the Tutorial on the background
         timePassed += Time.deltaTime;
-        if (SceneManager.GetActiveScene().name == "Intro")
+        if (SceneManager.GetActiveScene().name == "Intro" && tutorial == false && timePassed >=4f)
         {
-            if (timePassed > timeBeforeLoading)
-            {
-                SceneManager.LoadScene("World01big");
-            }
+      
+
+            StartCoroutine(LoadAsyncronousy("Tutorial"));
+            tutorial = true;
+        }
+
+        if (SceneManager.GetActiveScene().name == "Outro" && timePassed >= 2f){
+            Debug.Log("GameOVER");
+            GameOverCanvas.SetActive(true);
+        }
+    }
+
+    //Load any scene on the background - will help loading bigger scenes faster, needs a scene name to be called
+    IEnumerator LoadAsyncronousy(string Name) {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(Name);
+        while (operation.isDone == false) {
+            Debug.Log(operation.progress);
+
+            yield return null;
         }
     }
 

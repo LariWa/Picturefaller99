@@ -29,12 +29,16 @@ public class PictureToSearchGO : MonoBehaviour
 
     void Start()
     {
+        FindObjectOfType<PictureManager>().setSearchedUIvisible();
+
         player = GameObject.FindGameObjectWithTag("Player").transform;
         picSearchUI = GameObject.FindGameObjectWithTag("Picture Search UI");
 
         moveDir = Random.insideUnitSphere;
 
         transform.position += new Vector3(Random.Range(-randStart, randStart), Random.Range(-randStart, randStart), 0);
+
+        FindObjectOfType<PictureManager>().hideMovingSearchedUI();
     }
 
     void Update()
@@ -83,6 +87,8 @@ public class PictureToSearchGO : MonoBehaviour
 
     private void hitPlayer()
     {
+        FindObjectOfType<PictureManager>().setSearchedUIvisible();
+
         notCollected = false;
 
         GetComponent<MeshRenderer>().enabled = false;
@@ -105,8 +111,6 @@ public class PictureToSearchGO : MonoBehaviour
 
         //TODO: set scale properly  
         //https://answers.unity.com/questions/799616/unity-46-beta-19-how-to-convert-from-world-space-t.html
-
-
 
         StartCoroutine(moveUItopLeftAndKillThis(recUI, UIorigin));
     }
