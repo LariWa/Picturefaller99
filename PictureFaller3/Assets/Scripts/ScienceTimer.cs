@@ -36,6 +36,14 @@ public class ScienceTimer : MonoBehaviour
         return timer;
     }
 
+    public float getSessionID()
+    {
+        if (PlayerPrefs.HasKey("sessionID"))
+            return PlayerPrefs.GetInt("sessionID");
+        else
+            return 0;
+    }
+
     public void resetTimer()
     {
         timer = 0;
