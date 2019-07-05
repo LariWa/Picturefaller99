@@ -12,15 +12,20 @@ public class ScoreManager : MonoBehaviour
 	public GameObject effectsParent;
 	public GameObject scorePlusPrefab;
 	public float correctPictureMultiplier = 5f;
+	public float dimMultiplier = 1.5f;
 
 	public float scoreCount;
 	public float highscoreCount;
 
 	public float pointsPerSecond;
 	public bool scoreIncreasing;
+
+    private DifficultyManager difficultyManager;
     
     void Start()
     {
+        difficultyManager = FindObjectOfType<DifficultyManager>();
+
         if (PlayerPrefs.HasKey("Highscore"))
 		{
 			highscoreCount = PlayerPrefs.GetFloat("Highscore");
@@ -50,11 +55,37 @@ public class ScoreManager : MonoBehaviour
 
     public void addScorePictureHit(float time)
     {
-        var am = Mathf.RoundToInt((correctPictureMultiplier * 100) / time); //TODO: Better interpolation
+        if (time <= 0) time = 0.1f;
+        var am = Mathf.RoundToInt((correctPictureMultiplier / time) * (difficultyManager.getDim() * dimMultiplier));
+
 
         var s = Instantiate(scorePlusPrefab, Vector3.zero, Quaternion.identity);
         s.transform.parent = effectsParent.transform;
         s.transform.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,100);
+        s.transform.GetComponent<TextMeshProUGUI>().text = "+" + am;
+        scoreCount += am;
+
+        //Animation....     better
+        Destroy(s, 1f);
+        Sequence seq = DOTween.Sequence();
+        //seq.Append(s.transform.DOPunchScale(Vector3.one, 0.5f));
+        //seq.Append(s.transform.DOScale(0f, 0.5f));
+        seq.Append(s.transform.DOPunchScale(Vector3.one, 1, 1));
+        seq.Insert(0, s.transform.DOShakeScale(0.75f, 1));
+        seq.Insert(0.5f, s.transform.GetComponent<TextMeshProUGUI>().DOFade(0, 0.25f));
+    }
+
+
+    public void addScoreCoins(float points)
+    {
+        var am = points;
+
+
+        //todo: other pos
+
+        var s = Instantiate(scorePlusPrefab, Vector3.zero, Quaternion.identity);
+        s.transform.parent = effectsParent.transform;
+        s.transform.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 100);
         s.transform.GetComponent<TextMeshProUGUI>().text = "+" + am;
         scoreCount += am;
 
