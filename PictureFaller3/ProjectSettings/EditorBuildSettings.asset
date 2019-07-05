@@ -24,6 +24,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Outro.unity
     guid: f293882d10e7bcf45a9218fa13848d31
   - enabled: 1
-    path: Assets/Scenes/Outro 1.unity
+    path: Assets/Scenes/outro.unity
     guid: a269c58fb255bff4099685a158e0cb04
   m_configObjects: {}

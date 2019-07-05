@@ -32,7 +32,7 @@ public class MenuController : MonoBehaviour
 
         anim = GetComponent<Animator>();
 
-        if (SceneManager.GetActiveScene().name == "Outro 1")
+        if (SceneManager.GetActiveScene().name == "Outro")
         {
             Time.timeScale = 1;
             anim.Play("waking");
@@ -58,7 +58,7 @@ public class MenuController : MonoBehaviour
             tutorial = true;
         }
 
-        if (SceneManager.GetActiveScene().name == "Outro 1" && timePassed >= 2f){
+        if (SceneManager.GetActiveScene().name == "Outro" && timePassed >= 2f){
             Debug.Log("Canvas");
             GameOverCanvas.SetActive(true);
         }

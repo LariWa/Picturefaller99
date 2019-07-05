@@ -76,7 +76,7 @@ public class PlayerStats : MonoBehaviour
             if (phighScore < scoreInt)
                 PlayerPrefs.SetInt("personalHighscore",scoreInt);
             PlayerPrefs.Save();
-            SceneManager.LoadScene("Outro 1");
+            SceneManager.LoadScene("Outro");
 
 
             if(!alreadyDied)
