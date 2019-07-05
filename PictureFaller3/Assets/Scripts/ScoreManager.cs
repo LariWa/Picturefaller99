@@ -43,7 +43,7 @@ public class ScoreManager : MonoBehaviour
 		}
 
 
-        scoreText.text = Mathf.Round(scoreCount) +         " Now";// " Score"; //" Current"
+        scoreText.text = Mathf.Round(scoreCount) +         " Score";// " Score"; //" Current"
         highscoreText.text = Mathf.Round(highscoreCount) + " Best"; // " Best"; //" Highest"
     }
 

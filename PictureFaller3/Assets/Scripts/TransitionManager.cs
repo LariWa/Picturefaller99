@@ -95,8 +95,10 @@ public class TransitionManager : MonoBehaviour
 
         yield return new WaitForSeconds(screenWhiteDur);
 
-
         // Screen is now completely white
+
+
+        FindObjectOfType<PictureManager>().hideMovingSearchedUI();
 
         settingManager.changeSettingToPictures();
 

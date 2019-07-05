@@ -6,7 +6,7 @@ using UnityEngine;
 public class DifficultyManager : MonoBehaviour
 {
     [SerializeField] private AnimationCurve fallSpeed;
-    [SerializeField] private AnimationCurve controlSpeed;
+    [SerializeField] private Vector2 controlSpeedMinMax;
     [Space]
     [SerializeField] private AnimationCurve objectSpawns; //first values for 2x2 pictures, last for 15x15
     [SerializeField] private AnimationCurve wallChunkDistance;
@@ -24,6 +24,7 @@ public class DifficultyManager : MonoBehaviour
 
     [SerializeField] private int startDim = 2;
     [SerializeField] private int maxDim = 15;
+    [SerializeField] private List<int> leftoutDims;
     private int currDim;
     private PlayerMovement player;
     private List<GameObject> currCollectibles = new List<GameObject>();
@@ -95,6 +96,11 @@ public class DifficultyManager : MonoBehaviour
         updatePlayer();
 
         currDim++;
+        //skip some to get to speed/ relevant faster
+        while (leftoutDims.Contains(currDim))
+        {
+            currDim++;
+        }
         if (currDim >= maxDim) currDim = maxDim;
     }
 
@@ -107,7 +113,7 @@ public class DifficultyManager : MonoBehaviour
         t = t.Remap(startDim, maxDim, 0, 1);
 
         var fall = fallSpeed.Evaluate(t);
-        var contr = controlSpeed.Evaluate(t);
+        var contr = t.Remap(startDim,maxDim, controlSpeedMinMax.x, controlSpeedMinMax.y);
 
         player.updateControlls(fall, contr);
     }
@@ -137,8 +143,10 @@ public class DifficultyManager : MonoBehaviour
         if (am <= 0) am = 0;
 
         for (int i = 0; i < am; i++)
-        { 
-            var h = Instantiate(healthPrefab, new Vector3(Random.Range(-10, 10), Random.Range(-10, 10), Random.Range(10, wallZ)), healthPrefab.transform.rotation);
+        {
+            var pos = Random.insideUnitSphere * collectibleRange;
+            pos.z = Random.Range(10, wallZ);
+            var h = Instantiate(healthPrefab, pos, healthPrefab.transform.rotation);
             currCollectibles.Add(h);
         }
 

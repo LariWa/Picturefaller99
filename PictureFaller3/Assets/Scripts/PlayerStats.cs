@@ -27,6 +27,7 @@ public class PlayerStats : MonoBehaviour
     private float healthTimer;
     private float flickerTimer;
     private bool invincible;
+    private bool alreadyDied;
     private PlayerMovement playerMovement;
 
     public GameObject score;
@@ -72,7 +73,25 @@ public class PlayerStats : MonoBehaviour
             SceneManager.LoadScene("Outro");
 
 
+            if(!alreadyDied)
+            {
+                alreadyDied = true;
+                Time.timeScale = 0;
+                GameObject.FindGameObjectWithTag("Managers").GetComponent<Slowmotion>().gameOver();
+                GameOverCanvas.SetActive(true);
+                //SceneManager.LoadScene("Outro");
 
+                int id = 0;
+                if (PlayerPrefs.HasKey("sessionID"))
+                {
+                    id = PlayerPrefs.GetInt("sessionID");
+                    id++;
+                    PlayerPrefs.SetInt("sessionID", id);
+                }
+                else
+                    PlayerPrefs.SetInt("sessionID", 1);
+
+            }
 
         }
         if (Input.GetKeyDown(KeyCode.Escape))
