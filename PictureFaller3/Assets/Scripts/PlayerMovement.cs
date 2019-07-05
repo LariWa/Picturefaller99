@@ -48,15 +48,17 @@ public class PlayerMovement : MonoBehaviour
     private float slowmoTimer;
     private KeyCode selectKey = KeyCode.Space;
 
+    //private Tween activeTween;
 
     public bool divingDown { get; private set; }
     public bool floating { get; private set; } // rename to inSlowmo
 
 
+    bool gerade = true;
     Quaternion startRot;
 
 
-
+    
 
 
 
@@ -77,6 +79,14 @@ public class PlayerMovement : MonoBehaviour
         Physics.gravity = new Vector3(0, 0, gravity);
         startRot = rb.rotation;
       
+    }
+
+
+    public void updateControlls(float fallSpd, float controlSPd)
+    {
+        controlSpeed = controlSPd;
+        maxFallSpeed = fallSpd;
+        //Physics.gravity = new Vector3(0, 0, grav);
     }
 
 
@@ -111,20 +121,28 @@ public class PlayerMovement : MonoBehaviour
         inputHor = Input.GetAxisRaw("Horizontal"); //GetAxis
         inputVert = Input.GetAxisRaw("Vertical");
 
-
         if (floating && Input.GetKeyDown(selectKey))
         {
-            var correct = pictureManager.selectedAPic();
-
-            if(correct && stats.getHealth() != 0) //Dive down since into a picture
+            if(!divingDown) //only allow one correct selection
             {
-                divingDown = true;
-                floating = false;
-                rb.useGravity = true;
+                var correct = pictureManager.selectedAPic();
 
-                Vector3 target = chunkManager.getSelectSquarePos();
-                target.z += 0.5f;
-                transform.DOMove(target, flyPicDur).SetEase(Ease.InFlash);
+                if (correct && stats.getHealth() != 0) //Dive down since into a picture
+                {
+                    divingDown = true;
+                    floating = false;
+                    rb.useGravity = true;
+
+                    /*if(activeTween != null)
+                    {
+                        print("y");
+                        //activeTween.Kill();
+                        DOTween.Kill(activeTween.id);   }*/
+
+                    Vector3 target = chunkManager.getSelectSquarePos();
+                    target.z += 2f;
+                    transform.DOMove(target, flyPicDur).SetEase(Ease.InFlash/*InCubic*/);
+                }
             }
         }
 
@@ -141,6 +159,7 @@ public class PlayerMovement : MonoBehaviour
         {
             scoreManager.scoreIncreasing = false;
         }
+
     }
 
 
@@ -152,6 +171,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+
         Vector3 previousLoaction = transform.position;
         Vector3 moveVec = (Vector3.right * inputHor) + (Vector3.up * inputVert);
 
@@ -161,13 +181,13 @@ public class PlayerMovement : MonoBehaviour
       
         if (inputHor > 0)
         {
-            rb.MoveRotation(rb.rotation * Quaternion.Euler(0,0,-3));
+            rb.MoveRotation(rb.rotation * Quaternion.Euler(0,5,0));
             Invoke("rotNormal", 0.3f);
 
         }
         if (inputHor < 0)
         {
-            rb.MoveRotation(rb.rotation * Quaternion.Euler(0, 0, 3));
+            rb.MoveRotation(rb.rotation * Quaternion.Euler(0, -5, 0));
             Invoke("rotNormal", 0.3f);
 
         }
@@ -226,9 +246,6 @@ public class PlayerMovement : MonoBehaviour
         vel.y *= xyDrag;
         if (vel.z >= maxDown) vel.z = maxDown; // Max fall speed
         rb.velocity = vel;
-
-
-      
     }
 
     public void knockBack(Vector3 objectPos)
@@ -248,11 +265,12 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void moveBack()
-    {   
+    {
         //var back = (-transform.forward * 4);
         //rb.velocity = back;
 
-        transform.DOMove(new Vector3(transform.position.x, transform.position.y, transform.position.z - 4), 0.5f); //makes the camera float weirdly back when diving (?)
+        if(!divingDown)
+            transform.DOMove(new Vector3(transform.position.x, transform.position.y, transform.position.z - 4), 0.5f); //makes the camera float weirdly back when diving (?)
     }
 
 
@@ -278,8 +296,8 @@ public class PlayerMovement : MonoBehaviour
         else if (other.tag == "Wall") //Actually hit the pictures
         {
             pictureManager.hitPicWall();
-            divingDown = false;
-            floating = false;
+            //divingDown = false;
+            
         }
     }
 
@@ -287,7 +305,11 @@ public class PlayerMovement : MonoBehaviour
 
     public void rerouteAndReset()
     {
-        transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+        divingDown = false;
+        floating = false;
+
+        //transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+        transform.position = new Vector3(0, -1, 0); // don't preserve X and Y because then will end up on the sides often
         rb.velocity = Vector3.zero;
     }
 
@@ -318,7 +340,7 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator ClickEvent(Vector2 dir, KeyCode a, KeyCode b)
     {
         //pause a frame so you don't pick up the same mouse down event
-        yield return new WaitForEndOfFrame();
+        yield return new WaitForFixedUpdate();//WaitForEndOfFrame();
 
         float count = 0f;
         while (count < dashDelay)

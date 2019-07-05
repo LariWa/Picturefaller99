@@ -161,5 +161,9 @@ public class CameraManager : MonoBehaviour
     }
 
 
+    public Transform getFixedPos()
+    {
+        return fixedPos;
+    }
 
 }

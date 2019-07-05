@@ -10,7 +10,7 @@ using System.Linq;
 public class HighscoreTable : MonoBehaviour
 {
 
-    private Transform entryContainer;
+    public Transform entryContainer;
     private Transform entryTemplate;
     private List<Transform> highscoreEntryTransformList;
     public GameObject Leaderboard;
@@ -18,7 +18,7 @@ public class HighscoreTable : MonoBehaviour
 
     private void Awake()
     {
-        entryContainer = transform.Find("highscoreEntryContainer");
+       // entryContainer = transform.Find("highscoreEntryContainer");
         entryTemplate = entryContainer.Find("highscoreEntryTemplate");
 
         entryTemplate.gameObject.SetActive(false);
