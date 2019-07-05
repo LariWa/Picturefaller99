@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
+using System;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -25,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
 
     //[SerializeField] private float slowmoCurve = 1;
     [SerializeField] private float slowmoDuration = 1; //how long until full stop
-     //[SerializeField] private enum slowmoEase;
+                                                       //[SerializeField] private enum slowmoEase;
     [SerializeField] private float knockback = 2;
     [SerializeField] private float knockbackSideways = 2;
 
@@ -57,8 +59,11 @@ public class PlayerMovement : MonoBehaviour
     bool gerade = true;
     Quaternion startRot;
 
+    public bool maus;
 
-    
+
+
+
 
 
 
@@ -78,7 +83,11 @@ public class PlayerMovement : MonoBehaviour
 
         Physics.gravity = new Vector3(0, 0, gravity);
         startRot = rb.rotation;
-      
+        maus = Convert.ToBoolean(PlayerPrefs.GetInt("moveSettings"));
+    }
+    public void setMouse(bool setting)
+    {
+        maus = setting;
     }
 
 
@@ -92,6 +101,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        
         dashTimer -= Time.deltaTime;// unscaledDeltaTime; //ignore slow motion(?) TRY https://answers.unity.com/questions/1155266/timescale-not-affect-timer-c.html
         slowmoTimer -= Time.deltaTime;
 
@@ -112,7 +122,7 @@ public class PlayerMovement : MonoBehaviour
         //{
         //    rb.velocity = Vector3.zero;
         //}
-       
+
 
         //freeze player at -3 while camera fully zoomed in to hide him
         //if (gravity <= 0) transform.position = new Vector3(transform.position.x, -3, transform.position.z);
@@ -123,7 +133,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (floating && Input.GetKeyDown(selectKey))
         {
-            if(!divingDown) //only allow one correct selection
+            if (!divingDown) //only allow one correct selection
             {
                 var correct = pictureManager.selectedAPic();
 
@@ -166,7 +176,7 @@ public class PlayerMovement : MonoBehaviour
 
     void rotNormal()
     {
-        rb.MoveRotation(startRot);      
+        rb.MoveRotation(startRot);
     }
 
     void FixedUpdate()
@@ -178,10 +188,10 @@ public class PlayerMovement : MonoBehaviour
 
         moveVec.Normalize();
 
-      
+
         if (inputHor > 0)
         {
-            rb.MoveRotation(rb.rotation * Quaternion.Euler(0,5,0));
+            rb.MoveRotation(rb.rotation * Quaternion.Euler(0, 5, 0));
             Invoke("rotNormal", 0.3f);
 
         }
@@ -191,7 +201,7 @@ public class PlayerMovement : MonoBehaviour
             Invoke("rotNormal", 0.3f);
 
         }
-        if (inputVert< 0)
+        if (inputVert < 0)
         {
             rb.MoveRotation(rb.rotation * Quaternion.Euler(2, 0, 0));
             Invoke("rotNormal", 0.3f);
@@ -246,115 +256,132 @@ public class PlayerMovement : MonoBehaviour
         vel.y *= xyDrag;
         if (vel.z >= maxDown) vel.z = maxDown; // Max fall speed
         rb.velocity = vel;
+
+
+        if (maus)
+        {
+            Vector3 mousePosition = Input.mousePosition;
+            // mousePosition.z = Camera.main.nearClipPlane;
+            mousePosition.z = rb.transform.position.z;
+            mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+            Vector3 direction = (mousePosition - rb.transform.position).normalized;
+
+            rb.AddForce(new Vector2(direction.x * 300, direction.y * 300));
+        }
+        else
+            rb.AddForce(moveVec * controlSpeed);//, ForceMode.Impulse);
     }
+
+
+   
 
     public void knockBack(Vector3 objectPos)
+{
+    rb.velocity = Vector3.zero;
+
+    //Prevent being knocked into positive z
+    var knockDirSideways = transform.position - objectPos;
+    knockDirSideways.z = 0f;
+    knockDirSideways.Normalize();
+    knockDirSideways *= knockbackSideways;
+
+    var knockVec = (-transform.forward * knockback) + knockDirSideways;
+
+    rb.AddForce(knockVec, ForceMode.Impulse);
+    //transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 10);
+}
+
+public void moveBack()
+{
+    //var back = (-transform.forward * 4);
+    //rb.velocity = back;
+
+    if (!divingDown)
+        transform.DOMove(new Vector3(transform.position.x, transform.position.y, transform.position.z - 4), 0.5f); //makes the camera float weirdly back when diving (?)
+}
+
+
+
+private void OnTriggerEnter(Collider other)
+{
+    //if (other.tag == "PictureSafeZone")
+    //    pictureManager.rollPicToSearch();
+
+    if (other.tag == "Wind")
     {
-        rb.velocity = Vector3.zero;
-
-        //Prevent being knocked into positive z
-        var knockDirSideways = transform.position - objectPos;
-        knockDirSideways.z = 0f;
-        knockDirSideways.Normalize();
-        knockDirSideways *= knockbackSideways;
-
-        var knockVec = (-transform.forward * knockback) + knockDirSideways;
-
-        rb.AddForce(knockVec, ForceMode.Impulse);
-        //transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 10);
-    }
-
-    public void moveBack()
-    {
-        //var back = (-transform.forward * 4);
-        //rb.velocity = back;
-
-        if(!divingDown)
-            transform.DOMove(new Vector3(transform.position.x, transform.position.y, transform.position.z - 4), 0.5f); //makes the camera float weirdly back when diving (?)
-    }
-
-
-
-    private void OnTriggerEnter(Collider other)
-    {
-        //if (other.tag == "PictureSafeZone")
-        //    pictureManager.rollPicToSearch();
-
-        if (other.tag == "Wind")
+        //First time hitting wind trigger (slow down)
+        if (!floating)
         {
-            //First time hitting wind trigger (slow down)
-            if (!floating)
-            {
-                Camera.main.GetComponent<CameraManager>().setPictureCam();
-                //chunkManager.setSelectSquarePos(new Vector3(transform.position.x, transform.position.y, chunkManager.getSelectSquarePos().z));
-                slowmoTimer = slowmoDuration;
-                scienceTimer.resetTimer();
-                moveBack(); //so that the player is not in the way
-            }
-            floating = true;
+            Camera.main.GetComponent<CameraManager>().setPictureCam();
+            //chunkManager.setSelectSquarePos(new Vector3(transform.position.x, transform.position.y, chunkManager.getSelectSquarePos().z));
+            slowmoTimer = slowmoDuration;
+            scienceTimer.resetTimer();
+            moveBack(); //so that the player is not in the way
         }
-        else if (other.tag == "Wall") //Actually hit the pictures
-        {
-            pictureManager.hitPicWall();
-            //divingDown = false;
-            
-        }
+        floating = true;
     }
-
-
-
-    public void rerouteAndReset()
+    else if (other.tag == "Wall") //Actually hit the pictures
     {
-        divingDown = false;
-        floating = false;
+        pictureManager.hitPicWall();
+        //divingDown = false;
 
-        //transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-        transform.position = new Vector3(0, -1, 0); // don't preserve X and Y because then will end up on the sides often
-        rb.velocity = Vector3.zero;
     }
+}
+
+
+
+public void rerouteAndReset()
+{
+    divingDown = false;
+    floating = false;
+
+    //transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+    transform.position = new Vector3(0, -1, 0); // don't preserve X and Y because then will end up on the sides often
+    rb.velocity = Vector3.zero;
+}
 
 
 
 
-    // https://gamedev.stackexchange.com/questions/116455/how-to-properly-differentiate-single-clicks-and-double-click-in-unity3d-using-c
-    private IEnumerator DoubleTapInputListener()
+// https://gamedev.stackexchange.com/questions/116455/how-to-properly-differentiate-single-clicks-and-double-click-in-unity3d-using-c
+private IEnumerator DoubleTapInputListener()
+{
+    while (enabled)//Run as long as this is active
     {
-        while (enabled)//Run as long as this is active
-        {
-            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
-                yield return ClickEvent(new Vector2(0, 1), KeyCode.W, KeyCode.UpArrow);
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+            yield return ClickEvent(new Vector2(0, 1), KeyCode.W, KeyCode.UpArrow);
 
-            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
-                yield return ClickEvent(new Vector2(-1, 0), KeyCode.A, KeyCode.LeftArrow);
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+            yield return ClickEvent(new Vector2(-1, 0), KeyCode.A, KeyCode.LeftArrow);
 
-            if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
-                yield return ClickEvent(new Vector2(0, -1), KeyCode.S, KeyCode.DownArrow);
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+            yield return ClickEvent(new Vector2(0, -1), KeyCode.S, KeyCode.DownArrow);
 
-            if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
-                yield return ClickEvent(new Vector2(1, 0), KeyCode.D, KeyCode.RightArrow);
+        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+            yield return ClickEvent(new Vector2(1, 0), KeyCode.D, KeyCode.RightArrow);
 
-            yield return null;
-        }
+        yield return null;
     }
+}
 
-    private IEnumerator ClickEvent(Vector2 dir, KeyCode a, KeyCode b)
+private IEnumerator ClickEvent(Vector2 dir, KeyCode a, KeyCode b)
+{
+    //pause a frame so you don't pick up the same mouse down event
+    yield return new WaitForFixedUpdate();//WaitForEndOfFrame();
+
+    float count = 0f;
+    while (count < dashDelay)
     {
-        //pause a frame so you don't pick up the same mouse down event
-        yield return new WaitForFixedUpdate();//WaitForEndOfFrame();
-
-        float count = 0f;
-        while (count < dashDelay)
+        if (Input.GetKeyDown(a) || Input.GetKeyDown(b))
         {
-            if (Input.GetKeyDown(a) || Input.GetKeyDown(b))
-            {
-                rb.AddForce(dir * dashImpulse, ForceMode.Impulse); //Dash here
-                yield break;
-            }
-            count += Time.deltaTime;// increment counter by change in time between frames
-            yield return null; // wait for the next frame
+            rb.AddForce(dir * dashImpulse, ForceMode.Impulse); //Dash here
+            yield break;
         }
-        //SingleClick();
+        count += Time.deltaTime;// increment counter by change in time between frames
+        yield return null; // wait for the next frame
     }
+    //SingleClick();
+}
 
 
 

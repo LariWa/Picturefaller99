@@ -20,8 +20,8 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float timeFlicker = 0.5f;
     [SerializeField] private int flickerTimes = 8; //Even!
     [SerializeField] private Image damageFlicker;
-    [SerializeField] private GameObject GameOverCanvas;
-    [SerializeField] private GameObject PauseMenuCanvas;
+    //[SerializeField] private GameObject GameOverCanvas;
+    [SerializeField] private GameObject PauseMenuParent;
     bool pause = false;
     private int health;
     private float healthTimer;
@@ -109,12 +109,12 @@ public class PlayerStats : MonoBehaviour
                 Time.timeScale = 0f;
                 GameObject.FindGameObjectWithTag("Managers").GetComponent<Slowmotion>().gameOver();
                 pause = true;
-                PauseMenuCanvas.SetActive(true);
+                PauseMenuParent.SetActive(true);
             }
             else
             {
                 Time.timeScale = 1f;
-                PauseMenuCanvas.SetActive(false);
+                PauseMenuParent.SetActive(false);
                 pause = false;
             }
         }
@@ -129,7 +129,7 @@ public class PlayerStats : MonoBehaviour
         if (!wasCorrect) damagePlayer(damageOnSelect, true);
     }
 
-
+    
 
     public void damagePlayer(int damage, bool flicker)
     {
