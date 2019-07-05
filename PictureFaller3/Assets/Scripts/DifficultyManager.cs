@@ -92,7 +92,6 @@ public class DifficultyManager : MonoBehaviour
 
     public void hitWall()
     {
-        spawnHPandCoins();
         updatePlayer();
 
         currDim++;
@@ -118,7 +117,7 @@ public class DifficultyManager : MonoBehaviour
         player.updateControlls(fall, contr);
     }
 
-    private void spawnHPandCoins()
+    public void spawnHPandCoins()
     {
         foreach(GameObject go in currCollectibles)
         {
