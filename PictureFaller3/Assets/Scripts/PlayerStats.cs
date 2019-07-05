@@ -96,7 +96,7 @@ public class PlayerStats : MonoBehaviour
             }
 
         }
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !playerMovement.divingDown && !playerMovement.floating)
         {
             //If pause hasn't been activated
             if (!pause)

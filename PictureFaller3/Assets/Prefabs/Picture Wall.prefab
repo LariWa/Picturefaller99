@@ -552,7 +552,7 @@ MonoBehaviour:
     type: 3}
   pictureBlockPrefabOneFrame: {fileID: 7913602741264333982, guid: 784ed7b4a0a37104897d610acff595dd,
     type: 3}
-  bigFrameScaleMulti: 1.175
+  bigFrameScaleMulti: 1.165
   totalPicDimMin: 10
   totalPicDimMax: 20
   picGapsMin: 0.5

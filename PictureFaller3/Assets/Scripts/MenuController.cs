@@ -55,7 +55,8 @@ public class MenuController : MonoBehaviour
             tutorial = true;
         }
 
-        if (SceneManager.GetActiveScene().name == "Outro" && timePassed >= 2f){
+        if (SceneManager.GetActiveScene().name == "Outro" && timePassed >= 2f)
+        {
             Debug.Log("Canvas");
             GameOverCanvas.SetActive(true);
         }
@@ -97,7 +98,8 @@ public class MenuController : MonoBehaviour
 
 
 
-    public void MoveCharacter() {
+    public void MoveCharacter()
+    {
 
         //if the script is connected to a player character, "animate" the character (this is used in main menu only)
         if (this.tag == "Player")
