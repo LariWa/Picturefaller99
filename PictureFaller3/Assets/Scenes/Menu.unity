@@ -2109,6 +2109,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5559d7720996843f29403b5513a5179d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menuMusic: {fileID: 8300000, guid: dd69f6a2aef5605498633365017aed41, type: 3}
+  gameplayMusic: {fileID: 8300000, guid: 39cfb05252b8f2e4d9027b05c69b1fcf, type: 3}
+  slowMoPitchMin: 0.8
 --- !u!82 &1746821572
 AudioSource:
   m_ObjectHideFlags: 0
