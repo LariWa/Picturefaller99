@@ -62,7 +62,7 @@ public class PlayerStats : MonoBehaviour
         if (health <= 0)
         {
             Time.timeScale = 0;
-            GameObject.FindGameObjectWithTag("Managers").GetComponent<Slowmotion>().gameOver();
+            GameObject.FindGameObjectWithTag("Managers").GetComponent<Slowmotion>().setPlayerDead();
             //GameOverCanvas.SetActive(true);
             char[] charSeparator = new char[] { ' ' };
             string scoreNumber = score.transform.GetComponent<TextMeshProUGUI>().text;
@@ -76,15 +76,15 @@ public class PlayerStats : MonoBehaviour
             if (phighScore < scoreInt)
                 PlayerPrefs.SetInt("personalHighscore",scoreInt);
             PlayerPrefs.Save();
-            SceneManager.LoadScene("Outro 1");
+            SceneManager.LoadScene("Outro");
 
 
             if(!alreadyDied)
             {
                 alreadyDied = true;
-                Time.timeScale = 0;
-                GameObject.FindGameObjectWithTag("Managers").GetComponent<Slowmotion>().gameOver();
-                GameOverCanvas.SetActive(true);
+                Time.timeScale = 1;
+                GameObject.FindGameObjectWithTag("Managers").GetComponent<Slowmotion>().setPlayerDead();
+                //GameOverCanvas.SetActive(true);
                 //SceneManager.LoadScene("Outro");
 
                 int id = 0;
@@ -107,13 +107,14 @@ public class PlayerStats : MonoBehaviour
             {
 
                 Time.timeScale = 0f;
-                GameObject.FindGameObjectWithTag("Managers").GetComponent<Slowmotion>().gameOver();
+                GameObject.FindGameObjectWithTag("Managers").GetComponent<Slowmotion>().setPlayerDead();
                 pause = true;
                 PauseMenuCanvas.SetActive(true);
             }
             else
             {
                 Time.timeScale = 1f;
+                GameObject.FindGameObjectWithTag("Managers").GetComponent<Slowmotion>().setPlayerAlive();
                 PauseMenuCanvas.SetActive(false);
                 pause = false;
             }

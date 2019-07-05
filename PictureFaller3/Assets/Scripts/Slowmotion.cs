@@ -35,7 +35,7 @@ public class Slowmotion : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.Space) && fuel != 0 && !player.floating && !player.divingDown)
+        if (Input.GetKey(KeyCode.Space) && fuel != 0 && !player.floating && !player.divingDown )
         { 
             timerDir = 1;
             cam.setSlowMoCam(true);
@@ -63,7 +63,7 @@ public class Slowmotion : MonoBehaviour
         else
             fuel -= loseRate;*/
 
-        if (!player.floating && !player.divingDown)
+        if (!player.floating && !player.divingDown && alive)
             if (Input.GetKey(KeyCode.Space))
                 fuel -= loseRate;
             else
@@ -77,8 +77,12 @@ public class Slowmotion : MonoBehaviour
         slider.value = fuel;
     }
 
-    public void gameOver()
+    public void setPlayerDead()
     {
         alive = false;
+    }
+    public void setPlayerAlive()
+    {
+        alive = true;
     }
 }
