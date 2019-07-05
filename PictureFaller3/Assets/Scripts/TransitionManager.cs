@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class TransitionManager : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class TransitionManager : MonoBehaviour
     [SerializeField] private float screenFadeSpdOut = 0.5f;
     [SerializeField] private float screenWhiteDur = 0.5f;
     [SerializeField] private float delayBeforeTransition = 0.5f; //how long after pic hit wait?
+    [SerializeField] private float cameraDiveZdist = 10f;
+    [SerializeField] private float cameraDiveZdur = 1f;
 
     // TODO: Move player slowmoTimer here !!!
 
@@ -34,6 +37,14 @@ public class TransitionManager : MonoBehaviour
     }
 
 
+
+    public void doDiveCamera()
+    {
+        var camTarget = Camera.main.GetComponent<CameraManager>().getFixedPos();
+        camTarget.DOMoveZ(camTarget.position.z + cameraDiveZdist, cameraDiveZdur);
+    }
+
+
     public void doSettingTransition()
     {
         if(!hitWall)
@@ -42,7 +53,6 @@ public class TransitionManager : MonoBehaviour
             StartCoroutine(fadeScreenWhiteOver(1, screenFadeSpdIn));
         }
     }
-
 
 
 
@@ -85,8 +95,10 @@ public class TransitionManager : MonoBehaviour
 
         yield return new WaitForSeconds(screenWhiteDur);
 
-
         // Screen is now completely white
+
+
+        FindObjectOfType<PictureManager>().hideMovingSearchedUI();
 
         settingManager.changeSettingToPictures();
 

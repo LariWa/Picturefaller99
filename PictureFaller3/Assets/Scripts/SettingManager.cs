@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Text.RegularExpressions;
+using System.Linq;
 
 public class SettingManager : MonoBehaviour
 {
-    public enum Settings { City, Forest, Food, Mountain, Water};
+    public enum Settings { City, Forest, Food, Mountain/*, Water*/};
     [SerializeField] private bool startRandom;
     [SerializeField] private Settings startSetting;
     private Settings currentSetting; //For chunks
@@ -14,31 +15,55 @@ public class SettingManager : MonoBehaviour
     [SerializeField] private GameObject[] cityChunks;
     [SerializeField] private GameObject[] forestChunks;
     [SerializeField] private GameObject[] foodChunks;
-    [SerializeField] private GameObject[] waterChunks;
+    //[SerializeField] private GameObject[] waterChunks;
     [SerializeField] private GameObject[] mountainChunks;
 
     [Space]
 
     // SHOULD BE IN PICTURE MANAGER?
+<<<<<<< HEAD
     [SerializeField] private Sprite[] allCityPictures;  //original order
     [SerializeField] private Sprite[] allForestPictures = new Sprite[225];//original order
     [SerializeField] private Sprite[] allFoodPictures;//original order
     [SerializeField] private Sprite[] allWaterPictures;//original order
     [SerializeField] private Sprite[] allMountainPictures;//original order
+=======
+    private Sprite[] allCityPictures;  //original order
+    private Sprite[] allForestPictures;//original order
+    private Sprite[] allFoodPictures;//original order
+    //private Sprite[] allWaterPictures;//original order
+    private Sprite[] allMountainPictures;//original order
+>>>>>>> 187dfad924b073a02df0fc7fdf5400221d1a695f
 
     private Sprite[] cityPicturesInSort;  //Sorted always differently
     private Sprite[] forestPicturesInSort;//Sorted always differently
     private Sprite[] foodPicturesInSort;//Sorted always differently
-    private Sprite[] waterPicturesInSort;//Sorted always differently
+    //private Sprite[] waterPicturesInSort;//Sorted always differently
     private Sprite[] mountainPicturesInSort;//Sorted always differently
+
+    [SerializeField] private string citySortsLocationPics = "SortPics/city";
+    [SerializeField] private string natureSortsLocationPics = "SortPics/nature";
+    [SerializeField] private string foodSortsLocationPics = "SortPics/food";
 
     [Space]
 
-    [SerializeField] private TextAsset[] citySorts;
-    [SerializeField] private TextAsset[] forestSorts;
-    [SerializeField] private TextAsset[] foodSorts;
-    [SerializeField] private TextAsset[] waterSorts;
-    [SerializeField] private TextAsset[] mountainSorts;
+    [SerializeField] private string citySortsLocation = "SortTxt/city";
+    [SerializeField] private string natureSortsLocation = "SortTxt/nature";
+    [SerializeField] private string foodSortsLocation = "SortTxt/food";
+
+    private TextAsset[] citySorts;
+    private TextAsset[] forestSorts;
+    private TextAsset[] foodSorts;
+    //private TextAsset[] waterSorts;
+    private TextAsset[] mountainSorts;
+
+    [Space]
+
+    [SerializeField] private GameObject directionalLight;
+    [SerializeField] private Vector3 defaultLightRot;
+    [SerializeField] private Vector3 cityLightRot;
+    [SerializeField] private Vector3 foodLightRot;
+    [SerializeField] private Vector3 forestLightRot;
 
     public bool useSorts;
     private int sortQuality;
@@ -46,9 +71,42 @@ public class SettingManager : MonoBehaviour
 
     void Awake()
     {
+<<<<<<< HEAD
         
         ImageLoader imageLoader = new ImageLoader(allForestPictures, allCityPictures, allFoodPictures);
         imageLoader.loadPictures();
+=======
+        // Load resources
+
+        //var sort = Resources.Load<TextAsset>("SortTxt/city_hq");   citySortsLocation
+        //citySorts.Add(sort);
+
+        citySorts = Resources.LoadAll<TextAsset>(citySortsLocation);
+        forestSorts = Resources.LoadAll<TextAsset>(natureSortsLocation);
+        mountainSorts = Resources.LoadAll<TextAsset>(natureSortsLocation);
+        foodSorts = Resources.LoadAll<TextAsset>(foodSortsLocation);
+
+        allCityPictures = Resources.LoadAll<Sprite>(citySortsLocationPics);
+        allForestPictures = Resources.LoadAll<Sprite>(natureSortsLocationPics);
+        allMountainPictures = Resources.LoadAll<Sprite>(natureSortsLocationPics);
+        allFoodPictures = Resources.LoadAll<Sprite>(foodSortsLocationPics);
+
+        // Sort properly so pic_01 is at array position 0, etc
+        allCityPictures = allCityPictures.OrderBy(obj => obj.name, new AlphanumComparatorFast()).ToArray();
+        allForestPictures = allForestPictures.OrderBy(obj => obj.name, new AlphanumComparatorFast()).ToArray();
+        allMountainPictures = allMountainPictures.OrderBy(obj => obj.name, new AlphanumComparatorFast()).ToArray();
+        allFoodPictures = allFoodPictures.OrderBy(obj => obj.name, new AlphanumComparatorFast()).ToArray();
+
+        //print(allCityPictures.Length);
+        //foreach (var s in citySortsTEST)
+        //    Debug.Log(s.name);
+
+
+
+
+
+
+>>>>>>> 187dfad924b073a02df0fc7fdf5400221d1a695f
 
         difficultyManager = GetComponent<DifficultyManager>();
         
@@ -60,6 +118,8 @@ public class SettingManager : MonoBehaviour
         while (currentSetting == nextSetting)
             nextSetting = (Settings)Random.Range(0, System.Enum.GetValues(typeof(Settings)).Length);
 
+
+        setLightSource(currentSetting);
 
         //cityPicturesInSort = (Sprite[])allCityPictures.Clone();
         //forestPicturesInSort = (Sprite[])allForestPictures.Clone();
@@ -181,7 +241,7 @@ public class SettingManager : MonoBehaviour
         if (s == Settings.City) return citySorts;
         if (s == Settings.Forest) return forestSorts;
         if (s == Settings.Food) return foodSorts;
-        if (s == Settings.Water) return waterSorts;
+        //if (s == Settings.Water) return waterSorts;
         if (s == Settings.Mountain) return mountainSorts;
 
         return null;
@@ -192,7 +252,7 @@ public class SettingManager : MonoBehaviour
         if (s == Settings.City) return allCityPictures;
         if (s == Settings.Forest) return allForestPictures;
         if (s == Settings.Food) return allFoodPictures;
-        if (s == Settings.Water) return allWaterPictures;
+        //if (s == Settings.Water) return allWaterPictures;
         if (s == Settings.Mountain) return allMountainPictures;
 
         return null;
@@ -205,7 +265,7 @@ public class SettingManager : MonoBehaviour
         if (s == Settings.City) return cityPicturesInSort;
         if (s == Settings.Forest) return forestPicturesInSort;
         if (s == Settings.Food) return foodPicturesInSort;
-        if (s == Settings.Water) return waterPicturesInSort;
+        //if (s == Settings.Water) return waterPicturesInSort;
         if (s == Settings.Mountain) return mountainPicturesInSort;
 
         return null;
@@ -215,7 +275,7 @@ public class SettingManager : MonoBehaviour
         if (s == Settings.City) cityPicturesInSort = spr;
         if (s == Settings.Forest) forestPicturesInSort = spr;
         if (s == Settings.Food) foodPicturesInSort = spr;
-        if (s == Settings.Water) waterPicturesInSort = spr;
+        //if (s == Settings.Water) waterPicturesInSort = spr;
         if (s == Settings.Mountain) mountainPicturesInSort = spr;
     }
 
@@ -225,7 +285,7 @@ public class SettingManager : MonoBehaviour
         if (currentSetting == Settings.City) return cityChunks[Random.Range(0, cityChunks.Length)];
         if (currentSetting == Settings.Forest) return forestChunks[Random.Range(0, forestChunks.Length)];
         if (currentSetting == Settings.Food) return foodChunks[Random.Range(0, foodChunks.Length)];
-        if (currentSetting == Settings.Water) return waterChunks[Random.Range(0, waterChunks.Length)];
+        //if (currentSetting == Settings.Water) return waterChunks[Random.Range(0, waterChunks.Length)];
         if (currentSetting == Settings.Mountain) return mountainChunks[Random.Range(0, mountainChunks.Length)];
 
         return null;
@@ -265,10 +325,25 @@ public void changeSettingRandomly()
     {
         currentSetting = nextSetting;
 
+        setLightSource(currentSetting);
+        
         //Get random setting for next
         nextSetting = (Settings)Random.Range(0, System.Enum.GetValues(typeof(Settings)).Length);
         while (currentSetting == nextSetting)
             nextSetting = (Settings)Random.Range(0, System.Enum.GetValues(typeof(Settings)).Length);
+    }
+
+
+    private void setLightSource(Settings current)
+    {
+        if (current == Settings.Forest)
+            directionalLight.transform.eulerAngles = forestLightRot;
+        else if(current == Settings.City)
+            directionalLight.transform.eulerAngles = cityLightRot;
+        else if (current == Settings.Food)
+            directionalLight.transform.eulerAngles = foodLightRot;
+        else
+            directionalLight.transform.eulerAngles = defaultLightRot;
     }
 
 

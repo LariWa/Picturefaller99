@@ -22,11 +22,14 @@ public class Slowmotion : MonoBehaviour
     bool alive = true;
     private CameraManager cam;
 
+    private Music music;
+
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         cam = Camera.main.GetComponent<CameraManager>();
+        music = FindObjectOfType<Music>();
     }
 
 

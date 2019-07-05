@@ -21,8 +21,8 @@ public class GameOverMenu : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        //GameOverCanvas.SetActive(false);
+        SceneManager.LoadScene("World01big");
+        GameOverCanvas.SetActive(false);
     }
 
     public void Awake()

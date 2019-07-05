@@ -35,6 +35,7 @@ public class ScienceTimer : MonoBehaviour
 
     public float getTime()
     {
+<<<<<<< HEAD
 
         var  quality = settingM.getQuality();
         var dif = diffM.getDim();
@@ -42,7 +43,20 @@ public class ScienceTimer : MonoBehaviour
         Debug.Log(response);
         Debug.Log("Dimension ist :" + dif);
         Debug.Log("Qualität ist :" + quality);
+=======
+        // var response = sendPostRequest(timer); SPIEL FUNKT SONST NICHT
+        //Debug.Log(timer);
+        //Debug.Log(response);
+>>>>>>> 187dfad924b073a02df0fc7fdf5400221d1a695f
         return timer;
+    }
+
+    public float getSessionID()
+    {
+        if (PlayerPrefs.HasKey("sessionID"))
+            return PlayerPrefs.GetInt("sessionID");
+        else
+            return 0;
     }
 
     public void resetTimer()
