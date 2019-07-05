@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
+using System;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -27,6 +29,8 @@ public class PlayerStats : MonoBehaviour
     private bool invincible;
     private bool alreadyDied;
     private PlayerMovement playerMovement;
+
+    public GameObject score;
 
 
     void Start()
@@ -57,12 +61,30 @@ public class PlayerStats : MonoBehaviour
 
         if (health <= 0)
         {
+            Time.timeScale = 0;
+            GameObject.FindGameObjectWithTag("Managers").GetComponent<Slowmotion>().gameOver();
+            //GameOverCanvas.SetActive(true);
+            char[] charSeparator = new char[] { ' ' };
+            string scoreNumber = score.transform.GetComponent<TextMeshProUGUI>().text;
+            scoreNumber = scoreNumber.Split(charSeparator, StringSplitOptions.None)[0];
+            int scoreInt = int.Parse(scoreNumber);
+
+          
+            PlayerPrefs.SetInt("score", scoreInt);
+            int phighScore = PlayerPrefs.GetInt("personalHighscore");
+            
+            if (phighScore < scoreInt)
+                PlayerPrefs.SetInt("personalHighscore",scoreInt);
+            PlayerPrefs.Save();
+            SceneManager.LoadScene("Outro");
+
+
             if(!alreadyDied)
             {
                 alreadyDied = true;
-                Time.timeScale = 0;
+                Time.timeScale = 1;
                 GameObject.FindGameObjectWithTag("Managers").GetComponent<Slowmotion>().gameOver();
-                GameOverCanvas.SetActive(true);
+                //GameOverCanvas.SetActive(true);
                 //SceneManager.LoadScene("Outro");
 
                 int id = 0;
