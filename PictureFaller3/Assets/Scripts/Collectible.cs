@@ -48,7 +48,7 @@ public class Collectible : MonoBehaviour
                 collision.GetComponentInChildren<PlayerStats>().healPlayer(HPgain);
 
             if (scoreGain != 0)
-                FindObjectOfType<ScoreManager>().addScorePictureHit(scoreGain);
+                FindObjectOfType<ScoreManager>().addScoreCoins(scoreGain);
 
 
             //GetComponent<Collider>().enabled = false;

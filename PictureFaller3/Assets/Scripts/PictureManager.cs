@@ -60,6 +60,8 @@ public class PictureManager : MonoBehaviour
 
         if (playerStats.getHealth() != 0 && justSelectedCorrect)
         {
+            scoreManager.addScorePictureHit(scienceTimer.getTime());
+
             scienceTimer.printTimer();
             transitionManager.doDiveCamera();
             chunkManager.getCurrPictureWall().GetComponent<WallController>().changeCursorToDefault();
@@ -78,8 +80,6 @@ public class PictureManager : MonoBehaviour
     {
         if (justSelectedCorrect)
         {
-            scoreManager.addScorePictureHit(scienceTimer.getTime());
-            print("The selection was correct!");
 
             transitionManager.doSettingTransition(); //also resets chunks and picwall
 
