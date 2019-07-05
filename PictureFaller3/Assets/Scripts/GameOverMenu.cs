@@ -11,6 +11,7 @@ public class GameOverMenu : MonoBehaviour
     // public GameObject scoreText;
     public Text name;
     public Text personalScore;
+    public Text personalHigh;
     public GameObject GameOverCanvas;
     public GameObject LeaderboardCanvas;
     public GameObject MainMenu;
@@ -27,20 +28,27 @@ public class GameOverMenu : MonoBehaviour
 
     public void Awake()
     {
-        string score = PlayerPrefs.GetString("score");
+        int score = PlayerPrefs.GetInt("score");
+        int pHighscore = PlayerPrefs.GetInt("personalHighscore");
         personalScore.text += score;
         Debug.Log(personalScore.text);
         char[] charSeparator = new char[] { ' ' };
         // score = score.Split(charSeparator, StringSplitOptions.None)[0];
         Debug.Log(score);
-        int dif = highscoreTable.getHighestScore() - int.Parse(score);
-       
-        string message = "";
-        if (dif < 0)
-            message = "\n You beat the highscore!";
+
+        if (score == pHighscore)
+            personalHigh.text = "You beat your personal highscore!";
         else
+            personalHigh.text = "Your personal highscore is: " + pHighscore;
+
+       // int dif = highscoreTable.getHighestScore() - int.Parse(score);
+
+            //string message = "";
+            //if (dif < 0)
+            //    message = "\n You beat the highscore!";
+            //else
             // message = "\n only " + dif + " missing to the highscore!";
-        score = "Congratulations \n Your Score is: " + score + message;
+            // score = "Congratulations \n Your Score is: " + score + message;
     }
 
     public void LoadMenu()
@@ -51,13 +59,10 @@ public class GameOverMenu : MonoBehaviour
     public void submit()
     {
         string Name = name.text;
-        string score = PlayerPrefs.GetString("score");
-        char[] charSeparator = new char[] { ' ' };
-        score = score.Split(charSeparator, StringSplitOptions.None)[0];
-        int Score = int.Parse(score);
-
-        //highscoreTable.AddHighscoreEntry(Score, Name)
+        int Score = PlayerPrefs.GetInt("score");
+        
         bool sub = highscoreTable.AddHighscoreEntry(Score, Name);
+       
         Debug.Log(sub);
 
         if (!sub)

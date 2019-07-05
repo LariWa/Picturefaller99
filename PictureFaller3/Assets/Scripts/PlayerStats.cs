@@ -66,11 +66,17 @@ public class PlayerStats : MonoBehaviour
             //GameOverCanvas.SetActive(true);
             char[] charSeparator = new char[] { ' ' };
             string scoreNumber = score.transform.GetComponent<TextMeshProUGUI>().text;
-            string scoreNum = scoreNumber.Split(charSeparator, StringSplitOptions.None)[0];
-            Debug.Log(scoreNum);
-            PlayerPrefs.SetString("score", scoreNum);
+            scoreNumber = scoreNumber.Split(charSeparator, StringSplitOptions.None)[0];
+            int scoreInt = int.Parse(scoreNumber);
+
+          
+            PlayerPrefs.SetInt("score", scoreInt);
+            int phighScore = PlayerPrefs.GetInt("personalHighscore");
+            
+            if (phighScore < scoreInt)
+                PlayerPrefs.SetInt("personalHighscore",scoreInt);
             PlayerPrefs.Save();
-            SceneManager.LoadScene("Outro");
+            SceneManager.LoadScene("Outro 1");
 
 
             if(!alreadyDied)
