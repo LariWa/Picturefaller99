@@ -39,9 +39,9 @@ public class SettingManager : MonoBehaviour
 
     [Space]
 
-    [SerializeField] private string citySortsLocation = "SortTxt/city";
-    [SerializeField] private string natureSortsLocation = "SortTxt/nature";
-    [SerializeField] private string foodSortsLocation = "SortTxt/food";
+    [SerializeField] private string citySortsLocation = Application.dataPath + "/StreamingAssets/SortTxt/city";
+    [SerializeField] private string natureSortsLocation = Application.dataPath + "/StreamingAssets/SortTxt/nature";
+    [SerializeField] private string foodSortsLocation = Application.dataPath + "/StreamingAssets/SortTxt/food";
 
     private TextAsset[] citySorts;
     private TextAsset[] forestSorts;
