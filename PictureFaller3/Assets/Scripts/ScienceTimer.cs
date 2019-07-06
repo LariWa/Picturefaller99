@@ -37,12 +37,12 @@ public class ScienceTimer : MonoBehaviour
         return timer;
     }
 
-    public float getSessionID()
+    public string getSessionID()
     {
         if (PlayerPrefs.HasKey("sessionID"))
-            return PlayerPrefs.GetInt("sessionID");
+            return SystemInfo.deviceUniqueIdentifier + PlayerPrefs.GetInt("sessionID");
         else
-            return 0;
+            return SystemInfo.deviceUniqueIdentifier + 0;
     }
 
     public void resetTimer()

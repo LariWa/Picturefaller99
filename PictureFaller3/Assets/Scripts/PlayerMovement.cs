@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System;
+
 
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float xyDrag = 0; // between 0 and 1 to restrict floaty movement on xy axis (come to stop faster)
     [SerializeField] private float controlSpeed = 16f; // how fast to move on xy axis from input
+    [SerializeField] private float controlSpeedMaus = 300f;
     [SerializeField] private float gravity = 9.81f; //how fast fall accelerates
     [SerializeField] private float maxFallSpeed = 10f; //maximum fall speed
     [SerializeField] private float maxFallSpeedBOOST = 60f; //maximum fall speed when holding down space
@@ -58,7 +61,8 @@ public class PlayerMovement : MonoBehaviour
     Quaternion startRot;
 
 
-    
+    public bool maus;
+
 
 
 
@@ -78,7 +82,8 @@ public class PlayerMovement : MonoBehaviour
 
         Physics.gravity = new Vector3(0, 0, gravity);
         startRot = rb.rotation;
-      
+
+        maus = Convert.ToBoolean(PlayerPrefs.GetInt("moveSettings"));
     }
 
 
@@ -215,7 +220,23 @@ public class PlayerMovement : MonoBehaviour
 
 
         // Player controlls
-        rb.AddForce(moveVec * controlSpeed);//, ForceMode.Impulse);
+        //rb.AddForce(moveVec * controlSpeed);//, ForceMode.Impulse);
+
+        if (maus)
+        {
+            Vector3 mousePosition = Input.mousePosition;
+            mousePosition.z = transform.position.z;
+            mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+
+            Vector3 direction = (mousePosition - transform.position);
+            direction.z = 0;
+
+            //TODO: fly straight to mouse
+
+            rb.AddForce(direction.normalized * controlSpeedMaus);
+        }
+        else
+            rb.AddForce(moveVec * controlSpeed);
 
         // Check and do dash
         //dash();
@@ -314,7 +335,10 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-
+    public void setMouse(bool setting)
+    {
+        maus = setting;
+    }
 
     // https://gamedev.stackexchange.com/questions/116455/how-to-properly-differentiate-single-clicks-and-double-click-in-unity3d-using-c
     private IEnumerator DoubleTapInputListener()
