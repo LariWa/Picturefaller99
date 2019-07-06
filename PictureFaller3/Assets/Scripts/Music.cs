@@ -57,7 +57,7 @@ public class Music : MonoBehaviour
             }
         }
 
-        print(audioSource.clip.name);
+        //print(audioSource.clip.name);
     }
 
     // Update is called once per frame
