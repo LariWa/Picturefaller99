@@ -4599,7 +4599,7 @@ MonoBehaviour:
   m_Direction: 0
   m_MinValue: 0
   m_MaxValue: 100
-  m_WholeNumbers: 1
+  m_WholeNumbers: 0
   m_Value: 69
   m_OnValueChanged:
     m_PersistentCalls:
@@ -8180,18 +8180,18 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.19999313
-      inSlope: 0.100230634
-      outSlope: 0.100230634
+      value: 4.999996
+      inSlope: -1.0000038
+      outSlope: -1.0000038
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
-      value: 0.30022377
-      inSlope: 0.100230634
-      outSlope: 0.100230634
+      value: 3.9999924
+      inSlope: -1.0000038
+      outSlope: -1.0000038
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -8238,7 +8238,7 @@ MonoBehaviour:
       outWeight: 0
     - serializedVersion: 3
       time: 1
-      value: 15
+      value: 13
       inSlope: 28.820755
       outSlope: 28.820755
       tangentMode: 0
@@ -11281,6 +11281,11 @@ PrefabInstance:
       propertyPath: score
       value: 
       objectReference: {fileID: 668174788}
+    - target: {fileID: 2117485183603230946, guid: 1945a9b6cfd321644bdfc680efd1b7cb,
+        type: 3}
+      propertyPath: restoreHPStart
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 2117485184423083693, guid: 1945a9b6cfd321644bdfc680efd1b7cb,
         type: 3}
       propertyPath: m_Height

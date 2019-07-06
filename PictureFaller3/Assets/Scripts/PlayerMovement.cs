@@ -132,7 +132,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 var correct = pictureManager.selectedAPic();
 
-                if (correct && stats.getHealth() != 0) //Dive down since into a picture
+                if (correct && stats.getHealth() > 0) //Dive down since into a picture
                 {
                     divingDown = true;
                     floating = false;

@@ -24,8 +24,8 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private GameObject GameOverCanvas;
     [SerializeField] private GameObject PauseMenuCanvas;
     bool pause = false;
-    private int health;
-    private float healthTimer;
+    private float health;
+    //private float healthTimer;
     private float flickerTimer;
     private bool invincible;
     private bool alreadyDied;
@@ -54,25 +54,20 @@ public class PlayerStats : MonoBehaviour
         // Subtract health over time on pic wall
         if (playerMovement.floating && !playerMovement.divingDown)
         {
-            healthTimer -= Time.deltaTime;
+            //healthTimer -= Time.deltaTime;
 
-            var healthLossDelay = difficultyManager.getHealthLossDelay();
+            float hpLossPerSec = difficultyManager.getHealthLoss();
+            health -= Time.deltaTime * hpLossPerSec;
 
-            if (healthTimer <= 0)
-            {
-                healthTimer = healthLossDelay;
-                damagePlayer(1, false);
-            }
 
             //Calculate how long until dead (and show on last seconds)
-            var hpLossPerSec = 1 / healthLossDelay;
-            var secondsLeft = health / hpLossPerSec;
+            float secondsLeft = health / hpLossPerSec;
 
             if (secondsLeft < 10)           
                 uiManager.setCountdown(secondsLeft);
             else
                 uiManager.setCountdown(-99);
-
+                
             //print(secondsLeft);
         }
 
@@ -184,7 +179,7 @@ public class PlayerStats : MonoBehaviour
     }
 
 
-    public int getHealth()
+    public float getHealth()
     {
         return health;
     }
@@ -199,8 +194,7 @@ public class PlayerStats : MonoBehaviour
     {
         if (health <= restoreHPStart)
         {
-            float floatHP = health;
-            var restoreHP = floatHP.Remap(0, restoreHPStart, maxRestoreHP, 0);
+            var restoreHP = health.Remap(0, restoreHPStart, maxRestoreHP, 0);
             healPlayer(Mathf.RoundToInt(restoreHP));
         }
     }

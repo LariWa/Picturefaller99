@@ -60,7 +60,7 @@ public class PictureManager : MonoBehaviour
 
         justSelectedCorrect = hitCorrectPicture();
 
-        if (playerStats.getHealth() != 0 && justSelectedCorrect)
+        if (playerStats.getHealth() > 0 && justSelectedCorrect)
         {
             scoreManager.addScorePictureHit(scienceTimer.getTime());
 
@@ -73,7 +73,7 @@ public class PictureManager : MonoBehaviour
 
         chunkManager.getCurrPictureWall().GetComponent<WallController>().selectionSquashOrShake(justSelectedCorrect);
 
-        if (playerStats.getHealth() != 0 && chunkManager.getCurrPictureWall().GetComponent<WallController>().selectionNotOffscreen())
+        if (playerStats.getHealth() > 0 && chunkManager.getCurrPictureWall().GetComponent<WallController>().selectionNotOffscreen())
             GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerStats>().selectedPicHealOrDmg(justSelectedCorrect);
 
         return justSelectedCorrect;

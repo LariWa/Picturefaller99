@@ -168,7 +168,7 @@ public class DifficultyManager : MonoBehaviour
     }
 
 
-    public float getHealthLossDelay()
+    public float getHealthLoss()
     {
         float t = (float)currDim;
         t = t.Remap(startDim, maxDim, 0, 1);

@@ -77,7 +77,8 @@ public class UiManager : MonoBehaviour
             secondsLeft = Mathf.FloorToInt(secondsLeft) + 1; //Mathf.CeilToInt(secondsLeft) + 1;
             countdown.text = secondsLeft + "";
 
-            // New number
+
+            // New number to display
             if(lastText != countdown.text)
             {
                 countdown.alpha = 0;
