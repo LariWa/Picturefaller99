@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
+using System;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -57,8 +59,11 @@ public class PlayerMovement : MonoBehaviour
     bool gerade = true;
     Quaternion startRot;
 
+    public bool maus;
 
-    
+
+
+
 
 
 
@@ -78,7 +83,8 @@ public class PlayerMovement : MonoBehaviour
 
         Physics.gravity = new Vector3(0, 0, gravity);
         startRot = rb.rotation;
-      
+        maus = Convert.ToBoolean(PlayerPrefs.GetInt("moveSettings"));
+
     }
 
 
@@ -178,10 +184,10 @@ public class PlayerMovement : MonoBehaviour
 
         moveVec.Normalize();
 
-      
+
         if (inputHor > 0)
         {
-            rb.MoveRotation(rb.rotation * Quaternion.Euler(0,5,0));
+            rb.MoveRotation(rb.rotation * Quaternion.Euler(0, 5, 0));
             Invoke("rotNormal", 0.3f);
 
         }
@@ -191,7 +197,7 @@ public class PlayerMovement : MonoBehaviour
             Invoke("rotNormal", 0.3f);
 
         }
-        if (inputVert< 0)
+        if (inputVert < 0)
         {
             rb.MoveRotation(rb.rotation * Quaternion.Euler(2, 0, 0));
             Invoke("rotNormal", 0.3f);
@@ -210,6 +216,8 @@ public class PlayerMovement : MonoBehaviour
 
 
 
+
+
         //rb.velocity = (moveVec * moveSpeed) + (Vector3.forward * gravity); //Bad...
         //rb.AddForce(moveVec * speed, ForceMode.Impulse); //ForceMode.VelocityChange?  ADD DRAG, but not on y... maybe just bigger rb mass https://answers.unity.com/questions/1130605/can-i-prevent-rigidbody-drag-from-affecting-the-z.html
 
@@ -217,6 +225,19 @@ public class PlayerMovement : MonoBehaviour
         // Player controlls
         rb.AddForce(moveVec * controlSpeed);//, ForceMode.Impulse);
 
+
+        if (maus)
+        {
+            Vector3 mousePosition = Input.mousePosition;
+            mousePosition.z = rb.transform.position.z;
+            mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+            Vector3 direction = (mousePosition - rb.transform.position).normalized;
+
+            rb.AddForce(new Vector2(direction.x * 300, direction.y * 300));
+        }
+        else
+            rb.AddForce(moveVec * controlSpeed);
+    
         // Check and do dash
         //dash();
 
@@ -248,6 +269,10 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = vel;
     }
 
+    public void setMouse(bool setting)
+    {
+        maus = setting;
+    }
     public void knockBack(Vector3 objectPos)
     {
         rb.velocity = Vector3.zero;
