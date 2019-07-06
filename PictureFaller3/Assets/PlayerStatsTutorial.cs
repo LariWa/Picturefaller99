@@ -7,7 +7,7 @@ using DG.Tweening;
 using TMPro;
 using System;
 
-public class PlayerStats : MonoBehaviour
+public class PlayerStatsTutorial : MonoBehaviour
 {
 
     [SerializeField] private Slider hpBar;
@@ -31,9 +31,7 @@ public class PlayerStats : MonoBehaviour
     private PlayerMovement playerMovement;
     private UiManager uiManager;
     private SoundEffects soundEffects;
-
-   public GameObject score;
-
+   // public GameObject score;
 
     void Start()
     {
@@ -53,7 +51,7 @@ public class PlayerStats : MonoBehaviour
         {
             healthTimer -= Time.deltaTime;
 
-            if(healthTimer <= 0)
+            if (healthTimer <= 0)
             {
                 healthTimer = healthLossDelay;
                 damagePlayer(damageOnThinking, false);
@@ -63,7 +61,7 @@ public class PlayerStats : MonoBehaviour
             var hpLossPerSec = 1 / healthLossDelay;
             var secondsLeft = health / hpLossPerSec;
 
-            if (secondsLeft < 10)           
+            if (secondsLeft < 10)
                 uiManager.setCountdown(secondsLeft);
             else
                 uiManager.setCountdown(-99);
@@ -81,17 +79,17 @@ public class PlayerStats : MonoBehaviour
             GameObject.FindGameObjectWithTag("Managers").GetComponent<Slowmotion>().setPlayerDead();
             //GameOverCanvas.SetActive(true);
             char[] charSeparator = new char[] { ' ' };
-            string scoreNumber = score.transform.GetComponent<TextMeshProUGUI>().text;
-            scoreNumber = scoreNumber.Split(charSeparator, StringSplitOptions.None)[0];
-            int scoreInt = int.Parse(scoreNumber);
+            //string scoreNumber = score.transform.GetComponent<TextMeshProUGUI>().text;
+            //scoreNumber = scoreNumber.Split(charSeparator, StringSplitOptions.None)[0];
+            //int scoreInt = int.Parse(scoreNumber);
 
-          
-            PlayerPrefs.SetInt("score", scoreInt);
+
+            PlayerPrefs.SetInt("score", 0);
             PlayerPrefs.Save();
             SceneManager.LoadScene("Outro");
 
 
-            if(!alreadyDied)
+            if (!alreadyDied)
             {
                 alreadyDied = true;
                 Time.timeScale = 1;
@@ -131,8 +129,8 @@ public class PlayerStats : MonoBehaviour
                 pause = false;
             }
         }
-            //TODO: stop setting timescale in time manager
-        }
+        //TODO: stop setting timescale in time manager
+    }
 
 
 
@@ -148,7 +146,7 @@ public class PlayerStats : MonoBehaviour
     {
         if (invincible) return;
 
-        if (flicker) 
+        if (flicker)
         {
             flickerTimer = timeFlicker;
             var desCol = damageFlicker.color;
