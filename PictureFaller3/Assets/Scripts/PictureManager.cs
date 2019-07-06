@@ -56,6 +56,8 @@ public class PictureManager : MonoBehaviour
 
     public bool selectedAPic()
     {
+        FindObjectOfType<SoundEffects>().stopOffbeatTick();
+
         justSelectedCorrect = hitCorrectPicture();
 
         if (playerStats.getHealth() != 0 && justSelectedCorrect)
@@ -65,6 +67,8 @@ public class PictureManager : MonoBehaviour
             scienceTimer.printTimer();
             transitionManager.doDiveCamera();
             chunkManager.getCurrPictureWall().GetComponent<WallController>().changeCursorToDefault();
+            FindObjectOfType<UiManager>().setCountdown(-99);
+
         }
 
         chunkManager.getCurrPictureWall().GetComponent<WallController>().selectionSquashOrShake(justSelectedCorrect);

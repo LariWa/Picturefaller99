@@ -45,10 +45,16 @@ public class Collectible : MonoBehaviour
         {
 
             if (HPgain != 0)
+            { 
                 collision.GetComponentInChildren<PlayerStats>().healPlayer(HPgain);
+                FindObjectOfType<SoundEffects>().hp();
+            }
 
             if (scoreGain != 0)
+            {
                 FindObjectOfType<ScoreManager>().addScoreCoins(scoreGain);
+                FindObjectOfType<SoundEffects>().coin();
+            }
 
 
             //GetComponent<Collider>().enabled = false;

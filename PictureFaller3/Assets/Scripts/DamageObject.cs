@@ -27,7 +27,9 @@ public class DamageObject : MonoBehaviour
         {
             playerStats.damagePlayer(damage, true);
             other.transform.GetComponentInChildren<PlayerMovement>().knockBack(transform.position);
-            
+
+            FindObjectOfType<SoundEffects>().hitDmgObj();
+
             //Destroy(transform.parent.gameObject);
             GetComponent<Collider>().enabled = false;
 

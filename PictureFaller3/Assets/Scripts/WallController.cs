@@ -59,7 +59,7 @@ public class WallController : MonoBehaviour
     private int lastSelectionIndex = -999;
     private bool selectedCorrect;
 
-    public AudioClip correctPicturehit;
+
     public bool tutorial;
 
     private List<GameObject> tintedImages = new List<GameObject>();
@@ -396,8 +396,8 @@ public class WallController : MonoBehaviour
         //Cant squash picture itself because later ones dont have frame, so squash selection square
         if(correctSelection)
         {
-           
-            AudioSource.PlayClipAtPoint(correctPicturehit, transform.position);
+
+            FindObjectOfType<SoundEffects>().selectedCorrect();
             var scale = selectingSquare.transform.localScale * correctSelScale;
             selectingSquare.transform.DOPunchScale(scale, correctSelScaleDur); // OR SHAKE SCALE?
 
@@ -409,6 +409,7 @@ public class WallController : MonoBehaviour
         }
         else
         {
+            FindObjectOfType<SoundEffects>().selectedWrong();
             selectingSquare.transform.DOShakePosition(wrongShakeDur, 1, wrongShakeVibrate);
         }
 
