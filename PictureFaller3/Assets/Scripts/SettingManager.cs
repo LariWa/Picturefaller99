@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Text.RegularExpressions;
 using System.Linq;
+using System.IO;
 
 public class SettingManager : MonoBehaviour
 {
@@ -39,15 +40,15 @@ public class SettingManager : MonoBehaviour
 
     [Space]
 
-    [SerializeField] private string citySortsLocation = "/StreamingAssets/SortTxt/city";
-    [SerializeField] private string natureSortsLocation = "/StreamingAssets/SortTxt/nature";
-    [SerializeField] private string foodSortsLocation = "/StreamingAssets/SortTxt/food";
+    [SerializeField] private string citySortsLocation = "SortTxt/city";
+    [SerializeField] private string natureSortsLocation = "SortTxt/nature";
+    [SerializeField] private string foodSortsLocation = "SortTxt/food";
 
-    private TextAsset[] citySorts;
-    private TextAsset[] forestSorts;
-    private TextAsset[] foodSorts;
+    private List<string> citySorts = new List<string>();
+    private List<string> forestSorts = new List<string>();
+    private List<string> foodSorts = new List<string>();
     //private TextAsset[] waterSorts;
-    private TextAsset[] mountainSorts;
+    private List<string> mountainSorts = new List<string>();
 
     [Space]
 
@@ -65,17 +66,34 @@ public class SettingManager : MonoBehaviour
     {
         // Load resources
 
-        citySortsLocation = Application.dataPath + citySortsLocation;
-        natureSortsLocation = Application.dataPath + natureSortsLocation;
-        foodSortsLocation = Application.dataPath + foodSortsLocation;
-
         //var sort = Resources.Load<TextAsset>("SortTxt/city_hq");   citySortsLocation
         //citySorts.Add(sort);
+        //print(Path.Combine(Application.streamingAssetsPath + "/", citySortsLocation));
 
-        citySorts = Resources.LoadAll<TextAsset>(citySortsLocation);
-        forestSorts = Resources.LoadAll<TextAsset>(natureSortsLocation);
-        mountainSorts = Resources.LoadAll<TextAsset>(natureSortsLocation);
-        foodSorts = Resources.LoadAll<TextAsset>(foodSortsLocation);
+        string cityPath = Path.Combine(Application.streamingAssetsPath + "/", citySortsLocation);
+        FileInfo[] fis = new DirectoryInfo(cityPath).GetFiles("*.txt");
+        foreach (FileInfo fi in fis)
+            citySorts.Add(File.ReadAllText(Path.Combine(cityPath + "/", fi.Name)));
+
+        string naturePath = Path.Combine(Application.streamingAssetsPath + "/", natureSortsLocation);
+        FileInfo[] fis2 = new DirectoryInfo(naturePath).GetFiles("*.txt");
+        foreach (FileInfo fi in fis2)
+        {
+            forestSorts.Add(File.ReadAllText(Path.Combine(naturePath + "/", fi.Name)));
+            mountainSorts.Add(File.ReadAllText(Path.Combine(naturePath + "/", fi.Name)));
+        }
+
+        string foodPath = Path.Combine(Application.streamingAssetsPath + "/", foodSortsLocation);
+        FileInfo[] fis3 = new DirectoryInfo(foodPath).GetFiles("*.txt");
+        foreach (FileInfo fi in fis3)
+            foodSorts.Add(File.ReadAllText(Path.Combine(foodPath + "/", fi.Name)));
+
+
+
+        //citySorts = File.ReadAllText(Path.Combine(Application.streamingAssetsPath + "/", citySortsLocation));
+        //forestSorts = Resources.LoadAll<TextAsset>(Path.Combine(Application.streamingAssetsPath + "/", natureSortsLocation));
+        //mountainSorts = Resources.LoadAll<TextAsset>(Path.Combine(Application.streamingAssetsPath + "/", natureSortsLocation));
+        //foodSorts = Resources.LoadAll<TextAsset>(Path.Combine(Application.streamingAssetsPath + "/", foodSortsLocation));
 
         allCityPictures = Resources.LoadAll<Sprite>(citySortsLocationPics);
         allForestPictures = Resources.LoadAll<Sprite>(natureSortsLocationPics);
@@ -140,12 +158,12 @@ public class SettingManager : MonoBehaviour
         var settingSorts = getSorts(set);
 
         //A single txt with sort in it
-        int sortIndex = Random.Range(0, settingSorts.Length);
+        int sortIndex = Random.Range(0, settingSorts.Count);
         var randSort = settingSorts[sortIndex]; //Get a random sort (good/ bad atm)
 
         sortQuality = sortIndex; //sortIndex == 0 ? true : false;
 
-        string sort = randSort.text;
+        string sort = randSort;//.text;
         char[] sortChars = sort.ToCharArray();
 
         //Random jumble (with reoccurances)
@@ -169,6 +187,7 @@ public class SettingManager : MonoBehaviour
 
                 sortSize = Reverse(sortSize);
 
+
                 //Found correct size sort 
                 if (int.Parse(sortSize) == size)
                 {
@@ -187,6 +206,7 @@ public class SettingManager : MonoBehaviour
                     sortChars = sort.ToCharArray();
                     break;
                 }
+                
             }
         }
 
@@ -227,7 +247,7 @@ public class SettingManager : MonoBehaviour
 
 
 
-    private TextAsset[] getSorts(Settings s)
+    private List<string> getSorts(Settings s)
     {
         if (s == Settings.City) return citySorts;
         if (s == Settings.Forest) return forestSorts;

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class DifficultyManager : MonoBehaviour
 {
+    [SerializeField] private AnimationCurve healthLoss;
     [SerializeField] private AnimationCurve fallSpeed;
     [SerializeField] private Vector2 controlSpeedMinMax;
     [Space]
@@ -165,5 +166,15 @@ public class DifficultyManager : MonoBehaviour
         }
 
     }
+
+
+    public float getHealthLossDelay()
+    {
+        float t = (float)currDim;
+        t = t.Remap(startDim, maxDim, 0, 1);
+
+        return healthLoss.Evaluate(t);
+    }
 }
+
 

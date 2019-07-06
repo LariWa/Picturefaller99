@@ -12,8 +12,7 @@ public class PlayerStats : MonoBehaviour
 
     [SerializeField] private Slider hpBar;
     [SerializeField] private int maxHealth = 100;
-    [SerializeField] private float healthLossDelay = 0.1f;
-    [SerializeField] private int damageOnThinking = 1;
+    //[SerializeField] private float healthLossDelay = 0.1f;
     [SerializeField] private int damageOnSelect = 10;
     [SerializeField] private int healOnSelect = 25;
     [SerializeField] private float alphaMaxFlicker = 0.5f;
@@ -30,6 +29,7 @@ public class PlayerStats : MonoBehaviour
     private bool alreadyDied;
     private PlayerMovement playerMovement;
     private UiManager uiManager;
+    private DifficultyManager difficultyManager;
     private SoundEffects soundEffects;
 
    public GameObject score;
@@ -39,6 +39,7 @@ public class PlayerStats : MonoBehaviour
     {
         playerMovement = GetComponentInParent<PlayerMovement>();
         uiManager = FindObjectOfType<UiManager>();
+        difficultyManager = FindObjectOfType<DifficultyManager>();
         soundEffects = FindObjectOfType<SoundEffects>();
         health = maxHealth;
         hpBar.maxValue = maxHealth;
@@ -53,10 +54,12 @@ public class PlayerStats : MonoBehaviour
         {
             healthTimer -= Time.deltaTime;
 
-            if(healthTimer <= 0)
+            var healthLossDelay = difficultyManager.getHealthLossDelay();
+
+            if (healthTimer <= 0)
             {
                 healthTimer = healthLossDelay;
-                damagePlayer(damageOnThinking, false);
+                damagePlayer(1, false);
             }
 
             //Calculate how long until dead (and show on last seconds)
