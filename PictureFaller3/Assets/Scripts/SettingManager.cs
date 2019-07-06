@@ -39,9 +39,9 @@ public class SettingManager : MonoBehaviour
 
     [Space]
 
-    [SerializeField] private string citySortsLocation = Application.dataPath + "/StreamingAssets/SortTxt/city";
-    [SerializeField] private string natureSortsLocation = Application.dataPath + "/StreamingAssets/SortTxt/nature";
-    [SerializeField] private string foodSortsLocation = Application.dataPath + "/StreamingAssets/SortTxt/food";
+    [SerializeField] private string citySortsLocation = "/StreamingAssets/SortTxt/city";
+    [SerializeField] private string natureSortsLocation = "/StreamingAssets/SortTxt/nature";
+    [SerializeField] private string foodSortsLocation = "/StreamingAssets/SortTxt/food";
 
     private TextAsset[] citySorts;
     private TextAsset[] forestSorts;
@@ -65,6 +65,10 @@ public class SettingManager : MonoBehaviour
     {
         // Load resources
 
+        citySortsLocation = Application.dataPath + citySortsLocation;
+        natureSortsLocation = Application.dataPath + natureSortsLocation;
+        foodSortsLocation = Application.dataPath + foodSortsLocation;
+
         //var sort = Resources.Load<TextAsset>("SortTxt/city_hq");   citySortsLocation
         //citySorts.Add(sort);
 
@@ -87,6 +91,7 @@ public class SettingManager : MonoBehaviour
         //print(allCityPictures.Length);
         //foreach (var s in citySortsTEST)
         //    Debug.Log(s.name);
+
 
 
 
