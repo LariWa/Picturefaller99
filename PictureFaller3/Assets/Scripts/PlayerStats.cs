@@ -10,6 +10,8 @@ using System;
 public class PlayerStats : MonoBehaviour
 {
 
+    [SerializeField] private int restoreHPStart = 25;
+    [SerializeField] private int maxRestoreHP = 50;
     [SerializeField] private Slider hpBar;
     [SerializeField] private int maxHealth = 100;
     //[SerializeField] private float healthLossDelay = 0.1f;
@@ -190,5 +192,16 @@ public class PlayerStats : MonoBehaviour
     public void setInvincible(bool b)
     {
         invincible = b;
+    }
+
+
+    public void addHPifLow()
+    {
+        if (health <= restoreHPStart)
+        {
+            float floatHP = health;
+            var restoreHP = floatHP.Remap(0, restoreHPStart, maxRestoreHP, 0);
+            healPlayer(Mathf.RoundToInt(restoreHP));
+        }
     }
 }
