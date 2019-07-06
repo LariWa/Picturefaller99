@@ -167,6 +167,7 @@ public class HighscoreTable : MonoBehaviour
         PlayerPrefs.Save();
         //sendScoreRequest(name, score); FÜR DATENBANK
         updateTable();
+        sendScoreRequest(name, score); //FÜR DATENBANK
         return true;
     }
     public string TempHighscoreEntry()
@@ -217,7 +218,7 @@ public class HighscoreTable : MonoBehaviour
         public string name;
     }
 
-    /* FÜR DATENBANK AUSKOMMENTIERT sonst funkt es nicht (socket error)
+    /* FÜR DATENBANK AUSKOMMENTIERT sonst funkt es nicht (socket error) */
     private string sendScoreRequest(string name,int score)
     {
 
@@ -241,7 +242,7 @@ public class HighscoreTable : MonoBehaviour
             return result;
         }
 
-    }*/
+    }
 
 }
 

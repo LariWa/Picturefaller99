@@ -21,11 +21,11 @@ public class SettingManager : MonoBehaviour
     [Space]
 
     // SHOULD BE IN PICTURE MANAGER?
-    private Sprite[] allCityPictures;  //original order
-    private Sprite[] allForestPictures;//original order
-    private Sprite[] allFoodPictures;//original order
-    //private Sprite[] allWaterPictures;//original order
-    private Sprite[] allMountainPictures;//original order
+    private Sprite[] allCityPictures= new Sprite[225];  //original order
+   private Sprite[] allForestPictures = new Sprite[225];//original order
+     private Sprite[] allFoodPictures= new Sprite[225];//original order
+    private Sprite[] allWaterPictures= new Sprite[225];//original order
+  private Sprite[] allMountainPictures= new Sprite[225];//original order
 
     private Sprite[] cityPicturesInSort;  //Sorted always differently
     private Sprite[] forestPicturesInSort;//Sorted always differently
@@ -93,6 +93,9 @@ public class SettingManager : MonoBehaviour
 
 
 
+        
+        ImageLoader imageLoader = new ImageLoader(allForestPictures, allCityPictures, allFoodPictures);
+        imageLoader.loadPictures();
 
         difficultyManager = GetComponent<DifficultyManager>();
         
@@ -339,11 +342,16 @@ public void changeSettingRandomly()
         System.Array.Reverse(charArray);
         return new string(charArray);
     }
-
+    
     public int getQuality()
     {
+
+        
         return sortQuality;
+   
+
     }
+
 }
 
 
