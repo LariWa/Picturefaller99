@@ -15,6 +15,7 @@ public class ScienceTimer : MonoBehaviour
 
     void Update()
     {
+        //print(timer);
         if (timerStarted)
         {
             timer += Time.unscaledDeltaTime;// deltaTime;

@@ -1,44 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!65 &5891795589043382106
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6232426290020553956}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.24965999, y: 0.17, z: 0.68}
-  m_Center: {x: 0, y: 1.66, z: 0.3}
---- !u!65 &5914675098743590299
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6232426290020553956}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.24965999, y: 0.41, z: 0.24}
-  m_Center: {x: 0, y: 1.46, z: 0.59}
---- !u!65 &8939882219278733424
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6232426290020553956}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.24965999, y: 1.7153708, z: 0.24}
-  m_Center: {x: 0, y: 0.88587624, z: 0.02}
 --- !u!114 &1088918560788460336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53,6 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 20
   fadeSpd: 0.5
+--- !u!64 &5163899481698782884
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6232426290020553956}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: add64ca01f71f0244b233848ae5f1f80, type: 3}
 --- !u!1 &7206916430411002965
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,6 +235,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5538970031658735221, guid: b13c912078558f14ca1df6ba5d990792,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300000, guid: add64ca01f71f0244b233848ae5f1f80, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b13c912078558f14ca1df6ba5d990792, type: 3}
 --- !u!1 &6232426290020553956 stripped

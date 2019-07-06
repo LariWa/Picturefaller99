@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class Music : MonoBehaviour
 {
+    public AudioClip menuMusic;
+    public AudioClip gameplayMusic;
+
     static Music instance = null;
     public float slowMoPitchMin = 0.8f;
 
@@ -23,22 +26,38 @@ public class Music : MonoBehaviour
             GameObject.DontDestroyOnLoad(gameObject);
         }
 
-        if (FindObjectOfType<PlayerStats>() != null)
-        {
-            gameplay = true;
-            audioSource = GetComponent<AudioSource>();
-        }
+        audioSource = GetComponent<AudioSource>();
 
     }
 
     private void Update()
     {
-        if(gameplay)
+        if (FindObjectOfType<PlayerStats>() != null)
+            gameplay = true;
+
+
+        if (gameplay)
         {
+            if (audioSource.clip != gameplayMusic)
+            {
+                audioSource.clip = gameplayMusic;
+                audioSource.Play();
+            }
+
             var time = Time.timeScale;
             time = time.Remap(0,1, slowMoPitchMin ,1);
             audioSource.pitch = time;
         }
+        else
+        {
+            if (audioSource.clip != menuMusic)
+            {
+                audioSource.clip = menuMusic;
+                audioSource.Play();
+            }
+        }
+
+        print(audioSource.clip.name);
     }
 
     // Update is called once per frame
