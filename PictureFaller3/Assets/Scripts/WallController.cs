@@ -73,7 +73,16 @@ public class WallController : MonoBehaviour
         wallManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<PictureManager>();
 
         var settingManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<SettingManager>();
-        settingManager.randomSortForSetting(settingManager.getNextSetting());
+
+
+        var currQuality = FindObjectOfType<PictureManager>().getCurrQual();
+
+        if (currQuality == -99)
+            settingManager.randomSortForSetting(settingManager.getNextSetting());
+        else
+            settingManager.otherSortForSetting(settingManager.getNextSetting(), currQuality);
+
+
         allPictures = settingManager.getAllPicturesInSort(settingManager.getNextSetting());
 
         mouseSelection = player.mouseSelection;

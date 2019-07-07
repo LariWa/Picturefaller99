@@ -12,6 +12,9 @@ public class PictureManager : MonoBehaviour
     //private int lastSearchPic;
     private string picSearchedA;
     private string picSearchedB;
+    private int currQual = -99;
+    private int sortQualA;
+    private int sortQualB;
 
     private int picSearchCounter = -2;
 
@@ -125,6 +128,9 @@ public class PictureManager : MonoBehaviour
             currPicSearched = Random.Range(0, currentPics.Length);
 
             picSearchedA = currentPics[currPicSearched].name; //Search by name here, to find picture even in different sort at other pos
+
+            sortQualA = FindObjectOfType<SettingManager>().getQuality();
+            //currQual = sortQualA;
         }
         else if (picSearchCounter == 1)
         {
@@ -132,16 +138,27 @@ public class PictureManager : MonoBehaviour
             currPicSearched = Random.Range(0, currentPics.Length);
 
             picSearchedB = currentPics[currPicSearched].name; //Search by name here, to find picture even in different sort at other pos
+
+            sortQualB = FindObjectOfType<SettingManager>().getQuality();
+            //currQual = sortQualB;
+            currQual = sortQualA;
         }
         else if (picSearchCounter == 2)
         {
             //Assign by name, not ID
-            currPicSearched = GetComponent<SettingManager>().findPictureByName(picSearchedA); 
+            currPicSearched = GetComponent<SettingManager>().findPictureByName(picSearchedA);
+
+            //sortQualA = -99;
+            //currQual = -99;
+            currQual = sortQualB;
         }
         else if (picSearchCounter == 3)
         {
             //Assign by name, not ID
             currPicSearched = GetComponent<SettingManager>().findPictureByName(picSearchedB);
+
+            //sortQualB = -99;
+            currQual = -99; //next one is random again
 
             picSearchCounter = -1;
         }
@@ -180,6 +197,12 @@ public class PictureManager : MonoBehaviour
         // Fade instead 
         //var par = picSearched.transform.parent;
         //StartCoroutine(fadeToOver(0, 2f, par.GetChild(par.childCount - 1).GetComponent<Image>()));
+    }
+
+
+    public int getCurrQual()
+    {
+        return currQual;
     }
 
 
