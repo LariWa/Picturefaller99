@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.17710355, g: 0.221706, b: 0.30396813, a: 1}
+  m_IndirectSpecularColor: {r: 0.17710379, g: 0.22170645, b: 0.30396852, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7121,6 +7121,9 @@ MonoBehaviour:
   cityLightRot: {x: 230, y: -247.034, z: -98.841}
   foodLightRot: {x: 118.208, y: -156.5, z: -98.841}
   forestLightRot: {x: 137.8, y: -225.25, z: -99.29199}
+  alternateSettings: 1
+  useSeed: 1
+  seed: 42
   useSorts: 1
 --- !u!114 &1645297939
 MonoBehaviour:
@@ -7141,7 +7144,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1645297933}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb6825c47ac4be74f83f812b17baac19, type: 3}
   m_Name: 
@@ -7169,6 +7172,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3df69743aa69114cbecf98afd29e4d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthLoss:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   fallSpeed:
     serializedVersion: 2
     m_Curve:
@@ -7300,6 +7309,7 @@ MonoBehaviour:
   startDim: 2
   maxDim: 13
   leftoutDims: 0300000005000000
+  jumpBackInDim: 0
 --- !u!114 &1645297942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10129,6 +10139,11 @@ PrefabInstance:
       propertyPath: normalVCam
       value: 
       objectReference: {fileID: 1863979972}
+    - target: {fileID: 3694887422714734013, guid: 34697d4a84b73a64195584ea1e6bb78b,
+        type: 3}
+      propertyPath: field of view
+      value: 60
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34697d4a84b73a64195584ea1e6bb78b, type: 3}
 --- !u!1001 &6188468870232326066

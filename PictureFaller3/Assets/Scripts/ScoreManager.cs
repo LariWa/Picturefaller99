@@ -47,55 +47,66 @@ public class ScoreManager : MonoBehaviour
 			PlayerPrefs.SetFloat("Highscore", highscoreCount);
 		}
 
+        if(scoreText != null)
+        {
+            scoreText.text = Mathf.Round(scoreCount) + " Score";// " Score"; //" Current"
+            highscoreText.text = Mathf.Round(highscoreCount) + " Best"; // " Best"; //" Highest"
+        }
 
-        scoreText.text = Mathf.Round(scoreCount) +         " Score";// " Score"; //" Current"
-        highscoreText.text = Mathf.Round(highscoreCount) + " Best"; // " Best"; //" Highest"
     }
 
 
     public void addScorePictureHit(float time)
     {
-        if (time <= 0) time = 0.1f;
-        var am = Mathf.RoundToInt((correctPictureMultiplier / time) * (difficultyManager.getDim() * dimMultiplier));
+        if(this.enabled)
+        {
+
+            if (time <= 0) time = 0.1f;
+            var am = Mathf.RoundToInt((correctPictureMultiplier / time) * (difficultyManager.getDim() * dimMultiplier));
 
 
-        var s = Instantiate(scorePlusPrefab, Vector3.zero, Quaternion.identity);
-        s.transform.parent = effectsParent.transform;
-        s.transform.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,100);
-        s.transform.GetComponent<TextMeshProUGUI>().text = "+" + am;
-        scoreCount += am;
+            var s = Instantiate(scorePlusPrefab, Vector3.zero, Quaternion.identity);
+            s.transform.parent = effectsParent.transform;
+            s.transform.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 100);
+            s.transform.GetComponent<TextMeshProUGUI>().text = "+" + am;
+            scoreCount += am;
 
-        //Animation....     better
-        Destroy(s, 1f);
-        Sequence seq = DOTween.Sequence();
-        //seq.Append(s.transform.DOPunchScale(Vector3.one, 0.5f));
-        //seq.Append(s.transform.DOScale(0f, 0.5f));
-        seq.Append(s.transform.DOPunchScale(Vector3.one, 1, 1));
-        seq.Insert(0, s.transform.DOShakeScale(0.75f, 1));
-        seq.Insert(0.5f, s.transform.GetComponent<TextMeshProUGUI>().DOFade(0, 0.25f));
+            //Animation....     better
+            Destroy(s, 1f);
+            Sequence seq = DOTween.Sequence();
+            //seq.Append(s.transform.DOPunchScale(Vector3.one, 0.5f));
+            //seq.Append(s.transform.DOScale(0f, 0.5f));
+            seq.Append(s.transform.DOPunchScale(Vector3.one, 1, 1));
+            seq.Insert(0, s.transform.DOShakeScale(0.75f, 1));
+            seq.Insert(0.5f, s.transform.GetComponent<TextMeshProUGUI>().DOFade(0, 0.25f));
+        }
+
     }
 
 
     public void addScoreCoins(float points)
     {
-        var am = points;
+        if (this.enabled)
+        {
+            var am = points;
 
 
-        //todo: other pos
+            //todo: other pos
 
-        var s = Instantiate(scorePlusPrefab, Vector3.zero, Quaternion.identity);
-        s.transform.parent = effectsParent.transform;
-        s.transform.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 100);
-        s.transform.GetComponent<TextMeshProUGUI>().text = "+" + am;
-        scoreCount += am;
+            var s = Instantiate(scorePlusPrefab, Vector3.zero, Quaternion.identity);
+            s.transform.parent = effectsParent.transform;
+            s.transform.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 100);
+            s.transform.GetComponent<TextMeshProUGUI>().text = "+" + am;
+            scoreCount += am;
 
-        //Animation....     better
-        Destroy(s, 1f);
-        Sequence seq = DOTween.Sequence();
-        //seq.Append(s.transform.DOPunchScale(Vector3.one, 0.5f));
-        //seq.Append(s.transform.DOScale(0f, 0.5f));
-        seq.Append(s.transform.DOPunchScale(Vector3.one, 1, 1));
-        seq.Insert(0, s.transform.DOShakeScale(0.75f, 1));
-        seq.Insert(0.5f, s.transform.GetComponent<TextMeshProUGUI>().DOFade(0, 0.25f));
+            //Animation....     better
+            Destroy(s, 1f);
+            Sequence seq = DOTween.Sequence();
+            //seq.Append(s.transform.DOPunchScale(Vector3.one, 0.5f));
+            //seq.Append(s.transform.DOScale(0f, 0.5f));
+            seq.Append(s.transform.DOPunchScale(Vector3.one, 1, 1));
+            seq.Insert(0, s.transform.DOShakeScale(0.75f, 1));
+            seq.Insert(0.5f, s.transform.GetComponent<TextMeshProUGUI>().DOFade(0, 0.25f));
+        }
     }
 }
