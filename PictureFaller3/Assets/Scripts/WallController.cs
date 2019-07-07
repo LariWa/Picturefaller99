@@ -160,6 +160,7 @@ public class WallController : MonoBehaviour
 
         PictureManager pictureManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<PictureManager>();
         pictureManager.rollPicToSearch();
+   
         pictureBlockSearched.GetComponent<PictureToSearchGO>().setPicture(pictureManager.getCurrentSearchPic());
 
 

@@ -8,6 +8,13 @@ public class PictureManager : MonoBehaviour
 
     [SerializeField] private Image picSearched; //Move somewhere else? UI
     private int currPicSearched;
+    //private int secondLastSearched;
+    //private int lastSearchPic;
+    private string picSearchedA;
+    private string picSearchedB;
+
+    private int picSearchCounter = -2;
+
     private bool justSelectedCorrect;
 
     [SerializeField] private Sprite blackPicture;
@@ -105,12 +112,44 @@ public class PictureManager : MonoBehaviour
 
     public void rollPicToSearch()
     {
-        var currentPics = GetComponent<SettingManager>().getAllPicturesInSort(GetComponent<SettingManager>().getNextSetting());
-        currPicSearched = Random.Range(0, currentPics.Length);
 
-        
+        // First two pics random, don't save
+        if (picSearchCounter < 0)
+        {
+            var currentPics = GetComponent<SettingManager>().getAllPicturesInSort(GetComponent<SettingManager>().getNextSetting());
+            currPicSearched = Random.Range(0, currentPics.Length);
+        }
+        else if (picSearchCounter == 0)
+        {
+            var currentPics = GetComponent<SettingManager>().getAllPicturesInSort(GetComponent<SettingManager>().getNextSetting());
+            currPicSearched = Random.Range(0, currentPics.Length);
+
+            picSearchedA = currentPics[currPicSearched].name; //Search by name here, to find picture even in different sort at other pos
+        }
+        else if (picSearchCounter == 1)
+        {
+            var currentPics = GetComponent<SettingManager>().getAllPicturesInSort(GetComponent<SettingManager>().getNextSetting());
+            currPicSearched = Random.Range(0, currentPics.Length);
+
+            picSearchedB = currentPics[currPicSearched].name; //Search by name here, to find picture even in different sort at other pos
+        }
+        else if (picSearchCounter == 2)
+        {
+            //Assign by name, not ID
+            currPicSearched = GetComponent<SettingManager>().findPictureByName(picSearchedA); 
+        }
+        else if (picSearchCounter == 3)
+        {
+            //Assign by name, not ID
+            currPicSearched = GetComponent<SettingManager>().findPictureByName(picSearchedB);
+
+            picSearchCounter = -1;
+        }
+
+        picSearchCounter++;
+
+
         //picSearched.sprite = currentPics[currPicSearched];
-
     }
 
     public Sprite getCurrentSearchPic()

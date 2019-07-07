@@ -32,12 +32,15 @@ public class DifficultyManager : MonoBehaviour
     private PlayerMovement player;
     private List<GameObject> currCollectibles = new List<GameObject>();
 
+    private bool reachedMax;
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         updatePlayer();
 
         currDim = startDim;
+
 
         spawnHPandCoins();
     }
@@ -108,23 +111,28 @@ public class DifficultyManager : MonoBehaviour
 
 
 
-        if (currDim >= maxDim)
+        if (currDim > maxDim)
         {
-            currDim = maxDim;
+            currDim-=2;
+            reachedMax = true;
         }
         else
         {
             // repeat dimensions so can always try same sort again
-            //2 4 6 7 6 7 8 9 8 9 10 11 10 11 12 13 12 13
+            //2 4 6 7 6 7 8 9 8 9 10 11 10 11 12 13 12 13 12 13 12 13
             //(1 2 1 2 3 4 3 4 5 6 5 6 7 8)
 
-
-            jumpBackCounter++;
-
-            if (jumpBackCounter == 4)
+            if (!reachedMax)
             {
-                jumpBackCounter = 0;
-                currDim-=2;
+
+
+                jumpBackCounter++;
+
+                if (jumpBackCounter == 4)
+                {
+                    jumpBackCounter = 0;
+                    currDim -= 2;
+                }
             }
         }
     }

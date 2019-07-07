@@ -67,7 +67,7 @@ public class SettingManager : MonoBehaviour
     [SerializeField] private int seed = 42;
     //[SerializeField] private int ignoreSettingTimes = 2; //ignore 2x2 and 4x4
 
-    private int alternateSettCount = 2;
+    private int alternateSettCount = 1;
 
     public bool useSorts;
     private int sortQuality;
@@ -138,8 +138,8 @@ public class SettingManager : MonoBehaviour
         randomBSetting();
         randomCSetting();
 
-        currentSetting = settingA;
-        nextSetting = settingB;
+        currentSetting = settingB;
+        nextSetting = settingA;
 
         //currentSetting = settingB;
         //nextSetting = settingC;
@@ -149,31 +149,97 @@ public class SettingManager : MonoBehaviour
         /*
         print(currentSetting);
         //print(nextSetting);
-
-        currentSetting = nextSetting;
-        randomBSetting();
+        changeSettingToPictureSett();
         print(currentSetting);
         //print(nextSetting);
-
-        currentSetting = nextSetting;
-        randomBSetting();
+        changeSettingToPictureSett();
         print(currentSetting);
         //print(nextSetting);
-
-        currentSetting = nextSetting;
-        randomBSetting();
+        changeSettingToPictureSett();
         print(currentSetting);
         //print(nextSetting);
+        changeSettingToPictureSett();
 
-        currentSetting = nextSetting;
-        randomBSetting();
+        //print(nextSetting);
+        changeSettingToPictureSett();
+
+        //print(nextSetting);
+        changeSettingToPictureSett();
         print(currentSetting);
         //print(nextSetting);
-
-        currentSetting = nextSetting;
-        randomBSetting();
+        changeSettingToPictureSett();
         print(currentSetting);
         //print(nextSetting);
+        changeSettingToPictureSett();
+
+        //print(nextSetting);
+        changeSettingToPictureSett();
+
+        //print(nextSetting);
+        changeSettingToPictureSett();
+        print(currentSetting);
+        //print(nextSetting);
+        changeSettingToPictureSett();
+        print(currentSetting);
+        //print(nextSetting);
+        changeSettingToPictureSett();
+
+        //print(nextSetting);
+        changeSettingToPictureSett();
+
+        //print(nextSetting);
+        changeSettingToPictureSett();
+        print(currentSetting);
+        //print(nextSetting);
+        changeSettingToPictureSett();
+        print(currentSetting);
+        //print(nextSetting);
+        changeSettingToPictureSett();
+
+        //print(nextSetting);
+        changeSettingToPictureSett();
+
+        //print(nextSetting);
+        changeSettingToPictureSett();
+        print(currentSetting);
+        //print(nextSetting);
+        changeSettingToPictureSett();
+        print(currentSetting);
+        //print(nextSetting);
+        changeSettingToPictureSett();
+
+        //print(nextSetting);
+        changeSettingToPictureSett();
+
+        //print(nextSetting);
+        changeSettingToPictureSett();
+        print(currentSetting);
+        //print(nextSetting);
+        changeSettingToPictureSett();
+        print(currentSetting);
+        //print(nextSetting);
+        changeSettingToPictureSett();
+
+        //print(nextSetting);
+        changeSettingToPictureSett();
+
+        //print(nextSetting);
+        changeSettingToPictureSett();
+        print(currentSetting);
+        //print(nextSetting);
+        changeSettingToPictureSett();
+        print(currentSetting);
+        //print(nextSetting);
+        changeSettingToPictureSett();
+
+        changeSettingToPictureSett();
+
+        //print(nextSetting);
+        changeSettingToPictureSett();
+        print(currentSetting);
+        //print(nextSetting);
+        changeSettingToPictureSett();
+        print(currentSetting);
         */
 
 
@@ -449,6 +515,21 @@ public void changeSettingRandomly()
             settingC = (Settings)Random.Range(0, System.Enum.GetValues(typeof(Settings)).Length);
     }
 
+
+    public int findPictureByName(string name) //eg city_23
+    {
+        var currentPics = getAllPicturesInSort(getNextSetting());
+        int desiredID = -99;
+        for(int i = 0; i < currentPics.Length; i++)
+        {
+            if(currentPics[i].name.Equals(name))
+            {
+                desiredID = i;
+                break;
+            }
+        }
+        return desiredID;
+    }
 
 
 
