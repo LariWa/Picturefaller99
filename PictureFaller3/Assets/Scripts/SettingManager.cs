@@ -13,6 +13,11 @@ public class SettingManager : MonoBehaviour
     private Settings currentSetting; //For chunks
     private Settings nextSetting; //For picture wall
 
+    private Settings settingA; //For alternating
+    private Settings settingB; //For alternating
+    private Settings settingC; //For alternating/ no immediet repeating
+    //private Settings lastCurrentSett; //For alternating/ repeating
+
     [SerializeField] private GameObject[] cityChunks;
     [SerializeField] private GameObject[] forestChunks;
     [SerializeField] private GameObject[] foodChunks;
@@ -57,6 +62,12 @@ public class SettingManager : MonoBehaviour
     [SerializeField] private Vector3 cityLightRot;
     [SerializeField] private Vector3 foodLightRot;
     [SerializeField] private Vector3 forestLightRot;
+    [SerializeField] private bool alternateSettings = true;
+    [SerializeField] private bool useSeed = true;
+    [SerializeField] private int seed = 42;
+    //[SerializeField] private int ignoreSettingTimes = 2; //ignore 2x2 and 4x4
+
+    private int alternateSettCount = 2;
 
     public bool useSorts;
     private int sortQuality;
@@ -64,6 +75,10 @@ public class SettingManager : MonoBehaviour
 
     void Awake()
     {
+        // Seed testing
+        if(useSeed)Random.seed = seed;
+
+
         // Load resources
 
         //var sort = Resources.Load<TextAsset>("SortTxt/city_hq");   citySortsLocation
@@ -115,17 +130,51 @@ public class SettingManager : MonoBehaviour
 
 
 
-
-
         difficultyManager = GetComponent<DifficultyManager>();
         
-        if(startRandom) currentSetting = (Settings)Random.Range(0, System.Enum.GetValues(typeof(Settings)).Length);
-        else currentSetting = startSetting;
+        if(startRandom) settingA = (Settings)Random.Range(0, System.Enum.GetValues(typeof(Settings)).Length);
+        else settingA = startSetting;
 
-        //Get random next setting
-        nextSetting = (Settings)Random.Range(0, System.Enum.GetValues(typeof(Settings)).Length);
-        while (currentSetting == nextSetting)
-            nextSetting = (Settings)Random.Range(0, System.Enum.GetValues(typeof(Settings)).Length);
+        randomBSetting();
+        randomCSetting();
+
+        currentSetting = settingA;
+        nextSetting = settingB;
+
+        //currentSetting = settingB;
+        //nextSetting = settingC;
+
+
+
+        /*
+        print(currentSetting);
+        //print(nextSetting);
+
+        currentSetting = nextSetting;
+        randomBSetting();
+        print(currentSetting);
+        //print(nextSetting);
+
+        currentSetting = nextSetting;
+        randomBSetting();
+        print(currentSetting);
+        //print(nextSetting);
+
+        currentSetting = nextSetting;
+        randomBSetting();
+        print(currentSetting);
+        //print(nextSetting);
+
+        currentSetting = nextSetting;
+        randomBSetting();
+        print(currentSetting);
+        //print(nextSetting);
+
+        currentSetting = nextSetting;
+        randomBSetting();
+        print(currentSetting);
+        //print(nextSetting);
+        */
 
 
         setLightSource(currentSetting);
@@ -332,17 +381,75 @@ public void changeSettingRandomly()
         currentSetting = nextSetting;
     }*/
 
-    public void changeSettingToPictures()
+
+    public void changeSettingToPictureSett() //probably an easier way, first two are just switching
     {
-        currentSetting = nextSetting;
+        if (alternateSettCount == 0)
+        {
+            currentSetting = settingB;
+            nextSetting = settingA;
+        }
+
+        if (alternateSettCount == 1)
+        {
+            currentSetting = settingA;
+            nextSetting = settingB;
+        }
+
+        if (alternateSettCount == 2)
+        {
+            currentSetting = settingB;
+            nextSetting = settingC;
+        }
+
+        if (alternateSettCount == 3)
+        {
+            alternateSettCount = -1;
+
+            settingA = settingC;
+            randomBSetting();
+            randomCSetting();
+
+            currentSetting = settingA;
+            nextSetting = settingB;
+        }
 
         setLightSource(currentSetting);
-        
-        //Get random setting for next
-        nextSetting = (Settings)Random.Range(0, System.Enum.GetValues(typeof(Settings)).Length);
-        while (currentSetting == nextSetting)
-            nextSetting = (Settings)Random.Range(0, System.Enum.GetValues(typeof(Settings)).Length);
+
+
+        alternateSettCount++;
     }
+
+    private void randomBSetting()
+    {
+        //if (alternateSettCount > 2)
+        //    alternateSettCount = 0;
+
+        
+
+        //if (alternateSettCount == 0)
+        //{
+            //Get random next setting
+            settingB = (Settings)Random.Range(0, System.Enum.GetValues(typeof(Settings)).Length);
+            while (settingB == settingA)
+                settingB = (Settings)Random.Range(0, System.Enum.GetValues(typeof(Settings)).Length);
+        //}
+        //else
+        //    nextSetting = lastCurrentSett;
+
+        //lastCurrentSett = currentSetting;
+
+        //alternateSettCount++;
+    }
+
+    private void randomCSetting()
+    {
+        settingC = (Settings)Random.Range(0, System.Enum.GetValues(typeof(Settings)).Length);
+        while (settingC == settingA || settingC == settingB)
+            settingC = (Settings)Random.Range(0, System.Enum.GetValues(typeof(Settings)).Length);
+    }
+
+
 
 
     private void setLightSource(Settings current)
