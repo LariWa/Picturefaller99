@@ -17,7 +17,7 @@ public class PictureJSON
 
 public class ImageLoader
 {
-
+    /*
 
     public string url = "http://localhost:8000/nature_255/nature_9.jpg";
     public Renderer thisRenderer;
@@ -74,7 +74,7 @@ public class ImageLoader
 
 
     }
-
+    */
 
 
 

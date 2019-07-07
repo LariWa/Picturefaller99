@@ -100,7 +100,7 @@ public class TransitionManager : MonoBehaviour
         FindObjectOfType<DifficultyManager>().spawnHPandCoins();
         FindObjectOfType<PictureManager>().hideMovingSearchedUI();
 
-        settingManager.changeSettingToPictures();
+        settingManager.changeSettingToPictureSett();
 
         chunkManager.resetChunksAndWall();
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().rerouteAndReset();
