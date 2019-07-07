@@ -31,7 +31,6 @@ public class ScienceTimer : MonoBehaviour
     public void printTimer()
     {
         time = timer;
-        print("It took the player: " + time);
     }
 
     public float getTime()
@@ -39,10 +38,12 @@ public class ScienceTimer : MonoBehaviour
 
         var  quality = settingM.getQuality();
         var dif = diffM.getDim();
-        var response = sendPostRequest(time,quality,dif); //SPIEL FUNKT SONST NICHT
+        var sessionID = getSessionID(); 
+        var response = sendPostRequest(time,quality,dif,sessionID); //SPIEL FUNKT SONST NICHT
+
         Debug.Log(response);
-        Debug.Log("Dimension ist :" + dif);
-        Debug.Log("Qualität ist :" + quality);
+        Debug.Log("Dimension ist : " + dif + " Qualität ist :" + quality + " It took the player: " + time);
+        Debug.Log("SessionID ist :" + sessionID);
         return timer;
     }
 
@@ -59,7 +60,7 @@ public class ScienceTimer : MonoBehaviour
         timer = 0;
     }
     /* AUSKOMMENTIERT SONST FUNKT DAS SPIEL NICHT */
-    private string sendPostRequest(float userTime,int sortQuality, int dim)
+    private string sendPostRequest(float userTime,int sortQuality, int dim, string gameID)
     {
 
         var httpWebRequest = (System.Net.HttpWebRequest)System.Net.WebRequest.Create("http://localhost:3000/addtimerihno");
@@ -70,7 +71,8 @@ public class ScienceTimer : MonoBehaviour
         {
             string json = "{\"time\":" + userTime + "," + 
                            "\"sortQuality\":" + sortQuality + "," + 
-                           "\"dim\":"+ dim + "}";
+                           "\"dim\":"+ dim + ","+
+                           "\"gameID\":" + '"' + gameID + '"' + "}";
 
             Debug.Log(json);
             streamWriter.Write(json);
