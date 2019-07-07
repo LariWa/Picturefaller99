@@ -28,24 +28,6 @@ public class ScienceTimer : MonoBehaviour
 
     }
 
-    public void printTimer()
-    {
-        time = timer;
-    }
-
-    public float getTime()
-    {
-
-        var  quality = settingM.getQuality();
-        var dif = diffM.getDim();
-        var sessionID = getSessionID(); 
-        var response = sendPostRequest(time,quality,dif,sessionID); //SPIEL FUNKT SONST NICHT
-
-        Debug.Log(response);
-        Debug.Log("Dimension ist : " + dif + " Qualität ist :" + quality + " It took the player: " + time);
-        Debug.Log("SessionID ist :" + sessionID);
-        return timer;
-    }
 
     public string getSessionID()
     {
@@ -54,6 +36,29 @@ public class ScienceTimer : MonoBehaviour
         else
             return SystemInfo.deviceUniqueIdentifier + 0;
     }
+
+    public void printTimer()
+    {
+
+        print("It took the player: " + timer);
+        //var h = getSessionID();
+        //Debug.Log("Gunther :"+ h);
+    }
+
+    public float getTime()
+    {
+
+        var  quality = settingM.getQuality();
+        var dif = diffM.getDim();
+        var sessionID = getSessionID(); 
+        var response = sendPostRequest(timer,quality,dif,sessionID); //SPIEL FUNKT SONST NICHT
+
+        Debug.Log(response);
+        //Debug.Log("Dimension ist :" + dif + " Qualität ist :" + quality + " It took the player: " + time);
+        //Debug.Log("SessionID ist :" + sessionID);
+        return timer;
+    }
+
 
     public void resetTimer()
     {
@@ -69,10 +74,11 @@ public class ScienceTimer : MonoBehaviour
 
         using (var streamWriter = new System.IO.StreamWriter(httpWebRequest.GetRequestStream()))
         {
-            string json = "{\"time\":" + userTime + "," + 
-                           "\"sortQuality\":" + sortQuality + "," + 
-                           "\"dim\":"+ dim + ","+
-                           "\"gameID\":" + '"' + gameID + '"' + "}";
+            string json = "{\"time\":" + userTime + "," +
+                      "\"sortQuality\":" + sortQuality + "," +
+                      "\"dim\":" + dim + "," +
+                      "\"gameID\":" + '"' + gameID + '"' + "}";
+
 
             Debug.Log(json);
             streamWriter.Write(json);
