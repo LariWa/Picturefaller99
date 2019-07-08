@@ -7,6 +7,15 @@ using System;
 
 public class PlayerMovement : MonoBehaviour
 {
+
+
+    [SerializeField] private Transform playerModel;
+    [SerializeField] private Transform aimTarget;
+    [SerializeField] private float lookSpeed = 0;
+    [SerializeField] private float horLean = 80;
+    [SerializeField] private float horLeanSpd = 0.1f;
+    [Space]
+
     [SerializeField] private float xyDrag = 0; // between 0 and 1 to restrict floaty movement on xy axis (come to stop faster)
     [SerializeField] private float controlSpeed = 16f; // how fast to move on xy axis from input
     [SerializeField] private float controlSpeedMaus = 300f;
@@ -81,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
         StartCoroutine(DoubleTapInputListener());
 
         Physics.gravity = new Vector3(0, 0, gravity);
-        startRot = rb.rotation;
+        //startRot = rb.rotation;
 
         maus = Convert.ToBoolean(PlayerPrefs.GetInt("moveSettings"));
     }
@@ -169,10 +178,10 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-    void rotNormal()
+    /*void rotNormal()
     {
         rb.MoveRotation(startRot);      
-    }
+    }*/
 
     void FixedUpdate()
     {
@@ -183,7 +192,7 @@ public class PlayerMovement : MonoBehaviour
 
         moveVec.Normalize();
 
-      
+      /*
         if (inputHor > 0)
         {
             rb.MoveRotation(rb.rotation * Quaternion.Euler(0,5,0));
@@ -207,7 +216,7 @@ public class PlayerMovement : MonoBehaviour
             rb.MoveRotation(rb.rotation * Quaternion.Euler(-2, 0, 0));
             Invoke("rotNormal", 0.3f);
 
-        }
+        }*/
 
 
 
@@ -267,7 +276,39 @@ public class PlayerMovement : MonoBehaviour
         vel.y *= xyDrag;
         if (vel.z >= maxDown) vel.z = maxDown; // Max fall speed
         rb.velocity = vel;
+
+
+        //var velNorm = vel.normalized;
+        //RotationLook(velNorm.x, velNorm.y);
+        //RotationLook(vel.x, vel.y);
+        //RotationLook(inputHor, inputVert);
+        RotationLook(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        HorizontalLean(playerModel, Input.GetAxis("Horizontal"), horLean, horLeanSpd); //maybe just rotate transform?
     }
+
+
+
+
+    //https://github.com/mixandjam/StarFox-RailMovement
+    void RotationLook(float h, float v)
+    {
+        //aimTarget.parent.position = Vector3.zero;
+        aimTarget.position = new Vector3(h, v, 1);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(aimTarget.position), Mathf.Deg2Rad * lookSpeed * Time.deltaTime);
+    }
+    void HorizontalLean(Transform target, float axis, float leanLimit, float lerpTime)
+    {
+        Vector3 targetEulerAngels = target.localEulerAngles;
+        target.localEulerAngles = new Vector3(targetEulerAngels.x, targetEulerAngels.y, Mathf.LerpAngle(targetEulerAngels.z, -axis * leanLimit, lerpTime));
+    }
+
+    /*private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(aimTarget.position, .5f);
+        Gizmos.DrawSphere(aimTarget.position, .15f);
+    }*/
+
 
     public void knockBack(Vector3 objectPos)
     {
