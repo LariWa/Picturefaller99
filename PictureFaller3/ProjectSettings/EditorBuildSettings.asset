@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Outro.unity
     guid: a269c58fb255bff4099685a158e0cb04
+  - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: 7f776efc2945c52419b16cbbb886826a
   m_configObjects: {}

@@ -51,7 +51,7 @@ public class MenuController : MonoBehaviour
         timePassed += Time.deltaTime;
         if (SceneManager.GetActiveScene().name == "Intro" && tutorial == false)
         {
-            StartCoroutine(LoadAsyncronousy("World01big", 4)); 
+            StartCoroutine(LoadAsyncronousy("Tutorial", 4)); 
             tutorial = true;
         }
 
