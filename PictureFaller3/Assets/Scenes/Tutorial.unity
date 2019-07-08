@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.17710355, g: 0.22170608, b: 0.3039681, a: 1}
+  m_IndirectSpecularColor: {r: 0.17710355, g: 0.221706, b: 0.30396813, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2246,6 +2246,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &462629482
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 462629483}
+  m_Layer: 0
+  m_Name: Middle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &462629483
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 462629482}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 774788402}
+  m_Father: {fileID: 1151475803}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &487908634
 GameObject:
   m_ObjectHideFlags: 0
@@ -3539,6 +3570,36 @@ Transform:
   m_Father: {fileID: 1999473482}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &774788401
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 774788402}
+  m_Layer: 0
+  m_Name: Aim Target
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &774788402
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774788401}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 462629483}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &821593200
 GameObject:
   m_ObjectHideFlags: 0
@@ -4270,6 +4331,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1332468357}
   m_CullTransparentMesh: 0
+--- !u!4 &1381908830 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2117485184420624042, guid: 1945a9b6cfd321644bdfc680efd1b7cb,
+    type: 3}
+  m_PrefabInstance: {fileID: 2117485183406087927}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1429113459
 GameObject:
   m_ObjectHideFlags: 0
@@ -8226,6 +8293,16 @@ PrefabInstance:
       propertyPath: isTutorial
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2117485184423083691, guid: 1945a9b6cfd321644bdfc680efd1b7cb,
+        type: 3}
+      propertyPath: aimTarget
+      value: 
+      objectReference: {fileID: 774788402}
+    - target: {fileID: 2117485184423083691, guid: 1945a9b6cfd321644bdfc680efd1b7cb,
+        type: 3}
+      propertyPath: playerModel
+      value: 
+      objectReference: {fileID: 1381908830}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1945a9b6cfd321644bdfc680efd1b7cb, type: 3}
 --- !u!1 &2117485183406087928 stripped
@@ -8246,28 +8323,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 742b4cabfd29d214ea7695c3406378b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  restoreHPStart: 25
-  maxRestoreHP: 50
-  hpBar: {fileID: 860979547}
-  maxHealth: 100
-  damageOnSelect: 10
-  healOnSelect: 25
-  alphaMaxFlicker: 0.5
-  timeFlicker: 0.5
-  flickerTimes: 8
-  damageFlicker: {fileID: 970505165}
-  GameOverCanvas: {fileID: 0}
-  PauseMenuCanvas: {fileID: 20780887}
-  pause: 0
-  health: 0
-  flickerTimer: 0
-  invincible: 0
-  alreadyDied: 0
-  playerMovement: {fileID: 0}
-  uiManager: {fileID: 0}
-  difficultyManager: {fileID: 0}
-  soundEffects: {fileID: 0}
-  score: {fileID: 0}
 --- !u!224 &2645177003041328952
 RectTransform:
   m_ObjectHideFlags: 0
