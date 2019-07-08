@@ -10,10 +10,11 @@ using System;
 public class PlayerStats : MonoBehaviour
 {
 
+    [SerializeField] private int restoreHPStart = 25;
+    [SerializeField] private int maxRestoreHP = 50;
     [SerializeField] private Slider hpBar;
     [SerializeField] private int maxHealth = 100;
-    [SerializeField] private float healthLossDelay = 0.1f;
-    [SerializeField] private int damageOnThinking = 1;
+    //[SerializeField] private float healthLossDelay = 0.1f;
     [SerializeField] private int damageOnSelect = 10;
     [SerializeField] private int healOnSelect = 25;
     [SerializeField] private float alphaMaxFlicker = 0.5f;
@@ -23,38 +24,53 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private GameObject GameOverCanvas;
     [SerializeField] private GameObject PauseMenuCanvas;
     bool pause = false;
-    private int health;
-    private float healthTimer;
+    private float health;
+    //private float healthTimer;
     private float flickerTimer;
     private bool invincible;
     private bool alreadyDied;
     private PlayerMovement playerMovement;
+    private UiManager uiManager;
+    private DifficultyManager difficultyManager;
+    private SoundEffects soundEffects;
 
-    public GameObject score;
+   public GameObject score;
 
 
     void Start()
     {
         playerMovement = GetComponentInParent<PlayerMovement>();
+        uiManager = FindObjectOfType<UiManager>();
+        difficultyManager = FindObjectOfType<DifficultyManager>();
+        soundEffects = FindObjectOfType<SoundEffects>();
         health = maxHealth;
         hpBar.maxValue = maxHealth;
     }
 
     void Update()
-
     {
         flickerTimer -= Time.deltaTime;
 
-        if (playerMovement.floating)
+        // Subtract health over time on pic wall
+        if (playerMovement.floating && !playerMovement.divingDown)
         {
-            healthTimer -= Time.deltaTime;
+            //healthTimer -= Time.deltaTime;
 
-            if(healthTimer <= 0)
-            {
-                healthTimer = healthLossDelay;
-                damagePlayer(damageOnThinking, false);
-            }
+            float hpLossPerSec = difficultyManager.getHealthLoss();
+            health -= Time.deltaTime * hpLossPerSec;
+
+
+            //Calculate how long until dead (and show on last seconds)
+            float secondsLeft = health / hpLossPerSec;
+
+            if (secondsLeft < 10)           
+                uiManager.setCountdown(secondsLeft);
+            else
+                uiManager.setCountdown(-99);
+                
+            //print(secondsLeft);
         }
+
 
 
         hpBar.value = health; //TODO: sometimes trigger doesnt work??
@@ -62,7 +78,7 @@ public class PlayerStats : MonoBehaviour
         if (health <= 0)
         {
             Time.timeScale = 0;
-            GameObject.FindGameObjectWithTag("Managers").GetComponent<Slowmotion>().gameOver();
+            GameObject.FindGameObjectWithTag("Managers").GetComponent<Slowmotion>().setPlayerDead();
             //GameOverCanvas.SetActive(true);
             char[] charSeparator = new char[] { ' ' };
             string scoreNumber = score.transform.GetComponent<TextMeshProUGUI>().text;
@@ -71,10 +87,6 @@ public class PlayerStats : MonoBehaviour
 
           
             PlayerPrefs.SetInt("score", scoreInt);
-            int phighScore = PlayerPrefs.GetInt("personalHighscore");
-            
-            if (phighScore < scoreInt)
-                PlayerPrefs.SetInt("personalHighscore",scoreInt);
             PlayerPrefs.Save();
             SceneManager.LoadScene("Outro");
 
@@ -83,7 +95,7 @@ public class PlayerStats : MonoBehaviour
             {
                 alreadyDied = true;
                 Time.timeScale = 1;
-                GameObject.FindGameObjectWithTag("Managers").GetComponent<Slowmotion>().gameOver();
+                GameObject.FindGameObjectWithTag("Managers").GetComponent<Slowmotion>().setPlayerDead();
                 //GameOverCanvas.SetActive(true);
                 //SceneManager.LoadScene("Outro");
 
@@ -100,20 +112,21 @@ public class PlayerStats : MonoBehaviour
             }
 
         }
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !playerMovement.divingDown && !playerMovement.floating)
         {
             //If pause hasn't been activated
             if (!pause)
             {
 
                 Time.timeScale = 0f;
-                GameObject.FindGameObjectWithTag("Managers").GetComponent<Slowmotion>().gameOver();
+                GameObject.FindGameObjectWithTag("Managers").GetComponent<Slowmotion>().setPlayerDead();
                 pause = true;
                 PauseMenuCanvas.SetActive(true);
             }
             else
             {
                 Time.timeScale = 1f;
+                GameObject.FindGameObjectWithTag("Managers").GetComponent<Slowmotion>().setPlayerAlive();
                 PauseMenuCanvas.SetActive(false);
                 pause = false;
             }
@@ -135,11 +148,19 @@ public class PlayerStats : MonoBehaviour
     {
         if (invincible) return;
 
-        if (flicker && flickerTimer < 0) //flickerTimer prevents alpha adding on many damage after another
+        if (flicker) 
         {
             flickerTimer = timeFlicker;
             var desCol = damageFlicker.color;
             desCol.a = alphaMaxFlicker;
+
+            if (flickerTimer > 0) // prevent alpha adding on many damage after another
+            {
+                var def = desCol;
+                def.a = 0;
+                damageFlicker.color = def;
+                damageFlicker.DOKill();
+            }
             damageFlicker.DOColor(desCol, timeFlicker).SetEase(Ease.InFlash, flickerTimes, 1);
         }
 
@@ -158,7 +179,7 @@ public class PlayerStats : MonoBehaviour
     }
 
 
-    public int getHealth()
+    public float getHealth()
     {
         return health;
     }
@@ -166,5 +187,15 @@ public class PlayerStats : MonoBehaviour
     public void setInvincible(bool b)
     {
         invincible = b;
+    }
+
+
+    public void addHPifLow()
+    {
+        if (health <= restoreHPStart)
+        {
+            var restoreHP = health.Remap(0, restoreHPStart, maxRestoreHP, 0);
+            healPlayer(Mathf.RoundToInt(restoreHP));
+        }
     }
 }

@@ -87,6 +87,8 @@ public class PictureToSearchGO : MonoBehaviour
 
     private void hitPlayer()
     {
+        FindObjectOfType<SoundEffects>().collectedImg();
+
         FindObjectOfType<PictureManager>().setSearchedUIvisible();
 
         notCollected = false;

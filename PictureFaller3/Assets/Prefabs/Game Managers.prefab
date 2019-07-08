@@ -10,8 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4763277197561486624}
   - component: {fileID: 4763277197561486654}
-  - component: {fileID: 4763277197561486625}
-  - component: {fileID: 4763277197561486655}
   - component: {fileID: 4763277197561486651}
   - component: {fileID: 4763277197561486652}
   m_Layer: 0
@@ -47,140 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d7cc476b7880f8428a08829c1e0aa4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chunksUntilPictureMin: 4
-  chunksUntilPictureMax: 8
   chunkLength: 100
   spawnAhead: 3
-  allChunks:
-  - {fileID: 997914699770420152, guid: a228b1e1983cfcd46a5fbb9effdcd9a4, type: 3}
-  - {fileID: 997914699770420152, guid: d592c8873ad91fa479af9174ddb646b5, type: 3}
---- !u!114 &4763277197561486625
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4763277197561486626}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88b733dde6fa4d9468365ea2d83ec8fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  picSearched: {fileID: 0}
-  blackPicture: {fileID: 21300000, guid: e1c60877669e7ce4594a35c30c2768cd, type: 3}
-  allPictures:
-  - {fileID: 21300000, guid: 8ec76b51d9861dc4abb2ca0c96a09d98, type: 3}
-  - {fileID: 21300000, guid: fa0510733c22b7548a87aaaa60a6c3eb, type: 3}
-  - {fileID: 21300000, guid: c7bc7b48563522d41a8e96744c851d36, type: 3}
-  - {fileID: 21300000, guid: 8338ff9e92a64c0428ead822050aa2c7, type: 3}
-  - {fileID: 21300000, guid: f56c3489de7715249b0e42c46619683f, type: 3}
-  - {fileID: 21300000, guid: 05fdc237c24aab441a4a7c2363903b3f, type: 3}
-  - {fileID: 21300000, guid: 6018a8f4f305993418289dead9330a5b, type: 3}
-  - {fileID: 21300000, guid: 1de7ad9001f357545b7c64afa58b93aa, type: 3}
-  - {fileID: 21300000, guid: 6926ec08f8cb08941bbe7e0d967c8e11, type: 3}
-  - {fileID: 21300000, guid: 47ede2e7393dddb4ab67f72c578fd67e, type: 3}
-  - {fileID: 21300000, guid: 4d96e5973a050ab4a84445671c7e99af, type: 3}
-  - {fileID: 21300000, guid: 49b01d05b66ce6846b572634a425d595, type: 3}
-  - {fileID: 21300000, guid: 439ee00168635c84da1c8da10770ac67, type: 3}
-  - {fileID: 21300000, guid: 0c6c98b08085c584bb9b4ca678a9517e, type: 3}
-  - {fileID: 21300000, guid: 59d4452fa8a68554e9a0fb59405be521, type: 3}
-  - {fileID: 21300000, guid: bee15b73b90b2414981c4e77555687e9, type: 3}
-  - {fileID: 21300000, guid: 5c0404bbf5463c84c83abfd081e99608, type: 3}
-  - {fileID: 21300000, guid: 89da5b2dd2025fc47a82b1e9cb1b1159, type: 3}
-  - {fileID: 21300000, guid: 52ff35c6dd014084099b1963724e306d, type: 3}
-  - {fileID: 21300000, guid: ad8e68cc5ac0b1e4aa2606bb08553281, type: 3}
-  - {fileID: 21300000, guid: 6b4aa87c6faf2f545a3076a95c58c841, type: 3}
-  - {fileID: 21300000, guid: fe6134941b3b8ef4f968776cf8d7da18, type: 3}
-  - {fileID: 21300000, guid: da33aeba974199c41b5988c8e37d5196, type: 3}
-  - {fileID: 21300000, guid: 4f3bf6d86fad48e47aea8cb2e12a26dd, type: 3}
-  - {fileID: 21300000, guid: 3e244ba6393e36d4b82cf09bc799cc9e, type: 3}
-  - {fileID: 21300000, guid: 3691261e14ec13a4ea685f4b1b0237d8, type: 3}
-  - {fileID: 21300000, guid: afdbe7bf24cd79e4abaf6ae554bf794c, type: 3}
-  - {fileID: 21300000, guid: 6ea5839580189684c8c11d62be5a066a, type: 3}
-  - {fileID: 21300000, guid: bc65279b9a41d914b99111e0a2426cac, type: 3}
-  - {fileID: 21300000, guid: 48033e5a7686ac448bdfbd578c22b28a, type: 3}
-  - {fileID: 21300000, guid: 458369db15a53114eb141eebd2ab1a8c, type: 3}
-  - {fileID: 21300000, guid: 2dd54938a79aec341b43b8d49444436a, type: 3}
-  - {fileID: 21300000, guid: 78e23b48dce05cf4090e8d15f576b6fd, type: 3}
-  - {fileID: 21300000, guid: de64db6107422a2408d0e5595985b65c, type: 3}
-  - {fileID: 21300000, guid: 9a3230c9345ce534bab21bdc367f4b72, type: 3}
-  - {fileID: 21300000, guid: eca957fc251ce294ca5a131391c9c4f2, type: 3}
-  - {fileID: 21300000, guid: b7e80071634e6f24b93a3f850d06f5f7, type: 3}
-  - {fileID: 21300000, guid: 7a9e4e444ad64a64bbfc7f7ed067200f, type: 3}
-  - {fileID: 21300000, guid: c6bf8191e57d4e64784d0d6c4524463b, type: 3}
-  - {fileID: 21300000, guid: f9aa9b170d2750d4db33d91975e9fa9e, type: 3}
-  - {fileID: 21300000, guid: b7b7b834cda1bdd4bb2e4e3c4915ecb5, type: 3}
-  - {fileID: 21300000, guid: 59a4747759c53c0418605b0daaf2b3c3, type: 3}
-  - {fileID: 21300000, guid: 698fa81a0bf36fb468de6570804eecb9, type: 3}
-  - {fileID: 21300000, guid: a9951b6d709fff7488373ec03c4e337b, type: 3}
-  - {fileID: 21300000, guid: 0d7fa2f037d3a1e468ce59c487a6f4c8, type: 3}
-  - {fileID: 21300000, guid: 16b9cdc3f31c4034abf5fd823437297a, type: 3}
-  - {fileID: 21300000, guid: 31318acd0f859e149bca25f0f31d15cf, type: 3}
-  - {fileID: 21300000, guid: 71ac19bab9c249f4da4de0b7d9dd66cc, type: 3}
-  - {fileID: 21300000, guid: 2d5bc9cb573969042bb256619ed61b30, type: 3}
-  - {fileID: 21300000, guid: 35e71355ccd868d44a143ec291b30d25, type: 3}
-  - {fileID: 21300000, guid: 72d2772d4111f4e4c8220fa2a69aad0d, type: 3}
-  - {fileID: 21300000, guid: 353cd579752fa934fad98f4550bf2346, type: 3}
-  - {fileID: 21300000, guid: f106ff93348b6bb45ab9c31bf2aa11dc, type: 3}
-  - {fileID: 21300000, guid: 25701a597cb0e1a48bb965b2b4162253, type: 3}
-  - {fileID: 21300000, guid: bac18e78fe9b27c41bff6d001972529e, type: 3}
-  - {fileID: 21300000, guid: cee2533d79f8c45439cb7fd17c323912, type: 3}
-  - {fileID: 21300000, guid: a5088f6c45b4f6f4cba303469d8cbf68, type: 3}
-  - {fileID: 21300000, guid: d29f6b50977196944b2f7e5e13a0acb3, type: 3}
-  - {fileID: 21300000, guid: db3aa012ff483cb46a39677ce55d6356, type: 3}
-  - {fileID: 21300000, guid: 2c8a66d1bbb76f141886db999133333b, type: 3}
-  - {fileID: 21300000, guid: b1e0758539486b243af590124c353c02, type: 3}
-  - {fileID: 21300000, guid: 97baa755dcd66904ab3f5e865a797847, type: 3}
-  - {fileID: 21300000, guid: 2201e79075ac5c542867787ab03756b4, type: 3}
-  - {fileID: 21300000, guid: 031f3b9c86a0c8f43bf3582be46a47ef, type: 3}
-  - {fileID: 21300000, guid: 9c1f2a40dc8493a47b70399b225ee2ea, type: 3}
-  - {fileID: 21300000, guid: 7502036ae48499e4d919ec56b78bb130, type: 3}
-  - {fileID: 21300000, guid: 90d14bc7794dc514a8fb68b02f423ae8, type: 3}
-  - {fileID: 21300000, guid: 959240e058ca45e4ebdfa4fde1538c65, type: 3}
-  - {fileID: 21300000, guid: ca8a6e9a59e5c8946823a8777d17456a, type: 3}
-  - {fileID: 21300000, guid: 4eadd47575f3c6d44a6c2fb22b237236, type: 3}
-  - {fileID: 21300000, guid: 2b4cebdfa97a2734c98e380c7869f7c6, type: 3}
-  - {fileID: 21300000, guid: 448444de89cb6db4fb3437be0dc7fdd6, type: 3}
-  - {fileID: 21300000, guid: edfb3b532317db5418411f925dc8a76c, type: 3}
-  - {fileID: 21300000, guid: a67b108ef4b76b043af96b4fcacd5122, type: 3}
-  - {fileID: 21300000, guid: f001f0b8dacd26144a70bf9441ac5300, type: 3}
-  - {fileID: 21300000, guid: 41fdfc70c2690814bab09b47ce284c0d, type: 3}
-  - {fileID: 21300000, guid: ace28866299b1a149bd28fdd2f35bd09, type: 3}
-  - {fileID: 21300000, guid: 87819283f41e0714facb0b7182b2b2e8, type: 3}
-  - {fileID: 21300000, guid: b635cf2ba2ed432448c4d1db6fb1b619, type: 3}
-  - {fileID: 21300000, guid: ee8ec9739d518c44c8af22a2785d5cf3, type: 3}
-  - {fileID: 21300000, guid: c940cd6ae619dbe4ca69a8f29af37742, type: 3}
-  wallPrefab: {fileID: 4817432992000025126, guid: c415676ef210fe6428c7002d80253889,
-    type: 3}
-  pictureBlockPrefab: {fileID: 2487045596462608096, guid: 876545562643c804ab6563f5677c95c6,
-    type: 3}
-  firePartPrefab: {fileID: 2697451674995731521, guid: 4100964119cb40243be444fe906070bc,
-    type: 3}
-  useFire: 0
-  likelyhoodNoPictures: 0.5
-  fairnessMultiplier: 0.15
-  pictureWallVeticalOffset: 75
-  pictureBlockScale: 2
-  gridGap: 2
-  likelyHoodOfEmpty: 0.1
-  minDistanceBetweenWalls: 100
-  maxDistanceBetweenWalls: 250
---- !u!114 &4763277197561486655
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4763277197561486626}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d633ddeadb9da3f4999d9807dfb4e702, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  distFromWallStartSlow: 50
-  distFromWallFullSlow: 30
-  minTime: 0.05
-  slowmoCurve: 1
+  pictureWallPre: {fileID: 0}
 --- !u!114 &4763277197561486651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,6 +66,7 @@ MonoBehaviour:
   scorePlusPrefab: {fileID: 5844548665610438974, guid: 24d7bdd1eb05ff64593ee62a7f08b0f7,
     type: 3}
   correctPictureMultiplier: 20
+  dimMultiplier: 1.5
   scoreCount: 0
   highscoreCount: 0
   pointsPerSecond: 10

@@ -22,7 +22,8 @@ public class SoundScript : MonoBehaviour
 
     public void PauseMusic()
     {
-        music.ToggleSound();
+        if(music != null)
+            music.ToggleSound();
         UpdateIcon();
     }
 

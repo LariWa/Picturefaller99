@@ -97,10 +97,10 @@ public class TransitionManager : MonoBehaviour
 
         // Screen is now completely white
 
-
+        FindObjectOfType<DifficultyManager>().spawnHPandCoins();
         FindObjectOfType<PictureManager>().hideMovingSearchedUI();
 
-        settingManager.changeSettingToPictures();
+        settingManager.changeSettingToPictureSett();
 
         chunkManager.resetChunksAndWall();
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().rerouteAndReset();

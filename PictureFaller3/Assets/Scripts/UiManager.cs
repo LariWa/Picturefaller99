@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
 
 public class UiManager : MonoBehaviour
 {
+    public TextMeshProUGUI countdown;
     public Image[] portals;
     public float portalRotateSpeed = -20;
     //public float portalRotateSpeedRandMore;
@@ -22,13 +24,21 @@ public class UiManager : MonoBehaviour
     public int portalScaleVib = 10;
     public float portalScaleElast = 1;
 
+    [Space]
+
+    public float cdScale = 1.5f;
+    public float cdScaleDur = 0.5f;
+    public float visibleSpd = 0.1f;
+    public float invisibleSpd = 0.25f;
+
+    private SoundEffects soundEffects;
 
 
     void Start()
     {
-
+        soundEffects = FindObjectOfType<SoundEffects>();
         StartCoroutine(startPortalAnim());
-
+        countdown.text = "";
     }
 
     private IEnumerator startPortalAnim()
@@ -55,4 +65,32 @@ public class UiManager : MonoBehaviour
             portals[i].transform.Rotate(new Vector3(0, 0, (portalRotateSpeed /* + Random.Range(0, portalRotateSpeedRandMore)*/) * Time.deltaTime));
         
     }
+
+
+    public void setCountdown(float secondsLeft)
+    {
+        if(secondsLeft < 0)
+            countdown.text = "";
+        else
+        {
+            var lastText = countdown.text;
+            secondsLeft = Mathf.FloorToInt(secondsLeft) + 1; //Mathf.CeilToInt(secondsLeft) + 1;
+            countdown.text = secondsLeft + "";
+
+
+            // New number to display
+            if(lastText != countdown.text)
+            {
+                countdown.alpha = 0;
+                Sequence seq = DOTween.Sequence();
+                seq.Append(countdown.transform.DOPunchScale(Vector3.one * cdScale, cdScaleDur));
+                seq.Insert(0, countdown.DOFade(1, visibleSpd));
+                seq.Append(countdown.DOFade(0, invisibleSpd));
+
+                soundEffects.countdownTick(secondsLeft);
+                soundEffects.countdownTickOffbeat();
+            }
+        }
+    }
+
 }

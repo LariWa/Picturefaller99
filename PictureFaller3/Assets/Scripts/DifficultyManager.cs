@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class DifficultyManager : MonoBehaviour
 {
+    [SerializeField] private AnimationCurve healthLoss;
     [SerializeField] private AnimationCurve fallSpeed;
     [SerializeField] private Vector2 controlSpeedMinMax;
     [Space]
@@ -25,9 +26,13 @@ public class DifficultyManager : MonoBehaviour
     [SerializeField] private int startDim = 2;
     [SerializeField] private int maxDim = 15;
     [SerializeField] private List<int> leftoutDims;
+    [SerializeField] private bool jumpBackInDim;
+    private int jumpBackCounter;
     private int currDim;
     private PlayerMovement player;
     private List<GameObject> currCollectibles = new List<GameObject>();
+
+    private bool reachedMax;
 
     void Start()
     {
@@ -35,6 +40,7 @@ public class DifficultyManager : MonoBehaviour
         updatePlayer();
 
         currDim = startDim;
+
 
         spawnHPandCoins();
     }
@@ -92,7 +98,6 @@ public class DifficultyManager : MonoBehaviour
 
     public void hitWall()
     {
-        spawnHPandCoins();
         updatePlayer();
 
         currDim++;
@@ -101,7 +106,35 @@ public class DifficultyManager : MonoBehaviour
         {
             currDim++;
         }
-        if (currDim >= maxDim) currDim = maxDim;
+
+        //if (jumpBackInDim && currDim > 7 && currDim % 2 == 0)
+
+
+
+        if (currDim > maxDim)
+        {
+            currDim-=2;
+            reachedMax = true;
+        }
+        else
+        {
+            // repeat dimensions so can always try same sort again
+            //2 4 6 7 6 7 8 9 8 9 10 11 10 11 12 13 12 13 12 13 12 13
+            //(1 2 1 2 3 4 3 4 5 6 5 6 7 8)
+
+            if (!reachedMax)
+            {
+
+
+                jumpBackCounter++;
+
+                if (jumpBackCounter == 4)
+                {
+                    jumpBackCounter = 0;
+                    currDim -= 2;
+                }
+            }
+        }
     }
 
 
@@ -118,7 +151,7 @@ public class DifficultyManager : MonoBehaviour
         player.updateControlls(fall, contr);
     }
 
-    private void spawnHPandCoins()
+    public void spawnHPandCoins()
     {
         foreach(GameObject go in currCollectibles)
         {
@@ -166,5 +199,15 @@ public class DifficultyManager : MonoBehaviour
         }
 
     }
+
+
+    public float getHealthLoss()
+    {
+        float t = (float)currDim;
+        t = t.Remap(startDim, maxDim, 0, 1);
+
+        return healthLoss.Evaluate(t);
+    }
 }
+
 

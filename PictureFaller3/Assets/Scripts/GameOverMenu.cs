@@ -29,7 +29,7 @@ public class GameOverMenu : MonoBehaviour
     public void Awake()
     {
         int score = PlayerPrefs.GetInt("score");
-        int pHighscore = PlayerPrefs.GetInt("personalHighscore");
+        int pHighscore = (int)PlayerPrefs.GetFloat("Highscore");
         personalScore.text += score;
         Debug.Log(personalScore.text);
         char[] charSeparator = new char[] { ' ' };
