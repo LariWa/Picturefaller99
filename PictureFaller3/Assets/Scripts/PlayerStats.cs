@@ -33,6 +33,7 @@ public class PlayerStats : MonoBehaviour
     private UiManager uiManager;
     private DifficultyManager difficultyManager;
     private SoundEffects soundEffects;
+    public bool isTutorial;
 
    public GameObject score;
 
@@ -138,7 +139,12 @@ public class PlayerStats : MonoBehaviour
 
     public void selectedPicHealOrDmg(bool wasCorrect)
     {
-        if (wasCorrect) healPlayer(healOnSelect);
+        if (wasCorrect)
+        {
+            healPlayer(healOnSelect);
+            if (isTutorial)
+                SceneManager.LoadScene("World01big");
+        }
         if (!wasCorrect) damagePlayer(damageOnSelect, true);
     }
 
