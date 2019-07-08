@@ -2628,25 +2628,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 537846899}
   m_CullTransparentMesh: 0
---- !u!1 &562233341 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3239134225558553550, guid: fa49f205556902f41bfdde93e13a0b3d,
-    type: 3}
-  m_PrefabInstance: {fileID: 1441316150}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &562233345
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 562233341}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3dc68452369cedc4e83a52c4da7b41b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  reference: {fileID: 1151475803}
 --- !u!1001 &572047105
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6312,6 +6293,80 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3239134225558553545, guid: fa49f205556902f41bfdde93e13a0b3d,
+        type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3239134225558553545, guid: fa49f205556902f41bfdde93e13a0b3d,
+        type: 3}
+      propertyPath: SizeModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3239134225558553545, guid: fa49f205556902f41bfdde93e13a0b3d,
+        type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3239134225558553545, guid: fa49f205556902f41bfdde93e13a0b3d,
+        type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[0].inSlope
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3239134225558553545, guid: fa49f205556902f41bfdde93e13a0b3d,
+        type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[0].outSlope
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3239134225558553545, guid: fa49f205556902f41bfdde93e13a0b3d,
+        type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[0].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 3239134225558553545, guid: fa49f205556902f41bfdde93e13a0b3d,
+        type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[0].inWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3239134225558553545, guid: fa49f205556902f41bfdde93e13a0b3d,
+        type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[0].outWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3239134225558553545, guid: fa49f205556902f41bfdde93e13a0b3d,
+        type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3239134225558553545, guid: fa49f205556902f41bfdde93e13a0b3d,
+        type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].inSlope
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3239134225558553545, guid: fa49f205556902f41bfdde93e13a0b3d,
+        type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].outSlope
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3239134225558553545, guid: fa49f205556902f41bfdde93e13a0b3d,
+        type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 3239134225558553545, guid: fa49f205556902f41bfdde93e13a0b3d,
+        type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].inWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3239134225558553545, guid: fa49f205556902f41bfdde93e13a0b3d,
+        type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].outWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 562233345, guid: fa49f205556902f41bfdde93e13a0b3d, type: 3}
+      propertyPath: reference
+      value: 
+      objectReference: {fileID: 534669905}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa49f205556902f41bfdde93e13a0b3d, type: 3}
 --- !u!1 &1494183670
@@ -11411,11 +11466,6 @@ PrefabInstance:
       propertyPath: score
       value: 
       objectReference: {fileID: 668174788}
-    - target: {fileID: 2117485184420719242, guid: 1945a9b6cfd321644bdfc680efd1b7cb,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2117485184423083691, guid: 1945a9b6cfd321644bdfc680efd1b7cb,
         type: 3}
       propertyPath: aimTarget
@@ -11440,6 +11490,11 @@ PrefabInstance:
         type: 3}
       propertyPath: horLeanSpd
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2117485184420719242, guid: 1945a9b6cfd321644bdfc680efd1b7cb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1945a9b6cfd321644bdfc680efd1b7cb, type: 3}
