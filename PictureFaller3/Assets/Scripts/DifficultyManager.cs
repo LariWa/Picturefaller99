@@ -7,6 +7,7 @@ public class DifficultyManager : MonoBehaviour
 {
     [SerializeField] private AnimationCurve healthLoss;
     [SerializeField] private AnimationCurve fallSpeed;
+    [SerializeField] private AnimationCurve windPartics;
     [SerializeField] private Vector2 controlSpeedMinMax;
     [Space]
     [SerializeField] private AnimationCurve objectSpawns; //first values for 2x2 pictures, last for 15x15
@@ -153,10 +154,11 @@ public class DifficultyManager : MonoBehaviour
         float t = (float)currDim;
         t = t.Remap(startDim, maxDim, 0, 1);
 
+        var partics = windPartics.Evaluate(t);
         var fall = fallSpeed.Evaluate(t);
         var contr = t.Remap(startDim,maxDim, controlSpeedMinMax.x, controlSpeedMinMax.y);
 
-        player.updateControlls(fall, contr);
+        player.updateControlls(fall, contr, partics);
     }
 
     public void spawnHPandCoins()

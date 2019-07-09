@@ -48,7 +48,12 @@ public class CameraManager : MonoBehaviour
         else
             return;
 
-        Invoke("turnOffIntroCam", 0.1f);
+        if(introVCam != null)
+        {
+            introVCam.SetActive(true);
+            Invoke("turnOffIntroCam", 0.1f);
+        }
+
 
         mainCam = GetComponent<Camera>();
         ppVol = mainCam.GetComponent<PostProcessVolume>();

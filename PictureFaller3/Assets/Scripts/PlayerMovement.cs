@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
 {
 
 
+    [SerializeField] private ParticleSystem windPartic;
     [SerializeField] private Transform playerModel;
     [SerializeField] private Transform aimTarget;
     [SerializeField] private float lookSpeed = 0;
@@ -96,11 +97,13 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    public void updateControlls(float fallSpd, float controlSPd)
+    public void updateControlls(float fallSpd, float controlSpd, float windPartics)
     {
-        controlSpeed = controlSPd;
+        controlSpeed = controlSpd;
         maxFallSpeed = fallSpd;
         //Physics.gravity = new Vector3(0, 0, grav);
+
+        windPartic.emissionRate = windPartics;
     }
 
 
@@ -353,6 +356,7 @@ public class PlayerMovement : MonoBehaviour
                 scienceTimer.resetTimer();
                 moveBack(); //so that the player is not in the way
                 stats.addHPifLow();
+                windPartic.Stop();
             }
             floating = true;
         }
@@ -374,6 +378,8 @@ public class PlayerMovement : MonoBehaviour
         //transform.position = new Vector3(transform.position.x, transform.position.y, 0);
         transform.position = new Vector3(0, -1, 0); // don't preserve X and Y because then will end up on the sides often
         rb.velocity = Vector3.zero;
+
+        windPartic.Play();
     }
 
 
