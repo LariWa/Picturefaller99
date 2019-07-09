@@ -14,6 +14,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private GameObject camPics;
     [SerializeField] private Camera ignorePostCamera;
     [SerializeField] private CinemachineVirtualCamera normalVCam;
+    [SerializeField] private GameObject introVCam;
     [SerializeField] private float fovNormal = 60f;
     [SerializeField] private float fovSlow = 40f;
     [SerializeField] private float maxLensDist = 30f;
@@ -40,12 +41,14 @@ public class CameraManager : MonoBehaviour
 
     void Start()
     {
-        if (FindObjectOfType<PlayerMovement>() != null)
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+
+        if (player != null)
             isGameplay = true;
         else
             return;
 
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+        Invoke("turnOffIntroCam", 0.1f);
 
         mainCam = GetComponent<Camera>();
         ppVol = mainCam.GetComponent<PostProcessVolume>();
@@ -53,9 +56,15 @@ public class CameraManager : MonoBehaviour
         fixedPos = new GameObject("Fixed Pos").transform;
     }
 
-   
+
+    private void turnOffIntroCam()
+    {
+        introVCam.SetActive(false);
+    }
+
     void LateUpdate()
     {
+
 
         //Just linear...
         //cam.m_Lens.FieldOfView = Mathf.Lerp(maxFoV, normalFoV, slowMoProgress); 
