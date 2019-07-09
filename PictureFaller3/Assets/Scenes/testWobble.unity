@@ -205,7 +205,9 @@ MonoBehaviour:
   resolution: 128
   heightMulti: -0.1
   initSpeed: 200
-  speedFalloff: 0.1
+  startAt: 0.1
+  estimatedDur: 2
+  speedMinMaxOverDur: {x: 0, y: 0}
   heightFalloff: 0.1
   initialThickness: 10
   highResPlane: {fileID: 0}
@@ -286,7 +288,9 @@ MonoBehaviour:
   resolution: 256
   heightMulti: 1
   initSpeed: 200
-  speedFalloff: 0.1
+  startAt: 0.1
+  estimatedDur: 2
+  speedMinMaxOverDur: {x: 0, y: 0}
   heightFalloff: 0.1
   initialThickness: 10
   highResPlane: {fileID: 0}
@@ -546,8 +550,8 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.60212946
     - serializedVersion: 3
-      time: 0.84152585
-      value: 0.20194751
+      time: 0.83090574
+      value: 0.30759937
       inSlope: -0.07981337
       outSlope: -0.07981337
       tangentMode: 0
@@ -564,10 +568,10 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.686904
     - serializedVersion: 3
-      time: 1
-      value: 0.000008583069
-      inSlope: -0.3263299
-      outSlope: -0.3263299
+      time: 0.99542236
+      value: 0.15030766
+      inSlope: 1.331541
+      outSlope: 1.331541
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -577,8 +581,10 @@ MonoBehaviour:
     m_RotationOrder: 4
   resolution: 256
   heightMulti: 0.1
-  initSpeed: 400
-  speedFalloff: 150
+  initSpeed: 600
+  startAt: -100
+  estimatedDur: 1.8
+  speedMinMaxOverDur: {x: 400, y: 100}
   heightFalloff: 0.1
   initialThickness: 10
   highResPlane: {fileID: 4300000, guid: 6529107e04a52524fb0190e19ab18f15, type: 3}
@@ -784,17 +790,17 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4572929468678735707, guid: 63e2667402fc6b84882bcc6666118c8c,
-        type: 3}
-      propertyPath: startImmedietly
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1189167470760737444, guid: 63e2667402fc6b84882bcc6666118c8c,
         type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8955278032306045961, guid: 63e2667402fc6b84882bcc6666118c8c,
+        type: 3}
+      propertyPath: startImmedietly
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4572929468678735707, guid: 63e2667402fc6b84882bcc6666118c8c,
         type: 3}
       propertyPath: startImmedietly
       value: 1
@@ -955,7 +961,7 @@ SpriteRenderer:
   m_Size: {x: 0.82, y: 0.82}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &7913602740056384611

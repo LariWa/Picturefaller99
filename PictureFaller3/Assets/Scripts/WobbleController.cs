@@ -12,10 +12,15 @@ public class WobbleController : MonoBehaviour
     //[SerializeField] private CustomRenderTexture wobbleTex;
     [SerializeField] private int resolution = 256;
     [SerializeField] private float heightMulti = 1;
-    [SerializeField] private float initSpeed = 200;
+    //[SerializeField] private float initSpeed = 200;
     //[SerializeField] private float speedMin = 100;
-    [SerializeField] private float speedFalloff = 0.1f;
-    [SerializeField] private float heightFalloff = 0.1f;
+    //[SerializeField] private float speedFalloff = 0.1f;
+    [SerializeField] private float startAt = 0.1f;
+    [SerializeField] private float estimatedDur = 2f;
+    [SerializeField] private Vector2 speedMinMaxOverDur;
+    //[SerializeField] private AnimationCurve speedCurveOverDur;
+
+    [SerializeField] private float heightFalloff = -100;
     [SerializeField] private int initialThickness = 10;
     [SerializeField] private Mesh highResPlane;
 
@@ -24,6 +29,7 @@ public class WobbleController : MonoBehaviour
     private int middle;
     private float speed;
     private float timer;
+    private float distanceTimer;
     private bool wobbleActive;
 
     [SerializeField] private bool startImmedietly;
@@ -32,7 +38,7 @@ public class WobbleController : MonoBehaviour
     {
         GetComponent<MeshRenderer>().receiveShadows = false;
 
-        speed = initSpeed;
+        //speed = initSpeed;
         if(startImmedietly) activateWobble();
         //Invoke("init", 2);
     }
@@ -42,6 +48,8 @@ public class WobbleController : MonoBehaviour
         if (GetComponent<MeshRenderer>() != null) mat = GetComponent<MeshRenderer>().material;
 
         GetComponent<MeshRenderer>().receiveShadows = true;
+
+        distanceTimer = startAt;
 
         // Create a new 2x2 texture ARGB32 (32 bit with alpha) and no mipmaps
         texture = new Texture2D(resolution, resolution, TextureFormat.ARGB32, false);
@@ -66,12 +74,21 @@ public class WobbleController : MonoBehaviour
     {
         if (!wobbleActive) return;
 
-        speed -= Time.deltaTime * speedFalloff;
-        if (speed <= 0) speed = 0;
+        //speed -= Time.deltaTime * speedFalloff;
+        //if (speed <= 0) speed = 0;
         //print(speed);
-        timer -= Time.deltaTime * speed;
+        //timer -= Time.deltaTime * speed;
+    
 
-        
+
+        timer += Time.deltaTime;
+
+        var speed = timer.Remap(0,estimatedDur, speedMinMaxOverDur.x, speedMinMaxOverDur.y);
+        if (speed <= 0) speed = 0;
+        distanceTimer -= Time.deltaTime * speed;
+
+        //print(distanceTimer);
+
 
         // NOT PERFORMANT, instead do this once? or every couple of frames??? or just lover resolution....
 
@@ -81,7 +98,7 @@ public class WobbleController : MonoBehaviour
             for (int x = 0; x < texture.width; x++)
             {
                 var distFromMiddle = Vector2.Distance(mid, new Vector2(x, y));
-                distFromMiddle += timer; //Move it
+                distFromMiddle += distanceTimer; //Move it
 
                 var ix = distFromMiddle / resolution;
 

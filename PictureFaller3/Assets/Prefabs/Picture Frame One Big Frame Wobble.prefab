@@ -169,7 +169,7 @@ SpriteRenderer:
   m_Size: {x: 0.82, y: 0.82}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &8506819800369363728
@@ -284,8 +284,8 @@ MonoBehaviour:
       inWeight: 0.64645654
       outWeight: 0.45832407
     - serializedVersion: 3
-      time: 0.14262833
-      value: 0.88990766
+      time: 0.11539902
+      value: 0.9110487
       inSlope: -4.4388933
       outSlope: -4.4388933
       tangentMode: 0
@@ -293,44 +293,44 @@ MonoBehaviour:
       inWeight: 0.72507435
       outWeight: 0.5761743
     - serializedVersion: 3
-      time: 0.18058139
-      value: 0.18673962
-      inSlope: -2.680976
-      outSlope: -2.680976
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.4935238
-    - serializedVersion: 3
-      time: 0.27729923
-      value: 0.19683829
-      inSlope: 3.7746565
-      outSlope: 3.7746565
+      time: 0.14996882
+      value: 0.4308519
+      inSlope: -16.823456
+      outSlope: -16.823456
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.3434225
-      value: 0.6690888
-      inSlope: 1.2783083
-      outSlope: 1.2783083
+      time: 0.20954862
+      value: 0.07679773
+      inSlope: -0.061261684
+      outSlope: -0.061261684
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 1
     - serializedVersion: 3
-      time: 0.37685445
-      value: 0.65976745
-      inSlope: -3.3995128
-      outSlope: -3.3995128
+      time: 0.26672268
+      value: 0.45282322
+      inSlope: 12.86231
+      outSlope: 12.86231
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.33333334
+      outWeight: 0.17409347
     - serializedVersion: 3
-      time: 0.47886962
-      value: 0.055777013
+      time: 0.33735386
+      value: 0.8475554
+      inSlope: 0.048708834
+      outSlope: 0.048708834
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 1
+    - serializedVersion: 3
+      time: 0.48494262
+      value: 0.07219547
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -338,8 +338,8 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.6088696
-      value: 0.47696316
+      time: 0.59675413
+      value: 0.559147
       inSlope: -0.07825219
       outSlope: -0.07825219
       tangentMode: 0
@@ -356,8 +356,8 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.60212946
     - serializedVersion: 3
-      time: 0.84152585
-      value: 0.20194751
+      time: 0.80820066
+      value: 0.3897832
       inSlope: -0.07981337
       outSlope: -0.07981337
       tangentMode: 0
@@ -374,10 +374,10 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.686904
     - serializedVersion: 3
-      time: 1
-      value: 0.000008583069
-      inSlope: -0.3263299
-      outSlope: -0.3263299
+      time: 1.0014648
+      value: 0.1925745
+      inSlope: 1.6887567
+      outSlope: 1.6887567
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -387,8 +387,9 @@ MonoBehaviour:
     m_RotationOrder: 4
   resolution: 256
   heightMulti: 0.1
-  initSpeed: 400
-  speedFalloff: 150
+  startAt: -100
+  estimatedDur: 1.8
+  speedMinMaxOverDur: {x: 300, y: 100}
   heightFalloff: 0.1
   initialThickness: 10
   highResPlane: {fileID: 4300000, guid: 6529107e04a52524fb0190e19ab18f15, type: 3}
