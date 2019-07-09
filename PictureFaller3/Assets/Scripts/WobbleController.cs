@@ -30,6 +30,8 @@ public class WobbleController : MonoBehaviour
 
     void Start()
     {
+        GetComponent<MeshRenderer>().receiveShadows = false;
+
         speed = initSpeed;
         if(startImmedietly) init();
         //Invoke("init", 2);
@@ -38,6 +40,8 @@ public class WobbleController : MonoBehaviour
     private void init()
     {
         if (GetComponent<MeshRenderer>() != null) mat = GetComponent<MeshRenderer>().material;
+
+        GetComponent<MeshRenderer>().receiveShadows = true;
 
         // Create a new 2x2 texture ARGB32 (32 bit with alpha) and no mipmaps
         texture = new Texture2D(resolution, resolution, TextureFormat.ARGB32, false);
