@@ -352,6 +352,8 @@ public class PlayerMovement : MonoBehaviour
                 slowmoTimer = slowmoDuration;
                 scienceTimer.resetTimer();
                 moveBack(); //so that the player is not in the way
+                Debug.Log(stats);
+                Debug.Log("irgendwas");
                 stats.addHPifLow();
             }
             floating = true;

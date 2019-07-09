@@ -151,8 +151,11 @@ public class HighscoreTable : MonoBehaviour
 
         foreach (HighscoreEntry entry in highscores.highscoreEntryList) //check name
         {
-            if (entry.name == name || entry.name =="YOU")
+            if (entry.name == name || name == "YOU")
+            {
+                Debug.Log(entry.name);
                 return false;
+            }
         }
 
 
