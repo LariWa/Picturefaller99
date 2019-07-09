@@ -32,6 +32,9 @@ public class ChunkManager : MonoBehaviour
         chunkParent = new GameObject("Environment Chunks");
 
         setupChunksAndWall();
+
+        //Extra one behind
+        spawnChunkBehind();
     }
 
 
@@ -39,6 +42,13 @@ public class ChunkManager : MonoBehaviour
     {
         if (player.transform.position.z > zSpawnNext - (spawnAhead * chunkLength))
             spawnChunk(true, true);
+    }
+
+    private void spawnChunkBehind()
+    {
+        var chunkPrefab = settingManager.getRandomChunkCurrSetting();
+        var chunk = Instantiate(chunkPrefab, Vector3.forward * -100, chunkPrefab.transform.rotation);
+        Destroy(chunk, 2);
     }
 
 
@@ -108,6 +118,7 @@ public class ChunkManager : MonoBehaviour
 
         for (int i = 0; i < spawnAhead; i++)
             spawnChunk(true, false);
+
 
         spawnPicWall();
     }

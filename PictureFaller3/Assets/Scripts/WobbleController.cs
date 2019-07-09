@@ -33,11 +33,11 @@ public class WobbleController : MonoBehaviour
         GetComponent<MeshRenderer>().receiveShadows = false;
 
         speed = initSpeed;
-        if(startImmedietly) init();
+        if(startImmedietly) activateWobble();
         //Invoke("init", 2);
     }
 
-    private void init()
+    public void activateWobble()
     {
         if (GetComponent<MeshRenderer>() != null) mat = GetComponent<MeshRenderer>().material;
 
@@ -102,12 +102,6 @@ public class WobbleController : MonoBehaviour
 
 
 
-
-
-    public void activateWobble()
-    {
-        init();
-    }
 
 
 
