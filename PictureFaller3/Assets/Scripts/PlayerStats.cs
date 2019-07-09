@@ -10,6 +10,7 @@ using System;
 public class PlayerStats : MonoBehaviour
 {
 
+    [SerializeField] private AnimationCurve coutndownStart;
     [SerializeField] private int restoreHPStart = 25;
     [SerializeField] private int maxRestoreHP = 50;
     [SerializeField] private Slider hpBar;
@@ -64,7 +65,10 @@ public class PlayerStats : MonoBehaviour
             //Calculate how long until dead (and show on last seconds)
             float secondsLeft = health / hpLossPerSec;
 
-            if (secondsLeft < 10)           
+            var coutndownThreshold = coutndownStart.Evaluate(difficultyManager.getDimNorm());
+            coutndownThreshold = Mathf.RoundToInt(coutndownThreshold);
+
+            if (secondsLeft < coutndownThreshold)           
                 uiManager.setCountdown(secondsLeft);
             else
                 uiManager.setCountdown(-99);

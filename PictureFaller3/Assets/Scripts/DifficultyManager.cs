@@ -96,6 +96,14 @@ public class DifficultyManager : MonoBehaviour
     }
 
 
+    public float getDimNorm()
+    {
+        float t = (float)currDim;
+        t = t.Remap(startDim, maxDim, 0, 1);
+        return t;
+    }
+
+
     public void hitWall()
     {
         updatePlayer();
