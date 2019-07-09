@@ -913,6 +913,25 @@ MonoBehaviour:
   GameOverCanvas: {fileID: 428387262}
   pauseMenuUI: {fileID: 0}
   isOutro: 1
+--- !u!95 &563274970
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 563274967}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: ed8c47f26da984d4d981889bb1d9cfe7, type: 3}
+  m_Controller: {fileID: 9100000, guid: 310072718921e394a976816d4031230d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &602684905 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4505148026908646182, guid: 10be8920de853a5448b5be092c77564d,

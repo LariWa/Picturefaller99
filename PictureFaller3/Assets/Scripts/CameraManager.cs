@@ -33,7 +33,7 @@ public class CameraManager : MonoBehaviour
 
     //private float slowMoProgress = 1;
     private PlayerMovement player;
-    private Transform fixedPos;
+    [SerializeField] private Transform fixedPos;
 
     private PostProcessVolume ppVol;
 
@@ -58,7 +58,7 @@ public class CameraManager : MonoBehaviour
         mainCam = GetComponent<Camera>();
         ppVol = mainCam.GetComponent<PostProcessVolume>();
 
-        fixedPos = new GameObject("Fixed Pos").transform;
+        //fixedPos = new GameObject("Fixed Pos").transform;
     }
 
 
@@ -187,4 +187,8 @@ public class CameraManager : MonoBehaviour
         return fixedPos;
     }
 
+    public void setFixedPos(Vector3 pos)
+    {
+        fixedPos.position = pos;
+    }
 }

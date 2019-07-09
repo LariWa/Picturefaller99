@@ -420,7 +420,9 @@ public class WallController : MonoBehaviour
         else
         {
             FindObjectOfType<SoundEffects>().selectedWrong();
-            selectingSquare.transform.DOShakePosition(wrongShakeDur, 1, wrongShakeVibrate);
+            FindObjectOfType<ScreenShakeTest>().wrongSelection();
+            
+            //selectingSquare.transform.DOShakePosition(wrongShakeDur, 1, wrongShakeVibrate);
         }
 
     }

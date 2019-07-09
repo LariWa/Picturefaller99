@@ -29,6 +29,7 @@ public class DamageObject : MonoBehaviour
             other.transform.GetComponentInChildren<PlayerMovement>().knockBack(transform.position);
 
             FindObjectOfType<SoundEffects>().hitDmgObj();
+            FindObjectOfType<ScreenShakeTest>().hitObj();
 
             //Destroy(transform.parent.gameObject);
             GetComponent<Collider>().enabled = false;

@@ -35,7 +35,7 @@ public class DifficultyManager : MonoBehaviour
 
     private bool reachedMax;
 
-    void Start()
+    void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         updatePlayer();
@@ -108,7 +108,7 @@ public class DifficultyManager : MonoBehaviour
     public void hitWall()
     {
         updatePlayer();
-
+        
         currDim++;
         //skip some to get to speed/ relevant faster
         while (leftoutDims.Contains(currDim))

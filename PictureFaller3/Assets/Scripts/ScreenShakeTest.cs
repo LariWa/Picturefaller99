@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using DG.Tweening;
 
 public class ScreenShakeTest : MonoBehaviour
 {
@@ -18,13 +19,21 @@ public class ScreenShakeTest : MonoBehaviour
     public float traumaFallOff = 0.03333f;
     public float powerOfAllShakes = 2;
 
-    private bool dead;
-    private Vector3 deadPos;
+    private bool shakingSel;
+    private bool shakingObj;
+    private Vector3 shakePos;
 
     private GameObject player;
     public CinemachineVirtualCamera followCam;
     public CinemachineVirtualCamera followCamShake;
     public Transform shakeFollowObj;
+    public Transform shakeFixedObj;
+    public float wrongShakeDur = 1;
+    public float wrongShakeStr = 1;
+    public int wrongShakeVibrate = 10;
+    public float objShakeDur = 1;
+    public float objShakeStr = 1;
+    public int objShakeVibrate = 10;
     //public CinemachineVirtualCamera v2;
     //public CinemachineConfiner conf;
 
@@ -39,6 +48,7 @@ public class ScreenShakeTest : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         //cinemachine = GetComponent< CinemachineBrain>();
         //addShake(Vector2.up, 1f);
+
     }
 
     public void addShake(Vector2 dir, float strength) //dir only 1,0  0,-1  1,1  etc
@@ -84,20 +94,23 @@ public class ScreenShakeTest : MonoBehaviour
 
     void LateUpdate() //show shake
     {
-        if(!dead)
+        /*if(!shakingSel)
         {
             shakeFollowObj.position = player.transform.position + offset;
         }
         else
         {
-            shakeFollowObj.position = deadPos + offset;
+            shakeFollowObj.position = shakePos + offset;
         }
 
-        if (offset.magnitude <= 0.01 && !dead)
+        if (offset.magnitude <= 0.01) //so that it follows again quickly
         {
+            // shakeFollowObj.transform.parent = followThing;
+            shakingObj = false;
+
             followCam.enabled = true;
             followCamShake.enabled = false;
-        }
+        }*/
 
 
 
@@ -109,12 +122,44 @@ public class ScreenShakeTest : MonoBehaviour
         // OR RATHER MAKE A SHAKE VIRTUAL CAMERA, MAKE IT FOLLOW PLAYER VERY ACCURATE AND SHAKE THAT
     }
 
- 
-    public void death()
+
+    public void wrongSelection()
     {
-        maxoffset = 3;
-        deadPos = player.transform.position;
-        dead = true;
-        shakeFollowObj.transform.parent = null;
+        //maxoffset = 3;
+        //shakePos = shakeFollowObj.transform.position;
+        //shakingSel = true;
+
+        shakeFixedObj.transform.DOShakePosition(wrongShakeDur, wrongShakeStr, wrongShakeVibrate);
+    }
+
+    public void hitObj()
+    {
+        if (!shakingObj)
+        {
+            shakeFixedObj.transform.position = shakeFollowObj.transform.position;
+            //shakePos = shakeFollowObj.transform.position;
+            shakingObj = true;
+
+            //followCam.enabled = false;
+            followCamShake.enabled = true;
+
+            //shakeFixedObj.position = new Vector3(0, 0, player.transform.position.z + 9);
+            //followCamShake.transform.position = followCam.transform.position;
+            //GetComponent<CameraManager>().setFixedPos(shakePos);
+
+            //followCamShake.m_Follow = shakeFixedObj;
+
+            shakeFixedObj.transform.DOShakePosition(objShakeDur, objShakeStr, objShakeVibrate);
+            //followCamShake.transform.DOShakePosition(objShakeDur, objShakeStr, objShakeVibrate);
+            Invoke("stopShake", objShakeDur);
+        }
+    }
+
+    private void stopShake()
+    {
+        shakingObj = false;
+
+        //followCam.enabled = true;
+        followCamShake.enabled = false;
     }
 }

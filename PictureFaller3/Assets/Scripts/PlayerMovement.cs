@@ -103,7 +103,8 @@ public class PlayerMovement : MonoBehaviour
         maxFallSpeed = fallSpd;
         //Physics.gravity = new Vector3(0, 0, grav);
 
-        windPartic.emissionRate = windPartics;
+        if(windPartic != null)
+            windPartic.emissionRate = windPartics;
     }
 
 
@@ -356,7 +357,7 @@ public class PlayerMovement : MonoBehaviour
                 scienceTimer.resetTimer();
                 moveBack(); //so that the player is not in the way
                 stats.addHPifLow();
-                windPartic.Stop();
+                if(windPartic != null) windPartic.Stop();
             }
             floating = true;
         }
