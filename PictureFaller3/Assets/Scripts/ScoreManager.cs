@@ -66,7 +66,7 @@ public class ScoreManager : MonoBehaviour
 
 
             var s = Instantiate(scorePlusPrefab, Vector3.zero, Quaternion.identity);
-            s.transform.parent = effectsParent.transform;
+            s.transform.SetParent(effectsParent.transform);
             s.transform.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 100);
             s.transform.GetComponent<TextMeshProUGUI>().text = "+" + am;
             scoreCount += am;
@@ -94,7 +94,7 @@ public class ScoreManager : MonoBehaviour
             //todo: other pos
 
             var s = Instantiate(scorePlusPrefab, Vector3.zero, Quaternion.identity);
-            s.transform.parent = effectsParent.transform;
+            s.transform.SetParent(effectsParent.transform);
             s.transform.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 100);
             s.transform.GetComponent<TextMeshProUGUI>().text = "+" + am;
             scoreCount += am;

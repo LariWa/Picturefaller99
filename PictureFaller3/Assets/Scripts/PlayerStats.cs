@@ -82,17 +82,19 @@ public class PlayerStats : MonoBehaviour
 
         if (health <= 0)
         {
-            Time.timeScale = 0;
-            GameObject.FindGameObjectWithTag("Managers").GetComponent<Slowmotion>().setPlayerDead();
-            //GameOverCanvas.SetActive(true);
-            char[] charSeparator = new char[] { ' ' };
-            string scoreNumber = score.transform.GetComponent<TextMeshProUGUI>().text;
-            scoreNumber = scoreNumber.Split(charSeparator, StringSplitOptions.None)[0];
-            int scoreInt = int.Parse(scoreNumber);
+            if (!isTutorial)
+            {
+                Time.timeScale = 0;
+                GameObject.FindGameObjectWithTag("Managers").GetComponent<Slowmotion>().setPlayerDead();
+                //GameOverCanvas.SetActive(true);
+                char[] charSeparator = new char[] { ' ' };
+                string scoreNumber = score.transform.GetComponent<TextMeshProUGUI>().text;
+                scoreNumber = scoreNumber.Split(charSeparator, StringSplitOptions.None)[0];
+                int scoreInt = int.Parse(scoreNumber);
 
-          
-            PlayerPrefs.SetInt("score", scoreInt);
-            PlayerPrefs.Save();
+                PlayerPrefs.SetInt("score", scoreInt);
+                PlayerPrefs.Save();
+            }
             SceneManager.LoadScene("Outro");
 
 

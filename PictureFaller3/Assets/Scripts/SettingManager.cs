@@ -379,7 +379,7 @@ public class SettingManager : MonoBehaviour
         var randSort = settingSorts[sortIndex]; //Get a random sort (good/ bad atm)
 
         sortQuality = sortIndex; //sortIndex == 0 ? true : false;
-        print(sortQuality);
+        //print(sortQuality);
         string sort = randSort.text;
         char[] sortChars = sort.ToCharArray();
 
