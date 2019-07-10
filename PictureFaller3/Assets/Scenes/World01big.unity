@@ -8119,9 +8119,15 @@ MonoBehaviour:
   citySortsLocationPics: SortPics/city
   natureSortsLocationPics: SortPics/nature
   foodSortsLocationPics: SortPics/food
-  citySortsLocation: SortTxt/city
-  natureSortsLocation: SortTxt/nature
-  foodSortsLocation: SortTxt/food
+  citySorts:
+  - {fileID: 4900000, guid: e09f23096e79a19478d21d5d40a110bb, type: 3}
+  - {fileID: 4900000, guid: 6c2c4d3be7d064149a8101ed3f86dc37, type: 3}
+  forestSorts:
+  - {fileID: 4900000, guid: 4b8b0d351f3ace74ea1f8b8143c18c1b, type: 3}
+  - {fileID: 4900000, guid: 253bb0fd7f362004383bb4cda94bd880, type: 3}
+  foodSorts:
+  - {fileID: 4900000, guid: c23bcab229dcb4a4c9cef97a519497d6, type: 3}
+  - {fileID: 4900000, guid: 6476101fff4ff0d4bbbc5633f08ee366, type: 3}
   directionalLight: {fileID: 170076733}
   defaultLightRot: {x: 118.208, y: -247.034, z: -98.841}
   cityLightRot: {x: 230, y: -247.034, z: -98.841}

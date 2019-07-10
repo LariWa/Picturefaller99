@@ -39,13 +39,13 @@ public class SettingManager : MonoBehaviour
 
     [Space]
 
-    [SerializeField] private string citySortsLocation = Application.dataPath + "/StreamingAssets/SortTxt/city";
-    [SerializeField] private string natureSortsLocation = Application.dataPath + "/StreamingAssets/SortTxt/nature";
-    [SerializeField] private string foodSortsLocation = Application.dataPath + "/StreamingAssets/SortTxt/food";
+    //[SerializeField] private string citySortsLocation = Application.dataPath + "/StreamingAssets/SortTxt/city";
+    //[SerializeField] private string natureSortsLocation = Application.dataPath + "/StreamingAssets/SortTxt/nature";
+    //[SerializeField] private string foodSortsLocation = Application.dataPath + "/StreamingAssets/SortTxt/food";
 
-    private TextAsset[] citySorts;
-    private TextAsset[] forestSorts;
-    private TextAsset[] foodSorts;
+    [SerializeField]  private TextAsset[] citySorts;
+    [SerializeField]  private TextAsset[] forestSorts;
+    [SerializeField]  private TextAsset[] foodSorts;
     private ImageLoader imageLoaderManager;
 
     //private TextAsset[] waterSorts;
@@ -70,10 +70,10 @@ public class SettingManager : MonoBehaviour
         //var sort = Resources.Load<TextAsset>("SortTxt/city_hq");   citySortsLocation
         //citySorts.Add(sort);
 
-        citySorts = Resources.LoadAll<TextAsset>(citySortsLocation);
-        forestSorts = Resources.LoadAll<TextAsset>(natureSortsLocation);
-        mountainSorts = Resources.LoadAll<TextAsset>(natureSortsLocation);
-        foodSorts = Resources.LoadAll<TextAsset>(foodSortsLocation);
+        //citySorts = Resources.LoadAll<TextAsset>(citySortsLocation);
+        //forestSorts = Resources.LoadAll<TextAsset>(natureSortsLocation);
+        //mountainSorts = Resources.LoadAll<TextAsset>(natureSortsLocation);
+        //foodSorts = Resources.LoadAll<TextAsset>(foodSortsLocation);
 
         //allCityPictures = Resources.LoadAll<Sprite>(citySortsLocationPics);
         //allForestPictures = Resources.LoadAll<Sprite>(natureSortsLocationPics);
@@ -99,15 +99,10 @@ public class SettingManager : MonoBehaviour
         allFoodPictures = imageLoaderManager.getFoodPics();
 
 
-
-
-
-
-
         //ImageLoader imageLoader = new ImageLoader(allForestPictures, allCityPictures, allFoodPictures);
         //imageLoader.loadJSON();
-        imageLoaderManager = FindObjectOfType<ImageLoader>();
-        imageLoaderManager.loadJSON();
+        //imageLoaderManager = FindObjectOfType<ImageLoader>();
+        //imageLoaderManager.loadJSON();
 
         Debug.Log(imageLoaderManager);
         difficultyManager = GetComponent<DifficultyManager>();

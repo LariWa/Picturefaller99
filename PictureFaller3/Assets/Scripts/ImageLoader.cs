@@ -13,7 +13,7 @@
     }
 
 
-    class ImageLoader: MonoBehaviour
+public class ImageLoader: MonoBehaviour
     {
 
         public string url = "http://localhost:8000/nature_255/nature_9.jpg";
@@ -34,7 +34,7 @@
         this.food = food;
     }*/
 
-    public void Start()
+    public void Awake()
     {
         if (instance != null)
         {
@@ -141,7 +141,7 @@
         }
             public void loadJSON()
         {
-            Start();
+            //Start();
             Debug.Log("LOAD");
              StartCoroutine("asyncLoad");
 
