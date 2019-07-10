@@ -21,11 +21,11 @@ public class SettingManager : MonoBehaviour
     [Space]
 
     // SHOULD BE IN PICTURE MANAGER?
-    private Sprite[] allCityPictures= new Sprite[225];  //original order
-   private Sprite[] allForestPictures = new Sprite[225];//original order
-     private Sprite[] allFoodPictures= new Sprite[225];//original order
-    private Sprite[] allWaterPictures= new Sprite[225];//original order
-  private Sprite[] allMountainPictures= new Sprite[225];//original order
+    private Sprite[] allCityPictures = new Sprite[225];  //original order
+    private Sprite[] allForestPictures = new Sprite[225];//original order
+    private Sprite[] allFoodPictures = new Sprite[225];//original order
+    private Sprite[] allWaterPictures = new Sprite[225];//original order
+    private Sprite[] allMountainPictures = new Sprite[225];//original order
 
     private Sprite[] cityPicturesInSort;  //Sorted always differently
     private Sprite[] forestPicturesInSort;//Sorted always differently
@@ -46,6 +46,8 @@ public class SettingManager : MonoBehaviour
     private TextAsset[] citySorts;
     private TextAsset[] forestSorts;
     private TextAsset[] foodSorts;
+    private ImageLoader imageLoaderManager;
+
     //private TextAsset[] waterSorts;
     private TextAsset[] mountainSorts;
 
@@ -73,18 +75,18 @@ public class SettingManager : MonoBehaviour
         mountainSorts = Resources.LoadAll<TextAsset>(natureSortsLocation);
         foodSorts = Resources.LoadAll<TextAsset>(foodSortsLocation);
 
-        allCityPictures = Resources.LoadAll<Sprite>(citySortsLocationPics);
-        allForestPictures = Resources.LoadAll<Sprite>(natureSortsLocationPics);
-        allMountainPictures = Resources.LoadAll<Sprite>(natureSortsLocationPics);
-        allFoodPictures = Resources.LoadAll<Sprite>(foodSortsLocationPics);
+        //allCityPictures = Resources.LoadAll<Sprite>(citySortsLocationPics);
+        //allForestPictures = Resources.LoadAll<Sprite>(natureSortsLocationPics);
+        //allMountainPictures = Resources.LoadAll<Sprite>(natureSortsLocationPics);
+        //allFoodPictures = Resources.LoadAll<Sprite>(foodSortsLocationPics);
 
         // Sort properly so pic_01 is at array position 0, etc
-        allCityPictures = allCityPictures.OrderBy(obj => obj.name, new AlphanumComparatorFast()).ToArray();
-        allForestPictures = allForestPictures.OrderBy(obj => obj.name, new AlphanumComparatorFast()).ToArray();
-        allMountainPictures = allMountainPictures.OrderBy(obj => obj.name, new AlphanumComparatorFast()).ToArray();
-        allFoodPictures = allFoodPictures.OrderBy(obj => obj.name, new AlphanumComparatorFast()).ToArray();
+        //allCityPictures = allCityPictures.OrderBy(obj => obj.name, new AlphanumComparatorFast()).ToArray();
+        //allForestPictures = allForestPictures.OrderBy(obj => obj.name, new AlphanumComparatorFast()).ToArray();
+        //allMountainPictures = allMountainPictures.OrderBy(obj => obj.name, new AlphanumComparatorFast()).ToArray();
+        //allFoodPictures = allFoodPictures.OrderBy(obj => obj.name, new AlphanumComparatorFast()).ToArray();
 
-        //print(allCityPictures.Length);
+        ////print(allCityPictures.Length);
         //foreach (var s in citySortsTEST)
         //    Debug.Log(s.name);
 
@@ -93,13 +95,16 @@ public class SettingManager : MonoBehaviour
 
 
 
-        
-        ImageLoader imageLoader = new ImageLoader(allForestPictures, allCityPictures, allFoodPictures);
-        imageLoader.loadPictures();
 
+        //ImageLoader imageLoader = new ImageLoader(allForestPictures, allCityPictures, allFoodPictures);
+        //imageLoader.loadJSON();
+        imageLoaderManager = GetComponent<ImageLoader>();
+        imageLoaderManager.loadJSON();
+
+        Debug.Log(imageLoaderManager);
         difficultyManager = GetComponent<DifficultyManager>();
-        
-        if(startRandom) currentSetting = (Settings)Random.Range(0, System.Enum.GetValues(typeof(Settings)).Length);
+
+        if (startRandom) currentSetting = (Settings)Random.Range(0, System.Enum.GetValues(typeof(Settings)).Length);
         else currentSetting = startSetting;
 
         //Get random next setting
@@ -121,9 +126,19 @@ public class SettingManager : MonoBehaviour
 
     void Update()
     {
-        
+
+    }
+    public (Sprite[], Sprite[], Sprite[]) getPictureArrays()
+    {
+        return (allForestPictures, allCityPictures, allFoodPictures);
     }
 
+    public void setPictureArrays(Sprite[] nature, Sprite[] city, Sprite[]food)
+    {
+        allForestPictures = nature;
+        allCityPictures = city;
+        allFoodPictures = food;
+    }
 
     public void randomSortForSetting(Settings set)
     {

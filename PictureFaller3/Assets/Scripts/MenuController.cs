@@ -28,7 +28,6 @@ public class MenuController : MonoBehaviour
         }
 
 
-
         anim = GetComponent<Animator>();
 
         if (SceneManager.GetActiveScene().name == "Outro")
@@ -40,7 +39,11 @@ public class MenuController : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Intro") {
             anim.SetBool("isOutro", false);
         }
+
+
+
     }
+
 
     // Update is called once per frame
     void Update()
@@ -83,6 +86,7 @@ public class MenuController : MonoBehaviour
 
 
 
+   
 
     //Play Game is being used in Main Menu
     public void PlayGame()

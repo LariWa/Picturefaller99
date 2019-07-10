@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class ScienceTimer : MonoBehaviour
 {
@@ -11,6 +14,8 @@ public class ScienceTimer : MonoBehaviour
     private float time;
     private SettingManager settingM ;
     private DifficultyManager diffM;
+    private byte[] jsonStringTrial;
+
     void Start()
     {
         settingM = FindObjectOfType<SettingManager>();
@@ -51,9 +56,7 @@ public class ScienceTimer : MonoBehaviour
         var  quality = settingM.getQuality();
         var dif = diffM.getDim();
         var sessionID = getSessionID(); 
-        var response = sendPostRequest(timer,quality,dif,sessionID); //SPIEL FUNKT SONST NICHT
-
-        Debug.Log(response);
+        StartCoroutine(sendPostRequest(timer,quality,dif,sessionID)); //SPIEL FUNKT SONST NICHT
         //Debug.Log("Dimension ist :" + dif + " Qualität ist :" + quality + " It took the player: " + time);
         //Debug.Log("SessionID ist :" + sessionID);
         return timer;
@@ -64,11 +67,11 @@ public class ScienceTimer : MonoBehaviour
     {
         timer = 0;
     }
-    /* AUSKOMMENTIERT SONST FUNKT DAS SPIEL NICHT */
+    /* AUSKOMMENTIERT SONST FUNKT DAS SPIEL NICHT 
     private string sendPostRequest(float userTime,int sortQuality, int dim, string gameID)
     {
 
-        var httpWebRequest = (System.Net.HttpWebRequest)System.Net.WebRequest.Create("http://localhost:3000/addtimerihno");
+        var httpWebRequest = (System.Net.HttpWebRequest)System.Net.WebRequest.Create("https://fathomless-spire-55232.herokuapp.com/addtimerihno");
         httpWebRequest.ContentType = "application/json";
         httpWebRequest.Method = "POST";
 
@@ -92,4 +95,39 @@ public class ScienceTimer : MonoBehaviour
         }
 
     }
+    */
+    /////////////////////////////////////
+    /* AUSKOMMENTIERT SONST FUNKT DAS SPIEL NICHT */
+    public IEnumerator sendPostRequest(float userTime, int sortQuality, int dim, string gameID)
+    { 
+
+    string json = "{\"time\":" + userTime + "," +
+                    "\"sortQuality\":" + sortQuality + "," +
+                    "\"dim\":" + dim + "," +
+                    "\"gameID\":" + '"' + gameID + '"' + "}";
+
+  
+        var request = new UnityWebRequest("http://localhost:3000/addtimerihno", "POST");
+        byte[] bodyRaw = Encoding.UTF8.GetBytes(json);
+        request.uploadHandler = (UploadHandler)new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+
+        yield return request.SendWebRequest();
+
+        if (request.isNetworkError || request.isHttpError)
+
+    {
+        Debug.Log("ERROR: " + request.error);
+        }
+        else
+        {
+            string contents = request.downloadHandler.text;
+            Debug.Log("SEND TIME RESPONSE: " + contents);
+
+        }
+
+    }
+
+   
 }

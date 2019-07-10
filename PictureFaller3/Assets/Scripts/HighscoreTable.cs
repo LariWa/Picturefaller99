@@ -6,6 +6,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using System.Linq;
+using UnityEngine.Networking;
+using System.Text;
 
 public class HighscoreTable : MonoBehaviour
 {
@@ -16,18 +18,20 @@ public class HighscoreTable : MonoBehaviour
     public GameObject Leaderboard;
 
 
+
     private void Awake()
     {
-        Debug.Log("Awake");
+
+        //Debug.Log("Awake");
         //AddHighscoreEntry(PlayerPrefs.GetInt("score"), "YOU", true);
         // entryContainer = transform.Find("highscoreEntryContainer");
         entryTemplate = entryContainer.Find("highscoreEntryTemplate");
 
         entryTemplate.gameObject.SetActive(false);
 
-       // string jsonString = PlayerPrefs.GetString("highscoreTable");
+        // string jsonString = PlayerPrefs.GetString("highscoreTable");
         string jsonString = TempHighscoreEntry();
-        Debug.Log(jsonString);
+        //Debug.Log(jsonString);
         Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
 
         //if (highscores == null)
@@ -44,7 +48,7 @@ public class HighscoreTable : MonoBehaviour
 
 
         highscoreEntryTransformList = new List<Transform>();
-        Debug.Log(highscoreEntryTransformList);
+        //Debug.Log(highscoreEntryTransformList);
         foreach (HighscoreEntry highscoreEntry in highscores.highscoreEntryList)
         {
             CreateHighscoreEntryTransform(highscoreEntry, entryContainer, highscoreEntryTransformList);
@@ -54,8 +58,8 @@ public class HighscoreTable : MonoBehaviour
     {
         foreach (Transform child in entryContainer.gameObject.transform)
         {
-            if(!(child.name == "highscoreEntryTemplate"))
-            GameObject.Destroy(child.gameObject);
+            if (!(child.name == "highscoreEntryTemplate"))
+                GameObject.Destroy(child.gameObject);
         }
         highscoreEntryTransformList = new List<Transform>();
         string jsonString = PlayerPrefs.GetString("highscoreTable");
@@ -126,7 +130,7 @@ public class HighscoreTable : MonoBehaviour
         return highscores.highscoreEntryList[0].score;
     }
 
-    
+
 
     public bool AddHighscoreEntry(int score, string name)
     {
@@ -151,7 +155,7 @@ public class HighscoreTable : MonoBehaviour
 
         foreach (HighscoreEntry entry in highscores.highscoreEntryList) //check name
         {
-            if (entry.name == name || entry.name =="YOU")
+            if (entry.name == name || entry.name == "YOU")
                 return false;
         }
 
@@ -167,14 +171,14 @@ public class HighscoreTable : MonoBehaviour
         PlayerPrefs.Save();
         //sendScoreRequest(name, score); FÜR DATENBANK
         updateTable();
-        sendScoreRequest(name, score); //FÜR DATENBANK
+        StartCoroutine(sendScoreRequest(name, score)); //FÜR DATENBANK
         return true;
     }
     public string TempHighscoreEntry()
     {
         int score = PlayerPrefs.GetInt("score");
         Debug.Log("score" + score);
-         string name = "YOU";
+        string name = "YOU";
         // Create HighscoreEntry
         HighscoreEntry highscoreEntry = new HighscoreEntry { score = score, name = name };
 
@@ -196,8 +200,8 @@ public class HighscoreTable : MonoBehaviour
         highscores.highscoreEntryList.Add(highscoreEntry);
         highscores.highscoreEntryList = highscores.highscoreEntryList.OrderByDescending(o => o.score).ToList();
         if (highscores.highscoreEntryList.Count > 10)
-            if(highscores.highscoreEntryList[10].name != "YOU")
-            highscores.highscoreEntryList = highscores.highscoreEntryList.GetRange(0, 10);
+            if (highscores.highscoreEntryList[10].name != "YOU")
+                highscores.highscoreEntryList = highscores.highscoreEntryList.GetRange(0, 10);
 
         string json = JsonUtility.ToJson(highscores);
         return json;
@@ -218,11 +222,11 @@ public class HighscoreTable : MonoBehaviour
         public string name;
     }
 
-    /* FÜR DATENBANK AUSKOMMENTIERT sonst funkt es nicht (socket error) */
+    /* FÜR DATENBANK AUSKOMMENTIERT sonst funkt es nicht (socket error) 
     private string sendScoreRequest(string name,int score)
     {
 
-        var httpWebRequest = (System.Net.HttpWebRequest)System.Net.WebRequest.Create("http://localhost:3000/addscore");
+        var httpWebRequest = (System.Net.HttpWebRequest)System.Net.WebRequest.Create("https://fathomless-spire-55232.herokuapp.com/addscore");
         httpWebRequest.ContentType = "application/json";
         httpWebRequest.Method = "POST";
 
@@ -242,7 +246,43 @@ public class HighscoreTable : MonoBehaviour
             return result;
         }
 
-    }
+    }*/
+
+
+
+
+
+    public IEnumerator sendScoreRequest(string name, int score)
+    {
+
+        string json = "{\"name\":" + '"' + name + '"' + "," + "\"score\":" + score + "}";
+
+
+
+        var request = new UnityWebRequest("http://localhost:3000/addscore", "POST");
+        byte[] bodyRaw = Encoding.UTF8.GetBytes(json);
+        request.uploadHandler = (UploadHandler)new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+
+        yield return request.SendWebRequest();
+
+        if (request.isNetworkError || request.isHttpError)
+
+        {
+            Debug.Log("ERROR: " + request.error);
+        }
+        else
+        {
+            string contents = request.downloadHandler.text;
+            Debug.Log("SEND SCORE RESPONSE: " + contents);
+
+        }
+
+
+
+
+     }
 
 }
 
