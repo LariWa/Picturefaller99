@@ -26,6 +26,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6a78b5866781324f8b7c287fa261922, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosion: {fileID: 175040, guid: 6f4fbad80078dbf4398c0eedd677fe7a, type: 3}
   damage: 20
   fadeSpd: 0.5
 --- !u!1 &7206916430411002965
@@ -151,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6a78b5866781324f8b7c287fa261922, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosion: {fileID: 0}
   damage: 20
   fadeSpd: 0.5
 --- !u!1001 &5087853651056890828

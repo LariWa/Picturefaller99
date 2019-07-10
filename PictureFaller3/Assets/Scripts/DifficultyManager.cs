@@ -173,6 +173,9 @@ public class DifficultyManager : MonoBehaviour
 
 
         //Get the position until wall where to spawn
+        if (FindObjectOfType<ChunkManager>().getCurrPictureWall() == null)
+            return;
+
         var wallZ = FindObjectOfType<ChunkManager>().getCurrPictureWall().transform.position.z;
 
 

@@ -15,6 +15,7 @@ public class ScreenShakeTest : MonoBehaviour
     private Vector2 trauma;
     private Vector2 shake;
 
+    public float objectShake = 1; //shake of 2 would be very brutal... (transform.x + 2)
     public float maxoffset = 2; //shake of 2 would be very brutal... (transform.x + 2)
     public float traumaFallOff = 0.03333f;
     public float powerOfAllShakes = 2;
@@ -55,8 +56,8 @@ public class ScreenShakeTest : MonoBehaviour
     {
         //origPos = shakeFollowObj.position;
 
-        followCam.enabled = false;
-        followCamShake.enabled = true;
+        //followCam.enabled = false;
+        //followCamShake.enabled = true;
 
         //makes sure always 1 or 0 (?)
         if (dir.x < 0) dir.x = -dir.x;
@@ -94,13 +95,11 @@ public class ScreenShakeTest : MonoBehaviour
 
     void LateUpdate() //show shake
     {
-        /*if(!shakingSel)
+
+
+        /*if (shakingObj)
         {
-            shakeFollowObj.position = player.transform.position + offset;
-        }
-        else
-        {
-            shakeFollowObj.position = shakePos + offset;
+            shakeFixedObj.position = shakePos + offset;
         }
 
         if (offset.magnitude <= 0.01) //so that it follows again quickly
@@ -110,8 +109,9 @@ public class ScreenShakeTest : MonoBehaviour
 
             followCam.enabled = true;
             followCamShake.enabled = false;
-        }*/
+        }
 
+        print(trauma);*/
 
 
         // problem is ship moves away during shake
@@ -136,21 +136,23 @@ public class ScreenShakeTest : MonoBehaviour
     {
         if (!shakingObj)
         {
+
             shakeFixedObj.transform.position = shakeFollowObj.transform.position;
+            followCamShake.transform.position = followCam.transform.position;
             //shakePos = shakeFollowObj.transform.position;
             shakingObj = true;
 
             //followCam.enabled = false;
             followCamShake.enabled = true;
 
+            //addShake(Random.insideUnitSphere, objectShake);
+
             //shakeFixedObj.position = new Vector3(0, 0, player.transform.position.z + 9);
             //followCamShake.transform.position = followCam.transform.position;
             //GetComponent<CameraManager>().setFixedPos(shakePos);
 
-            //followCamShake.m_Follow = shakeFixedObj;
 
             shakeFixedObj.transform.DOShakePosition(objShakeDur, objShakeStr, objShakeVibrate);
-            //followCamShake.transform.DOShakePosition(objShakeDur, objShakeStr, objShakeVibrate);
             Invoke("stopShake", objShakeDur);
         }
     }

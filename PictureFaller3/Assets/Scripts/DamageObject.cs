@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DamageObject : MonoBehaviour
 {
+    [SerializeField] private GameObject explosion;
     [SerializeField] private int damage = 5;
     [SerializeField] private float fadeSpd = 0.5f;
     private Rigidbody rb;
@@ -30,6 +31,8 @@ public class DamageObject : MonoBehaviour
 
             FindObjectOfType<SoundEffects>().hitDmgObj();
             FindObjectOfType<ScreenShakeTest>().hitObj();
+
+            if(explosion != null) Instantiate(explosion,transform.position, explosion.transform.rotation);
 
             //Destroy(transform.parent.gameObject);
             GetComponent<Collider>().enabled = false;

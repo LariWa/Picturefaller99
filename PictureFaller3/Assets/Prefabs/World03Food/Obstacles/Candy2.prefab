@@ -26,6 +26,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6a78b5866781324f8b7c287fa261922, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosion: {fileID: 175040, guid: 6f4fbad80078dbf4398c0eedd677fe7a, type: 3}
   damage: 20
   fadeSpd: 0.5
 --- !u!1 &7206916430411002965
@@ -151,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6a78b5866781324f8b7c287fa261922, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosion: {fileID: 0}
   damage: 20
   fadeSpd: 0.5
 --- !u!1001 &2601672369325221411
@@ -160,6 +162,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7206916430411002964}
     m_Modifications:
+    - target: {fileID: 3055313744290494721, guid: 42a2f65e148a37245a0edcf0abc38d8c,
+        type: 3}
+      propertyPath: m_Name
+      value: Visuals
+      objectReference: {fileID: 0}
     - target: {fileID: 3055313744290260257, guid: 42a2f65e148a37245a0edcf0abc38d8c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -229,11 +236,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3055313744290494721, guid: 42a2f65e148a37245a0edcf0abc38d8c,
-        type: 3}
-      propertyPath: m_Name
-      value: Visuals
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a2f65e148a37245a0edcf0abc38d8c, type: 3}
