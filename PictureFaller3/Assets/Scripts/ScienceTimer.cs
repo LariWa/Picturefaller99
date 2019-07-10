@@ -9,19 +9,15 @@ public class ScienceTimer : MonoBehaviour
     private float timer;
     private bool timerStarted = true;
 
-    private int hashLength;
+    private int hashLength = 13;
     private string hash;
 
     void Start()
     {
-        var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        var stringChars = new char[hashLength];
+        string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-        for (int i = 0; i < stringChars.Length; i++)
-            stringChars[i] = chars[Random.Range(0,chars.Length)];
-
-        hash = new string(stringChars);
-
+        for (int i = 0; i < hashLength; i++)
+            hash += chars[Random.Range(0, chars.Length)];
     }
 
     void Update()
