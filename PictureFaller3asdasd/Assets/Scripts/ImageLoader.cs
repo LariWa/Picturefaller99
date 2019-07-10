@@ -22,11 +22,11 @@ public class ImageLoader: MonoBehaviour
 
     static ImageLoader instance = null;
 
-        // automatically called when game started
-        public Sprite[] nature;
-        public Sprite[] city;
-        public Sprite[] food;
-        public Texture[] tex = new Texture[225];
+    // automatically called when game started
+    public Sprite[] nature = new Sprite[225];
+    public Sprite[] city = new Sprite[225];
+    public Sprite[] food = new Sprite[225];
+    public Texture[] tex = new Texture[225];
     /*public ImageLoader(Sprite[] nature, Sprite[] city, Sprite[] food)
     {
         this.nature = nature;
@@ -45,11 +45,7 @@ public class ImageLoader: MonoBehaviour
             instance = this;
             GameObject.DontDestroyOnLoad(gameObject);
         }
-
-        //settingM = GetComponent<SettingManager>();
-        //nature = settingM.getPictureArrays().Item1;
-        //city = settingM.getPictureArrays().Item2;
-        //food = settingM.getPictureArrays().Item3;
+        loadJSON();
     }
     public IEnumerator asyncLoadImage(string url, int pos, Sprite[] array)
     {
@@ -106,15 +102,16 @@ public class ImageLoader: MonoBehaviour
         for (int i = 0; i < pictureJSON.nature.Length; i++)
         {
             Debug.Log(pictureJSON.nature[i]);
-                loadImage(pictureJSON.nature[i], i, nature);
+           loadImage(pictureJSON.nature[i], i, nature);
                 loadImage(pictureJSON.city[i], i, city);
-                loadImage(pictureJSON.food[i], i, food);
+               loadImage(pictureJSON.food[i], i, food);
             }
        // settingM.setPictureArrays(nature, city, food);
 
 
         }
-
+        
+        
         private IEnumerator asyncLoad()
         {
             Debug.Log("LOAD2");
