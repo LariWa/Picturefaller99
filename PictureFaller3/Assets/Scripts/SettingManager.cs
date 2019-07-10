@@ -91,6 +91,14 @@ public class SettingManager : MonoBehaviour
         //    Debug.Log(s.name);
 
 
+        var imgLoader = FindObjectOfType<ImageLoader>();
+
+        allCityPictures = imgLoader.getCityPics();
+        allForestPictures = imgLoader.getNaturePics();
+        allMountainPictures = imgLoader.getNaturePics();
+        allFoodPictures = imgLoader.getFoodPics();
+
+
 
 
 

@@ -23,9 +23,10 @@
         public Renderer thisRenderer;
         private SettingManager settingM ;
 
+    static ImageLoader instance = null;
 
         // automatically called when game started
-        public Sprite[] nature ;
+        public Sprite[] nature;
         public Sprite[] city;
         public Sprite[] food;
         public Texture[] tex = new Texture[225];
@@ -38,6 +39,16 @@
 
     public void Start()
     {
+        if (instance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+            GameObject.DontDestroyOnLoad(gameObject);
+        }
+
         settingM = GetComponent<SettingManager>();
         nature = settingM.getPictureArrays().Item1;
         city = settingM.getPictureArrays().Item2;
@@ -77,6 +88,20 @@
     }
 
 
+    public Sprite[] getCityPics()
+    {
+        return city;
+    }
+
+    public Sprite[] getNaturePics()
+    {
+        return nature;
+    }
+
+    public Sprite[] getFoodPics()
+    {
+        return food;
+    }
 
     public void loadPictures(PictureJSON pictureJSON)
         {
@@ -88,7 +113,7 @@
                 loadImage(pictureJSON.city[i], i, city);
                 loadImage(pictureJSON.food[i], i, food);
             }
-        settingM.setPictureArrays(nature, city, food);
+       // settingM.setPictureArrays(nature, city, food);
 
 
         }
