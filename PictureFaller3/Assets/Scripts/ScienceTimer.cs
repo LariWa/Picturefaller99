@@ -51,7 +51,7 @@ public class ScienceTimer : MonoBehaviour
             session = PlayerPrefs.GetInt("sessionID");
 
 
-        return hash + session;
+        return hash + "" + session;
 
         /*
         if (PlayerPrefs.HasKey("sessionID"))
