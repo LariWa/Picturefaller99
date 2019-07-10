@@ -10,10 +10,7 @@
         public string[] nature = new string[225];
         public string[] food = new string[225];
         public string[] city = new string[225];
-
-        
     }
-
 
 
     class ImageLoader: MonoBehaviour
@@ -49,10 +46,10 @@
             GameObject.DontDestroyOnLoad(gameObject);
         }
 
-        settingM = GetComponent<SettingManager>();
-        nature = settingM.getPictureArrays().Item1;
-        city = settingM.getPictureArrays().Item2;
-        food = settingM.getPictureArrays().Item3;
+        //settingM = GetComponent<SettingManager>();
+        //nature = settingM.getPictureArrays().Item1;
+        //city = settingM.getPictureArrays().Item2;
+        //food = settingM.getPictureArrays().Item3;
     }
     public IEnumerator asyncLoadImage(string url, int pos, Sprite[] array)
     {

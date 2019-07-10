@@ -91,12 +91,12 @@ public class SettingManager : MonoBehaviour
         //    Debug.Log(s.name);
 
 
-        var imgLoader = FindObjectOfType<ImageLoader>();
+        imageLoaderManager = FindObjectOfType<ImageLoader>();
 
-        allCityPictures = imgLoader.getCityPics();
-        allForestPictures = imgLoader.getNaturePics();
-        allMountainPictures = imgLoader.getNaturePics();
-        allFoodPictures = imgLoader.getFoodPics();
+        allCityPictures = imageLoaderManager.getCityPics();
+        allForestPictures = imageLoaderManager.getNaturePics();
+        allMountainPictures = imageLoaderManager.getNaturePics();
+        allFoodPictures = imageLoaderManager.getFoodPics();
 
 
 
@@ -106,7 +106,7 @@ public class SettingManager : MonoBehaviour
 
         //ImageLoader imageLoader = new ImageLoader(allForestPictures, allCityPictures, allFoodPictures);
         //imageLoader.loadJSON();
-        imageLoaderManager = GetComponent<ImageLoader>();
+        imageLoaderManager = FindObjectOfType<ImageLoader>();
         imageLoaderManager.loadJSON();
 
         Debug.Log(imageLoaderManager);
