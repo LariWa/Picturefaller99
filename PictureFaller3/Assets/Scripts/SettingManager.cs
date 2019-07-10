@@ -46,10 +46,10 @@ public class SettingManager : MonoBehaviour
     [SerializeField]  private TextAsset[] citySorts;
     [SerializeField]  private TextAsset[] forestSorts;
     [SerializeField]  private TextAsset[] foodSorts;
-    private ImageLoader imageLoaderManager;
-
     //private TextAsset[] waterSorts;
-    private TextAsset[] mountainSorts;
+    [SerializeField] private TextAsset[] mountainSorts;
+
+    private ImageLoader imageLoaderManager;
 
     [Space]
 
