@@ -49,7 +49,7 @@ public class ImageLoader: MonoBehaviour
     }
     public IEnumerator asyncLoadImage(string url, int pos, Sprite[] array)
     {
-        Debug.Log("LOAD2");
+        Debug.Log("asyncLoadImage method");
         //string path = "http://localhost:8000/nature_225/nature_1.jpg";
         //Debug.Log(path);
         using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(url))
@@ -65,8 +65,8 @@ public class ImageLoader: MonoBehaviour
             else
             {
                 var texture = DownloadHandlerTexture.GetContent(uwr);
-                Debug.Log("texture");
-                Debug.Log(texture);
+               // Debug.Log("texture");
+                //Debug.Log(texture);
                 Sprite pic = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f));
                 tex[pos] = texture;
                 array[pos] = pic;  // set loaded image
@@ -101,10 +101,13 @@ public class ImageLoader: MonoBehaviour
 
         for (int i = 0; i < pictureJSON.nature.Length; i++)
         {
-            Debug.Log(pictureJSON.nature[i]);
-           loadImage(pictureJSON.nature[i], i, nature);
-                loadImage(pictureJSON.city[i], i, city);
-               loadImage(pictureJSON.food[i], i, food);
+            //Debug.Log(pictureJSON.nature[i]);
+            Debug.Log(pictureJSON.city[i]);
+            Debug.Log(pictureJSON.food[i]);
+
+            loadImage(pictureJSON.nature[i], i, nature);
+            loadImage(pictureJSON.city[i], i, city);
+            loadImage(pictureJSON.food[i], i, food);
             }
        // settingM.setPictureArrays(nature, city, food);
 
@@ -114,7 +117,7 @@ public class ImageLoader: MonoBehaviour
         
         private IEnumerator asyncLoad()
         {
-            Debug.Log("LOAD2");
+            Debug.Log("asyncLoad method");
             string path = "http://localhost:8000/pictures_all.json";
             Debug.Log(path);
             UnityWebRequest www = UnityWebRequest.Get(path);
@@ -139,7 +142,7 @@ public class ImageLoader: MonoBehaviour
             public void loadJSON()
         {
             //Start();
-            Debug.Log("LOAD");
+            Debug.Log("LOADJSON");
              StartCoroutine("asyncLoad");
 
 

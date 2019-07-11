@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 2081053295}
-  m_IndirectSpecularColor: {r: 0.1787476, g: 0.22381605, b: 0.30572397, a: 1}
+  m_IndirectSpecularColor: {r: 0.17874746, g: 0.22381578, b: 0.30572343, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -743,7 +743,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   url: http://localhost:8000/nature_255/nature_9.jpg
-  thisRenderer: {fileID: 0}
+  thisRenderer: {fileID: 199064004}
   nature:
   - {fileID: 0}
   - {fileID: 0}
@@ -1648,6 +1648,12 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+--- !u!23 &199064004 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 997914698291537523, guid: a228b1e1983cfcd46a5fbb9effdcd9a4,
+    type: 3}
+  m_PrefabInstance: {fileID: 1843100763}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &244870935
 PrefabInstance:
   m_ObjectHideFlags: 0
