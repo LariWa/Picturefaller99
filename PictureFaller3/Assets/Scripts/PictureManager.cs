@@ -86,6 +86,9 @@ public class PictureManager : MonoBehaviour
         if (playerStats.getHealth() > 0 && chunkManager.getCurrPictureWall().GetComponent<WallController>().selectionNotOffscreen())
             GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerStats>().selectedPicHealOrDmg(justSelectedCorrect);
 
+        
+
+
         return justSelectedCorrect;
     }
 

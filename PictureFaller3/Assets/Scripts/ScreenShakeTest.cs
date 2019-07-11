@@ -43,12 +43,16 @@ public class ScreenShakeTest : MonoBehaviour
     // https://www.reddit.com/r/gamedesign/comments/6o090l/tried_to_focus_on_game_feel_in_this_game_i_didnt/
     // DIFFERENCE BETWEEN GAME FEEL AND JUICE https://www.youtube.com/watch?v=S-EmAitPYg8&ab_channel=GustavDahl
 
+    protected Cinemachine.CinemachineBasicMultiChannelPerlin _perlin;
+
     void Start()
     {
         //origPos = shakeFollowObj.position;
         player = GameObject.FindGameObjectWithTag("Player");
         //cinemachine = GetComponent< CinemachineBrain>();
         //addShake(Vector2.up, 1f);
+
+        _perlin = followCam.GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>();
 
     }
 
@@ -134,6 +138,28 @@ public class ScreenShakeTest : MonoBehaviour
 
     public void hitObj()
     {
+        //followCam.n
+        StartCoroutine(ShakeCamera());
+    }
+
+    protected virtual IEnumerator ShakeCamera() // is this smooth bcz of cinemachine? maybe use the calculation methon from above again here
+    {
+        _perlin.m_AmplitudeGain = objShakeStr;
+        _perlin.m_FrequencyGain = objShakeVibrate;
+        yield return new WaitForSeconds(objShakeDur);
+        CameraReset();
+    }
+
+    public virtual void CameraReset()
+    {
+        _perlin.m_AmplitudeGain = 0;
+        _perlin.m_FrequencyGain = 0;
+    }
+
+
+    /*
+    public void hitObj()
+    {
         if (!shakingObj)
         {
 
@@ -163,5 +189,5 @@ public class ScreenShakeTest : MonoBehaviour
 
         //followCam.enabled = true;
         followCamShake.enabled = false;
-    }
+    }*/
 }

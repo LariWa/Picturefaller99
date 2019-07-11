@@ -32,9 +32,9 @@ public class DamageObject : MonoBehaviour
             FindObjectOfType<SoundEffects>().hitDmgObj();
             FindObjectOfType<ScreenShakeTest>().hitObj();
 
-            if(explosion != null) Instantiate(explosion,transform.position, explosion.transform.rotation);
+            if(explosion != null) Instantiate(explosion, other.transform.position, explosion.transform.rotation);
 
-            //Destroy(transform.parent.gameObject);
+            Destroy(transform.parent.gameObject);
             GetComponent<Collider>().enabled = false;
 
             //Not working because material not set to fade    !!!!!!!!!!!!!!!!!!!!!!!!!

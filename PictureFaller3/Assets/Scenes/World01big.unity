@@ -7494,6 +7494,7 @@ GameObject:
   - component: {fileID: 429418161}
   - component: {fileID: 429418160}
   - component: {fileID: 429418159}
+  - component: {fileID: 429418162}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -7595,6 +7596,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &429418162
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 429418157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+  m_AmplitudeGain: 0
+  m_FrequencyGain: 0
+  mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &446904176
 GameObject:
   m_ObjectHideFlags: 0
@@ -10312,8 +10329,8 @@ MonoBehaviour:
   wrongShakeStr: 0.5
   wrongShakeVibrate: 10
   objShakeDur: 0.5
-  objShakeStr: 2
-  objShakeVibrate: 10
+  objShakeStr: 4
+  objShakeVibrate: 1
 --- !u!1 &942706430
 GameObject:
   m_ObjectHideFlags: 0
@@ -12001,7 +12018,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1473392785
 Transform:
   m_ObjectHideFlags: 0
@@ -17286,6 +17303,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5398424784353499222, guid: 1945a9b6cfd321644bdfc680efd1b7cb,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2117485184420624042, guid: 1945a9b6cfd321644bdfc680efd1b7cb,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -18070,11 +18092,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5398424784353499222, guid: 1945a9b6cfd321644bdfc680efd1b7cb,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1945a9b6cfd321644bdfc680efd1b7cb, type: 3}
