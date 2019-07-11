@@ -17,10 +17,13 @@ public class HighscoreTable : MonoBehaviour
     private List<Transform> highscoreEntryTransformList;
     public GameObject Leaderboard;
 
-
+  
+ 
     private void Awake()
     {
         Debug.Log("Awake");
+        StartCoroutine(GetText());
+
         //AddHighscoreEntry(PlayerPrefs.GetInt("score"), "YOU", true);
         // entryContainer = transform.Find("highscoreEntryContainer");
         entryTemplate = entryContainer.Find("highscoreEntryTemplate");
@@ -120,6 +123,33 @@ public class HighscoreTable : MonoBehaviour
 
         transformList.Add(entryTransform);
     }
+
+
+
+  
+       
+        IEnumerator GetText()
+        {
+            UnityWebRequest www = UnityWebRequest.Get("http://localhost:3000/selecthighscore");
+            yield return www.SendWebRequest();
+
+            if (www.isNetworkError || www.isHttpError)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                // Show results as text
+                Debug.Log(www.downloadHandler.text);
+
+                // Or retrieve results as binary data
+                byte[] results = www.downloadHandler.data;
+            Debug.Log("Results are : "+ results);
+            }
+        
+    }
+
+
 
     public int getHighestScore()
     {
