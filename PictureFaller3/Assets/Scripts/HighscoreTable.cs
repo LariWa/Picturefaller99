@@ -6,6 +6,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using System.Linq;
+using UnityEngine.Networking;
+using System.Text;
 
 public class HighscoreTable : MonoBehaviour
 {
@@ -170,6 +172,7 @@ public class HighscoreTable : MonoBehaviour
         PlayerPrefs.Save();
         //sendScoreRequest(name, score); FÜR DATENBANK
         updateTable();
+        StartCoroutine(sendScoreRequest(name, score)); //FÜR DATENBANK
         return true;
     }
     public string TempHighscoreEntry()
@@ -246,6 +249,38 @@ public class HighscoreTable : MonoBehaviour
 
     }*/
 
+
+    public IEnumerator sendScoreRequest(string name, int score)
+    {
+
+        string json = "{\"name\":" + '"' + name + '"' + "," + "\"score\":" + score + "}";
+
+
+
+        var request = new UnityWebRequest("http://localhost:3000/addscore", "POST");
+        byte[] bodyRaw = Encoding.UTF8.GetBytes(json);
+        request.uploadHandler = (UploadHandler)new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+
+        yield return request.SendWebRequest();
+
+        if (request.isNetworkError || request.isHttpError)
+
+        {
+            Debug.Log("ERROR: " + request.error);
+        }
+        else
+        {
+            string contents = request.downloadHandler.text;
+            Debug.Log("SEND SCORE RESPONSE: " + contents);
+
+        }
+
+
+
+
+    }
 }
 
 
