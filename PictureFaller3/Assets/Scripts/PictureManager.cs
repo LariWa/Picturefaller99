@@ -86,24 +86,30 @@ public class PictureManager : MonoBehaviour
         if (playerStats.getHealth() > 0 && chunkManager.getCurrPictureWall().GetComponent<WallController>().selectionNotOffscreen())
             GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerStats>().selectedPicHealOrDmg(justSelectedCorrect);
 
+        
+
+
         return justSelectedCorrect;
     }
 
 
     public void hitPicWall()
     {
-        if (justSelectedCorrect)
-        {
+        print("hitwall");
+
+        // SOMETIMES THE WALL IS HIT EVEN THOUGH WRONG PIC? bug: fly through but no transition
+        //if (justSelectedCorrect)
+        //{
 
             transitionManager.doSettingTransition(); //also resets chunks and picwall
 
             chunkManager.getCurrPictureWall().GetComponent<WallController>().correctPicWobble(currPicSearched);
-        }
+        /*}
         else
         {
             chunkManager.spawnPicWallOffsetFromLast();
             Camera.main.GetComponent<CameraManager>().setNormalCam(false);
-        }
+        }*/
 
         difficultyManager.hitWall();
 

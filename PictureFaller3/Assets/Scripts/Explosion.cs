@@ -7,6 +7,7 @@ public class Explosion : MonoBehaviour
     public SparkParticles Sparks;
     public ParticleSystem Flash;
     public ParticleSystem[] Debris;
+    public float destroyAfter = 1f;
 
 
     public void Start()
@@ -24,7 +25,7 @@ public class Explosion : MonoBehaviour
         for (int i = 0; i < Debris.Length; i++)
             Debris[i].Play();
 
-        Destroy(gameObject, 4);
+        Destroy(gameObject, 1);
     }
 }
 

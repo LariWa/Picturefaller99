@@ -151,7 +151,14 @@ public class PlayerStats : MonoBehaviour
             if (isTutorial)
                 SceneManager.LoadScene("World01big");
         }
-        if (!wasCorrect) damagePlayer(damageOnSelect, true);
+        if (!wasCorrect)
+        {
+            // Also sound + shake
+            FindObjectOfType<SoundEffects>().selectedWrong();
+            FindObjectOfType<ScreenShakeTest>().wrongSelection();
+
+            damagePlayer(damageOnSelect, true);
+        }
     }
 
 
@@ -162,6 +169,8 @@ public class PlayerStats : MonoBehaviour
 
         if (flicker) 
         {
+
+
             flickerTimer = timeFlicker;
             var desCol = damageFlicker.color;
             desCol.a = alphaMaxFlicker;
