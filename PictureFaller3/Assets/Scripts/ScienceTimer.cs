@@ -16,10 +16,18 @@ public class ScienceTimer : MonoBehaviour
     private DifficultyManager diffM;
     private byte[] jsonStringTrial;
 
+    private int hashLength = 13;
+    private string hash;
+
     void Start()
     {
         settingM = FindObjectOfType<SettingManager>();
         diffM = FindObjectOfType<DifficultyManager>();
+
+        string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+        for (int i = 0; i < hashLength; i++)
+            hash += chars[Random.Range(0, chars.Length)];
     }
 
     void Update()
@@ -36,10 +44,18 @@ public class ScienceTimer : MonoBehaviour
 
     public string getSessionID()
     {
+        var session = 0;
+        if (PlayerPrefs.HasKey("sessionID"))
+            session = PlayerPrefs.GetInt("sessionID");
+
+
+        return hash + "" + session;
+
+        /*
         if (PlayerPrefs.HasKey("sessionID"))
             return SystemInfo.deviceUniqueIdentifier + PlayerPrefs.GetInt("sessionID");
         else
-            return SystemInfo.deviceUniqueIdentifier + 0;
+            return SystemInfo.deviceUniqueIdentifier + 0;*/
     }
 
     public void printTimer()
