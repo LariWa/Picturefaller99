@@ -24,28 +24,14 @@ public class HighscoreTable : MonoBehaviour
         Debug.Log("Awake");
         StartCoroutine(GetText());
 
-        //AddHighscoreEntry(PlayerPrefs.GetInt("score"), "YOU", true);
-        // entryContainer = transform.Find("highscoreEntryContainer");
         entryTemplate = entryContainer.Find("highscoreEntryTemplate");
 
         entryTemplate.gameObject.SetActive(false);
 
-       // string jsonString = PlayerPrefs.GetString("highscoreTable");
         string jsonString = TempHighscoreEntry();
         Debug.Log(jsonString);
         Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
 
-        //if (highscores == null)
-        //{
-        //    highscoreEntryList = new List<HighscoreEntry>();
-        //    There's no stored table, initialize
-        //    Debug.Log("Initializing table with default values...");
-        //    AddHighscoreEntry(0, "default");
-
-        //    Reload
-        //   jsonString = PlayerPrefs.GetString("highscoreTable");
-        //    highscores = JsonUtility.FromJson<Highscores>(jsonString);
-        //}
 
 
         highscoreEntryTransformList = new List<Transform>();
@@ -253,31 +239,6 @@ public class HighscoreTable : MonoBehaviour
         public string name;
     }
 
-    /* FÜR DATENBANK AUSKOMMENTIERT sonst funkt es nicht (socket error)
-    private string sendScoreRequest(string name,int score)
-    {
-
-        var httpWebRequest = (System.Net.HttpWebRequest)System.Net.WebRequest.Create("http://localhost:3000/addscore");
-        httpWebRequest.ContentType = "application/json";
-        httpWebRequest.Method = "POST";
-
-        using (var streamWriter = new System.IO.StreamWriter(httpWebRequest.GetRequestStream()))
-        {
-            string json = "{\"name\":" + '"' + name + '"' + "," + "\"score\":" + score + "}";
-
-
-            Debug.Log(json);
-            streamWriter.Write(json);
-        }
-
-        var httpResponse = (System.Net.HttpWebResponse)httpWebRequest.GetResponse();
-        using (var streamReader = new System.IO.StreamReader(httpResponse.GetResponseStream()))
-        {
-            var result = streamReader.ReadToEnd();
-            return result;
-        }
-
-    }*/
 
 
     public IEnumerator sendScoreRequest(string name, int score)

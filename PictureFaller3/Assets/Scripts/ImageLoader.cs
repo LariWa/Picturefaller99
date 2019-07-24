@@ -27,12 +27,7 @@ public class ImageLoader : MonoBehaviour
     public Sprite[] city = new Sprite[225];
     public Sprite[] food = new Sprite[225];
     public Texture[] tex = new Texture[225];
-    /*public ImageLoader(Sprite[] nature, Sprite[] city, Sprite[] food)
-    {
-        this.nature = nature;
-        this.city = city;
-        this.food = food;
-    }*/
+
 
     public void Awake()
     {
@@ -50,11 +45,9 @@ public class ImageLoader : MonoBehaviour
     public IEnumerator asyncLoadImage(string url, int pos, Sprite[] array)
     {
         Debug.Log("asyncLoadImage method");
-        //string path = "http://localhost:8000/nature_225/nature_1.jpg";
-        //Debug.Log(path);
+     
         using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(url))
         {
-            //UnityWebRequest www = UnityWebRequestTexture.GetTexture(path);
             yield return uwr.SendWebRequest();
 
             if (uwr.isNetworkError || uwr.isHttpError)
@@ -65,8 +58,7 @@ public class ImageLoader : MonoBehaviour
             else
             {
                 var texture = DownloadHandlerTexture.GetContent(uwr);
-                // Debug.Log("texture");
-                //Debug.Log(texture);
+               
                 Sprite pic = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f));
                 tex[pos] = texture;
                 array[pos] = pic;  // set loaded image

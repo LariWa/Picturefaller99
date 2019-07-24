@@ -51,19 +51,14 @@ public class ScienceTimer : MonoBehaviour
 
         return hash + "" + session;
 
-        /*
-        if (PlayerPrefs.HasKey("sessionID"))
-            return SystemInfo.deviceUniqueIdentifier + PlayerPrefs.GetInt("sessionID");
-        else
-            return SystemInfo.deviceUniqueIdentifier + 0;*/
+      
     }
 
     public void printTimer()
     {
 
         print("It took the player: " + timer);
-        //var h = getSessionID();
-        //Debug.Log("Gunther :"+ h);
+        
     }
 
     public float getTime()
@@ -72,9 +67,8 @@ public class ScienceTimer : MonoBehaviour
         var quality = settingM.getQuality();
         var dif = diffM.getDim();
         var sessionID = getSessionID();
-        StartCoroutine(sendPostRequest(timer, quality, dif, sessionID)); //SPIEL FUNKT SONST NICHT
-        //Debug.Log("Dimension ist :" + dif + " Qualität ist :" + quality + " It took the player: " + time);
-        //Debug.Log("SessionID ist :" + sessionID);
+        StartCoroutine(sendPostRequest(timer, quality, dif, sessionID)); 
+        
         return timer;
     }
 
@@ -83,31 +77,7 @@ public class ScienceTimer : MonoBehaviour
     {
         timer = 0;
     }
-    /* AUSKOMMENTIERT SONST FUNKT DAS SPIEL NICHT 
-    private string sendPostRequest(float userTime,int sortQuality, int dim, string gameID)
-    {
-        var httpWebRequest = (System.Net.HttpWebRequest)System.Net.WebRequest.Create("https://fathomless-spire-55232.herokuapp.com/addtimerihno");
-        httpWebRequest.ContentType = "application/json";
-        httpWebRequest.Method = "POST";
-        using (var streamWriter = new System.IO.StreamWriter(httpWebRequest.GetRequestStream()))
-        {
-            string json = "{\"time\":" + userTime + "," +
-                      "\"sortQuality\":" + sortQuality + "," +
-                      "\"dim\":" + dim + "," +
-                      "\"gameID\":" + '"' + gameID + '"' + "}";
-            Debug.Log(json);
-            streamWriter.Write(json);
-        }
-        var httpResponse = (System.Net.HttpWebResponse)httpWebRequest.GetResponse();
-        using (var streamReader = new System.IO.StreamReader(httpResponse.GetResponseStream()))
-        {
-            var result = streamReader.ReadToEnd();
-            return result;
-        }
-    }
-    */
-    /////////////////////////////////////
-    /* AUSKOMMENTIERT SONST FUNKT DAS SPIEL NICHT */
+   
     public IEnumerator sendPostRequest(float userTime, int sortQuality, int dim, string gameID)
     {
 
