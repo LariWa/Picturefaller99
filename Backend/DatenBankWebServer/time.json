@@ -1,0 +1,506 @@
+[
+  {
+    "id": 1,
+    "time": 0.7,
+    "sortQuality": 1,
+    "dim": 2,
+    "gameID": "he230dasj3"
+  },
+  {
+    "id": 2,
+    "time": 1.43281,
+    "sortQuality": 0,
+    "dim": 2,
+    "gameID": "1Z13h1FhgzsbT49"
+  },
+  {
+    "id": 3,
+    "time": 2.14799,
+    "sortQuality": 0,
+    "dim": 4,
+    "gameID": "1Z13h1FhgzsbT49"
+  },
+  {
+    "id": 4,
+    "time": 1.77176,
+    "sortQuality": 0,
+    "dim": 6,
+    "gameID": "1Z13h1FhgzsbT49"
+  },
+  {
+    "id": 5,
+    "time": 1.65438,
+    "sortQuality": 1,
+    "dim": 7,
+    "gameID": "1Z13h1FhgzsbT49"
+  },
+  {
+    "id": 6,
+    "time": 1.72989,
+    "sortQuality": 1,
+    "dim": 6,
+    "gameID": "1Z13h1FhgzsbT49"
+  },
+  {
+    "id": 7,
+    "time": 1.96512,
+    "sortQuality": 0,
+    "dim": 7,
+    "gameID": "1Z13h1FhgzsbT49"
+  },
+  {
+    "id": 8,
+    "time": 1.85179,
+    "sortQuality": 0,
+    "dim": 8,
+    "gameID": "1Z13h1FhgzsbT49"
+  },
+  {
+    "id": 9,
+    "time": 6.54314,
+    "sortQuality": 0,
+    "dim": 9,
+    "gameID": "1Z13h1FhgzsbT49"
+  },
+  {
+    "id": 10,
+    "time": 2.02126,
+    "sortQuality": 1,
+    "dim": 8,
+    "gameID": "1Z13h1FhgzsbT49"
+  },
+  {
+    "id": 11,
+    "time": 1.98117,
+    "sortQuality": 1,
+    "dim": 9,
+    "gameID": "1Z13h1FhgzsbT49"
+  },
+  {
+    "id": 12,
+    "time": 4.88168,
+    "sortQuality": 1,
+    "dim": 10,
+    "gameID": "1Z13h1FhgzsbT49"
+  },
+  {
+    "id": 13,
+    "time": 4.42267,
+    "sortQuality": 0,
+    "dim": 11,
+    "gameID": "1Z13h1FhgzsbT49"
+  },
+  {
+    "id": 14,
+    "time": 2.61527,
+    "sortQuality": 0,
+    "dim": 10,
+    "gameID": "1Z13h1FhgzsbT49"
+  },
+  {
+    "id": 15,
+    "time": 2.9907,
+    "sortQuality": 1,
+    "dim": 11,
+    "gameID": "1Z13h1FhgzsbT49"
+  },
+  {
+    "id": 16,
+    "time": 3.7247,
+    "sortQuality": 0,
+    "dim": 12,
+    "gameID": "1Z13h1FhgzsbT49"
+  },
+  {
+    "id": 17,
+    "time": 1.51183,
+    "sortQuality": 0,
+    "dim": 2,
+    "gameID": "mpBE6xQ8b5GuI50"
+  },
+  {
+    "id": 18,
+    "time": 1.68467,
+    "sortQuality": 1,
+    "dim": 4,
+    "gameID": "mpBE6xQ8b5GuI50"
+  },
+  {
+    "id": 19,
+    "time": 2.99065,
+    "sortQuality": 1,
+    "dim": 6,
+    "gameID": "mpBE6xQ8b5GuI50"
+  },
+  {
+    "id": 20,
+    "time": 4.63125,
+    "sortQuality": 1,
+    "dim": 7,
+    "gameID": "mpBE6xQ8b5GuI50"
+  },
+  {
+    "id": 21,
+    "time": 3.56834,
+    "sortQuality": 0,
+    "dim": 6,
+    "gameID": "mpBE6xQ8b5GuI50"
+  },
+  {
+    "id": 22,
+    "time": 1.66282,
+    "sortQuality": 0,
+    "dim": 7,
+    "gameID": "mpBE6xQ8b5GuI50"
+  },
+  {
+    "id": 23,
+    "time": 2.25957,
+    "sortQuality": 1,
+    "dim": 8,
+    "gameID": "mpBE6xQ8b5GuI50"
+  },
+  {
+    "id": 24,
+    "time": 1.84303,
+    "sortQuality": 1,
+    "dim": 9,
+    "gameID": "mpBE6xQ8b5GuI50"
+  },
+  {
+    "id": 25,
+    "time": 4.69879,
+    "sortQuality": 0,
+    "dim": 8,
+    "gameID": "mpBE6xQ8b5GuI50"
+  },
+  {
+    "id": 26,
+    "time": 2.2881,
+    "sortQuality": 0,
+    "dim": 9,
+    "gameID": "mpBE6xQ8b5GuI50"
+  },
+  {
+    "id": 27,
+    "time": 1.22281,
+    "sortQuality": 0,
+    "dim": 2,
+    "gameID": "bwBWRDcDGTqN551"
+  },
+  {
+    "id": 28,
+    "time": 2.39782,
+    "sortQuality": 1,
+    "dim": 4,
+    "gameID": "bwBWRDcDGTqN551"
+  },
+  {
+    "id": 29,
+    "time": 4.09382,
+    "sortQuality": 1,
+    "dim": 6,
+    "gameID": "bwBWRDcDGTqN551"
+  },
+  {
+    "id": 30,
+    "time": 12.5387,
+    "sortQuality": 1,
+    "dim": 7,
+    "gameID": "bwBWRDcDGTqN551"
+  },
+  {
+    "id": 31,
+    "time": 1.63051,
+    "sortQuality": 0,
+    "dim": 6,
+    "gameID": "bwBWRDcDGTqN551"
+  },
+  {
+    "id": 32,
+    "time": 3.30082,
+    "sortQuality": 0,
+    "dim": 7,
+    "gameID": "bwBWRDcDGTqN551"
+  },
+  {
+    "id": 33,
+    "time": 3.88226,
+    "sortQuality": 0,
+    "dim": 8,
+    "gameID": "bwBWRDcDGTqN551"
+  },
+  {
+    "id": 34,
+    "time": 7.26181,
+    "sortQuality": 0,
+    "dim": 9,
+    "gameID": "bwBWRDcDGTqN551"
+  },
+  {
+    "id": 35,
+    "time": 3.81516,
+    "sortQuality": 1,
+    "dim": 8,
+    "gameID": "bwBWRDcDGTqN551"
+  },
+  {
+    "id": 36,
+    "time": 3.70203,
+    "sortQuality": 1,
+    "dim": 9,
+    "gameID": "bwBWRDcDGTqN551"
+  },
+  {
+    "id": 37,
+    "time": 2.17915,
+    "sortQuality": 0,
+    "dim": 10,
+    "gameID": "bwBWRDcDGTqN551"
+  },
+  {
+    "id": 38,
+    "time": 6.35811,
+    "sortQuality": 0,
+    "dim": 11,
+    "gameID": "bwBWRDcDGTqN551"
+  },
+  {
+    "id": 39,
+    "time": 3.62089,
+    "sortQuality": 1,
+    "dim": 10,
+    "gameID": "bwBWRDcDGTqN551"
+  },
+  {
+    "id": 40,
+    "time": 3.2899,
+    "sortQuality": 0,
+    "dim": 2,
+    "gameID": "zyhLapgWCwvzI52"
+  },
+  {
+    "id": 41,
+    "time": 2.09679,
+    "sortQuality": 0,
+    "dim": 4,
+    "gameID": "zyhLapgWCwvzI52"
+  },
+  {
+    "id": 42,
+    "time": 14.5234,
+    "sortQuality": 1,
+    "dim": 6,
+    "gameID": "zyhLapgWCwvzI52"
+  },
+  {
+    "id": 43,
+    "time": 3.74873,
+    "sortQuality": 0,
+    "dim": 7,
+    "gameID": "zyhLapgWCwvzI52"
+  },
+  {
+    "id": 44,
+    "time": 6.85187,
+    "sortQuality": 0,
+    "dim": 6,
+    "gameID": "zyhLapgWCwvzI52"
+  },
+  {
+    "id": 45,
+    "time": 3.20854,
+    "sortQuality": 1,
+    "dim": 7,
+    "gameID": "zyhLapgWCwvzI52"
+  },
+  {
+    "id": 46,
+    "time": 2.44907,
+    "sortQuality": 0,
+    "dim": 8,
+    "gameID": "zyhLapgWCwvzI52"
+  },
+  {
+    "id": 47,
+    "time": 1.623,
+    "sortQuality": 0,
+    "dim": 2,
+    "gameID": "n/a4"
+  },
+  {
+    "id": 48,
+    "time": 1.652,
+    "sortQuality": 1,
+    "dim": 2,
+    "gameID": "8x2AWOgXfeg3g2"
+  },
+  {
+    "id": 49,
+    "time": 1.949,
+    "sortQuality": 1,
+    "dim": 2,
+    "gameID": "wFbI9qYUjviRM3"
+  },
+  {
+    "id": 50,
+    "time": 7.812,
+    "sortQuality": 1,
+    "dim": 2,
+    "gameID": "CWHHm2GT7ENnH0"
+  },
+  {
+    "id": 51,
+    "time": 1.501,
+    "sortQuality": 0,
+    "dim": 2,
+    "gameID": "lV4LOZh4VVMrI0"
+  },
+  {
+    "id": 52,
+    "time": 0.853,
+    "sortQuality": 0,
+    "dim": 2,
+    "gameID": "J9jrM7hNyXuRh2"
+  },
+  {
+    "id": 53,
+    "time": 1.019,
+    "sortQuality": 0,
+    "dim": 2,
+    "gameID": "oml9mOzwg5QHJ1"
+  },
+  {
+    "id": 54,
+    "time": 2.353,
+    "sortQuality": 0,
+    "dim": 4,
+    "gameID": "J9jrM7hNyXuRh2"
+  },
+  {
+    "id": 55,
+    "time": 1.035,
+    "sortQuality": 1,
+    "dim": 4,
+    "gameID": "oml9mOzwg5QHJ1"
+  },
+  {
+    "id": 56,
+    "time": 2.253,
+    "sortQuality": 0,
+    "dim": 6,
+    "gameID": "oml9mOzwg5QHJ1"
+  },
+  {
+    "id": 57,
+    "time": 6.583,
+    "sortQuality": 0,
+    "dim": 6,
+    "gameID": "J9jrM7hNyXuRh2"
+  },
+  {
+    "id": 58,
+    "time": 3.773,
+    "sortQuality": 1,
+    "dim": 7,
+    "gameID": "oml9mOzwg5QHJ1"
+  },
+  {
+    "id": 59,
+    "time": 3.187,
+    "sortQuality": 0,
+    "dim": 7,
+    "gameID": "J9jrM7hNyXuRh2"
+  },
+  {
+    "id": 60,
+    "time": 3.249,
+    "sortQuality": 1,
+    "dim": 6,
+    "gameID": "oml9mOzwg5QHJ1"
+  },
+  {
+    "id": 61,
+    "time": 2.435,
+    "sortQuality": 1,
+    "dim": 6,
+    "gameID": "J9jrM7hNyXuRh2"
+  },
+  {
+    "id": 62,
+    "time": 2.202,
+    "sortQuality": 0,
+    "dim": 7,
+    "gameID": "oml9mOzwg5QHJ1"
+  },
+  {
+    "id": 63,
+    "time": 1.917,
+    "sortQuality": 1,
+    "dim": 7,
+    "gameID": "J9jrM7hNyXuRh2"
+  },
+  {
+    "id": 64,
+    "time": 3.12,
+    "sortQuality": 0,
+    "dim": 8,
+    "gameID": "oml9mOzwg5QHJ1"
+  },
+  {
+    "id": 65,
+    "time": 1.575,
+    "sortQuality": 1,
+    "dim": 8,
+    "gameID": "J9jrM7hNyXuRh2"
+  },
+  {
+    "id": 66,
+    "time": 2.151,
+    "sortQuality": 0,
+    "dim": 2,
+    "gameID": "qr4cQ1Fl8nl2j3"
+  },
+  {
+    "id": 67,
+    "time": 2.892,
+    "sortQuality": 1,
+    "dim": 4,
+    "gameID": "qr4cQ1Fl8nl2j3"
+  },
+  {
+    "id": 68,
+    "time": 5.80599,
+    "sortQuality": 1,
+    "dim": 6,
+    "gameID": "qr4cQ1Fl8nl2j3"
+  },
+  {
+    "id": 69,
+    "time": 3.34,
+    "sortQuality": 0,
+    "dim": 7,
+    "gameID": "qr4cQ1Fl8nl2j3"
+  },
+  {
+    "id": 70,
+    "time": 1.468,
+    "sortQuality": 0,
+    "dim": 6,
+    "gameID": "qr4cQ1Fl8nl2j3"
+  },
+  {
+    "id": 71,
+    "time": 1.168,
+    "sortQuality": 1,
+    "dim": 7,
+    "gameID": "qr4cQ1Fl8nl2j3"
+  },
+  {
+    "id": 72,
+    "time": 9.494,
+    "sortQuality": 1,
+    "dim": 8,
+    "gameID": "qr4cQ1Fl8nl2j3"
+  }
+]

@@ -1,0 +1,24 @@
+gameId = selectAllUnuqieGameIds()
+
+
+
+dimCounts = array(len=max(dim)) # => [0,0,0,...0] wie oft dim vorkomm
+dimRatioSum = array(len=max(dim)) # => [0,0,0,...0] wie oft dim vorkomm
+
+for game id in gameId:
+    1. times, dims, sort = getAllTimes(game id)
+    2. pairs, dims = getAllSortingPairs() # pairs = (time_sort1, time_sort2)
+    3: calc ratios for all dims and pairs
+
+     # (dim, ratio) 
+    for dim in dims:
+        dimRatio = pairs[0] / pairs[1] # time_sort1 /time_sort2
+        dimCounts[dim] += 1
+        dimRatioSum[dim] += dimRatio
+
+4. calc mean ratios for dim
+
+for i in len(dimCounts):
+
+    meanRationForDim = dimRatioSum[i] / dimCounts[i]
+

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<HTML lang="en-us">  
+<HEAD>
+<meta http-equiv="refresh" content="30; url=globalhighscore"> 
+<TITLE>Global Highscore</TITLE>
+<link rel="stylesheet" href="http://localhost:8000/header/style.css">
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+</HEAD>
+<BODY>
+
+    <div id="header1" style="position: fixed; background: white; top: 0px; padding-top: 10px; padding-bottom: 10px;">
+        <nav class="navbar-header" style="background: white; padding-left: 20px; padding-bottom: 10px; padding-top: 10px;">
+            <img src="http://localhost:8000/header/dreamland.png" alt="dream-Logo-font" id="dream-font-header" style="width: 4.3%;"/>
+            <img src="http://localhost:8000/header/blowbrush.png" alt="Logo-font" id="logo-font-header" style="width: 24%;"/> 
+        </nav>
+    </div>
+
+    <div class="table" style="padding-top: 100px;">
+    <h1 style="text-align: center; font-family: monospace; font-size: 50px">Leaderboard</h1>
+    <ul class="second">
+
+   
+    <% var daten = [datenbank]; %>
+  
+    
+    <% for(var data of datenbank) { %>
+        <li> <%= data.name  + ""  + "(" + data.score + ")" %></li>
+         <% var dataScore = [data]; %> 
+     <% } %>
+     <% var dataSc = dataScore; %>
+    
+    </ul>
+
+    </div>
+<h1 style="text-align: center; font-family: monospace; font-size: 50px">Highscore Chart</h1>
+<div class = "container">
+    <canvas id ="myChart" width="400" height="150"> </canvas>
+
+</div>  
+
+
+
+
+
+<script>
+var getScore = [];
+var getName = [];
+<% for (i = 0; i < datenbank.length; i++) { %>
+  getScore.push(<%- datenbank[i].score%>);
+  getName.push(<%- "'"+ datenbank[i].name +"'"%>);
+<% } %>
+
+for (i = 0; i < getScore.length; i++){
+
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+  type: 'horizontalBar',
+  labels: [getName[0]],
+  data: {
+   
+    datasets: [   {
+    label: getName[0],
+      data: [getScore[0]],
+      backgroundColor: "rgba(153,255,51,0.4)"
+    }, 
+    {
+      labels: [getName[1]],
+      label: getName[1],
+      data: [getScore[1]],
+      backgroundColor: "rgba(255,153,0,0.4)"
+    },{
+      labels: [getName[2]],
+      label: getName[2],
+      data: [getScore[2]],
+      backgroundColor: "rgba(80,153,0,0.4)"
+
+    },{
+       labels: [getName[3]],
+      label: getName[3],
+      data: [getScore[3]],
+      backgroundColor: "rgba(200,150,100,0.4)"
+    },{
+       labels: [getName[4]],
+      label: getName[4],
+      data: [getScore[4]],
+      backgroundColor: "rgba(80,80,0,0.4)"
+    }],
+    
+  },
+  options:{
+    scales: {
+        yAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'Spieler'
+          }
+        }],
+        xAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'Score'
+          }
+        }],
+      }
+  
+  }
+});
+
+
+
+
+  //console.log(getScore[i]);
+}
+
+
+</script>
+
+
+
+</BODY>
+
+
+
+</HTML>
+

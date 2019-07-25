@@ -1,0 +1,49 @@
+.second {
+    counter-reset: my-second-counter;
+    margin: 0;
+    padding: 24px;
+    list-style: none;
+}
+.second li {
+    counter-increment: my-second-counter;
+    font-size: 20px;
+    line-height: 40px;
+    padding: 5px 0;
+    width: 100%;
+    text-align: left;
+    list-style: none;
+    display: inline-block;
+    font-family: monospace;
+}
+.second li::before {
+    content: counter(my-second-counter) '.)';
+    display: inline-block;
+    float: left;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 50%;
+    background: #6ab04b;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 20px 0 0;
+}
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 50%;
+    text-align: center;
+    
+  }
+  
+  td, th {
+    border: 2px solid #dddddd;
+    text-align: center;
+    padding: 10px;
+  }
+  
+  tr:nth-child(1) {
+    background-color: #dddddd;
+  }
