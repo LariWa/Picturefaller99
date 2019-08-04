@@ -28,12 +28,10 @@ public class DamageObject : MonoBehaviour
         {
             playerStats.damagePlayer(damage, true);
             other.transform.GetComponentInChildren<PlayerMovement>().knockBack(transform.position);
-            try
-            {
+           
                 FindObjectOfType<SoundEffects>().hitDmgObj();
                 FindObjectOfType<ScreenShakeTest>().hitObj();
-            }
-            catch { }
+           
 
             if(explosion != null) Instantiate(explosion, other.transform.position, explosion.transform.rotation);
 

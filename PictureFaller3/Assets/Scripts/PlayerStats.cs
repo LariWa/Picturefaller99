@@ -152,13 +152,10 @@ public class PlayerStats : MonoBehaviour
         if (!wasCorrect)
         {
             // Also sound + shake
-            try
-            {
-                FindObjectOfType<SoundEffects>().selectedWrong();
-                FindObjectOfType<ScreenShakeTest>().wrongSelection();
-            }
-            catch { }
-            damagePlayer(damageOnSelect, true);
+           
+           FindObjectOfType<SoundEffects>().selectedWrong();
+           FindObjectOfType<ScreenShakeTest>().wrongSelection();
+           damagePlayer(damageOnSelect, true);
         }
     }
 
