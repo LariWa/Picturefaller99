@@ -1,18 +1,170 @@
 .webgl-content * {border: 0; margin: 0; padding: 0}
-.webgl-content {position: absolute; top: 50%; left: 50%; -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%);}
+.webgl-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 60px;
+}
 
-.webgl-content .logo, .progress {position: absolute; left: 50%; top: 50%; -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%);}
-.webgl-content .logo {background: url('progressLogo.Light.png') no-repeat center / contain; width: 154px; height: 130px;}
-.webgl-content .progress {height: 18px; width: 141px; margin-top: 90px;}
-.webgl-content .progress .empty {background: url('progressEmpty.Light.png') no-repeat right / cover; float: right; width: 100%; height: 100%; display: inline-block;}
-.webgl-content .progress .full {background: url('progressFull.Light.png') no-repeat left / cover; float: left; width: 0%; height: 100%; display: inline-block;}
 
-.webgl-content .logo.Dark {background-image: url('progressLogo.Dark.png');}
-.webgl-content .progress.Dark .empty {background-image: url('progressEmpty.Dark.png');}
-.webgl-content .progress.Dark .full {background-image: url('progressFull.Dark.png');}
 
-.webgl-content .footer {margin-top: 5px; height: 38px; line-height: 38px; font-family: Helvetica, Verdana, Arial, sans-serif; font-size: 18px;}
+.webgl-content .footer {
+  position: relative;
+  top: 260.7px;
+  padding-left: 5px;
+  height: 38px; line-height: 38px;
+  font-family: Helvetica, Verdana, Arial, sans-serif;
+  font-size: 18px;
+}
+
 .webgl-content .footer .webgl-logo, .title, .fullscreen {height: 100%; display: inline-block; background: transparent center no-repeat;}
 .webgl-content .footer .webgl-logo {background-image: url('webgl-logo.png'); width: 204px; float: left;}
 .webgl-content .footer .title {margin-right: 10px; float: right;}
 .webgl-content .footer .fullscreen {background-image: url('fullscreen.png'); width: 38px; float: right;}
+
+body {
+
+}
+
+.content {
+  padding: 50px 50px;
+  text-align: center;
+  width: 80%;
+  margin: 0px auto;
+}
+
+.content h2 {
+  margin: 0px 0px 30px 0px;
+}
+
+.dreamland-footer {
+  /* text-align: center; */
+  /* background: #8c9192; */
+  background: white;
+  /* display: flex; */
+  height: 60px;
+}
+
+.dreamland-font {
+  width: 50%;
+  padding-top: 15px;
+}
+
+#logo-font {
+  width: 30%;
+  position: relative;
+  top: 15px;
+  left: 42px;
+}
+
+#dream-logo-font {
+  width: 6.3%;
+  position: relative;
+  top: 15px;
+  left: 40px;
+}
+
+#footer-datenschutz {
+  /* width: 40%; */
+  position: relative;
+  /* left: 250px; */
+  float: right;
+  top: -10px;
+  padding-right: 20px;
+}
+
+#footer-datenschutz ul{
+  display: flex;
+}
+
+#footer-datenschutz li{
+  list-style: none;
+  border-right: 2px solid rgba(0,0,0,0.8);
+  padding-left: 8px;
+  padding-right: 8px
+}
+
+#footer-datenschutz li:last-child {
+  border-right: none;
+}
+
+#header1 {
+  position: fixed;
+  background: white;
+  top: 0px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  }
+
+.wrapper-aboutpage {
+
+}
+
+.wrapper {
+  background: #ddd;
+}
+
+.navbar-header {
+  background: white;
+  padding-left: 20px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+
+#dream-font-header {
+  width: 4.3%;
+}
+
+#logo-font-header {
+  width: 24%;
+}
+
+#back-font {
+  width: 10%;
+  float: right;
+  position: relative;
+  right: 13px;
+  top: 25px;
+}
+
+.content-dsgvo {
+  background: #ddd;
+  padding-top: 120px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 15px;
+  margin: 15px;
+}
+
+#header-about {
+  position: fixed;
+  background: white;
+  top: 0px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.navbar-header-about {
+  background: white;
+  padding-left: 16px;
+  padding-bottom: 4px;
+  padding-top: 4px;
+}
+
+#back-font-about {
+  width: 10%;
+  float: right;
+  position: relative;
+  right: 15px;
+  top: 12px;
+}
+
+.content-about {
+  background: #ddd;
+  padding-top: 115px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 15px;
+  margin: 15px;
+}

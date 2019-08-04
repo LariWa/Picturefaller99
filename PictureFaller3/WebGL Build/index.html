@@ -2,24 +2,64 @@
 <html lang="en-us">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity WebGL Player | PictureFaller2</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="TemplateData/UnityProgress.js"></script>
     <script src="Build/UnityLoader.js"></script>
     <script>
-      var gameInstance = UnityLoader.instantiate("gameContainer", "Build/WebGL Build.json", {onProgress: UnityProgress});
+      var gameInstance = UnityLoader.instantiate("gameContainer", "Build/TestBuildBackAndMaster.json", {onProgress: UnityProgress});
     </script>
   </head>
   <body>
-    <div class="webgl-content">
-      <div id="gameContainer" style="width: 1280px; height: 720px"></div>
-      <div class="footer">
-        <div class="webgl-logo"></div>
-        <div class="fullscreen" onclick="gameInstance.SetFullscreen(1)"></div>
-        <div class="title">PictureFaller2</div>
+
+    <div class="wrapper">
+
+      <div class="webgl-content">
+        <!-- <div id="gameContainer" style="width: 1280px; height: 720px"></div> -->
+        <div id="gameContainer" style="width: 1024px; height: 576px"></div>
+        <div class="footer">
+          <!-- <div class="webgl-logo"></div>
+          <div class="fullscreen" onclick="gameInstance.SetFullscreen(1)"></div>
+          <div class="title">PictureFaller2</div> -->
+        </div>
       </div>
+
+      <div class="content">
+        <h2>Dreamland</h2>
+        <p> Träum dich durch die verschiedensten chaotischen Welten!<br> Weiche Hindernissen aus, um nicht vor Schock aufzuwachen!<br>
+          Durch die Kraft von “lucid dreaming” bist du auch in der Lage die Zeit zu verlangsamen!<br>
+          Löse Bilderrätsel um in eine neue Welt zu gelangen!<br> Das linke Bild versteckt sich irgendwo in der Bilderwand. Finde es, und es dient dir als Portal in die nächste Welt.
+          <br><br>
+          Dream a little dream… of anything you like, in a chaotic Dreamland!<br>
+          Dodge the objects flying around not to get shocked back into reality! (No one wants that!)<br>
+          Use “lucid dreaming” to stay in the dream just a little longer – it feels as if the time itself stops!<br>
+          Explore new dream worlds by solving puzzles!<br>
+          The image on top left is somewhere there, hidden inbeween others… Find it!<br>
+          It´s your portal the a new, even more exciting world!
+        </p>
+      </div>
+
+      <div class="dreamland-footer">
+        <div class="dreamland-font">
+          <img src="TemplateData/dreamland.png" alt="dream-Logo-font" id="dream-logo-font"/>
+          <img src="TemplateData/blowbrush.png" alt="Logo-font" id="logo-font"/>
+        </div>
+        <div id="footer-datenschutz">
+          <ul>
+            <li>
+              <a href="TemplateData/about.html">about</a>
+            </li>
+            <li>
+              <a href="TemplateData/datenschutz.html">Datenschutz</a>
+            </li>
+          </ul>
+        </div>
+
     </div>
   </body>
 </html>
